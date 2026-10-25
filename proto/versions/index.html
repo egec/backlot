@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backlot: rejection, first and current version</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#121212;color:#edebe8;font-family:Manrope,system-ui,sans-serif}
+  .bar{display:flex;align-items:center;gap:8px;height:52px;padding:0 12px;border-bottom:1px solid #2a2927}
+  .tab{font:500 12.5px/1 Manrope,sans-serif;height:30px;padding:0 13px;border-radius:999px;border:1px solid #3a3937;background:transparent;color:#b5b3ae;cursor:pointer;white-space:nowrap}
+  .tab[aria-selected=true]{background:#2b2741;border-color:#9184d9;color:#edebe8}
+  .tab:focus-visible{outline:2px solid #9184d9;outline-offset:2px}
+  .cap{margin-left:auto;font-size:12.5px;color:#96938d;text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .stage{position:relative;overflow:hidden}
+  .stage iframe{position:absolute;left:0;top:0;width:1440px;height:900px;border:0;transform-origin:0 0;transition:opacity .35s}
+  .stage iframe[hidden]{display:block;opacity:0;pointer-events:none}
+  @media (max-width:700px){.cap{display:none}}
+  @media (prefers-reduced-motion:reduce){.stage iframe{transition:none}}
+</style>
+</head>
+<body>
+<div class="bar" role="tablist" aria-label="Rejection, first and current version">
+  <button class="tab" role="tab" id="t1" aria-selected="true" aria-controls="f1">V1: one reason</button>
+  <button class="tab" role="tab" id="t2" aria-selected="false" aria-controls="f2" tabindex="-1">V2: reasons pinned to fields</button>
+  <span class="cap" id="cap"></span>
+</div>
+<div class="stage" id="stage">
+  <iframe id="f1" src="v1.html" title="First version: one rejection reason" role="tabpanel" aria-labelledby="t1"></iframe>
+  <iframe id="f2" src="v2.html" title="Current version: reasons pinned to fields" role="tabpanel" aria-labelledby="t2" hidden></iframe>
+</div>
+<script>
+(function(){
+  const W=1440,H=900,stage=document.getElementById('stage'),fr=[f1,f2],tb=[t1,t2],cap=document.getElementById('cap');
+  const CAP=['One reason per item. It ended up as Multiple Issues, and the editor had to guess.','Each reason is pinned to its field with a category, and resolves on its own.'];
+  let i=0,touched=false,vis=false;
+  function fit(){const s=stage.clientWidth/W;fr.forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';try{parent.postMessage({backlotProto:'versions',height:document.body.scrollHeight},'*')}catch(e){}}
+  function show(n){i=n;tb.forEach((b,k)=>{b.setAttribute('aria-selected',k===n);b.tabIndex=k===n?0:-1});fr.forEach((f,k)=>f.hidden=k!==n);cap.textContent=CAP[n]}
+  tb.forEach((b,k)=>{b.onclick=()=>{touched=true;show(k)};b.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){touched=true;const n=1-k;show(n);tb[n].focus()}}});
+  fr.forEach(f=>f.addEventListener('load',()=>f.contentDocument.addEventListener('pointerdown',()=>touched=true)));
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{if(!touched&&vis)show(1-i)},5000);
+  new IntersectionObserver(e=>vis=e[0].isIntersecting,{threshold:.4}).observe(stage);
+  addEventListener('resize',fit);show(0);fit();
+})();
+</script>
+</body>
+</html>
