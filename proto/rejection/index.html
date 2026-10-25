@@ -55,7 +55,7 @@
       <div class="step" data-s="1"><b>1</b><span>Publisher flags a field</span></div>
       <div class="step" data-s="2"><b>2</b><span>Rejects</span></div>
       <div class="step" data-s="3"><b>3</b><span>Editor sees it</span></div>
-      <div class="step" data-s="4"><b>4</b><span>Editor fixes it</span></div>
+      <div class="step" data-s="4"><b>4</b><span>Editor resolves them</span></div>
     </div>
     <span class="mode" id="mode">Playing. Click anywhere to take over.</span>
     <button class="btn" id="restart" type="button">Restart</button>
@@ -70,8 +70,8 @@
       <div class="banner" id="banner">Now you're the editor</div>
     </div>
     <div class="end" id="end">
-      <h2>One reason, one fix, no second round.</h2>
-      <p>The publisher re-checks one field, not the whole episode.</p>
+      <h2>Two reasons, resolved in place. No second round.</h2>
+      <p>The publisher re-checks two fields, not the whole episode.</p>
       <button class="btn" id="again" type="button">Play again</button>
     </div>
   </div>
@@ -83,7 +83,8 @@ const $=id=>document.getElementById(id);
 const stage=$('stage'),pubF=$('pub'),edF=$('ed'),ring=$('ring'),tip=$('tip'),cur=$('cur'),banner=$('banner'),endEl=$('end'),mode=$('mode');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let s=1,auto=!reduce,visible=false,step=-1,busy=false,timer=null,run=0;
-const REASON='Rating is set to 12 but Spain rates this series 16. Please correct before resubmitting.';
+const R1={n:1,key:'1',field:'Title',cat:'Localization',flag:'Spanish release title differs',text:'The Spanish release title is La sombra de mi padre. Please match it before resubmitting.'};
+const R2={n:2,key:'2',field:'Age rating',cat:'Compliance',flag:'Spain rates this series 16',text:'Rating is set to 12 but Spain rates this series 16. Please correct before resubmitting.'};
 const sleep=ms=>new Promise(r=>{timer=setTimeout(r,ms)});
 
 function fit(){s=stage.clientWidth/W;[pubF,edF].forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';place();post()}
@@ -93,14 +94,27 @@ addEventListener('resize',fit);
 /* ---------- helpers inside frames ---------- */
 const D=f=>f.contentDocument;
 const T=(d,id)=>d.querySelector('[data-dc-tpl="'+id+'"]');
+const P=(d,k)=>d.querySelector('[data-p="'+k+'"]');
 function txt(d,id,v){const e=T(d,id);if(e)e.textContent=v}
 function html(d,id,v){const e=T(d,id);if(e)e.innerHTML=v}
 function el(d,h){const t=d.createElement('template');t.innerHTML=h.trim();return t.content.firstElementChild}
 const chip='display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:6px;background:var(--color-neutral-900);font-size:11px;font-weight:500;color:var(--color-neutral-300);white-space:nowrap';
-function CARD(right,extra){return '<div data-p="rcard" style="border-radius:var(--radius-md);background:var(--color-surface-sunken);border:1px solid '+(extra||'var(--color-neutral-900)')+';padding:11px 12px"><div style="display:flex;align-items:center;gap:8px"><span data-p="rnum" style="font-size:10.5px;color:var(--color-neutral-600);flex:0 0 auto">1</span><span style="display:flex;align-items:center;gap:6px;padding:4px 9px;border-radius:var(--radius-md);background:var(--color-neutral-900);font-size:11.5px;color:var(--color-text);white-space:nowrap;flex:0 0 auto"><i class="ph ph-link-simple" style="font-size:11px;color:var(--color-neutral-500)"></i>Age rating</span><span style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:var(--radius-md);border:1px solid var(--color-neutral-800);color:var(--color-neutral-300);font-size:12px;font-weight:500;white-space:nowrap;flex:0 0 auto">Compliance<i class="ph ph-caret-down" style="font-size:11px;color:var(--color-neutral-600)"></i></span><div style="flex:1 1 0%"></div>'+right+'</div><div data-p="rtext" style="margin-top:9px;min-height:64px;padding:8px 10px;border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-neutral-300);line-height:1.5;text-wrap:pretty">'+REASON+'</div></div>'}
+function CARD(R,right){return '<div data-p="rcard'+R.key+'" style="border-radius:var(--radius-md);background:var(--color-surface-sunken);border:1px solid var(--color-neutral-900);padding:11px 12px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:10.5px;color:var(--color-neutral-600);flex:0 0 auto">'+R.n+'</span><span style="display:flex;align-items:center;gap:6px;padding:4px 9px;border-radius:var(--radius-md);background:var(--color-neutral-900);font-size:11.5px;color:var(--color-text);white-space:nowrap;flex:0 0 auto"><i class="ph ph-link-simple" style="font-size:11px;color:var(--color-neutral-500)"></i>'+R.field+'</span><span style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:var(--radius-md);border:1px solid var(--color-neutral-800);color:var(--color-neutral-300);font-size:12px;font-weight:500;white-space:nowrap;flex:0 0 auto">'+R.cat+'<i class="ph ph-caret-down" style="font-size:11px;color:var(--color-neutral-600)"></i></span><div style="flex:1 1 0%"></div>'+right+'</div><div data-p="rtext'+R.key+'" style="margin-top:9px;min-height:64px;padding:8px 10px;border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-neutral-300);line-height:1.5;text-wrap:pretty">'+R.text+'</div></div>'}
+const X='<i class="ph ph-x" style="font-size:13px;color:var(--color-neutral-600);flex:0 0 auto"></i>';
+const RES=k=>'<span data-p="res'+k+'" role="button" tabindex="0" style="display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:var(--radius-md);background:var(--color-accent);color:var(--color-bg);font-size:12px;font-weight:500;cursor:pointer">Resolve</span>';
 function statusChip(d,chipEl,label,kind){
   chipEl.style.background='var(--st-'+kind+'-bg)';chipEl.style.border='1px solid var(--st-'+kind+'-line, transparent)';chipEl.style.color='var(--st-'+kind+'-ink)';
   chipEl.innerHTML='<i class="ph ph-'+(kind==='rejected'?'x-circle':'clock')+'" style="font-size:13px"></i><span style="display:block;color:var(--st-'+kind+'-ink)">'+label+'</span>';
+}
+function flagRow(d,row,lab,val,act,value,R){
+  T(d,row).style.background='var(--color-surface-sunken)';T(d,lab).style.color='var(--color-neutral-400)';
+  T(d,val).outerHTML='<div style="min-width:0"><div style="font-size:12.5px;color:var(--color-text)">'+value+'</div><div style="font-size:11px;color:var(--color-warning-ink);margin-top:3px">Flagged · '+R.flag+'</div></div>';
+  html(d,act,'<i class="ph ph-warning-diamond" style="font-size:15px;color:var(--color-warning-ink)"></i><span style="font-size:11px;color:var(--color-neutral-500)">Unflag</span>');
+}
+function pubFooter(d,n){
+  html(d,235,'Goes back to <span style="color:var(--color-text)">J. Lund</span> · status becomes Rejected');
+  html(d,237,'<span style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:var(--radius-md);border:1px solid var(--color-neutral-800);font-size:12px;font-weight:500;color:var(--color-neutral-300)">Save draft</span>'+
+    '<span data-p="reject" role="button" tabindex="0" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-accent);color:var(--color-bg);font-size:12px;font-weight:500;cursor:pointer"><i class="ph ph-arrow-u-up-left" style="font-size:13px"></i>Reject · '+n+' reason'+(n>1?'s':'')+'</span>');
 }
 
 /* ---------- initial data: Lupin S4-E2, Spain ---------- */
@@ -108,35 +122,45 @@ function setupPub(){
   const d=D(pubF);
   txt(d,35,'Lupin');txt(d,37,'Episode 2');txt(d,50,'Episode 2');
   txt(d,56,'Lupin · Season 4 · 24:31 · Spain (ES) · licensed to 2029');
-  txt(d,63,'17 Feb 2026 (5d)');txt(d,66,'41 complete · none flagged');
+  txt(d,63,'17 Feb 2026 (5d)');txt(d,66,'40 complete · 1 flagged');
   txt(d,83,'Spanish title and synopsis are in. Audio came from the vendor as ES 5.1.');
-  txt(d,103,'La sombra del padre');txt(d,110,"L'ombre du père");txt(d,117,'Crime · Drama');txt(d,124,'12');
+  txt(d,110,"L'ombre du père");txt(d,117,'Crime · Drama');txt(d,124,'12');
   txt(d,132,'Synopsis · ES');txt(d,133,'Assane se acerca a la finca Pellegrini justo cuando empieza la subasta.');
   txt(d,139,'Synopsis · EN');txt(d,140,'Assane closes in on the Pellegrini estate as the auction begins.');
   txt(d,147,'Hugo Gélin');txt(d,163,'ES 5.1 · EN 2.0');txt(d,169,'Subtitles · ES');txt(d,170,'Delivered · 612 cues');
   txt(d,191,'ES · FR · DE · UK, 4 regions');txt(d,216,'4 / 4');txt(d,220,'to 2029');
-  html(d,235,'Approving sets status <span style="color:var(--color-text)">Approved</span> and releases it to scheduling for 17 Feb.');
+  flagRow(d,101,102,103,104,'La sombra del padre',R1);
+  txt(d,224,'1');T(d,226).outerHTML=CARD(R1,X);pubFooter(d,1);
   [...d.querySelectorAll('[style*="background-image"]')].forEach(e=>{if(e.getBoundingClientRect().width>80)e.style.backgroundImage='url(lupin.jpg)'});
   [...d.querySelectorAll('img')].forEach(e=>{if(e.getBoundingClientRect().width>80)e.src='lupin.jpg'});
   d.documentElement.style.scrollBehavior='smooth';
 }
+function flagField(d,fieldId,wrapId,R,key){
+  const f=T(d,fieldId);f.style.borderColor='color-mix(in srgb, var(--color-warning) 70%, transparent)';f.setAttribute('data-p','field'+key);f.style.position='relative';
+  T(d,wrapId).appendChild(el(d,'<div data-p="fnote'+key+'" style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--color-warning-ink)"><i class="ph ph-warning-diamond" style="font-size:13px"></i><span>Flagged by Maya Okafor · '+R.flag+'</span></div>'));
+}
 function setupEd(){
   const d=D(edF);
   const ch=T(d,96).parentElement;ch.setAttribute('data-p','chip');statusChip(d,ch,'Rejected','rejected');
-  txt(d,115,'1 to fix');
+  txt(d,115,'2 to resolve');
   const fill=(id,v)=>{const e=T(d,id);if(!e)return;e.textContent=v;e.style.color='var(--color-text)';Object.assign(e.parentElement.style,{borderColor:'var(--color-neutral-800)',background:'var(--color-surface)',boxShadow:'none'})};
   fill(121,'12');fill(127,'Violence, strong language');fill(133,'heist, auction, Pellegrini');fill(139,'La sombra del padre');
   fill(146,'Assane se acerca a la finca Pellegrini justo cuando empieza la subasta.');txt(d,147,'71 / 240');
-  const f=T(d,120);f.style.borderColor='color-mix(in srgb, var(--color-warning) 70%, transparent)';f.setAttribute('data-p','field');f.style.cursor='pointer';f.style.position='relative';
-  const note=el(d,'<div data-p="fnote" style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--color-warning-ink)"><i class="ph ph-warning-diamond" style="font-size:13px"></i><span>Flagged by Maya Okafor · Spain rates this series 16</span></div>');
-  T(d,117).appendChild(note);
+  flagField(d,138,135,R1,'1');flagField(d,120,117,R2,'2');
   [263,272].forEach(id=>{const c=T(d,id);if(c){let e=c;for(let i=0;i<2;i++)e=e.parentElement;e.remove()}});
   txt(d,258,'1');
-  const card=el(d,'<div data-p="rsec" style="background:var(--color-bg);padding-bottom:6px"><div style="display:flex;align-items:center;gap:8px;margin-top:36px;margin-bottom:12px"><div style="font-size:13px;font-weight:500;color:var(--color-text)">Rejection reasons</div><div data-p="rcount" style="font-size:11.5px;color:var(--color-neutral-600)">1</div></div>'+
-    CARD('<span data-p="fix" role="button" tabindex="0" style="display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:var(--radius-md);background:var(--color-accent);color:var(--color-bg);font-size:12px;font-weight:500;cursor:pointer">Fix</span>')+'</div>');
+  const card=el(d,'<div style="background:var(--color-bg);padding-bottom:6px"><div style="display:flex;align-items:center;gap:8px;margin-top:36px;margin-bottom:12px"><div style="font-size:13px;font-weight:500;color:var(--color-text)">Rejection reasons</div><div data-p="rcount" style="font-size:11.5px;color:var(--color-neutral-600)">2</div></div><div style="display:flex;flex-direction:column;gap:8px">'+
+    CARD(R1,RES('1'))+CARD(R2,RES('2'))+'</div></div>');
   const na=T(d,255);na.parentElement.insertBefore(card,na);
   T(d,256).style.marginTop='20px';
   d.documentElement.style.scrollBehavior='smooth';
+}
+function resolved(d,key,left){
+  P(d,'res'+key).outerHTML='<span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--color-neutral-400)"><i class="ph ph-check-circle" style="font-size:13px"></i>Resolved</span>';
+  const t=P(d,'rtext'+key);t.style.textDecoration='line-through';t.style.color='var(--color-neutral-500)';
+  const n=P(d,'fnote'+key);n.style.color='var(--color-neutral-500)';n.innerHTML='<i class="ph ph-check" style="font-size:12px"></i><span>Resolved · Maya Okafor re-checks this field only</span>';
+  P(d,'field'+key).style.borderColor='var(--color-neutral-800)';
+  P(d,'rcount').textContent=String(left);txt(d,115,left+' to resolve');
 }
 
 /* ---------- actions ---------- */
@@ -148,83 +172,84 @@ const A={
   async comment(){
     const d=D(pubF),row=T(d,122);
     const box=el(d,'<div data-p="cbox" style="padding:0 15px 12px 187px;display:flex;flex-direction:column;gap:8px">'+
-      '<textarea data-p="ta" rows="2" style="resize:none;width:100%;box-sizing:border-box;padding:10px 12px;border-radius:var(--radius-md);border:1px solid var(--color-accent-600);background:var(--color-surface);color:var(--color-text);font:12.5px/1.5 var(--font-body);outline:none"></textarea>'+
+      '<textarea rows="2" style="resize:none;width:100%;box-sizing:border-box;padding:10px 12px;border-radius:var(--radius-md);border:1px solid var(--color-accent-600);background:var(--color-surface);color:var(--color-text);font:12.5px/1.5 var(--font-body);outline:none"></textarea>'+
       '<div style="display:flex;justify-content:flex-end;gap:8px"><span style="display:inline-flex;align-items:center;height:28px;padding:0 10px;font-size:12px;color:var(--color-neutral-400)">Cancel</span>'+
       '<span data-p="save" role="button" tabindex="0" style="display:inline-flex;align-items:center;height:28px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-accent);color:var(--color-bg);font-size:12px;font-weight:500;cursor:pointer">Save</span></div></div>');
-    row.after(box);await typeInto(box.querySelector('textarea'),REASON);
+    row.after(box);await typeInto(box.querySelector('textarea'),R2.text);
   },
   async save(){
-    const d=D(pubF);d.querySelector('[data-p="cbox"]').remove();
-    const row=T(d,122);row.style.background='var(--color-surface-sunken)';T(d,123).style.color='var(--color-neutral-400)';
-    T(d,124).outerHTML='<div style="min-width:0"><div style="font-size:12.5px;color:var(--color-text)">12</div><div style="font-size:11px;color:var(--color-warning-ink);margin-top:3px">Flagged · Spain rates this series 16</div></div>';
-    html(d,125,'<i class="ph ph-warning-diamond" style="font-size:15px;color:var(--color-warning-ink)"></i><span style="font-size:11px;color:var(--color-neutral-500)">Unflag</span>');
-    txt(d,66,'40 complete · 1 flagged');txt(d,224,'1');
-    T(d,226).outerHTML=CARD('<i class="ph ph-x" style="font-size:13px;color:var(--color-neutral-600);flex:0 0 auto"></i>');
-    html(d,235,'Goes back to <span style="color:var(--color-text)">J. Lund</span> · status becomes Rejected');
-    html(d,237,'<span style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:var(--radius-md);border:1px solid var(--color-neutral-800);font-size:12px;font-weight:500;color:var(--color-neutral-300)">Save draft</span>'+
-      '<span data-p="reject" role="button" tabindex="0" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-accent);color:var(--color-bg);font-size:12px;font-weight:500;cursor:pointer"><i class="ph ph-arrow-u-up-left" style="font-size:13px"></i>Reject · 1 reason</span>');
+    const d=D(pubF);P(d,'cbox').remove();
+    flagRow(d,122,123,124,125,'12',R2);
+    txt(d,66,'39 complete · 2 flagged');txt(d,224,'2');
+    P(d,'rcard1').after(el(d,CARD(R2,X)));pubFooter(d,2);
   },
   async reject(){
-    const d=D(pubF);
+    const d=D(pubF),pair=R=>'<div style="display:flex;gap:6px"><span style="'+chip+'">'+R.field+'</span><span style="'+chip+'">'+R.cat+'</span></div>';
     d.body.appendChild(el(d,'<div data-p="modal" style="position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50">'+
       '<div style="width:380px;padding:18px;border-radius:var(--radius-lg);background:var(--color-surface);border:1px solid var(--color-neutral-800);display:flex;flex-direction:column;gap:12px">'+
-      '<div style="font-size:14px;font-weight:500;color:var(--color-text)">Reject with 1 reason?</div>'+
+      '<div style="font-size:14px;font-weight:500;color:var(--color-text)">Reject with 2 reasons?</div>'+
       '<div style="font-size:12px;color:var(--color-neutral-400);line-height:1.5">J. Lund gets each reason attached to its field.</div>'+
-      '<div style="display:flex;gap:6px"><span style="'+chip+'">Age rating</span><span style="'+chip+'">Compliance</span></div>'+
+      '<div style="display:flex;flex-direction:column;gap:6px">'+pair(R1)+pair(R2)+'</div>'+
       '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px"><span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;font-size:12px;color:var(--color-neutral-400)">Cancel</span>'+
       '<span data-p="confirm" role="button" tabindex="0" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-danger-fill);color:var(--color-on-danger);font-size:12px;font-weight:500;cursor:pointer">Reject</span></div></div></div>'));
   },
   async confirm(){
-    const d=D(pubF);d.querySelector('[data-p="modal"]').remove();
+    const d=D(pubF);P(d,'modal').remove();
     statusChip(d,T(d,51),'Rejected','rejected');
-    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40"><i class="ph ph-check-circle" style="font-size:14px;color:var(--st-rejected-ink)"></i>Rejected. J. Lund has 1 reason to fix.<span style="color:var(--color-accent-300)">Back to reviews</span></div>'));
+    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40;white-space:nowrap"><i class="ph ph-check-circle" style="font-size:14px;color:var(--st-rejected-ink)"></i>Rejected. J. Lund has 2 reasons to fix.<span style="color:var(--color-accent-300)">Back to reviews</span></div>'));
     await sleep(reduce?600:1500);
     banner.classList.add('show');await sleep(reduce?400:900);
     pubF.classList.add('off');edF.classList.remove('off');await sleep(reduce?300:900);
     banner.classList.remove('show');
   },
-  async fix(){
-    const d=D(edF),f=d.querySelector('[data-p="field"]');
+  async res1(){
+    const d=D(edF),f=P(d,'field1'),v=T(d,139);
+    f.scrollIntoView({block:'center'});await sleep(400);
+    f.style.borderColor='var(--color-accent-600)';
+    const val='La sombra de mi padre';v.textContent='';
+    if(reduce)v.textContent=val;else for(const ch of val){v.textContent+=ch;await sleep(30)}
+    await sleep(300);resolved(d,'1',1);
+  },
+  async res2(){
+    const d=D(edF),f=P(d,'field2');
     f.scrollIntoView({block:'center'});await sleep(400);
     const opts=['7','12','16','18'].map(v=>'<div data-p="opt'+v+'" role="option" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:6px;font-size:13px;color:var(--color-text);cursor:pointer'+(v==='12'?';background:var(--color-neutral-900)':'')+'">'+v+(v==='16'?'<span style="font-size:11px;color:var(--color-neutral-500)">Spain, this series</span>':'')+'</div>').join('');
     f.appendChild(el(d,'<div data-p="menu" role="listbox" style="position:absolute;left:0;right:0;top:calc(100% + 6px);padding:4px;border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-neutral-800);box-shadow:0 10px 30px rgba(0,0,0,.45);z-index:30">'+opts+'</div>'));
   },
   async pick(){
-    const d=D(edF),f=d.querySelector('[data-p="field"]');
-    d.querySelector('[data-p="menu"]').remove();
-    T(d,121).textContent='16';f.style.borderColor='var(--color-neutral-800)';
-    const n=d.querySelector('[data-p="fnote"]');n.style.color='var(--color-neutral-500)';n.innerHTML='<i class="ph ph-check" style="font-size:12px"></i><span>Fixed · Maya Okafor re-checks this field only</span>';
-    txt(d,115,'0 to fix');
-    d.querySelector('[data-p="fix"]').outerHTML='<span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--color-neutral-400)"><i class="ph ph-check-circle" style="font-size:13px"></i>Resolved</span>';
-    d.querySelector('[data-p="rtext"]').style.textDecoration='line-through';d.querySelector('[data-p="rcount"]').textContent='0';
-    T(d,103).scrollIntoView({block:'center'});
+    const d=D(edF);P(d,'menu').remove();T(d,121).textContent='16';
+    resolved(d,'2',0);T(d,103).scrollIntoView({block:'center'});
   },
   async submit(){
-    const d=D(edF);statusChip(d,d.querySelector('[data-p="chip"]'),'Pending review','pending');
-    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40"><i class="ph ph-check-circle" style="font-size:14px;color:var(--color-accent-300)"></i>Submitted. Maya Okafor re-checks 1 field.</div>'));
+    const d=D(edF);statusChip(d,P(d,'chip'),'Pending review','pending');
+    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40;white-space:nowrap"><i class="ph ph-check-circle" style="font-size:14px;color:var(--color-accent-300)"></i>Submitted. Maya Okafor re-checks 2 fields.</div>'));
     await sleep(reduce?500:1400);endEl.classList.add('show');
   }
 };
 
 /* ---------- script of steps ---------- */
 const STEPS=[
-  {s:1,f:'pub',t:()=>T(D(pubF),127),tip:'Flag the age rating. Spain rates this series 16.',a:'comment'},
-  {s:1,f:'pub',t:()=>D(pubF).querySelector('[data-p="save"]'),tip:'Save it. The comment becomes a reason with its field attached.',a:'save'},
-  {s:2,f:'pub',t:()=>D(pubF).querySelector('[data-p="reject"]'),tip:'Reject. The count tells the publisher how much goes back.',a:'reject'},
-  {s:2,f:'pub',t:()=>D(pubF).querySelector('[data-p="confirm"]'),tip:'Confirm who gets it back.',a:'confirm'},
-  {s:3,f:'ed',t:()=>D(edF).querySelector('[data-p="fix"]'),tip:'The editor sees the reason, not a guess. Fix opens its field.',a:'fix'},
-  {s:4,f:'ed',t:()=>D(edF).querySelector('[data-p="opt16"]'),tip:'Set it to 16.',a:'pick'},
-  {s:4,f:'ed',t:()=>T(D(edF),103),tip:'Submit. Only this field goes back for review.',a:'submit'}
+  {s:1,f:'pub',t:()=>T(D(pubF),127),tip:'One reason is already in. Flag the age rating too: Spain rates this series 16.',a:'comment'},
+  {s:1,f:'pub',t:()=>P(D(pubF),'save'),tip:'Save it. The comment becomes a reason with its field attached.',a:'save'},
+  {s:2,f:'pub',t:()=>P(D(pubF),'reject'),tip:'Reject. The button counts what goes back.',a:'reject'},
+  {s:2,f:'pub',t:()=>P(D(pubF),'confirm'),tip:'Confirm who gets it back.',a:'confirm'},
+  {s:3,f:'ed',t:()=>P(D(edF),'res1'),tip:'Each reason sits on its own field. Resolve the first one.',a:'res1'},
+  {s:4,f:'ed',t:()=>P(D(edF),'res2'),tip:'Now the age rating.',a:'res2'},
+  {s:4,f:'ed',t:()=>P(D(edF),'opt16'),tip:'Set it to 16.',a:'pick'},
+  {s:4,f:'ed',t:()=>T(D(edF),103),tip:'Submit. Only these two fields go back for review.',a:'submit'}
 ];
 const frame=k=>k==='pub'?pubF:edF;
 
 function setSteps(n){document.querySelectorAll('.step').forEach(e=>{const v=+e.dataset.s;e.classList.toggle('on',v===n);e.classList.toggle('done',v<n)})}
 function rectOf(st){const t=st&&st.t();if(!t)return null;const r=t.getBoundingClientRect();return{x:r.left*s,y:r.top*s,w:r.width*s,h:r.height*s}}
+let tipOn=false,tipTimer=null;
+function showTip(){tipOn=true;clearTimeout(tipTimer);place();tipTimer=setTimeout(()=>{tipOn=false;tip.classList.remove('show')},4000)}
 function place(){
   const st=STEPS[step];const r=rectOf(st);
   if(!r||busy){ring.classList.remove('show');tip.classList.remove('show');return}
   const p=4;Object.assign(ring.style,{left:(r.x-p)+'px',top:(r.y-p)+'px',width:(r.w+2*p)+'px',height:(r.h+2*p)+'px'});
   ring.classList.add('show');
+  if(!tipOn){tip.classList.remove('show');return}
   tip.innerHTML='<small>Step '+st.s+' of 4</small>'+st.tip;tip.classList.add('show');
   const tw=tip.offsetWidth,th=tip.offsetHeight,sw=stage.clientWidth,sh=stage.clientHeight;
   let x=r.x+r.w/2-tw/2,y=r.y+r.h+12;
@@ -236,7 +261,7 @@ async function go(i){
   step=i;const st=STEPS[i];if(!st){ring.classList.remove('show');tip.classList.remove('show');return}
   setSteps(st.s);
   const t=st.t();if(t){const r=t.getBoundingClientRect();if(r.top<70||r.bottom>H-70){t.scrollIntoView({block:'center'});await sleep(350)}}
-  place();
+  showTip();
   if(auto&&visible)autoplay(run);
 }
 async function act(){
@@ -260,7 +285,7 @@ function wire(f){
     const st=STEPS[step];if(!st||busy||frame(st.f)!==f)return;
     const t=st.t();
     if(t&&(t===e.target||t.contains(e.target))){act();return}
-    tip.classList.remove('nudge');void tip.offsetWidth;if(!reduce)tip.classList.add('nudge');
+    showTip();tip.classList.remove('nudge');void tip.offsetWidth;if(!reduce)tip.classList.add('nudge');
   },true);
   d.addEventListener('keydown',e=>{
     if(e.key!=='Enter'&&e.key!==' ')return;const st=STEPS[step];if(!st)return;const t=st.t();

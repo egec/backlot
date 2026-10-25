@@ -24,7 +24,6 @@
 <div class="bar" role="tablist" aria-label="Rejection, first and current version">
   <button class="tab" role="tab" id="t1" aria-selected="true" aria-controls="f1">V1: one reason</button>
   <button class="tab" role="tab" id="t2" aria-selected="false" aria-controls="f2" tabindex="-1">V2: reasons pinned to fields</button>
-  <span class="cap" id="cap"></span>
 </div>
 <div class="stage" id="stage">
   <iframe id="f1" src="v1.html" title="First version: one rejection reason" role="tabpanel" aria-labelledby="t1"></iframe>
@@ -32,11 +31,11 @@
 </div>
 <script>
 (function(){
-  const W=1440,H=900,stage=document.getElementById('stage'),fr=[f1,f2],tb=[t1,t2],cap=document.getElementById('cap');
+  const W=1440,H=900,stage=document.getElementById('stage'),fr=[f1,f2],tb=[t1,t2];
   const CAP=['One reason per item. It ended up as Multiple Issues, and the editor had to guess.','Each reason is pinned to its field with a category, and resolves on its own.'];
   let i=0,touched=false,vis=false;
   function fit(){const s=stage.clientWidth/W;fr.forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';try{parent.postMessage({backlotProto:'versions',height:document.body.scrollHeight},'*')}catch(e){}}
-  function show(n){i=n;tb.forEach((b,k)=>{b.setAttribute('aria-selected',k===n);b.tabIndex=k===n?0:-1});fr.forEach((f,k)=>f.hidden=k!==n);cap.textContent=CAP[n]}
+  function show(n){i=n;tb.forEach((b,k)=>{b.setAttribute('aria-selected',k===n);b.tabIndex=k===n?0:-1});fr.forEach((f,k)=>f.hidden=k!==n)}
   tb.forEach((b,k)=>{b.onclick=()=>{touched=true;show(k)};b.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){touched=true;const n=1-k;show(n);tb[n].focus()}}});
   fr.forEach(f=>f.addEventListener('load',()=>f.contentDocument.addEventListener('pointerdown',()=>touched=true)));
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{if(!touched&&vis)show(1-i)},5000);
