@@ -196,7 +196,7 @@ const A={
   async confirm(){
     const d=D(pubF);P(d,'modal').remove();
     statusChip(d,T(d,51),'Rejected','rejected');
-    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40;white-space:nowrap"><i class="ph ph-check-circle" style="font-size:14px;color:var(--st-rejected-ink)"></i>Rejected. J. Lund has 2 reasons to fix.<span style="color:var(--color-accent-300)">Back to reviews</span></div>'));
+    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40;white-space:nowrap"><i class="ph ph-check-circle" style="font-size:14px;color:var(--st-rejected-ink)"></i>Rejected. J. Lund has 2 reasons to resolve.<span style="color:var(--color-accent-300)">Back to reviews</span></div>'));
     await sleep(reduce?600:1500);
     banner.classList.add('show');await sleep(reduce?400:900);
     pubF.classList.add('off');edF.classList.remove('off');await sleep(reduce?300:900);
