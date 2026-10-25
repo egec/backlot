@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backlot: region switch prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#121212;--surface:#191919;--line:#2a2927;--ink:#edebe8;--mute:#96938d;--accent:#9184d9;--accent-ink:#d2cefd}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif}
+  #app{position:relative;width:100%}
+  .bar{display:flex;align-items:center;gap:8px;height:52px;padding:0 12px;border-bottom:1px solid var(--line)}
+  .steps{display:flex;gap:6px;flex:1;min-width:0;overflow:hidden}
+  .step{display:flex;align-items:center;gap:7px;height:30px;padding:0 11px 0 6px;border-radius:999px;font-size:12.5px;color:var(--mute);white-space:nowrap;transition:background .2s,color .2s}
+  .step b{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;border:1px solid #3a3937;font-weight:500;font-size:11px}
+  .step.on{background:#2b2741;color:var(--ink)}
+  .step.on b{border-color:var(--accent);color:var(--accent-ink)}
+  .step.done{color:#b5b3ae}
+  .step.done b{background:#3a3937;border-color:#3a3937;color:var(--ink)}
+  .btn{font:500 12.5px/1 Manrope,sans-serif;height:30px;padding:0 12px;border-radius:8px;border:1px solid #3a3937;background:transparent;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .btn:hover{background:#1f1e1d}
+  .btn:focus-visible,.step:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .mode{font-size:12px;color:var(--mute);white-space:nowrap;padding:0 4px}
+  .stage{position:relative;overflow:hidden}
+  .stage iframe{position:absolute;left:0;top:0;width:1440px;height:900px;border:0;transform-origin:0 0;transition:opacity .35s ease}
+  .stage iframe.off{opacity:0;pointer-events:none}
+  .ov{position:absolute;inset:0;pointer-events:none}
+  .ring{position:absolute;border-radius:10px;box-shadow:0 0 0 2px var(--accent),0 0 0 6px rgba(145,132,217,.25);transition:all .35s cubic-bezier(.4,0,.2,1);opacity:0}
+  .ring.show{opacity:1;animation:pulse 1.6s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 2px var(--accent),0 0 0 2px rgba(145,132,217,.45)}100%{box-shadow:0 0 0 2px var(--accent),0 0 0 14px rgba(145,132,217,0)}}
+  .tip{position:absolute;max-width:260px;padding:10px 12px;border-radius:10px;background:#f5f3f0;color:#1a1a1a;font-size:12.5px;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.4);opacity:0;transition:opacity .25s,transform .25s;transform:translateY(4px)}
+  .tip.show{opacity:1;transform:none}
+  .tip small{display:block;color:#78756f;font-size:11px;margin-bottom:3px}
+  .tip.nudge{animation:nudge .35s}
+  @keyframes nudge{20%{transform:translateX(-5px)}50%{transform:translateX(5px)}80%{transform:translateX(-3px)}}
+  .cur{position:absolute;left:0;top:0;width:22px;height:22px;transition:transform .8s cubic-bezier(.4,0,.2,1),opacity .3s;opacity:0}
+  .cur.show{opacity:1}
+  .cur.click svg{transform:scale(.85)}
+  .banner{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%) scale(.96);padding:14px 22px;border-radius:12px;background:#f5f3f0;color:#1a1a1a;font-size:16px;font-weight:500;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;box-shadow:0 12px 32px rgba(0,0,0,.45)}
+  .banner.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .end{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:rgba(18,18,18,.82);opacity:0;pointer-events:none;transition:opacity .35s;text-align:center;padding:24px}
+  .end.show{opacity:1;pointer-events:auto}
+  .end h2{margin:0;font-size:22px;font-weight:500;letter-spacing:-.01em}
+  .end p{margin:0;color:var(--mute);font-size:13.5px}
+  @media (max-width:700px){.step span{display:none}.step{padding:0 6px}.mode{display:none}}
+  @media (prefers-reduced-motion:reduce){.ring.show{animation:none}.cur,.ring,.tip,.banner,.stage iframe{transition:none}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="bar">
+    <div class="steps" aria-label="Steps">
+      <div class="step" data-s="1"><b>1</b><span>Spain</span></div>
+      <div class="step" data-s="2"><b>2</b><span>France</span></div>
+      <div class="step" data-s="3"><b>3</b><span>Germany</span></div>
+    </div>
+    <span class="mode" id="mode" aria-live="polite">Playing. Click anywhere to take over.</span>
+    <button class="btn" id="restart" type="button">Restart</button>
+  </div>
+  <div class="stage" id="stage">
+    <iframe id="pg" src="page.html" title="Lupin Season 4 page in Backlot with a region menu"></iframe>
+    <div class="ov" aria-hidden="true">
+      <div class="ring" id="ring"></div>
+      <div class="tip" id="tip"></div>
+      <div class="cur" id="cur"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.6L10 19z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="end" id="end">
+      <h2>One season, four markets.</h2>
+      <p>Each region keeps its own titles, ratings, dates and blockers.</p>
+      <button class="btn" id="again" type="button">Play again</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+const W=1440,H=900,$=id=>document.getElementById(id);
+const stage=$('stage'),pg=$('pg'),ring=$('ring'),tip=$('tip'),cur=$('cur'),endEl=$('end'),mode=$('mode');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let s=1,step=-1,auto=!reduce,run=0,busy=false,visible=true,timer=null,tipOn=false,tipTimer=null;
+const sleep=ms=>new Promise(r=>{timer=setTimeout(r,ms)});
+const D=()=>pg.contentDocument;
+const trig=()=>[...D().querySelectorAll('[role=button]')].find(e=>/\((ES|FR|DE|UK)\)/.test(e.textContent)&&e.getBoundingClientRect().width>150);
+const opt=n=>[...D().querySelectorAll('[role=option]')].find(e=>e.textContent.includes(n));
+const STEPS=[
+  {s:1,t:trig,tip:'This is Lupin Season 4 as Spain sees it: 1 of 8 episodes ready. Open the region menu.'},
+  {s:2,t:()=>opt('France'),tip:'Switch to France.'},
+  {s:2,t:trig,tip:'French titles, ratings and dates. France premiered first, so 4 of 8 are ready. Now try Germany.',wait:900},
+  {s:3,t:()=>opt('Germany'),tip:'Germany licensed only 6 episodes.',end:true}
+];
+function fit(){s=stage.clientWidth/W;pg.style.transform='scale('+s+')';stage.style.height=(H*s)+'px';place();post()}
+function post(){try{parent.postMessage({backlotProto:'region',height:document.body.scrollHeight},'*')}catch(e){}}
+addEventListener('resize',fit);
+function setSteps(n){document.querySelectorAll('.step').forEach(e=>{const v=+e.dataset.s;e.classList.toggle('on',v===n);e.classList.toggle('done',v<n)})}
+function rectOf(st){const t=st&&st.t();if(!t)return null;const r=t.getBoundingClientRect();return{x:r.left*s,y:r.top*s,w:r.width*s,h:r.height*s}}
+function showTip(){tipOn=true;clearTimeout(tipTimer);place();tipTimer=setTimeout(()=>{tipOn=false;tip.classList.remove('show')},4500)}
+function place(){
+  const st=STEPS[step];const r=rectOf(st);
+  if(!r||busy){ring.classList.remove('show');tip.classList.remove('show');return}
+  const p=4;Object.assign(ring.style,{left:(r.x-p)+'px',top:(r.y-p)+'px',width:(r.w+2*p)+'px',height:(r.h+2*p)+'px'});
+  ring.classList.add('show');
+  if(!tipOn){tip.classList.remove('show');return}
+  tip.innerHTML='<small>Step '+st.s+' of 3</small>'+st.tip;tip.classList.add('show');
+  const tw=tip.offsetWidth,th=tip.offsetHeight,sw=stage.clientWidth,sh=stage.clientHeight;
+  let x=r.x+r.w/2-tw/2,y=r.y+r.h+12;if(y+th>sh-8)y=r.y-th-12;
+  x=Math.max(8,Math.min(sw-tw-8,x));y=Math.max(8,y);tip.style.left=x+'px';tip.style.top=y+'px';
+}
+async function go(i){
+  step=i;const st=STEPS[i];if(!st){ring.classList.remove('show');tip.classList.remove('show');return}
+  setSteps(st.s);if(st.wait){busy=true;place();await sleep(reduce?200:st.wait);busy=false}
+  showTip();if(auto&&visible)autoplay(run);
+}
+async function autoplay(id){
+  await sleep(step===0?1600:1700);if(!auto||id!==run||busy)return;
+  const st=STEPS[step],r=rectOf(st);if(!r)return;
+  cur.classList.add('show');cur.style.transform='translate('+(r.x+r.w/2)+'px,'+(r.y+r.h/2)+'px)';
+  await sleep(900);if(!auto||id!==run)return;
+  cur.classList.add('click');await sleep(160);cur.classList.remove('click');
+  st.t().click();
+}
+async function advance(){
+  const st=STEPS[step];busy=true;ring.classList.remove('show');tip.classList.remove('show');tipOn=false;
+  await sleep(350);busy=false;
+  if(st.end){setSteps(4);cur.classList.remove('show');await sleep(reduce?600:2600);endEl.classList.add('show');step=-1;return}
+  go(step+1);
+}
+function takeOver(){if(!auto)return;auto=false;run++;cur.classList.remove('show');mode.textContent='Your turn. Follow the hint.'}
+function wire(){
+  const d=D();
+  d.addEventListener('scroll',()=>{if(!busy)place()},{passive:true,capture:true});
+  d.addEventListener('click',e=>{
+    if(e.isTrusted)takeOver();
+    const st=STEPS[step];if(!st||busy){if(e.isTrusted){e.preventDefault();e.stopPropagation()}return}
+    const t=st.t();
+    if(t&&(t===e.target||t.contains(e.target))){setTimeout(advance,30);return}
+    e.preventDefault();e.stopPropagation();
+    showTip();tip.classList.remove('nudge');void tip.offsetWidth;if(!reduce)tip.classList.add('nudge');
+  },true);
+  d.addEventListener('keydown',e=>{
+    if(e.key!=='Enter'&&e.key!==' ')return;const st=STEPS[step];if(!st)return;const t=st.t();
+    if(t&&(t===e.target||t.contains(e.target))){takeOver();setTimeout(advance,30)}
+  },true);
+}
+function ready(){return new Promise(r=>{const c=()=>{try{if(trig())return r()}catch(e){}setTimeout(c,150)};c()})}
+async function start(){
+  run++;clearTimeout(timer);busy=false;step=-1;endEl.classList.remove('show');setSteps(0);
+  await new Promise(r=>{pg.onload=r;pg.contentWindow.location.reload()});init();
+}
+async function init(){await ready();wire();fit();go(0)}
+$('restart').onclick=()=>{auto=!reduce;mode.textContent=auto?'Playing. Click anywhere to take over.':'Follow the hint.';start()};
+$('again').onclick=()=>$('restart').onclick();
+if(reduce)mode.textContent='Follow the hint.';
+pg.addEventListener('load',init,{once:true});
+new IntersectionObserver(e=>{const was=visible;visible=e[0].isIntersecting;if(visible&&!was&&auto&&step>=0)autoplay(run)},{threshold:.4}).observe(stage);
+fit();
+})();
+</script>
+</body>
+</html>
