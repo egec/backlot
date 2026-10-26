@@ -7,23 +7,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#121212;--surface:#191919;--line:#2a2927;--ink:#edebe8;--mute:#96938d;--accent:#9184d9;--accent-ink:#d2cefd}
+  :root{--accent:#807eff;--mute:#a3a09a}
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif}
+  html,body{margin:0;background:transparent;color:#222;font-family:Manrope,system-ui,sans-serif}
   #app{position:relative;width:100%}
-  .bar{display:flex;align-items:center;gap:8px;height:52px;padding:0 12px;border-bottom:1px solid var(--line)}
-  .steps{display:flex;gap:6px;flex:1;min-width:0;overflow:hidden}
-  .step{display:flex;align-items:center;gap:7px;height:30px;padding:0 11px 0 6px;border-radius:999px;font-size:12.5px;color:var(--mute);white-space:nowrap;transition:background .2s,color .2s}
-  .step b{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;border:1px solid #3a3937;font-weight:500;font-size:11px}
-  .step.on{background:#2b2741;color:var(--ink)}
-  .step.on b{border-color:var(--accent);color:var(--accent-ink)}
-  .step.done{color:#b5b3ae}
-  .step.done b{background:#3a3937;border-color:#3a3937;color:var(--ink)}
-  .btn{font:500 12.5px/1 Manrope,sans-serif;height:30px;padding:0 12px;border-radius:8px;border:1px solid #3a3937;background:transparent;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
-  .btn:hover{background:#1f1e1d}
-  .btn:focus-visible,.step:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  .mode{font-size:12px;color:var(--mute);white-space:nowrap;padding:0 4px}
-  .stage{position:relative;overflow:hidden}
+  .bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:0 0 12px}
+  .tag{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 11px;border-radius:999px;background:#222;color:#fff;font-size:12.5px;font-weight:500;white-space:nowrap}
+  .tag i{width:7px;height:7px;border-radius:50%;background:#7ee08a}
+  .steps{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
+  .step,.tab{display:flex;align-items:center;gap:7px;height:30px;padding:0 11px 0 6px;border-radius:999px;border:1px solid #e1e1e1;background:#fff;font:500 12.5px/1 Manrope,sans-serif;color:#707070;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+  .tab{padding:0 13px;cursor:pointer}
+  .step b{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;border:1px solid #cfcfcf;font-weight:500;font-size:11px}
+  .step.on,.tab[aria-selected=true]{background:#f1f0ff;border-color:var(--accent);color:#222}
+  .step.on b{border-color:var(--accent);color:#5f5cf0}
+  .step.done{color:#222}
+  .step.done b{background:#222;border-color:#222;color:#fff}
+  .right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .btn{font:500 12.5px/1 Manrope,sans-serif;height:30px;padding:0 12px;border-radius:999px;border:1px solid #d4d4d4;background:#fff;color:#222;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .btn:hover,.tab:hover{background:#f4f4f4}
+  .btn:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .mode{font-size:12px;color:#777;white-space:nowrap}
+  .stage{position:relative;overflow:hidden;border-radius:8px;background:#121212}
   .stage iframe{position:absolute;left:0;top:0;width:1440px;height:900px;border:0;transform-origin:0 0;transition:opacity .35s ease}
   .stage iframe.off{opacity:0;pointer-events:none}
   .ov{position:absolute;inset:0;pointer-events:none}
@@ -40,24 +44,28 @@
   .cur.click svg{transform:scale(.85)}
   .banner{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%) scale(.96);padding:14px 22px;border-radius:12px;background:#f5f3f0;color:#1a1a1a;font-size:16px;font-weight:500;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;box-shadow:0 12px 32px rgba(0,0,0,.45)}
   .banner.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
-  .end{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:rgba(18,18,18,.82);opacity:0;pointer-events:none;transition:opacity .35s;text-align:center;padding:24px}
+  .end{color:#edebe8;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:rgba(18,18,18,.82);opacity:0;pointer-events:none;transition:opacity .35s;text-align:center;padding:24px}
   .end.show{opacity:1;pointer-events:auto}
   .end h2{margin:0;font-size:22px;font-weight:500;letter-spacing:-.01em}
   .end p{margin:0;color:var(--mute);font-size:13.5px}
-  @media (max-width:700px){.step span{display:none}.step{padding:0 6px}.mode{display:none}}
+  @media (max-width:700px){.step span{display:none}.step{padding:0 6px}.mode{display:none}.right{margin-left:0}}
   @media (prefers-reduced-motion:reduce){.ring.show{animation:none}.cur,.ring,.tip,.banner,.stage iframe{transition:none}}
 </style>
 </head>
 <body>
 <div id="app">
   <div class="bar">
+    <span class="tag"><i></i>Interactive prototype</span>
     <div class="steps" aria-label="Steps">
       <div class="step" data-s="1"><b>1</b><span>Spain</span></div>
       <div class="step" data-s="2"><b>2</b><span>France</span></div>
       <div class="step" data-s="3"><b>3</b><span>Germany</span></div>
     </div>
+    <div class="right">
     <span class="mode" id="mode" aria-live="polite">Playing. Click anywhere to take over.</span>
     <button class="btn" id="restart" type="button">Restart</button>
+    <a class="btn" id="full" href="./" target="_blank" rel="noopener">Open full screen ↗</a>
+    </div>
   </div>
   <div class="stage" id="stage">
     <iframe id="pg" src="page.html" title="Lupin Season 4 page in Backlot with a region menu"></iframe>
@@ -131,6 +139,7 @@ function snap(){const m=new Map();D().querySelectorAll('body *').forEach(e=>{if(
 function flash(before,seen){if(reduce)return;D().querySelectorAll('body *').forEach(e=>{if(e.children.length||!e.textContent.trim())return;const r=e.getBoundingClientRect(),k=pth(e);if(!seen.has(e)&&before.has(k)&&before.get(k)!==e.textContent.trim()&&r.top>60&&!e.closest('[role=option],[role=listbox]')){seen.add(e);e.classList.remove('bl-flash');void e.offsetWidth;e.classList.add('bl-flash')}})}
 function wire(){
   const d=D();
+  if(!d.getElementById('blnosb')){const x=d.createElement('style');x.id='blnosb';x.textContent='*{scrollbar-width:none}::-webkit-scrollbar{display:none}';d.head.appendChild(x)}
   if(!d.getElementById('blf')){const st=d.createElement('style');st.id='blf';st.textContent='.bl-flash{border-radius:3px;animation:blf 1.4s ease-out}@keyframes blf{0%,30%{background:rgba(145,132,217,.28);box-shadow:0 0 0 3px rgba(145,132,217,.28)}100%{background:transparent;box-shadow:0 0 0 3px transparent}}';d.head.appendChild(st)}
   d.addEventListener('scroll',()=>{if(!busy)place()},{passive:true,capture:true});
   d.addEventListener('click',e=>{
@@ -157,6 +166,7 @@ $('again').onclick=()=>$('restart').onclick();
 if(reduce)mode.textContent='Follow the hint.';
 pg.addEventListener('load',init,{once:true});
 new IntersectionObserver(e=>{const was=visible;visible=e[0].isIntersecting;if(visible&&!was&&auto&&step>=0)autoplay(run)},{threshold:.4}).observe(stage);
+if(window.top===window){const fl=document.getElementById('full');if(fl)fl.remove();document.body.style.padding='16px'}
 fit();
 })();
 </script>
