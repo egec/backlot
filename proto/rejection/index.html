@@ -155,28 +155,25 @@ function setupPub(){
   d.documentElement.style.scrollBehavior='smooth';
 }
 
-/* ---------- editor: new export, Rejected with 2 reasons ---------- */
+/* ---------- editor: new export (Readiness + AI suggestions) ---------- */
 function setupEd(){
   const d=D(edF);
-  const ch=T(d,96).parentElement;ch.setAttribute('data-p','chip');
-  [0,1].forEach(i=>{const b=T(d,127,i);b.setAttribute('data-p','res'+(i+1));b.setAttribute('role','button');b.setAttribute('tabindex','0');b.style.cursor='pointer';
-    let c=b;while(c.parentElement&&!/border/.test(c.getAttribute('style')||'')||c===b)c=c.parentElement;c.setAttribute('data-p','rc'+(i+1));});
-  const age=T(d,153).parentElement;age.setAttribute('data-p','age');age.style.position='relative';age.style.cursor='pointer';
-  T(d,184).parentElement.setAttribute('data-p','syn');
-  const sb=[...d.querySelectorAll('div,span')].find(e=>e.textContent.trim()==='Submit for review'&&e.getBoundingClientRect().width>60);sb.setAttribute('data-p','submit');sb.style.cursor='pointer';
-  txt(d,229,'17 Feb 2026 to 9 Feb 2029');
-  txt(d,322,'The delivery says Crime · Drama. The synopsis and cast suggest Thriller might fit better.');
-  txt(d,337,'You submitted ');T(d,337).appendChild(el(d,'<span style="color:var(--color-neutral-500)">Lupin · S4-E2</span>'));
-  txt(d,339,'2 h ago');txt(d,345,'3 h ago');txt(d,351,'3 h ago');
+  const ch=T(d,97).parentElement;ch.setAttribute('data-p','chip');
+  [0,1].forEach(i=>{const b=T(d,128,i);b.setAttribute('data-p','res'+(i+1));b.setAttribute('role','button');b.setAttribute('tabindex','0');b.style.cursor='pointer';T(d,121,i).setAttribute('data-p','rc'+(i+1))});
+  T(d,152).setAttribute('data-p','age');T(d,188).setAttribute('data-p','syn');
+  const sb=T(d,107);sb.setAttribute('data-p','submit');sb.style.cursor='pointer';
   d.documentElement.style.scrollBehavior='smooth';
 }
-function counts(d,left,open){html(d,117,'<span>'+left+'</span> to resolve');txt(d,141,open+' fields open')}
-function resolved(d,key,labId,left){
+let left=2,openN=5,passed=2;
+function counts(d){T(d,118).innerHTML='<span>'+left+'</span> to resolve';T(d,140).innerHTML='<span>'+openN+' fields open</span>';T(d,305).innerHTML='<span>'+passed+'</span> of 5 passed'}
+function resolved(d,key,labId,row){
   const b=P(d,'res'+key);b.removeAttribute('data-p');b.removeAttribute('role');b.style.cursor='default';
   b.textContent='Resolved';b.style.color='var(--color-neutral-400)';b.style.borderColor='var(--color-neutral-800)';
   const c=P(d,'rc'+key);if(c)c.style.opacity='.7';
   const l=T(d,labId);l.textContent='Resolved';l.style.color='var(--color-neutral-400)';
-  counts(d,left,left+3);
+  const r=T(d,317,row);r.innerHTML='<span>Yes</span>';
+  left--;openN--;passed++;counts(d);
+  if(!left){const sb=P(d,'submit');sb.removeAttribute('aria-disabled');sb.removeAttribute('data-tip');Object.assign(sb.style,{background:'var(--color-accent)',color:'var(--color-bg)',opacity:'1'})}
 }
 
 /* ---------- actions ---------- */
@@ -216,27 +213,17 @@ const A={
     banner.classList.remove('show');
   },
   async res1(){
-    const d=D(edF),f=P(d,'age');f.scrollIntoView({block:'center'});await sleep(450);
-    f.style.borderColor='var(--color-accent)';f.style.boxShadow='0 0 0 3px color-mix(in srgb, var(--color-accent) 25%, transparent)';
-  },
-  async open(){
-    const d=D(edF),f=P(d,'age');
-    const opts=['7','12','16','18'].map(v=>'<div data-p="opt'+v+'" role="option" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:6px;font-size:13px;color:var(--color-text);cursor:pointer">'+v+(v==='16'?'<span style="font-size:11px;color:var(--color-neutral-500)">ICAA, this series</span>':'')+'</div>').join('');
-    f.appendChild(el(d,'<div data-p="menu" role="listbox" style="position:absolute;left:0;right:0;top:calc(100% + 6px);padding:4px;border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-neutral-800);box-shadow:0 10px 30px rgba(0,0,0,.45);z-index:30">'+opts+'</div>'));
+    const d=D(edF),f=P(d,'age');f.scrollIntoView({block:'center'});await sleep(400);f.focus();
   },
   async pick(){
-    const d=D(edF),f=P(d,'age');P(d,'menu').remove();const v=T(d,153);v.textContent='16';v.style.color='var(--color-text)';
-    f.style.borderColor='var(--color-neutral-800)';f.style.boxShadow='none';
-    resolved(d,'1',147,1);
+    const d=D(edF),f=P(d,'age');f.style.color='var(--color-text)';f.style.borderColor='var(--color-neutral-800)';f.blur();
+    resolved(d,'1',146,0);
   },
   async res2(){
-    const d=D(edF),f=P(d,'syn'),v=T(d,184);f.scrollIntoView({block:'center'});await sleep(450);
-    f.style.borderColor='var(--color-accent)';f.style.boxShadow='0 0 0 3px color-mix(in srgb, var(--color-accent) 25%, transparent)';
-    v.style.color='var(--color-text)';
-    await typeInto(t=>{v.textContent=t;txt(d,185,t.length+' / 240')},SYN,28);
-    await sleep(300);f.style.borderColor='var(--color-neutral-800)';f.style.boxShadow='none';
-    resolved(d,'2',178,0);
-    Object.assign(P(d,'submit').style,{background:'var(--color-accent)',color:'var(--color-bg)',opacity:'1'});
+    const d=D(edF),ta=P(d,'syn');ta.scrollIntoView({block:'center'});await sleep(400);ta.focus();
+    await typeInto(t=>{ta.value=t;const c=T(d,190);if(c)c.innerHTML='<span>'+t.length+'</span> / 240'},SYN,24);
+    await sleep(300);ta.blur();ta.style.borderColor='var(--color-neutral-800)';
+    resolved(d,'2',182,2);
     d.documentElement.scrollTo({top:0});
   },
   async submit(){
@@ -253,8 +240,7 @@ const STEPS=[
   {s:2,f:'pub',t:()=>P(D(pubF),'reject'),tip:'Reject. The button counts what goes back.',a:'reject'},
   {s:2,f:'pub',t:()=>P(D(pubF),'confirm'),tip:'Confirm who gets it back.',a:'confirm'},
   {s:3,f:'ed',t:()=>P(D(edF),'res1'),tip:'Both reasons sit at the top. Resolve takes you to the field.',a:'res1'},
-  {s:3,f:'ed',t:()=>P(D(edF),'age'),tip:'Open the rating.',a:'open'},
-  {s:3,f:'ed',t:()=>P(D(edF),'opt16'),tip:'Spain needs 16. Setting it resolves the reason.',a:'pick'},
+  {s:3,f:'ed',t:()=>P(D(edF),'age'),tip:'Pick 16, the rating Spain needs.',a:'pick',ev:'change',ok:()=>P(D(edF),'age').value==='16'},
   {s:3,f:'ed',t:()=>P(D(edF),'res2'),tip:'Now the synopsis.',a:'res2'},
   {s:4,f:'ed',t:()=>P(D(edF),'submit'),tip:'Submit. Only these two fields go back for review.',a:'submit'}
 ];
@@ -302,11 +288,13 @@ function wire(f){
     if(!e.isTrusted)return;takeOver();
     const st=STEPS[step];if(!st||busy||frame(st.f)!==f)return;
     const t=st.t();
+    if(st.ev&&t&&(t===e.target||t.contains(e.target)))return;
     if(t&&(t===e.target||t.contains(e.target))){act();return}
     showTip();tip.classList.remove('nudge');void tip.offsetWidth;if(!reduce)tip.classList.add('nudge');
   },true);
+  d.addEventListener('change',e=>{const st=STEPS[step];if(!st||!st.ev||busy||frame(st.f)!==f)return;const t=st.t();if(!(t&&(t===e.target||t.contains(e.target))))return;if(st.ok())act();else{showTip();tip.classList.remove('nudge');void tip.offsetWidth;if(!reduce)tip.classList.add('nudge')}},true);
   d.addEventListener('keydown',e=>{
-    if(e.key!=='Enter'&&e.key!==' ')return;const st=STEPS[step];if(!st)return;const t=st.t();
+    if(e.key!=='Enter'&&e.key!==' ')return;const st=STEPS[step];if(!st||st.ev)return;const t=st.t();
     if(t&&(t===e.target||t.contains(e.target))){e.preventDefault();takeOver();act()}
   });
 }
@@ -316,7 +304,7 @@ async function start(){
   await Promise.all([pubF,edF].map(f=>new Promise(r=>{f.onload=r;f.contentWindow.location.reload()})));
   init();
 }
-function init(){setupPub();setupEd();wire(pubF);wire(edF);fit();go(0)}
+function init(){left=2;openN=5;passed=2;setupPub();setupEd();wire(pubF);wire(edF);fit();go(0)}
 $('restart').onclick=()=>start();
 $('again').onclick=()=>$('restart').onclick();
 let loaded=0;[pubF,edF].forEach(f=>f.addEventListener('load',()=>{if(++loaded===2)init()},{once:true}));
