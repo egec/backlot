@@ -11,8 +11,10 @@
   html,body{margin:0;background:transparent;color:#222;font-family:Manrope,system-ui,sans-serif}
   #app{position:relative;width:100%}
   .bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:0 0 12px}
-  .tag{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 11px;border-radius:999px;background:#222;color:#fff;font-size:12.5px;font-weight:500;white-space:nowrap}
-  .tag i{width:7px;height:7px;border-radius:50%;background:#7ee08a}
+  .tag{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 6px 0 2px;font-size:12.5px;font-weight:500;color:#222;white-space:nowrap}
+  .tag i{width:8px;height:8px;border-radius:50%;background:#2fbf5b;box-shadow:0 0 0 0 rgba(47,191,91,.5);animation:live 1.8s ease-out infinite}
+  @keyframes live{0%{box-shadow:0 0 0 0 rgba(47,191,91,.55)}70%{box-shadow:0 0 0 7px rgba(47,191,91,0)}100%{box-shadow:0 0 0 0 rgba(47,191,91,0)}}
+  @media (prefers-reduced-motion:reduce){.tag i{animation:none}}
   .steps{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
   .tab{display:flex;align-items:center;height:30px;padding:0 13px;border-radius:999px;border:1px solid #e1e1e1;background:#fff;font:500 12.5px/1 Manrope,sans-serif;color:#707070;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
   .step b{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;border:1px solid #cfcfcf;font-weight:500;font-size:11px}
@@ -37,10 +39,9 @@
 </head>
 <body>
 <div class="bar">
-  <span class="tag"><i></i>Prototype screens</span>
   <div class="steps" role="tablist" aria-label="Rejection, first and current version">
-  <button class="tab" role="tab" id="t1" aria-selected="true" aria-controls="f1">V1: one reason</button>
-  <button class="tab" role="tab" id="t2" aria-selected="false" aria-controls="f2" tabindex="-1">V2: reasons pinned to fields</button>
+  <button class="tab" role="tab" id="t1" aria-selected="true" aria-controls="f1">Version 1</button>
+  <button class="tab" role="tab" id="t2" aria-selected="false" aria-controls="f2" tabindex="-1">Version 2</button>
   </div>
   <div class="right"><a class="ibtn" id="full" href="./" target="_blank" rel="noopener" aria-label="Open full screen" title="Open full screen"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a></div>
 </div>
@@ -53,13 +54,14 @@
   const W=1440,H=900,stage=document.getElementById('stage'),fr=[f1,f2],tb=[t1,t2];
   const CAP=['One reason per item. It ended up as Multiple Issues, and the editor had to guess.','Each reason is pinned to its field with a category, and resolves on its own.'];
   let i=0,touched=false,vis=false;
-  function fit(){const s=stage.clientWidth/W;fr.forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';try{parent.postMessage({backlotProto:'versions',height:document.body.scrollHeight},'*')}catch(e){}}
+  function size(){if(window.top!==window)return;const c=document.getElementById('app')||document.body;c.style.maxWidth='';c.style.margin='0 auto';const top=stage.getBoundingClientRect().top+scrollY;const w=Math.min(c.clientWidth,(innerHeight-top-16)*1440/900);c.style.maxWidth=Math.max(320,w)+'px'}
+function fit(){size();const s=stage.clientWidth/W;fr.forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';try{parent.postMessage({backlotProto:'versions',height:document.body.scrollHeight},'*')}catch(e){}}
   function show(n){i=n;tb.forEach((b,k)=>{b.setAttribute('aria-selected',k===n);b.tabIndex=k===n?0:-1});fr.forEach((f,k)=>f.hidden=k!==n)}
   tb.forEach((b,k)=>{b.onclick=()=>{touched=true;show(k)};b.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){touched=true;const n=1-k;show(n);tb[n].focus()}}});
   fr.forEach(f=>f.addEventListener('load',()=>f.contentDocument.addEventListener('pointerdown',()=>touched=true)));
   new IntersectionObserver(e=>vis=e[0].isIntersecting,{threshold:.4}).observe(stage);
   if(window.top===window){document.getElementById('full').remove();document.body.style.padding='16px'}
-  addEventListener('resize',fit);show(0);fit();
+  addEventListener('resize',fit);addEventListener('load',fit);show(0);fit();
 })();
 </script>
 </body>

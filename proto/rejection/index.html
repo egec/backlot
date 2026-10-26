@@ -12,8 +12,10 @@
   html,body{margin:0;background:transparent;color:#222;font-family:Manrope,system-ui,sans-serif}
   #app{position:relative;width:100%}
   .bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:0 0 12px}
-  .tag{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 11px;border-radius:999px;background:#222;color:#fff;font-size:12.5px;font-weight:500;white-space:nowrap}
-  .tag i{width:7px;height:7px;border-radius:50%;background:#7ee08a}
+  .tag{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 6px 0 2px;font-size:12.5px;font-weight:500;color:#222;white-space:nowrap}
+  .tag i{width:8px;height:8px;border-radius:50%;background:#2fbf5b;box-shadow:0 0 0 0 rgba(47,191,91,.5);animation:live 1.8s ease-out infinite}
+  @keyframes live{0%{box-shadow:0 0 0 0 rgba(47,191,91,.55)}70%{box-shadow:0 0 0 7px rgba(47,191,91,0)}100%{box-shadow:0 0 0 0 rgba(47,191,91,0)}}
+  @media (prefers-reduced-motion:reduce){.tag i{animation:none}}
   .steps{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
   .tab{display:flex;align-items:center;height:30px;padding:0 13px;border-radius:999px;border:1px solid #e1e1e1;background:#fff;font:500 12.5px/1 Manrope,sans-serif;color:#707070;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
   .step{display:flex;align-items:center;gap:7px;height:30px;padding:0 4px;font:500 12.5px/1 Manrope,sans-serif;color:#9a9a9a;white-space:nowrap;cursor:default}
@@ -100,9 +102,10 @@ const R2={n:2,key:'2',field:'Synopsis (ES)',cat:'Localization',flag:'Empty, the 
 const SYN='Assane se acerca a la finca Pellegrini justo cuando empieza la subasta.';
 const sleep=ms=>new Promise(r=>{timer=setTimeout(r,ms)});
 
-function fit(){s=stage.clientWidth/W;[pubF,edF].forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';place();post()}
+function size(){if(window.top!==window)return;const c=document.getElementById('app')||document.body;c.style.maxWidth='';c.style.margin='0 auto';const top=stage.getBoundingClientRect().top+scrollY;const w=Math.min(c.clientWidth,(innerHeight-top-16)*1440/900);c.style.maxWidth=Math.max(320,w)+'px'}
+function fit(){size();s=stage.clientWidth/W;[pubF,edF].forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';place();post()}
 function post(){try{parent.postMessage({backlotProto:'rejection',height:document.body.scrollHeight},'*')}catch(e){}}
-addEventListener('resize',fit);
+addEventListener('resize',fit);addEventListener('load',fit);
 
 /* ---------- helpers inside frames ---------- */
 const D=f=>f.contentDocument;

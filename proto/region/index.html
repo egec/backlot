@@ -12,8 +12,10 @@
   html,body{margin:0;background:transparent;color:#222;font-family:Manrope,system-ui,sans-serif}
   #app{position:relative;width:100%}
   .bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:0 0 12px}
-  .tag{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 11px;border-radius:999px;background:#222;color:#fff;font-size:12.5px;font-weight:500;white-space:nowrap}
-  .tag i{width:7px;height:7px;border-radius:50%;background:#7ee08a}
+  .tag{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 6px 0 2px;font-size:12.5px;font-weight:500;color:#222;white-space:nowrap}
+  .tag i{width:8px;height:8px;border-radius:50%;background:#2fbf5b;box-shadow:0 0 0 0 rgba(47,191,91,.5);animation:live 1.8s ease-out infinite}
+  @keyframes live{0%{box-shadow:0 0 0 0 rgba(47,191,91,.55)}70%{box-shadow:0 0 0 7px rgba(47,191,91,0)}100%{box-shadow:0 0 0 0 rgba(47,191,91,0)}}
+  @media (prefers-reduced-motion:reduce){.tag i{animation:none}}
   .steps{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
   .tab{display:flex;align-items:center;height:30px;padding:0 13px;border-radius:999px;border:1px solid #e1e1e1;background:#fff;font:500 12.5px/1 Manrope,sans-serif;color:#707070;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
   .step{display:flex;align-items:center;gap:7px;height:30px;padding:0 4px;font:500 12.5px/1 Manrope,sans-serif;color:#9a9a9a;white-space:nowrap;cursor:default}
@@ -60,11 +62,7 @@
 <div id="app">
   <div class="bar">
     <span class="tag"><i></i>Interactive prototype</span>
-    <div class="steps" aria-label="Steps">
-      <div class="step" data-s="1"><b>1</b><span>Spain</span></div>
-      <div class="step" data-s="2"><b>2</b><span>France</span></div>
-      <div class="step" data-s="3"><b>3</b><span>Germany</span></div>
-    </div>
+    <span class="instr" style="font-size:12.5px;font-weight:500;color:#222;white-space:nowrap">Change the region</span>
     <div class="right">
     <span class="mode" id="mode" aria-live="polite">Your turn. Click anywhere for a hint.</span>
     <button class="ibtn" id="restart" type="button" aria-label="Restart" title="Restart"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -100,9 +98,10 @@ const STEPS=[
   {s:2,t:trig,tip:'French titles, ratings and dates. France premiered first, so 4 of 8 are ready. Now try Germany.',wait:900,side:'left'},
   {s:3,t:()=>opt('Germany'),tip:'Germany licensed only 6 episodes.',end:true,flash:1}
 ];
-function fit(){s=stage.clientWidth/W;pg.style.transform='scale('+s+')';stage.style.height=(H*s)+'px';place();post()}
+function size(){if(window.top!==window)return;const c=document.getElementById('app')||document.body;c.style.maxWidth='';c.style.margin='0 auto';const top=stage.getBoundingClientRect().top+scrollY;const w=Math.min(c.clientWidth,(innerHeight-top-16)*1440/900);c.style.maxWidth=Math.max(320,w)+'px'}
+function fit(){size();s=stage.clientWidth/W;pg.style.transform='scale('+s+')';stage.style.height=(H*s)+'px';place();post()}
 function post(){try{parent.postMessage({backlotProto:'region',height:document.body.scrollHeight},'*')}catch(e){}}
-addEventListener('resize',fit);
+addEventListener('resize',fit);addEventListener('load',fit);
 function setSteps(n){document.querySelectorAll('.step').forEach(e=>{const v=+e.dataset.s;e.classList.toggle('on',v===n);e.classList.toggle('done',v<n)})}
 function rectOf(st){const t=st&&st.t();if(!t)return null;const r=t.getBoundingClientRect();return{x:r.left*s,y:r.top*s,w:r.width*s,h:r.height*s}}
 function showTip(){tipOn=true;clearTimeout(tipTimer);place();tipTimer=setTimeout(()=>{tipOn=false;place()},2800)}
