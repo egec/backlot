@@ -14,10 +14,9 @@
   .tag{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 11px;border-radius:999px;background:#222;color:#fff;font-size:12.5px;font-weight:500;white-space:nowrap}
   .tag i{width:7px;height:7px;border-radius:50%;background:#7ee08a}
   .steps{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
-  .step,.tab{display:flex;align-items:center;gap:7px;height:30px;padding:0 11px 0 6px;border-radius:999px;border:1px solid #e1e1e1;background:#fff;font:500 12.5px/1 Manrope,sans-serif;color:#707070;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
-  .tab{padding:0 13px;cursor:pointer}
+  .tab{display:flex;align-items:center;height:30px;padding:0 13px;border-radius:999px;border:1px solid #e1e1e1;background:#fff;font:500 12.5px/1 Manrope,sans-serif;color:#707070;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
   .step b{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;border:1px solid #cfcfcf;font-weight:500;font-size:11px}
-  .step.on,.tab[aria-selected=true]{background:#f1f0ff;border-color:var(--accent);color:#222}
+  .tab[aria-selected=true]{background:#f1f0ff;border-color:var(--accent);color:#222}
   .step.on b{border-color:var(--accent);color:#5f5cf0}
   .step.done{color:#222}
   .step.done b{background:#222;border-color:#222;color:#fff}
@@ -25,6 +24,9 @@
   .btn{font:500 12.5px/1 Manrope,sans-serif;height:30px;padding:0 12px;border-radius:999px;border:1px solid #d4d4d4;background:#fff;color:#222;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
   .btn:hover,.tab:hover{background:#f4f4f4}
   .btn:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .ibtn{width:32px;height:32px;border-radius:50%;border:1px solid #d4d4d4;background:#fff;color:#222;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;text-decoration:none;transition:background .2s}
+  .ibtn:hover{background:#f1f1f1}
+  .ibtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .mode{font-size:12px;color:#777;white-space:nowrap}
   .stage{position:relative;overflow:hidden;border-radius:8px;background:#121212}
   .stage iframe{position:absolute;left:0;top:0;width:1440px;height:900px;border:0;transform-origin:0 0;transition:opacity .35s}
@@ -40,7 +42,7 @@
   <button class="tab" role="tab" id="t1" aria-selected="true" aria-controls="f1">V1: one reason</button>
   <button class="tab" role="tab" id="t2" aria-selected="false" aria-controls="f2" tabindex="-1">V2: reasons pinned to fields</button>
   </div>
-  <div class="right"><a class="btn" id="full" href="./" target="_blank" rel="noopener">Open full screen ↗</a></div>
+  <div class="right"><a class="ibtn" id="full" href="./" target="_blank" rel="noopener" aria-label="Open full screen" title="Open full screen"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a></div>
 </div>
 <div class="stage" id="stage">
   <iframe id="f1" src="v1.html" title="First version: one rejection reason" role="tabpanel" aria-labelledby="t1"></iframe>
@@ -55,7 +57,6 @@
   function show(n){i=n;tb.forEach((b,k)=>{b.setAttribute('aria-selected',k===n);b.tabIndex=k===n?0:-1});fr.forEach((f,k)=>f.hidden=k!==n)}
   tb.forEach((b,k)=>{b.onclick=()=>{touched=true;show(k)};b.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){touched=true;const n=1-k;show(n);tb[n].focus()}}});
   fr.forEach(f=>f.addEventListener('load',()=>f.contentDocument.addEventListener('pointerdown',()=>touched=true)));
-  if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{if(!touched&&vis)show(1-i)},5000);
   new IntersectionObserver(e=>vis=e[0].isIntersecting,{threshold:.4}).observe(stage);
   if(window.top===window){document.getElementById('full').remove();document.body.style.padding='16px'}
   addEventListener('resize',fit);show(0);fit();
