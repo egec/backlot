@@ -12,7 +12,7 @@
   html,body{margin:0;background:transparent;color:#222;font-family:Manrope,system-ui,sans-serif}
   #app{position:relative;width:100%}
   .bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:0 0 12px}
-  .tag{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 6px 0 2px;font-size:12.5px;font-weight:500;color:#222;white-space:nowrap}
+  .tag{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 14px 0 10px;border-right:1px solid #e1e1e1;margin-right:6px;font-size:12.5px;font-weight:500;color:#222;white-space:nowrap}
   .tag i{width:8px;height:8px;border-radius:50%;background:#2fbf5b;box-shadow:0 0 0 0 rgba(47,191,91,.5);animation:live 1.8s ease-out infinite}
   @keyframes live{0%{box-shadow:0 0 0 0 rgba(47,191,91,.55)}70%{box-shadow:0 0 0 7px rgba(47,191,91,0)}100%{box-shadow:0 0 0 0 rgba(47,191,91,0)}}
   @media (prefers-reduced-motion:reduce){.tag i{animation:none}}
@@ -62,7 +62,7 @@
 <div id="app">
   <div class="bar">
     <span class="tag"><i></i>Interactive prototype</span>
-    <span class="instr" style="font-size:12.5px;font-weight:500;color:#222;white-space:nowrap">Change the region</span>
+    <span class="instr" style="font-size:12.5px;font-weight:500;color:#222;white-space:nowrap;line-height:30px">Change the region</span>
     <div class="right">
     <span class="mode" id="mode" aria-live="polite">Your turn. Click anywhere for a hint.</span>
     <button class="ibtn" id="restart" type="button" aria-label="Restart" title="Restart"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
