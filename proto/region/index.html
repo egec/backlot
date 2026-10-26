@@ -141,7 +141,7 @@ function flash(before,seen){if(reduce)return;D().querySelectorAll('body *').forE
 function wire(){
   const d=D();
   if(!d.getElementById('blnosb')){const x=d.createElement('style');x.id='blnosb';x.textContent='html,body{scrollbar-width:none}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}';d.head.appendChild(x)}
-  if(!d.getElementById('blf')){const st=d.createElement('style');st.id='blf';st.textContent='.bl-flash{border-radius:3px;animation:blf 1.4s ease-out}@keyframes blf{0%,30%{background:rgba(145,132,217,.28);box-shadow:0 0 0 3px rgba(145,132,217,.28)}100%{background:transparent;box-shadow:0 0 0 3px transparent}}';d.head.appendChild(st)}
+  if(!d.getElementById('blf')){const st=d.createElement('style');st.id='blf';st.textContent='.bl-flash{animation:blf .6s ease-out}@keyframes blf{0%{opacity:.15}100%{opacity:1}}';d.head.appendChild(st)}
   d.addEventListener('scroll',()=>{if(!busy)place()},{passive:true,capture:true});
   d.addEventListener('click',e=>{
     if(e.isTrusted)takeOver();
