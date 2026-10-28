@@ -119,6 +119,7 @@ function el(d,h){const t=d.createElement('template');t.innerHTML=h.trim();return
 const chip='display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:6px;background:var(--color-neutral-900);font-size:11px;font-weight:500;color:var(--color-neutral-300);white-space:nowrap';
 function CARD(R,right){return '<div data-p="rcard'+R.key+'" style="border-radius:var(--radius-md);background:var(--color-surface-sunken);border:1px solid var(--color-neutral-900);padding:11px 12px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:10.5px;color:var(--color-neutral-600);flex:0 0 auto">'+R.n+'</span><span style="display:flex;align-items:center;gap:6px;padding:4px 9px;border-radius:var(--radius-md);background:var(--color-neutral-900);font-size:11.5px;color:var(--color-text);white-space:nowrap;flex:0 0 auto"><i class="ph ph-link-simple" style="font-size:11px;color:var(--color-neutral-500)"></i>'+R.field+'</span><span style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:var(--radius-md);border:1px solid var(--color-neutral-800);color:var(--color-neutral-300);font-size:12px;font-weight:500;white-space:nowrap;flex:0 0 auto">'+R.cat+'<i class="ph ph-caret-down" style="font-size:11px;color:var(--color-neutral-600)"></i></span><div style="flex:1 1 0%"></div>'+right+'</div><div style="margin-top:9px;min-height:64px;padding:8px 10px;border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-neutral-300);line-height:1.5;text-wrap:pretty">'+R.text+'</div></div>'}
 const X='<i class="ph ph-x" style="font-size:13px;color:var(--color-neutral-600);flex:0 0 auto"></i>';
+function addMo(d){if(!d.getElementById('blmo'))d.head.appendChild(el(d,'<style id="blmo">@keyframes blIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}@keyframes blUp{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}@keyframes blFade{from{opacity:0}to{opacity:1}}</style>'))}
 function statusChip(d,chipEl,label,kind){
   chipEl.style.background='var(--st-'+kind+'-bg)';chipEl.style.border='1px solid var(--st-'+kind+'-line, transparent)';chipEl.style.color='var(--st-'+kind+'-ink)';
   chipEl.innerHTML='<i class="ph ph-'+(kind==='rejected'?'x-circle':'clock')+'" style="font-size:13px"></i><span style="display:block;color:var(--st-'+kind+'-ink)">'+label+'</span>';
@@ -164,6 +165,8 @@ function setupEd(){
   [0,1].forEach(i=>{const b=T(d,128,i);b.setAttribute('data-p','res'+(i+1));b.setAttribute('role','button');b.setAttribute('tabindex','0');b.style.cursor='pointer';T(d,121,i).setAttribute('data-p','rc'+(i+1))});
   T(d,152).setAttribute('data-p','age');T(d,188).setAttribute('data-p','syn');
   const sb=T(d,107);sb.setAttribute('data-p','submit');sb.style.cursor='pointer';
+  statusChip(d,ch,'Rejected','rejected');
+  addMo(d);
   d.documentElement.style.scrollBehavior='smooth';
 }
 let left=2,openN=5,passed=2;
@@ -173,7 +176,7 @@ function resolved(d,key,labId,row){
   b.textContent='Resolved';b.style.color='var(--color-neutral-400)';b.style.borderColor='var(--color-neutral-800)';
   const c=P(d,'rc'+key);if(c)c.style.opacity='.7';
   const l=T(d,labId);l.textContent='Resolved';l.style.color='var(--color-neutral-400)';
-  const r=T(d,317,row);r.innerHTML='<span>Yes</span>';
+  const r=T(d,317,row);r.innerHTML='<span>Yes</span>';const ic=r.parentElement.querySelector('i');if(ic){ic.className='ph ph-check';ic.style.color='var(--color-neutral-500)'}
   left--;openN--;passed++;counts(d);
   if(!left){const sb=P(d,'submit');sb.removeAttribute('aria-disabled');sb.removeAttribute('data-tip');Object.assign(sb.style,{background:'var(--color-accent)',color:'var(--color-bg)',opacity:'1'})}
 }
@@ -196,9 +199,9 @@ const A={
     P(d,'rcard1').after(el(d,CARD(R2,X)));pubFooter(d,2);
   },
   async reject(){
-    const d=D(pubF),pair=R=>'<div style="display:flex;gap:6px"><span style="'+chip+'">'+R.field+'</span><span style="'+chip+'">'+R.cat+'</span></div>';
-    d.body.appendChild(el(d,'<div data-p="modal" style="position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50">'+
-      '<div style="width:380px;padding:18px;border-radius:var(--radius-lg);background:var(--color-surface);border:1px solid var(--color-neutral-800);display:flex;flex-direction:column;gap:12px">'+
+    const d=D(pubF);addMo(d);const pair=R=>'<div style="display:flex;gap:6px"><span style="'+chip+'">'+R.field+'</span><span style="'+chip+'">'+R.cat+'</span></div>';
+    d.body.appendChild(el(d,'<div data-p="modal" style="position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;animation:blFade .2s cubic-bezier(.23,1,.32,1)">'+
+      '<div style="width:380px;padding:18px;border-radius:var(--radius-lg);background:var(--color-surface);border:1px solid var(--color-neutral-800);display:flex;flex-direction:column;gap:12px;animation:blIn .2s cubic-bezier(.23,1,.32,1)">'+
       '<div style="font-size:14px;font-weight:500;color:var(--color-text)">Reject with 2 reasons?</div>'+
       '<div style="font-size:12px;color:var(--color-neutral-400);line-height:1.5">'+ED+' gets each reason attached to its field.</div>'+
       '<div style="display:flex;flex-direction:column;gap:6px">'+pair(R1)+pair(R2)+'</div>'+
@@ -208,7 +211,7 @@ const A={
   async confirm(){
     const d=D(pubF);P(d,'modal').remove();
     statusChip(d,T(d,51),'Rejected','rejected');
-    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40;white-space:nowrap"><i class="ph ph-check-circle" style="font-size:14px;color:var(--st-rejected-ink)"></i>Rejected. '+ED+' has 2 reasons to resolve.<span style="color:var(--color-accent-300)">Back to reviews</span></div>'));
+    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40;white-space:nowrap;animation:blUp .2s cubic-bezier(.23,1,.32,1)"><i class="ph ph-check-circle" style="font-size:14px;color:var(--st-rejected-ink)"></i>Rejected. '+ED+' has 2 reasons to resolve.<span style="color:var(--color-accent-300)">Back to reviews</span></div>'));
     await sleep(reduce?600:1500);
     banner.classList.add('show');await sleep(reduce?400:900);
     pubF.classList.add('off');edF.classList.remove('off');await sleep(reduce?300:900);
@@ -229,8 +232,23 @@ const A={
     d.documentElement.scrollTo({top:0});
   },
   async submit(){
-    const d=D(edF);statusChip(d,P(d,'chip'),'Pending review','pending');
-    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40;white-space:nowrap"><i class="ph ph-check-circle" style="font-size:14px;color:var(--color-accent-300)"></i>Submitted. Maya Okafor re-checks 2 fields.</div>'));
+    const d=D(edF);
+    d.body.appendChild(el(d,'<div data-p="smodal" style="position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;animation:blFade .2s cubic-bezier(.23,1,.32,1)">'+
+      '<div style="width:380px;padding:18px;border-radius:var(--radius-lg);background:var(--color-surface);border:1px solid var(--color-neutral-800);display:flex;flex-direction:column;gap:12px;animation:blIn .2s cubic-bezier(.23,1,.32,1)">'+
+      '<div style="font-size:14px;font-weight:500;color:var(--color-text)">Submit Episode 2 for review?</div>'+
+      '<div style="font-size:12px;color:var(--color-neutral-400);line-height:1.5">Maya Okafor will re-check the 2 fields you changed for Spain (ES). The rest of the episode stays approved.</div>'+
+      '<div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:6px"><span style="'+chip+'"><i class="ph ph-check" style="font-size:11px"></i>'+R1.field+'</span><span style="'+chip+'">Set to 16</span></div><div style="display:flex;gap:6px"><span style="'+chip+'"><i class="ph ph-check" style="font-size:11px"></i>'+R2.field+'</span><span style="'+chip+'">Written</span></div></div>'+
+      '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px"><span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;font-size:12px;color:var(--color-neutral-400)">Cancel</span>'+
+      '<span data-p="send" role="button" tabindex="0" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-accent);color:var(--color-bg);font-size:12px;font-weight:500;cursor:pointer">Submit for review</span></div></div></div>'));
+  },
+  async send(){
+    const d=D(edF);P(d,'smodal').remove();statusChip(d,P(d,'chip'),'Pending review','pending');
+    const sb=P(d,'submit');sb.textContent='Submitted';Object.assign(sb.style,{background:'transparent',color:'var(--color-neutral-400)',border:'1px solid var(--color-neutral-800)',cursor:'default'});
+    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40;white-space:nowrap;animation:blUp .2s cubic-bezier(.23,1,.32,1)"><i class="ph ph-check-circle" style="font-size:14px;color:var(--color-accent-300)"></i>Submitted. Maya Okafor re-checks 2 fields.</div>'));
+    {let row=null;d.querySelectorAll('div').forEach(e=>{const t=e.textContent;if(/rejected Lupin/.test(t)&&/1 ?h ago/.test(t)&&(!row||row.contains(e)))row=e});
+     if(row){while(row.parentElement&&!/You submitted Lupin/.test(row.parentElement.textContent))row=row.parentElement;}
+     if(row){const n=row.cloneNode(true);const w=d.createTreeWalker(n,NodeFilter.SHOW_TEXT);let x;while(x=w.nextNode()){x.textContent=x.textContent.replace('Maya Okafor rejected','You resubmitted').replace(/1 ?h ago/,'Just now')}
+       n.querySelectorAll('img,[style*="background-image"]').forEach(a=>{if(a.tagName==='IMG')a.src='../../ds/rivard.png';else a.style.backgroundImage='url(../../ds/rivard.png)'});row.before(n)}}
     await sleep(reduce?500:1400);endEl.classList.add('show');
   }
 };
@@ -244,7 +262,8 @@ const STEPS=[
   {s:3,f:'ed',t:()=>P(D(edF),'res1'),tip:'Both reasons sit at the top. Resolve takes you to the field.',a:'res1'},
   {s:3,f:'ed',t:()=>P(D(edF),'age'),tip:'Pick 16, the rating Spain needs.',a:'pick',ev:'change',ok:()=>P(D(edF),'age').value==='16'},
   {s:3,f:'ed',t:()=>P(D(edF),'res2'),tip:'Now the synopsis.',a:'res2'},
-  {s:4,f:'ed',t:()=>P(D(edF),'submit'),tip:'Submit. Only these two fields go back for review.',a:'submit'}
+  {s:4,f:'ed',t:()=>P(D(edF),'submit'),tip:'Submit. Only these two fields go back for review.',a:'submit'},
+  {s:4,f:'ed',t:()=>P(D(edF),'send'),tip:'Confirm. Maya Okafor gets it back.',a:'send'}
 ];
 const frame=k=>k==='pub'?pubF:edF;
 
