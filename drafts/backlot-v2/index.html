@@ -7,83 +7,108 @@
 <title>Backlot v2 draft</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F4F2EE;--ink:#161616;--mute:#6B6A66;--line:#DEDBD4;--card:#EAE7E1;--acc:#7B6CF0;--dark:#121212;--f:'Archivo',system-ui,sans-serif}
+:root{--bg:#F4F2EE;--card:#E9E9E7;--card2:#F9F8F6;--ink:#161616;--mute:#6B6A66;--line:#DDDBD6;--acc:#807EFF;--dark:#121212;--f:Manrope,system-ui,sans-serif}
+body[data-t=grey]{--bg:#F2F2F2;--card:#E6E6E6;--card2:#FAFAFA;--line:#DDDDDD;--mute:#6E6E6E}
+body[data-t=white]{--bg:#FFFFFF;--card:#F2F2F2;--card2:#FFFFFF;--line:#E6E6E6;--mute:#707070}
 *{box-sizing:border-box;margin:0}
-body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--f)}
-img{display:block;max-width:100%}
-.note{position:sticky;top:0;z-index:9;background:var(--acc);color:#fff;font-size:13px;padding:8px 16px;text-align:center}
-.page{display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;max-width:1240px;margin:0 auto;padding:0 32px}
-.toc{position:sticky;top:72px;align-self:start;padding-top:120px;font-size:13px;line-height:2;color:var(--mute)}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--f);transition:background .3s}
+img,video,iframe{display:block;max-width:100%}
+.note{position:sticky;top:0;z-index:9;background:var(--ink);color:#fff;font-size:13px;padding:8px 16px;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap}
+.note button{font:inherit;font-size:12px;border:1px solid #555;background:transparent;color:#ccc;border-radius:99px;padding:3px 10px;cursor:pointer}
+.note button[aria-pressed=true]{background:#fff;color:#111;border-color:#fff}
+.page{display:grid;grid-template-columns:180px minmax(0,1fr);gap:48px;max-width:1240px;margin:0 auto;padding:0 32px}
+.toc{position:sticky;top:64px;align-self:start;padding-top:120px;font-size:13px;line-height:2;color:var(--mute)}
 .toc a{display:block;color:inherit;text-decoration:none;border-left:2px solid var(--line);padding-left:12px}
 .toc a.on{color:var(--ink);border-color:var(--ink)}
 main{min-width:0;padding-bottom:120px}
 .wrap{max-width:760px}
-.k{font-size:13px;color:var(--mute);margin-bottom:12px}
-h1{font-size:clamp(40px,5.2vw,64px);line-height:1.02;letter-spacing:-.02em;font-weight:500;font-stretch:96%}
-h2{font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-.015em;font-weight:500}
-h3{font-size:18px;line-height:1.3;font-weight:600}
-.lead{font-size:19px;line-height:1.55;color:#33322f;margin-top:24px;max-width:620px}
-.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:14px}
-.meta b{display:block;font-weight:400;color:var(--mute);font-size:12px;margin-bottom:4px}
-.hero{padding-top:120px}
-.shot{margin-top:48px;border-radius:16px;background:var(--card);padding:clamp(12px,3vw,40px)}
-.shot img{border-radius:8px;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.k{font-size:13px;color:var(--mute);margin-bottom:10px}
+h1{font-size:clamp(36px,4.6vw,56px);line-height:1.06;letter-spacing:-.025em;font-weight:600}
+h2{font-size:clamp(26px,2.8vw,36px);line-height:1.15;letter-spacing:-.02em;font-weight:600}
+h3{font-size:17px;line-height:1.35;font-weight:700}
+.lead{font-size:18px;line-height:1.6;color:#3a3936;margin-top:18px;max-width:620px}
+.meta{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:24px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;line-height:1.5}
+.meta b{display:block;font-weight:500;color:var(--mute);font-size:12px;margin-bottom:4px}
+.hero{padding-top:110px}
+.shot{margin-top:40px;border-radius:16px;background:var(--card);padding:clamp(12px,3vw,36px)}
+.shot img,.shot video{border-radius:8px;box-shadow:0 18px 44px rgba(0,0,0,.18);width:100%}
 .cap{font-size:13px;color:var(--mute);margin-top:12px}
 section{padding-top:140px}
-.big{font-weight:800;font-stretch:125%;text-transform:uppercase;font-size:clamp(44px,7.4vw,108px);line-height:.92;letter-spacing:-.01em;color:#1D2B22}
+.big{font-weight:800;text-transform:uppercase;font-size:clamp(42px,7vw,100px);line-height:.95;letter-spacing:-.035em;color:#111}
 .big span{display:inline-block;opacity:0;transform:translateY(.25em);transition:opacity .6s cubic-bezier(.23,1,.32,1),transform .6s cubic-bezier(.23,1,.32,1)}
 .big.in span{opacity:1;transform:none}
-.split{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;margin-top:56px}
+.split{display:grid;grid-template-columns:180px minmax(0,1fr);gap:32px;margin-top:48px}
 .split p{max-width:560px}
-.sweet{margin-top:40px;background:var(--card);border-radius:20px;padding:28px}
-.axis{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);margin-bottom:18px}
-.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.c{background:var(--bg);border-radius:14px;padding:18px;position:relative}
-.c.me{background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.08);transform:translateY(-8px)}
-.badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:12px;padding:3px 10px;border-radius:99px;white-space:nowrap}
-.ill{height:84px;border-radius:10px;background:var(--card);margin-bottom:14px;display:flex;flex-direction:column;justify-content:center;gap:7px;padding:0 16px}
-.ill i{display:block;height:7px;border-radius:4px;background:#cfcbc3}
-.ill i.a{background:var(--acc);width:40%}
-.c p{font-size:14px;color:var(--mute);margin-top:6px;line-height:1.5}
-.c small{display:block;font-size:12px;color:var(--mute);margin-top:10px}
-.roles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+/* north star */
+.ns{margin-top:36px;background:var(--card);border-radius:20px;padding:clamp(20px,4vw,40px)}
+.ns-top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+.ns-n{font-size:clamp(56px,8vw,96px);font-weight:800;line-height:.9;letter-spacing:-.04em}
+.ns-n small{display:block;font-size:13px;font-weight:500;letter-spacing:0;color:var(--mute);margin-top:8px}
+.loop{width:100%;height:auto;margin-top:28px}
+.loop text{font:600 13px var(--f);fill:var(--ink)}
+.loop .m{font-weight:500;fill:var(--mute);font-size:12px}
+/* mini loop strip */
+.strip{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mute);margin-top:16px;flex-wrap:wrap}
+.strip i{font-style:normal;padding:3px 10px;border-radius:99px;border:1px solid var(--line)}
+.strip i.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.strip b{font-weight:400;opacity:.6}
+/* finding -> decision */
+.fd{display:grid;gap:12px;margin-top:36px}
+.fd .row{display:grid;grid-template-columns:1fr 32px 1fr;align-items:center;background:var(--card);border-radius:14px;padding:18px 20px;gap:12px}
+.fd .row p{font-size:15px;line-height:1.45}
+.fd .row p small{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
+.fd .ar{text-align:center;color:var(--mute)}
+.bm{overflow-x:auto;margin-top:28px;background:var(--card2);border-radius:14px;padding:12px 20px}
+.bm table{width:100%;min-width:680px;border-collapse:collapse;font-size:14px}
+.bm th{font-weight:500;color:var(--mute);text-align:left;padding:10px 8px;font-size:12px;vertical-align:bottom}
+.bm td{padding:10px 8px;border-top:1px solid var(--line);text-align:center}
+.bm td:first-child{text-align:left}.bm tr.me td{font-weight:700;border-top:1px solid var(--ink)}
+.d{display:inline-block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--ink)}.d.f{background:var(--ink)}.d.h{background:linear-gradient(90deg,var(--ink) 50%,transparent 50%)}.y{color:var(--ink)}.p{color:var(--mute)}.n{color:#bbb}
+/* roles */
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
 .role{background:var(--card);border-radius:18px;padding:22px}
-.rh{display:flex;justify-content:space-between;align-items:center;font-size:14px}
-.pill{font-size:12px;background:var(--bg);border-radius:99px;padding:3px 10px;color:var(--mute)}
-.q{font-size:22px;line-height:1.25;font-weight:500;margin:18px 0 8px}
+.rh{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600}
+.pill{font-size:12px;font-weight:500;background:var(--card2);border-radius:99px;padding:3px 10px;color:var(--mute)}
+.q{font-size:21px;line-height:1.3;font-weight:600;margin:16px 0 6px;letter-spacing:-.01em}
 .role ul{list-style:none;padding:14px 0 0;margin-top:14px;border-top:1px solid var(--line);font-size:14px}
 .role li{padding:3px 0 3px 22px;position:relative}
-.role li:before{content:"";position:absolute;left:2px;top:9px;width:9px;height:5px;border-left:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);transform:rotate(-45deg)}
-.rm .c{background:var(--card)}
-.rm .tag{display:inline-block;font-size:11px;background:var(--ink);color:#fff;border-radius:6px;padding:2px 7px;margin-bottom:10px}
-.refl{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
-.refl .c{background:var(--card);padding:22px}
+.role li:before{content:"";position:absolute;left:2px;top:10px;width:9px;height:5px;border-left:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);transform:rotate(-45deg)}
+/* features */
+.feat{padding-top:120px}
+.feat iframe{width:100%;border:0;background:transparent;height:640px}
+.ph{border:1px dashed #b9b6ae;border-radius:12px;padding:80px 24px;text-align:center;color:var(--mute);font-size:14px;background:var(--card2)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.c{background:var(--card);border-radius:14px;padding:20px}
+.c p{font-size:14px;color:var(--mute);margin-top:6px;line-height:1.5}
+.tag{display:inline-block;font-size:11px;background:var(--ink);color:#fff;border-radius:6px;padding:2px 7px;margin-bottom:10px}
+.refl{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
 .next{margin-top:160px;background:var(--dark);color:#fff;border-radius:20px;padding:56px clamp(24px,5vw,64px);display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px;align-items:center;text-decoration:none;overflow:hidden}
 .next .k{color:#9a9a9a}
-.next .t{font-size:clamp(28px,3.4vw,44px);line-height:1.1;font-weight:500;letter-spacing:-.015em}
-.thumb{border-radius:10px;overflow:hidden;opacity:.0;transform:scale(.94) rotate(-2deg);transition:opacity .3s cubic-bezier(.23,1,.32,1),transform .3s cubic-bezier(.23,1,.32,1);height:170px;background:#fff}
-.thumb div{height:28px;background:#A31A28}
-.thumb p{color:#2F4366;font-size:13px;padding:12px;font-weight:600}
+.next .t{font-size:clamp(26px,3.2vw,40px);line-height:1.15;font-weight:600;letter-spacing:-.02em}
+.thumb{border-radius:10px;overflow:hidden;opacity:0;transform:scale(.94) rotate(-2deg);transition:opacity .3s cubic-bezier(.23,1,.32,1),transform .3s cubic-bezier(.23,1,.32,1);height:170px;background:#fff}
+.thumb div{height:28px;background:#A31A28}.thumb p{color:#2F4366;font-size:13px;padding:12px;font-weight:700}
 .next:hover .thumb,.next:focus .thumb{opacity:1;transform:none}
-.mail{font-size:clamp(32px,6vw,80px);letter-spacing:-.03em;color:var(--ink);text-decoration:none;display:inline-block;margin-top:24px;background:linear-gradient(var(--ink),var(--ink)) 0 100%/0 2px no-repeat;transition:background-size .35s cubic-bezier(.23,1,.32,1)}
+.mail{font-size:clamp(30px,6vw,76px);font-weight:600;letter-spacing:-.04em;color:var(--ink);text-decoration:none;display:inline-block;margin-top:20px;background:linear-gradient(var(--ink),var(--ink)) 0 100%/0 2px no-repeat;transition:background-size .35s cubic-bezier(.23,1,.32,1)}
 .mail:hover{background-size:100% 2px}
-@media (max-width:900px){.page{grid-template-columns:1fr;gap:0;padding:0 16px}.toc{display:none}.meta{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr;gap:12px}.cards3,.roles,.refl{grid-template-columns:1fr}.c.me{transform:none}.next{grid-template-columns:1fr}.thumb{opacity:1;transform:none}.hero{padding-top:64px}section{padding-top:96px}}
+@media (max-width:900px){.page{grid-template-columns:1fr;gap:0;padding:0 16px}.toc{display:none}.meta{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr;gap:12px}.cards3,.roles,.refl{grid-template-columns:1fr}.fd .row{grid-template-columns:1fr}.fd .ar{transform:rotate(90deg);width:20px}.next{grid-template-columns:1fr}.thumb{opacity:1;transform:none}.hero{padding-top:56px}section,.feat{padding-top:96px}.feat iframe{height:420px}}
 @media (prefers-reduced-motion:reduce){.big span{opacity:1;transform:none;transition:none}}
 </style>
 </head>
-<body>
-<div class="note">Draft for review: only some sections, rough content. Not linked from the site.</div>
+<body data-t="cream">
+<div class="note">Draft, not linked from the site. Background:
+<button data-set="cream" aria-pressed="true">Cream + grey</button><button data-set="grey" aria-pressed="false">Grey</button><button data-set="white" aria-pressed="false">White</button></div>
 <div class="page">
-<nav class="toc"><a class="on" href="#ov">Overview</a><a href="#pr">The problem</a><a href="#rs">Research</a><a href="#ro">Two roles</a><a href="#de">Decisions</a><a href="#it">What I removed</a><a href="#re">Reflection</a></nav>
+<nav class="toc">
+<a class="on" href="#ov">Overview</a><a href="#pr">The problem</a><a href="#ns">North star</a><a href="#rs">Research</a><a href="#ro">Two roles</a><a href="#f1">Features</a><a href="#it">What I changed</a><a href="#re">Reflection</a></nav>
 <main>
 
 <div class="hero wrap" id="ov">
 <p class="k">Backlot, a CMS for streaming services</p>
 <h1>Rejections that tell the editor exactly what to fix</h1>
 <p class="lead">Backlot is where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher, so a rejection is a list of reasons pinned to fields, not a vague note.</p>
-<div class="meta"><div><b>Industry</b>Streaming, B2B SaaS</div><div><b>My role</b>Product Designer, end to end</div><div><b>Type</b>Concept, 2026</div><div><b>Team</b>Just me</div></div>
+<div class="meta"><div><b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.</div><div><b>Category</b>B2B SaaS, Enterprise CMS</div><div><b>My role</b>Product Designer, end to end</div><div><b>Date</b>2026</div></div>
 </div>
 <div class="shot"><img src="../../shots/roles/ed-dashboard.webp" alt="Backlot editor dashboard"></div>
 
@@ -92,17 +117,39 @@ section{padding-top:140px}
 <div class="split"><p class="k">The problem</p><p>Every time something comes back, both sides redo work, and the release date does not move. The editor guesses what to fix, the publisher checks everything again.</p></div>
 </section>
 
-<section id="rs" class="wrap" style="max-width:none">
-<div class="wrap"><p class="k">Research</p><h2>Eight tools, and none closes the loop</h2><p class="lead" style="font-size:17px">Headless CMSs let you comment on a field. Review tools let you approve a frame. None turns a rejection into reasons that are counted and checked before the next review.</p></div>
-<div class="sweet">
-<div class="axis"><span>Loose feedback</span><span>Structured release</span></div>
-<div class="cards3">
-<div class="c"><div class="ill"><i style="width:70%"></i><i style="width:45%"></i><i class="a" style="width:22%"></i></div><h3>Headless CMS</h3><p>Comments sit on a field, but a rejection is still one free-text note.</p><small>Contentful, Contentstack, Strapi, Directus</small></div>
-<div class="c me"><span class="badge">The sweet spot</span><div class="ill"><i class="a"></i><i style="width:80%"></i><i class="a" style="width:55%"></i></div><h3>Backlot</h3><p>Each reason is pinned to a field, has a category, is fixed on its own and is counted for the next check.</p><small>5 of 5 criteria</small></div>
-<div class="c"><div class="ill"><i style="width:55%"></i><i style="width:85%"></i><i style="width:35%"></i></div><h3>Review tools</h3><p>Precise notes on a frame, but no metadata, regions or release rules.</p><small>Frame.io, Ziflow, Brightcove</small></div>
+<section id="ns">
+<div class="wrap"><p class="k">North star</p><h2>Every round of review should be the last one</h2></div>
+<div class="ns">
+<div class="ns-top"><div class="ns-n">1 round<small>per episode, per region</small></div><p style="max-width:380px;font-size:15px">Every decision on this page answers one question: does it remove a round of review? Each feature below shows which part of the loop it cuts.</p></div>
+<svg class="loop" viewBox="0 0 900 170" role="img" aria-label="The loop: Deliver, Prepare, Review, Release, with rejections sending work back from Review to Prepare">
+<g stroke="#161616" stroke-width="1.5" fill="none">
+<line x1="150" y1="70" x2="250" y2="70"/><line x1="400" y1="70" x2="500" y2="70"/><line x1="650" y1="70" x2="750" y2="70"/>
+<path d="M575 98 C575 150 325 150 325 98" stroke-dasharray="5 5" stroke="#9a9894"/></g>
+<g fill="#161616"><path d="M250 65 l8 5 -8 5z"/><path d="M500 65 l8 5 -8 5z"/><path d="M750 65 l8 5 -8 5z"/><path d="M320 102 l5 -9 5 9z" fill="#9a9894"/></g>
+<g><rect x="20" y="44" width="130" height="52" rx="26" fill="none" stroke="#161616"/><text x="85" y="75" text-anchor="middle">Deliver</text>
+<rect x="260" y="44" width="130" height="52" rx="26" fill="none" stroke="#161616"/><text x="325" y="75" text-anchor="middle">Prepare</text>
+<rect x="510" y="44" width="130" height="52" rx="26" fill="none" stroke="#161616"/><text x="575" y="75" text-anchor="middle">Review</text>
+<rect x="760" y="44" width="120" height="52" rx="26" fill="#161616"/><text x="820" y="75" text-anchor="middle" fill="#fff" style="fill:#fff">Release</text></g>
+<text class="m" x="450" y="160" text-anchor="middle">Rejected: round 2, 3, 4…</text>
+</svg>
 </div>
+</section>
+
+<section id="rs">
+<div class="wrap"><p class="k">Research</p><h2>What the domain taught me, and what it changed</h2><p class="lead" style="font-size:17px">Desk research on how releases work region by region, then eight tools compared on how they handle a rejection.</p></div>
+<div class="fd">
+<div class="row"><p><small>Finding</small>Metadata lives on three levels: series, season, episode. Mistakes come from the wrong level, not the wrong value.</p><span class="ar">→</span><p><small>Decision</small>The page always shows where a field lives, so nothing is filed one level off.</p></div>
+<div class="row"><p><small>Finding</small>Almost every field changes by region: title, synopsis, rating, artwork.</p><span class="ar">→</span><p><small>Decision</small>Region became the scope you work in, not a filter you forget to switch.</p></div>
+<div class="row"><p><small>Finding</small>Every tool lets you comment on a field. None turns a rejection into reasons it counts.</p><span class="ar">→</span><p><small>Decision</small>A rejection is a list of reasons, each pinned, categorised and counted.</p></div>
 </div>
-<p class="cap">Where Backlot loses: Frame.io pins a note to the exact frame. Full comparison table follows here.</p>
+<div class="bm"><table><thead><tr><th>Tool</th><th>Comment on a field</th><th>Categorised reason</th><th>Each reason its own fix</th><th>Reasons counted</th><th>Counts feed a check</th></tr></thead><tbody>
+<tr><td>Contentful, Contentstack</td><td class="y"><i class="d f"></i></td><td class="n">–</td><td class="p"><i class="d h"></i></td><td class="n">–</td><td class="n">–</td></tr>
+<tr><td>Strapi, Directus</td><td class="p"><i class="d h"></i></td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+<tr><td>Frame.io, Ziflow</td><td class="p"><i class="d h"></i></td><td class="p"><i class="d h"></i></td><td class="p"><i class="d h"></i></td><td class="n">–</td><td class="n">–</td></tr>
+<tr><td>Brightcove</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="p"><i class="d h"></i></td></tr>
+<tr><td>GitHub pull requests</td><td class="y"><i class="d f"></i></td><td class="p"><i class="d h"></i></td><td class="y"><i class="d f"></i></td><td class="n">–</td><td class="n">–</td></tr>
+<tr class="me"><td>Backlot</td><td class="y"><i class="d f"></i></td><td class="y"><i class="d f"></i></td><td class="y"><i class="d f"></i></td><td class="y"><i class="d f"></i></td><td class="y"><i class="d f"></i></td></tr></tbody></table></div>
+<p class="cap">Where Backlot loses: Frame.io pins a note to the exact frame. What I haven't done yet: sit with an editor.</p>
 </section>
 
 <section id="ro">
@@ -113,19 +160,42 @@ section{padding-top:140px}
 </div>
 </section>
 
-<section id="de">
-<div class="wrap"><p class="k">Decision 02</p><h2>A rejection is a list of reasons</h2><p class="lead" style="font-size:17px">Each reason has a field and a category. The editor resolves them one by one, the publisher re-checks only those fields, and every reason is counted.</p></div>
-<div class="shot"><img src="../../shots/roles/ed-workspace.webp" alt="Episode workspace with rejection reasons"></div>
-<p class="cap">Workspace: rejections arrive as cards, and each one opens the field it is about.</p>
-</section>
+<div class="feat" id="f1"><div class="wrap"><p class="k">Feature 01</p><h2>A rejection is a list of reasons</h2><p class="lead" style="font-size:17px">Each reason is pinned to a field and has a category. The editor fixes them one by one, and the publisher re-checks only those fields.</p></div>
+<div class="strip">Cuts the loop at <i>Deliver</i><b>→</b><i>Prepare</i><b>→</b><i class="on">Review</i><b>→</b><i>Release</i></div>
+<div class="shot"><iframe data-blx src="../../proto/rejection/" title="Rejection prototype" loading="lazy"></iframe></div></div>
 
-<section id="it" class="rm">
-<div class="wrap"><p class="k">Iterations</p><h2>Some things I removed</h2><p class="lead" style="font-size:17px">Each one worked on paper, and each one cost the editor something.</p></div>
-<div class="cards3" style="margin-top:40px">
+<div class="feat"><div class="wrap"><p class="k">Feature 02</p><h2>You work in one region at a time</h2><p class="lead" style="font-size:17px">Almost every field changes by region, so region is the scope of the page. Switching it changes everything that differs, and nothing else.</p></div>
+<div class="strip">Cuts the loop at <i>Deliver</i><b>→</b><i class="on">Prepare</i><b>→</b><i>Review</i><b>→</b><i>Release</i></div>
+<div class="shot"><iframe data-blx src="../../proto/region/" title="Region prototype" loading="lazy"></iframe></div></div>
+
+<div class="feat"><div class="wrap"><p class="k">Feature 03</p><h2>Rules check before a person does</h2><p class="lead" style="font-size:17px">Each region lists what has to be true before release. A check passes the moment its field is valid, so the editor submits only what is ready.</p></div>
+<div class="strip">Cuts the loop at <i>Deliver</i><b>→</b><i class="on">Prepare</i><b>→</b><i>Review</i><b>→</b><i>Release</i></div>
+<div class="shot"><iframe data-blx src="../../proto/ep2/" title="Episode page" loading="lazy"></iframe></div></div>
+
+<div class="feat"><div class="wrap"><p class="k">Feature 04</p><h2>AI suggests, a person decides</h2><p class="lead" style="font-size:17px">A wrong auto-fill is an error nobody sees. So AI only flags what looks wrong, and rules and AI never share a list.</p></div>
+<div class="strip">Cuts the loop at <i>Deliver</i><b>→</b><i class="on">Prepare</i><b>→</b><i>Review</i><b>→</b><i>Release</i></div>
+<div class="shot" style="background:#121212"><iframe data-blx src="../../proto/ds/" title="AI suggestions component" loading="lazy" style="height:420px"></iframe></div></div>
+
+<div class="feat"><div class="wrap"><p class="k">Feature 05</p><h2>Most files place themselves</h2><p class="lead" style="font-size:17px">Processing reads each file's technical metadata and assigns what it can match. Only the files it can't place wait for the editor.</p></div>
+<div class="strip">Cuts the loop at <i class="on">Deliver</i><b>→</b><i>Prepare</i><b>→</b><i>Review</i><b>→</b><i>Release</i></div>
+<div class="shot"><video src="../../upload.mp4" poster="../../posters/upload.jpg" muted loop playsinline controls preload="none"></video></div></div>
+
+<div class="feat"><div class="wrap"><p class="k">Feature 06</p><h2>The thumbnail that wins, per region</h2><p class="lead" style="font-size:17px">Your text: how the winning artwork is chosen and why it matters.</p></div>
+<div class="strip">Cuts the loop at <i>Deliver</i><b>→</b><i class="on">Prepare</i><b>→</b><i>Review</i><b>→</b><i>Release</i></div>
+<div class="shot"><div class="ph">Winning thumbnail: which screen or video should go here?</div></div></div>
+
+<div class="feat"><div class="wrap"><p class="k">Feature 07</p><h2>The queue is sorted by what airs first</h2><p class="lead" style="font-size:17px">The publisher sees the one item that airs within seven days and still needs a decision, before anything else.</p></div>
+<div class="strip">Cuts the loop at <i>Deliver</i><b>→</b><i>Prepare</i><b>→</b><i class="on">Review</i><b>→</b><i>Release</i></div>
+<div class="shot"><img src="../../shots/roles/pub-reviews.webp" alt="Publisher reviews queue"></div></div>
+
+<section id="it">
+<div class="wrap"><p class="k">What I changed</p><h2>Some things I removed</h2><p class="lead" style="font-size:17px">Each one worked on paper, and each one cost the editor a round.</p></div>
+<div class="cards3">
 <div class="c"><span class="tag">Taken out</span><h3>AI that fills fields</h3><p>A wrong auto-fill is an error nobody sees. AI now flags, and a person decides.</p></div>
 <div class="c"><span class="tag">Taken out</span><h3>Region as a filter</h3><p>Almost every field changes by region, so region became the scope you work in.</p></div>
 <div class="c"><span class="tag">Taken out</span><h3>One rejection comment</h3><p>A single note left the editor guessing. It became reasons pinned to fields.</p></div>
 </div>
+<div class="shot"><iframe data-blx src="../../proto/versions/" title="Version 1 and version 2" loading="lazy"></iframe></div>
 </section>
 
 <section id="re">
@@ -139,12 +209,13 @@ section{padding-top:140px}
 <a class="next" href="#"><div><p class="k">Next, 02 / BİLGE</p><p class="t">Customs approvals where every change carries a reason.</p></div><div class="thumb"><div></div><p>Pending Approval</p></div></a>
 
 <section style="padding-top:120px"><p class="k">Thanks for reading. If the work fits your team, I'd like to hear about the role.</p><a class="mail" href="#">a.egecoskun@gmail.com</a></section>
-
 </main>
 </div>
 <script>
+document.querySelectorAll('[data-set]').forEach(b=>b.onclick=()=>{document.body.dataset.t=b.dataset.set;document.querySelectorAll('[data-set]').forEach(x=>x.setAttribute('aria-pressed',x===b))});
 document.querySelectorAll('[data-big]').forEach(e=>{e.innerHTML=e.textContent.split(' ').map(w=>'<span>'+w+'</span>').join(' ');e.querySelectorAll('span').forEach((s,i)=>s.style.transitionDelay=(i*60)+'ms');new IntersectionObserver((x,o)=>{if(x[0].isIntersecting){e.classList.add('in');o.disconnect()}},{threshold:.4}).observe(e)});
-const links=[...document.querySelectorAll('.toc a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+addEventListener('message',e=>{if(!e.data||!e.data.backlotProto)return;document.querySelectorAll('iframe[data-blx]').forEach(f=>{if(f.contentWindow===e.source)f.style.height=e.data.height+'px'})});
+const links=[...document.querySelectorAll('.toc a')],secs=links.map(a=>document.querySelector(a.getAttribute('href')));
 addEventListener('scroll',()=>{let i=0;secs.forEach((s,j)=>{if(s&&s.getBoundingClientRect().top<200)i=j});links.forEach((a,j)=>a.classList.toggle('on',j===i))},{passive:true});
 </script>
 </body>
