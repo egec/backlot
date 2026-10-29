@@ -1,0 +1,130 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feature layouts</title><meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*:before,*:after{box-sizing:border-box}
+:root{--bg:#F4F2EE;--card:#E8E7E3;--ink:#161616;--mute:#6B6A66;--line:#DCDAD4;--g:#728437;--pad:24px;--ease:cubic-bezier(.23,1,.32,1)}
+@media(min-width:992px){:root{--pad:50px}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ol,ul{margin:0;padding:0}
+.in{max-width:calc(1340px + var(--pad)*2);margin:0 auto;padding:0 var(--pad)}
+.top{padding:56px 0 24px}
+.top h1{font-size:22px;font-weight:600;letter-spacing:-.02em}
+.top p{color:var(--mute);margin-top:8px;max-width:40em;font-size:15px}
+.opt{padding:clamp(72px,8vw,128px) 0;border-top:1px solid var(--line)}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;margin-bottom:40px}
+.tag b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--g);color:var(--ink);font-size:12px}
+.tag span{font-weight:500;color:var(--mute)}
+.k{font-size:13px;font-weight:500;color:var(--mute);margin-bottom:12px}
+.h{font-size:clamp(26px,2.2vw,36px);line-height:1.15;letter-spacing:-.025em;font-weight:600}
+.lead{font-size:17px;line-height:1.5;color:#3a3936;margin-top:14px;max-width:32em}
+.strip{display:flex;align-items:center;gap:6px;font-size:12px;line-height:1;color:var(--mute);flex-wrap:wrap}
+.strip i{font-style:normal;padding:6px 10px;border-radius:99px;border:1px solid var(--line)}
+.strip i.on{background:var(--g);border-color:var(--g);color:var(--ink);font-weight:600}
+.strip b{font-weight:400;opacity:.6}
+.frame{background:var(--card);border-radius:16px;padding:clamp(12px,2.4vw,36px)}
+.shot{position:relative;border-radius:8px;overflow:hidden;box-shadow:0 18px 44px rgba(0,0,0,.18)}
+.shot img{display:block;width:100%;height:auto}
+/* option 1 */
+.o1 .media{margin-top:16px}
+.o1 .strip{margin-top:36px}
+.pin{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:var(--g);color:var(--ink);font:700 13px/30px Manrope,sans-serif;text-align:center;border:0;cursor:pointer;box-shadow:0 0 0 0 rgba(114,132,55,.6);transition:transform .3s var(--ease)}
+.pin:before{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--g);opacity:0;transform:scale(.6);transition:opacity .3s,transform .4s var(--ease)}
+.pin.on{transform:translate(-50%,-50%) scale(1.15)}.pin.on:before{opacity:1;transform:none}
+.legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 48px;margin-top:32px;list-style:none;max-width:1100px}
+.legend li{display:grid;grid-template-columns:30px 1fr;gap:14px;font-size:15px;color:#3a3936;cursor:default;transition:color .2s}
+.legend li b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1px solid var(--ink);font-size:12px;color:var(--ink);transition:background .2s,border-color .2s}
+.legend li strong{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+.legend li.on b{background:var(--g);border-color:var(--g)}
+/* option 2 */
+.o2 .row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,5vw,96px);align-items:start}
+.o2 ol{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:28px 32px;counter-reset:n}
+.o2 li{counter-increment:n;font-size:15px;color:#3a3936}
+.o2 li:before{content:"0" counter(n);display:block;font-size:13px;font-weight:700;color:var(--g);margin-bottom:10px}
+.o2 li strong{display:block;color:var(--ink);font-size:17px;font-weight:600;letter-spacing:-.01em;margin-bottom:4px}
+.o2 .strip{margin-top:clamp(40px,4vw,64px)}
+.o2 .media{margin-top:16px}
+/* option 3 */
+.o3 .row{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(32px,4vw,72px);margin-top:40px}
+.o3 .steps{list-style:none}
+.o3 .steps li{padding:22vh 0;font-size:15px;color:var(--mute);transition:color .3s}
+.o3 .steps li:first-child{padding-top:0}.o3 .steps li:last-child{padding-bottom:30vh}
+.o3 .steps li strong{display:flex;gap:12px;align-items:baseline;color:var(--mute);font-size:clamp(19px,1.5vw,24px);letter-spacing:-.02em;font-weight:600;margin-bottom:8px;transition:color .3s}
+.o3 .steps li strong em{font-style:normal;font-size:13px;color:var(--mute)}
+.o3 .steps li.on{color:#3a3936}.o3 .steps li.on strong{color:var(--ink)}.o3 .steps li.on strong em{color:var(--g)}
+.o3 .stick{position:sticky;top:12vh;align-self:start}
+.o3 .shot img{transform-origin:0 0;transition:transform .9s var(--ease)}
+.o3 .strip{margin-bottom:16px}
+.o3 .bar{display:flex;gap:6px;margin-top:16px}
+.o3 .bar i{flex:1;height:3px;border-radius:2px;background:var(--line);overflow:hidden;position:relative}
+.o3 .bar i.on:after{content:"";position:absolute;inset:0;background:var(--g)}
+.note{margin-top:28px;font-size:13px;color:var(--mute);max-width:44em}
+@media(max-width:991px){.o2 .row,.o3 .row{grid-template-columns:1fr}.o3 .stick{position:relative;top:auto}.o3 .steps li{padding:16px 0}.o3 .steps li:last-child{padding-bottom:0}.o3 .row{display:flex;flex-direction:column-reverse}}
+@media(max-width:600px){.legend,.o2 ol{grid-template-columns:1fr}.pin{width:24px;height:24px;line-height:24px;font-size:11px}}
+</style></head><body>
+<header class="in top"><h1>Feature layouts: three options</h1><p>The same feature (Feature 01) in three layouts. Smaller title and lead in all three, and the long ruled list is gone. Each point gets a short head so the eye can skim, and the media carries more of the story.</p></header>
+
+<section class="opt o1"><div class="in">
+<p class="tag"><b>1</b>Notes on the screen <span>Numbered pins on the screenshot, a short legend below</span></p>
+<p class="k">Feature 01</p><h2 class="h">A rejection is a list of reasons</h2>
+<p class="lead">The publisher approves an item, or sends it back with reasons the editor can act on one by one. Each reason is pinned to its field.</p>
+<div class="strip">Cuts the loop at <i>Deliver</i><b>→</b><i>Prepare</i><b>→</b><i class="on">Review</i><b>→</b><i>Release</i></div>
+<div class="media frame"><div class="shot" data-o1><img src="../../posters/rejection-flow.jpg" alt="Backlot review page for Sherlock Holmes" width="1844" height="1168">
+<button class="pin" data-i="1" style="left:89.9%;top:77.1%" aria-label="Note 1">1</button>
+<button class="pin" data-i="2" style="left:93.8%;top:51%" aria-label="Note 2">2</button>
+<button class="pin" data-i="3" style="left:94.5%;top:11.8%" aria-label="Note 3">3</button>
+<button class="pin" data-i="4" style="left:89.9%;top:64%" aria-label="Note 4">4</button></div></div>
+<ol class="legend" data-o1l>
+<li data-i="1"><b>1</b><span><strong>Comments become reasons</strong>The publisher comments on the row itself. Each comment carries its field and a category.</span></li>
+<li data-i="2"><b>2</b><span><strong>Fixed in place</strong>Flagged rows stay marked on the page, so the editor fixes them where they are.</span></li>
+<li data-i="3"><b>3</b><span><strong>Counted before it is sent</strong>Reject counts the reasons, names who gets the item back and asks to confirm.</span></li>
+<li data-i="4"><b>4</b><span><strong>Publishers can be wrong</strong>A flagged field can be unflagged again.</span></li>
+</ol>
+<p class="note">Best when the screen is the proof. Hover a pin or a note to link them. On Backlot the pins would sit on the live prototype.</p>
+</div></section>
+
+<section class="opt o2"><div class="in">
+<p class="tag"><b>2</b>Intro beside the points <span>Text reads as one block, then the media gets the full width</span></p>
+<div class="row"><div><p class="k">Feature 01</p><h2 class="h">A rejection is a list of reasons</h2>
+<p class="lead">The publisher approves an item, or sends it back with reasons the editor can act on one by one. Each reason is pinned to its field.</p></div>
+<ol>
+<li><strong>Comments become reasons</strong>Each comment on a row carries its field and a category.</li>
+<li><strong>Fixed in place</strong>Flagged rows stay marked, so the editor fixes them where they are.</li>
+<li><strong>Counted before it is sent</strong>Reject counts the reasons and names who gets the item back.</li>
+<li><strong>Publishers can be wrong</strong>A flagged field can be unflagged again.</li>
+</ol></div>
+<div class="strip">Cuts the loop at <i>Deliver</i><b>→</b><i>Prepare</i><b>→</b><i class="on">Review</i><b>→</b><i>Release</i></div>
+<div class="media frame"><div class="shot"><img src="../../posters/rejection-flow.jpg" alt="Backlot review page for Sherlock Holmes" width="1844" height="1168"></div></div>
+<p class="note">The calmest option and the cheapest to apply to all ten features. Points stay short enough to skim in two columns.</p>
+</div></section>
+
+<section class="opt o3"><div class="in">
+<p class="tag"><b>3</b>Steps that move the screen <span>Scroll the steps, the screen zooms to each one</span></p>
+<p class="k">Feature 01</p><h2 class="h">A rejection is a list of reasons</h2>
+<p class="lead">The publisher approves an item, or sends it back with reasons the editor can act on one by one. Each reason is pinned to its field.</p>
+<div class="row"><ol class="steps" data-o3>
+<li data-z="1.5" data-x="60" data-y="78"><strong><em>01</em>Comments become reasons</strong>The publisher comments on the row itself. Each comment carries its field and a category.</li>
+<li data-z="1.8" data-x="85" data-y="51"><strong><em>02</em>Fixed in place</strong>Flagged rows stay marked on the page, so the editor fixes them where they are.</li>
+<li data-z="1.8" data-x="80" data-y="18"><strong><em>03</em>Counted before it is sent</strong>Reject counts the reasons, names who gets the item back and asks to confirm.</li>
+<li data-z="1.6" data-x="75" data-y="64"><strong><em>04</em>Publishers can be wrong</strong>A flagged field can be unflagged again.</li>
+</ol>
+<div class="stick"><div class="strip">Cuts the loop at <i>Deliver</i><b>→</b><i>Prepare</i><b>→</b><i class="on">Review</i><b>→</b><i>Release</i></div>
+<div class="frame"><div class="shot"><img data-o3img src="../../posters/rejection-flow.jpg" alt="Backlot review page for Sherlock Holmes" width="1844" height="1168"></div></div>
+<div class="bar" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div></div></div>
+<p class="note">The most memorable, and the one that uses the most scroll. Worth it on two or three key features (rejection, readiness, upload), not all ten. Uses the same zoom for a prototype or a video.</p>
+</div></section>
+
+<script>
+(function(){
+var sh=document.querySelector('[data-o1]'),lg=document.querySelector('[data-o1l]');
+function set(i){[].forEach.call(document.querySelectorAll('.o1 [data-i]'),function(e){e.classList.toggle('on',e.getAttribute('data-i')===i)})}
+[].forEach.call(document.querySelectorAll('.o1 [data-i]'),function(e){e.addEventListener('mouseenter',function(){set(e.getAttribute('data-i'))});e.addEventListener('focus',function(){set(e.getAttribute('data-i'))});e.addEventListener('mouseleave',function(){set('')})});
+var st=[].slice.call(document.querySelectorAll('[data-o3] li')),img=document.querySelector('[data-o3img]'),bars=[].slice.call(document.querySelectorAll('.o3 .bar i'));
+function act(n){st.forEach(function(l,i){l.classList.toggle('on',i===n)});bars.forEach(function(b,i){b.classList.toggle('on',i<=n)});var l=st[n];
+if(matchMedia('(min-width:992px)').matches){var z=+l.dataset.z,c=function(v){return Math.max(1-z,Math.min(0,.5-z*v/100))*100};img.style.transformOrigin='0 0';img.style.transform='translate('+c(+l.dataset.x)+'%,'+c(+l.dataset.y)+'%) scale('+z+')'}else{img.style.transform=''}}
+act(0);
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)act(st.indexOf(e.target))})},{rootMargin:'-45% 0px -45% 0px'});st.forEach(function(l){io.observe(l)})}
+})();
+</script>
+</body></html>
