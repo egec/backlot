@@ -24,8 +24,8 @@ def rem(css):
 LOGO = 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/67a7e87a22185065ca4c8d61_Ege%20Coskun%20(2).png'
 
 def page(title, desc, body, css_files, js_files, extra_head=''):
-    css = ''.join('<link rel="stylesheet" href="/assets/%s">' % c for c in css_files)
-    js = ''.join('<script src="/assets/%s" defer></script>' % j for j in js_files)
+    css = ''.join('<link rel="stylesheet" href="../assets/%s">' % c for c in css_files)
+    js = ''.join('<script src="../assets/%s" defer></script>' % j for j in js_files)
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
