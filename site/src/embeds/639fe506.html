@@ -1,0 +1,53 @@
+<style>
+html,body{overflow-x:clip}
+body{--ln:#e6e6e6;--ln-gap:32px}
+/* rounded corners on every video, also where the browser drops border-radius */
+.cs-wrap video,.cs-sec video,.rejectionflow{border-radius:8px!important;clip-path:inset(0 round 8px)}
+@media (min-width:1200px){body .cs-wrap,body .cs-quote,body .cs-dsec{padding-left:max(236px,calc((100% - 1340px) / 2))!important}}
+.cs-dsec,.cs-quote{--ln:rgba(255,255,255,.12)}
+/* one full-width line above a new part; none after a dark section, an image or a first block */
+.cs-sec>.cs-row,.cs-head,.cs-block,.cs-next{position:relative}
+.cs-sec>.cs-row::before,.cs-head::before,.cs-block::before,.cs-next::before,.cs-next::after{content:"";position:absolute;left:-100vw;right:-100vw;top:0;height:1px;background:var(--ln);pointer-events:none}
+.cs-next::after{top:auto;bottom:0}
+.cs-block.cs-first::before,[data-ln="none"]::before{display:none!important}
+.bl-glance>.cs-block.cs-first::before{display:block!important}
+.cs-sec>.cs-row,.cs-head{padding-top:var(--ln-gap)!important}
+.cs-sec>.cs-row[data-ln="none"],.cs-head[data-ln="none"]{padding-top:0!important}
+.cs-sec>.cs-row:not(:first-child){margin-top:120px}
+.cs-block{margin-top:96px}
+.cs-block[data-ln="none"]{margin-top:64px}
+.cs-block>.cs-l>:first-child,.cs-block>.cs-r>:first-child{margin-top:var(--ln-gap)!important}
+/* sub heading sits close to its text */
+.cs-row .cs-sub{margin:0!important}
+.cs-row .cs-l-full:has(.cs-sub){margin-bottom:0!important}
+.cs-row .cs-l-full:has(.cs-sub)+.cs-r>:first-child{margin-top:16px!important}
+/* section with its text on the right */
+@media (min-width:992px){
+ .cs-row:has(>.cs-l:not(.cs-l-full)){flex-direction:row!important;flex-wrap:nowrap!important;align-items:flex-start!important}
+ .cs-row>.cs-l:not(.cs-l-full){flex:none;margin-bottom:0!important}
+ .cs-row>.cs-l:not(.cs-l-full)+.cs-r{flex:0 1 640px}
+ .cs-row>.cs-l:not(.cs-l-full)+.cs-r>:first-child{margin-top:0!important}
+}
+/* meta table: lines only as long as the text */
+.cs-intro{display:block!important;margin-top:56px!important;max-width:840px}
+.cs-intro .titleblock{display:grid!important;grid-template-columns:200px 1fr;align-items:baseline;width:100%!important;max-width:none!important;margin:0!important;padding:12px 0!important;border-top:1px solid var(--ln)}
+.cs-intro .titleblock>*{margin:0!important;padding:0!important;border:0!important}
+.cs-intro .cs-meta-k{color:#8a8a8a}
+/* lists */
+.cs-dash{display:none!important}
+.cs-rules{border:0!important;border-bottom:1px solid var(--ln)!important}
+.cs-rule{border:0!important;border-top:1px solid var(--ln)!important;padding:12px 0!important;column-gap:0;gap:0}
+/* key decisions */
+.bl-cards{border:0!important;row-gap:0!important;margin-top:var(--ln-gap)!important}
+.bl-card{background:none!important;border:0!important;border-top:1px solid var(--ln)!important;border-radius:0!important;padding:16px 0!important;grid-template-columns:44px 1fr!important;row-gap:0!important;column-gap:0!important}
+.bl-card:first-child{border-top:0!important;padding-top:0!important}
+.bl-card:last-child{padding-bottom:0!important}
+.bl-card-n{padding:0!important;border:0!important;color:#b5b5b5!important;font-size:16px!important;line-height:24px!important;font-weight:500!important}
+.bl-card-t{padding:0!important;color:#333!important;font-size:17px!important;line-height:24px!important}
+.bl-card-d{padding:4px 0 0!important;color:#555!important}
+.cs-next{border-top:0!important;border-bottom:0!important}
+@media (max-width:767px){
+ .cs-intro .titleblock{grid-template-columns:110px 1fr}
+ .cs-block{margin-top:64px}
+}
+</style>

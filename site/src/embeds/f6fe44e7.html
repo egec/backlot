@@ -1,0 +1,54 @@
+<style>
+.bl-tree{font-family:Manrope,sans-serif;margin-top:48px;background:#f4f4f4;border-radius:12px;padding:28px 32px 32px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.bl-tree::-webkit-scrollbar{display:none}
+.bl-tree-t{min-width:760px;display:grid;grid-template-columns:150px 1fr 1.35fr 180px;column-gap:16px}
+.bl-tree-t > div{padding:14px 0;border-bottom:1px solid #e2e2e2;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;line-height:18px;color:#333}
+.bl-tree-t > .h{font-size:12px;line-height:16px;color:#8a8a8a;padding:0 0 10px;border-bottom:1px solid #d0d0d0;font-weight:500}
+.bl-tree-t > .last{border-bottom:0}
+.bl-tree .lv{font-weight:600}
+.bl-tree .lv2{padding-left:18px}.bl-tree .lv3{padding-left:36px}.bl-tree .lv4{padding-left:54px}
+.bl-tree .lv2::before,.bl-tree .lv3::before,.bl-tree .lv4::before{content:"";width:10px;height:10px;border-left:1px solid #b4b4b4;border-bottom:1px solid #b4b4b4;margin-right:4px;transform:translateY(-4px)}
+.bl-tree .c{display:inline-block;border:1px solid #d6d6d6;background:#fff;color:#555;border-radius:6px;padding:3px 8px;font-size:12px;line-height:16px;white-space:nowrap}
+.bl-tree .s{font-size:12px;line-height:16px;color:#7a7a7a}
+.bl-tree-key{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:18px;min-width:760px}
+.bl-tree-key span{font-size:13px;line-height:18px;color:#333;opacity:.35;display:flex;align-items:center;gap:8px}
+.bl-tree-key span::before{content:"";width:8px;height:8px;border-radius:50%;background:#333}
+@keyframes blA1{0%,5%{background:#fff;color:#555;border-color:#d6d6d6}8%,44%{background:#333;color:#fff;border-color:#333}48%,100%{background:#fff;color:#555;border-color:#d6d6d6}}
+@keyframes blA2{0%,11%{background:#fff;color:#555;border-color:#d6d6d6}14%,44%{background:#333;color:#fff;border-color:#333}48%,100%{background:#fff;color:#555;border-color:#d6d6d6}}
+@keyframes blA3{0%,17%{background:#fff;color:#555;border-color:#d6d6d6}20%,44%{background:#333;color:#fff;border-color:#333}48%,100%{background:#fff;color:#555;border-color:#d6d6d6}}
+@keyframes blB{0%,54%{background:#fff;color:#555;border-color:#d6d6d6}58%,90%{background:#333;color:#fff;border-color:#333}94%,100%{background:#fff;color:#555;border-color:#d6d6d6}}
+@keyframes blKA{0%,5%{opacity:.35}8%,44%{opacity:1}48%,100%{opacity:.35}}
+@keyframes blKB{0%,54%{opacity:.35}58%,90%{opacity:1}94%,100%{opacity:.35}}
+.bl-tree .a1{animation:blA1 8s infinite}.bl-tree .a2{animation:blA2 8s infinite}.bl-tree .a3{animation:blA3 8s infinite}.bl-tree .b1{animation:blB 8s infinite}
+.bl-tree .ka{animation:blKA 8s infinite}.bl-tree .kb{animation:blKB 8s infinite}
+@media (prefers-reduced-motion:reduce){.bl-tree .a1,.bl-tree .a2,.bl-tree .a3,.bl-tree .b1,.bl-tree .ka,.bl-tree .kb{animation:none}.bl-tree-key span{opacity:1}}
+</style>
+<div class="bl-tree" aria-label="How a series is structured and which values change by country">
+  <div class="bl-tree-t">
+    <div class="h">Level</div><div class="h">Same in every country</div><div class="h">Changes by country</div><div class="h">Status in Spain</div>
+
+    <div class="lv">Series</div>
+    <div><span class="c">Genre</span><span class="c">Cast</span></div>
+    <div><span class="c">Title</span><span class="c">Synopsis</span><span class="c a3">Age rating ES 16</span></div>
+    <div><span class="s">In progress</span></div>
+
+    <div class="lv lv2">Season 4</div>
+    <div><span class="c">Season number</span><span class="c">Episode count</span></div>
+    <div><span class="c">Release date</span><span class="c a2">Age rating ES 16</span></div>
+    <div><span class="s">1 published, 1 rejected, 3 in review</span></div>
+
+    <div class="lv lv3">Episode 2</div>
+    <div><span class="c">Episode number</span><span class="c">Duration</span></div>
+    <div><span class="c">Title</span><span class="c b1">Synopsis ES</span><span class="c a1">Age rating ES 16</span></div>
+    <div><span class="s">Rejected</span></div>
+
+    <div class="lv lv4 last">Assets</div>
+    <div class="last"><span class="c">Video file</span><span class="c">Technical metadata</span></div>
+    <div class="last"><span class="c">Subtitles</span><span class="c">Audio tracks</span></div>
+    <div class="last"><span class="s">Assigned</span></div>
+  </div>
+  <div class="bl-tree-key">
+    <span class="ka">Age rating for Spain rolls up: the season and series take the highest episode rating</span>
+    <span class="kb">A Spanish synopsis belongs to one episode only, nothing else changes</span>
+  </div>
+</div>
