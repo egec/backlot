@@ -1,0 +1,92 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home draft A</title><meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*:before,*:after{box-sizing:border-box}
+:root{--bg:#F4F2EE;--card:#E8E7E3;--ink:#161616;--mute:#6B6A66;--line:#DCDAD4;--g:#728437;--w:1340px;--pad:24px;--ease:cubic-bezier(.23,1,.32,1)}
+@media(min-width:992px){:root{--pad:50px}}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img,video{display:block;max-width:100%}
+.in{width:100%;max-width:calc(var(--w) + var(--pad)*2);margin:0 auto;padding:0 var(--pad)}
+.nav{position:sticky;top:0;z-index:20;background:var(--bg)}
+.nav .in{display:flex;align-items:center;justify-content:space-between;height:76px;gap:16px}
+.logo{font-weight:700;letter-spacing:-.02em;text-decoration:none;font-size:17px}
+.nl{display:flex;align-items:center;gap:28px;font-size:15px}
+.nl a{text-decoration:none;color:var(--mute);transition:color .2s}
+.nl a:hover{color:var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--ink);font:500 15px/1 Manrope,sans-serif;text-decoration:none;color:var(--ink)!important;background:transparent;transition:background .2s,color .2s}
+.pill:hover{background:var(--ink);color:#fff!important}
+.pill.solid{background:var(--ink);color:#fff!important}
+.pill.solid:hover{background:transparent;color:var(--ink)!important}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--g);flex:none}
+.k{font-size:13px;letter-spacing:.02em;color:var(--mute)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:13px;line-height:1;padding:7px 11px;border-radius:999px;border:1px solid var(--line);color:var(--mute)}
+.ph{background:var(--card);display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(20px,3vw,40px);color:var(--mute)}
+.ph b{font-size:clamp(28px,3.4vw,56px);letter-spacing:-.04em;line-height:1;color:var(--ink);font-weight:600}
+.ph span{font-size:14px;margin-top:10px}
+.foot{background:#000;margin-top:var(--sec)}
+.sw{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:4px;border-radius:999px;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.12);font:600 13px/1 Manrope,sans-serif}
+.sw a{white-space:nowrap;display:grid;place-items:center;height:32px;padding:0 14px;border-radius:999px;text-decoration:none;color:var(--mute)}
+.sw a.on{background:var(--ink);color:#fff}
+@media(max-width:767px){.nl .hide-s{display:none}.nl{gap:18px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+:root{--sec:clamp(96px,10vw,160px)}
+.hero{padding-top:clamp(72px,10vw,168px);padding-bottom:clamp(72px,8vw,128px)}
+.hero .st{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--mute);margin:0 0 28px}
+.hero h1{font-size:clamp(36px,4.6vw,76px);line-height:1.04;letter-spacing:-.045em;font-weight:600;margin:0;max-width:15em}
+.hero p{font-size:clamp(17px,1.3vw,20px);color:var(--mute);margin:24px 0 0;max-width:30em}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:20px;margin-bottom:32px}
+.sh h2{font-size:15px;font-weight:600;margin:0}
+.g2,.g3{display:grid;gap:clamp(16px,2vw,28px)}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr);margin-top:clamp(48px,5vw,80px)}
+.c{text-decoration:none;display:block}
+.c .m{border-radius:16px;overflow:hidden;aspect-ratio:16/10;background:var(--card);transition:border-radius .5s var(--ease)}
+.c .m img,.c .m .ph{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.c:hover .m{border-radius:40px}
+.c:hover .m img{transform:scale(1.03)}
+.c .cap{padding-top:18px;display:grid;gap:8px}
+.c .nm{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--mute)}
+.c h3{font-size:clamp(20px,1.6vw,26px);letter-spacing:-.025em;line-height:1.2;font-weight:600;margin:0;max-width:20em}
+.g3 h3{font-size:clamp(17px,1.25vw,20px)}
+.c .ar{display:inline-block;transition:transform .3s var(--ease)}
+.c:hover .ar{transform:translateX(4px)}
+.c h3 .u{background:linear-gradient(var(--g),var(--g)) 0 100%/0 2px no-repeat;transition:background-size .4s var(--ease)}
+.c:hover h3 .u{background-size:100% 2px}
+.ab{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(24px,4vw,80px);align-items:end;margin-top:var(--sec)}
+.ab .ph2{aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:var(--card);max-width:420px}
+.ab .ph2 img{width:100%;height:100%;object-fit:cover}
+.ab h2{font-size:clamp(26px,2.6vw,44px);letter-spacing:-.035em;line-height:1.12;font-weight:600;margin:0;max-width:16em}
+.ab p{color:var(--mute);margin:20px 0 28px;max-width:32em}
+.ab ul{list-style:none;padding:0;margin:0 0 32px;max-width:34em}
+.ab li{display:grid;grid-template-columns:9em 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line);font-size:15px}
+.ab li:last-child{border-bottom:1px solid var(--line)}
+.ab li span:first-child{color:var(--mute)}
+@media(max-width:767px){.g2,.g3{grid-template-columns:1fr}.ab{grid-template-columns:1fr}.ab li{grid-template-columns:7em 1fr}}
+@media(min-width:768px) and (max-width:991px){.g3{grid-template-columns:1fr 1fr}}
+</style></head><body>
+<header class="nav"><div class="in"><a class="logo" href="#">Ege Coskun</a><nav class="nl"><a href="#work">Work</a><a href="#about" class="hide-s">About</a><a href="#" class="hide-s">CV</a><a class="pill" href="mailto:a.egecoskun@gmail.com">Email me</a></nav></div></header>
+<main>
+<section class="in hero"><p class="st"><span class="dot"></span>Open to product design roles, Berlin</p>
+<h1>I design B2B tools for teams that review, approve and ship work.</h1>
+<p>Product designer focused on complex workflows, data-heavy screens and approval flows.</p>
+<div class="acts"><a class="pill solid" href="#work">See the work</a><a class="pill" href="#">Download CV</a></div></section>
+<section class="in" id="work"><div class="sh"><h2>Selected work</h2><span class="k">5 projects</span></div>
+<div class="g2"><a class="c" href="https://www.egecoskun.com/backlot"><div class="m"><img class="" src="../../shots/thumbnails.webp" alt="Backlot preview" loading="lazy"></div><div class="cap"><div class="nm"><span>Backlot</span></div><h3><span class="u">Rejections that tell the editor exactly what to fix</span> <span class="ar" aria-hidden="true">→</span></h3><div class="tags"><span class="tag">B2B SaaS</span><span class="tag">Enterprise CMS</span></div></div></a><a class="c" href="#"><div class="m"><div class="ph "><b>BİLGE KLTS</b><span>Case study in progress</span></div></div><div class="cap"><div class="nm"><span>BİLGE KLTS</span></div><h3><span class="u">Container tracking for Türkiye's customs platform</span> <span class="ar" aria-hidden="true">→</span></h3><div class="tags"><span class="tag">GovTech</span><span class="tag">Workflow</span></div></div></a></div>
+<div class="g3"><a class="c" href="https://www.egecoskun.com/uwaverde"><div class="m"><img class="" src="https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/692b1295878b06826afa0925_uwaverdeproject.png" alt="UwaVerde preview" loading="lazy"></div><div class="cap"><div class="nm"><span>UwaVerde</span></div><h3><span class="u">Website and member portal for a sustainability NGO</span> <span class="ar" aria-hidden="true">→</span></h3></div></a><a class="c" href="https://www.egecoskun.com/habbitall"><div class="m"><img class="" src="https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/68fa54b72b0d41140e524baf_0a0976e5fb3c7403e8e5306b4f353a70_habbitallprojectphoto.jpg" alt="HabbitAll preview" loading="lazy"></div><div class="cap"><div class="nm"><span>HabbitAll</span></div><h3><span class="u">A habit app, from research to final interface</span> <span class="ar" aria-hidden="true">→</span></h3></div></a><a class="c" href="https://www.egecoskun.com/fieldfriends"><div class="m"><img class="" src="https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/68e29eba1471bde84a36352d_4a1878f8682d2d90e19d98781174e9e5_fieldfriends.png" alt="FieldFriends preview" loading="lazy"></div><div class="cap"><div class="nm"><span>FieldFriends</span></div><h3><span class="u">Six weeks from field research to a tested prototype</span> <span class="ar" aria-hidden="true">→</span></h3></div></a></div></section>
+<section class="in ab" id="about"><div class="ph2"><img src="https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/67ca0d3206e910050f0ed5c1_ege3.jpg" alt="Ege Coskun" loading="lazy"></div>
+<div><h2>Hi, I'm Ege. I like untangling the parts of a product nobody wants to own.</h2>
+<p>Approval queues, permissions, bulk actions, error states. The screens people use eight hours a day.</p>
+<ul><li><span>Based in</span><span>Berlin</span></li><li><span>Focus</span><span>B2B SaaS, internal tools, design systems</span></li><li><span>Looking for</span><span>Product designer roles</span></li></ul>
+<a class="pill" href="#">More about me</a></div></section>
+</main>
+<footer class="foot"><style>.ec-foot{color:#fff;font-family:Manrope,sans-serif;padding:clamp(72px,8vw,128px) max(24px,calc((100% - 1340px) / 2)) 56px}.ec-foot .ec-k{font-size:15px;line-height:1.45;color:#a3a3a3;margin:0 0 16px;max-width:34em}.ec-mail{font-size:clamp(30px,5.6vw,96px);font-weight:600;letter-spacing:-.04em;line-height:1.1;color:#fff!important;text-decoration:none;display:inline-block;overflow-wrap:anywhere;background:linear-gradient(currentColor,currentColor) 0 100%/0 2px no-repeat;transition:background-size .35s cubic-bezier(.23,1,.32,1)}.ec-mail:hover{background-size:100% 2px}.ec-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.ec-btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff!important;font:500 15px/1 Manrope,sans-serif;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,border-color .2s}.ec-btn:hover{background:#fff;color:#111!important;border-color:#fff}.ec-btn:focus-visible{outline:2px solid #fff;outline-offset:3px}@media (min-width:992px){.ec-foot{padding-left:max(50px,calc((100% - 1340px) / 2));padding-right:max(50px,calc((100% - 1340px) / 2))}}@media (min-width:1200px){body:has(.bl-nav) .ec-foot{padding-left:max(var(--bl-gutter,236px),calc((100% - 1340px) / 2))}}</style><div class="ec-foot"><p class="ec-k">Currently looking for my next team. If my work fits yours, I'd like to hear about the role.</p><a class="ec-mail" href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a><div class="ec-btns"><button type="button" class="ec-btn" onclick="if(navigator.clipboard)navigator.clipboard.writeText('a.egecoskun@gmail.com');this.textContent='Copied'">Copy the address</button><a class="ec-btn" href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></div></div>
+</footer>
+<nav class="sw" aria-label="Drafts"><a href="../home-a/" class="on">Draft A</a><a href="../home-b/" class="">Draft B</a><a href="../home-c/" class="">Draft C</a></nav>
+<script></script></body></html>

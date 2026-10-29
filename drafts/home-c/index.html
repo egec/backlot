@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home draft C</title><meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*:before,*:after{box-sizing:border-box}
+:root{--bg:#F4F2EE;--card:#E8E7E3;--ink:#161616;--mute:#6B6A66;--line:#DCDAD4;--g:#728437;--w:1340px;--pad:24px;--ease:cubic-bezier(.23,1,.32,1)}
+@media(min-width:992px){:root{--pad:50px}}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img,video{display:block;max-width:100%}
+.in{width:100%;max-width:calc(var(--w) + var(--pad)*2);margin:0 auto;padding:0 var(--pad)}
+.nav{position:sticky;top:0;z-index:20;background:var(--bg)}
+.nav .in{display:flex;align-items:center;justify-content:space-between;height:76px;gap:16px}
+.logo{font-weight:700;letter-spacing:-.02em;text-decoration:none;font-size:17px}
+.nl{display:flex;align-items:center;gap:28px;font-size:15px}
+.nl a{text-decoration:none;color:var(--mute);transition:color .2s}
+.nl a:hover{color:var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--ink);font:500 15px/1 Manrope,sans-serif;text-decoration:none;color:var(--ink)!important;background:transparent;transition:background .2s,color .2s}
+.pill:hover{background:var(--ink);color:#fff!important}
+.pill.solid{background:var(--ink);color:#fff!important}
+.pill.solid:hover{background:transparent;color:var(--ink)!important}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--g);flex:none}
+.k{font-size:13px;letter-spacing:.02em;color:var(--mute)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:13px;line-height:1;padding:7px 11px;border-radius:999px;border:1px solid var(--line);color:var(--mute)}
+.ph{background:var(--card);display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(20px,3vw,40px);color:var(--mute)}
+.ph b{font-size:clamp(28px,3.4vw,56px);letter-spacing:-.04em;line-height:1;color:var(--ink);font-weight:600}
+.ph span{font-size:14px;margin-top:10px}
+.foot{background:#000;margin-top:var(--sec)}
+.sw{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:50;display:flex;gap:4px;padding:4px;border-radius:999px;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.12);font:600 13px/1 Manrope,sans-serif}
+.sw a{white-space:nowrap;display:grid;place-items:center;height:32px;padding:0 14px;border-radius:999px;text-decoration:none;color:var(--mute)}
+.sw a.on{background:var(--ink);color:#fff}
+@media(max-width:767px){.nl .hide-s{display:none}.nl{gap:18px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+:root{--sec:clamp(96px,10vw,160px)}
+.hero{padding-top:clamp(64px,9vw,144px);padding-bottom:clamp(56px,6vw,96px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:clamp(24px,4vw,80px);align-items:end}
+.hero h1{font-size:clamp(36px,4.8vw,84px);line-height:1.02;letter-spacing:-.05em;font-weight:600;margin:0}
+.hero h1 em{font-style:normal;color:var(--g)}
+.hero .r p{color:var(--mute);margin:0 0 24px;max-width:24em}
+.hero .st{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink);margin:0 0 16px!important}
+.stack{position:relative}
+.sc{position:sticky;top:96px;margin-bottom:clamp(24px,3vw,40px);transform-origin:50% 0;will-change:transform}
+.sc a{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(20px,3vw,48px);background:#fff;border-radius:28px;padding:clamp(20px,2.4vw,36px);text-decoration:none;min-height:min(72vh,640px);box-shadow:0 -1px 0 var(--line),0 20px 50px rgba(0,0,0,.06)}
+.sc .tx{display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:clamp(4px,1vw,12px)}
+.sc .no{font-size:13px;color:var(--mute);display:flex;justify-content:space-between}
+.sc h2{font-size:clamp(26px,2.6vw,46px);line-height:1.06;letter-spacing:-.045em;font-weight:600;margin:12px 0 16px}
+.sc p{color:var(--mute);margin:0 0 20px;max-width:26em}
+.sc .md{border-radius:18px;overflow:hidden;background:var(--card);position:relative;min-height:280px}
+.sc .md img,.sc .md video,.sc .md .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0 0}
+.sc .md video{opacity:0;transition:opacity .3s}
+.sc .md.play video{opacity:1}
+.sc .pill{align-self:flex-start}
+.sc a:hover .pill{background:var(--ink);color:#fff!important}
+.hint{position:absolute;left:16px;bottom:16px;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:500;transition:opacity .3s}
+.md.play .hint{opacity:0}
+.how{margin-top:var(--sec)}
+.how .hd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(20px,3vw,48px);margin-bottom:40px}
+.how h2{font-size:clamp(26px,2.6vw,44px);letter-spacing:-.04em;line-height:1.1;font-weight:600;margin:0}
+.how .hd p{color:var(--mute);margin:0;max-width:30em;align-self:end}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,28px)}
+.st3{border-top:2px solid var(--ink);padding-top:20px}
+.st3 b{display:block;font-size:13px;color:var(--g);font-weight:700;margin-bottom:28px}
+.st3 h3{font-size:clamp(18px,1.4vw,22px);letter-spacing:-.02em;margin:0 0 10px;font-weight:600}
+.st3 p{color:var(--mute);margin:0;font-size:15px;max-width:24em}
+@media(max-width:991px){.sc a{grid-template-columns:1fr;min-height:0}.sc .md{aspect-ratio:16/10;min-height:0}}
+@media(max-width:767px){.hero{grid-template-columns:1fr}.sc{position:relative;top:auto;transform:none!important}.how .hd,.g3{grid-template-columns:1fr}}
+</style></head><body>
+<header class="nav"><div class="in"><a class="logo" href="#">Ege Coskun</a><nav class="nl"><a href="#work">Work</a><a href="#about" class="hide-s">About</a><a href="#" class="hide-s">CV</a><a class="pill" href="mailto:a.egecoskun@gmail.com">Email me</a></nav></div></header>
+<main>
+<section class="in hero"><h1>Product designer for <em>complex</em> B2B workflows.</h1>
+<div class="r"><p class="st"><span class="dot"></span>Open to roles, Berlin</p><p>Review loops, approval flows and data-heavy screens. Five projects below, scroll through.</p><a class="pill solid" href="#">Download CV</a></div></section>
+<section class="in stack" id="work"><div class="sc"><a href="https://www.egecoskun.com/backlot"><div class="tx"><div><div class="no"><span>01 / 05</span><span>Backlot</span></div><h2>Rejections that tell the editor exactly what to fix</h2><p>A CMS where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher.</p><div class="tags"><span class="tag">B2B SaaS</span><span class="tag">Enterprise CMS</span></div></div><span class="pill">Read the case study <span aria-hidden="true">→</span></span></div><div class="md" data-v><img src="../../posters/content-tour.jpg" alt="Backlot content tour" loading="lazy"><video muted loop playsinline preload="none" data-src="../../content-tour.mp4?v=11"></video><span class="hint">Hover to play</span></div></a></div><div class="sc"><a href="#"><div class="tx"><div><div class="no"><span>02 / 05</span><span>BİLGE KLTS</span></div><h2>Container tracking for Türkiye's customs platform</h2><p>Agents register containers, officers approve them, managers sign off extensions. One system for three roles and a lot of paperwork.</p><div class="tags"><span class="tag">GovTech</span><span class="tag">Workflow</span></div></div><span class="pill">Coming soon <span aria-hidden="true">→</span></span></div><div class="md"><div class="ph "><b>BİLGE KLTS</b><span>Case study in progress</span></div></div></a></div><div class="sc"><a href="https://www.egecoskun.com/uwaverde"><div class="tx"><div><div class="no"><span>03 / 05</span><span>UwaVerde</span></div><h2>Website and member portal for a sustainability NGO</h2><p>From tone of voice to responsive landing, about and project pages.</p><div class="tags"><span class="tag">Web</span><span class="tag">Portal</span></div></div><span class="pill">Read the case study <span aria-hidden="true">→</span></span></div><div class="md"><img class="" src="https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/692b1295878b06826afa0925_uwaverdeproject.png" alt="UwaVerde preview" loading="lazy"></div></a></div><div class="sc"><a href="https://www.egecoskun.com/habbitall"><div class="tx"><div><div class="no"><span>04 / 05</span><span>HabbitAll</span></div><h2>A habit app, from research to final interface</h2><p>Research, user flows and the final UI for a habit tracker.</p><div class="tags"><span class="tag">Mobile</span><span class="tag">Research</span></div></div><span class="pill">Read the case study <span aria-hidden="true">→</span></span></div><div class="md"><img class="" src="https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/68fa54b72b0d41140e524baf_0a0976e5fb3c7403e8e5306b4f353a70_habbitallprojectphoto.jpg" alt="HabbitAll preview" loading="lazy"></div></a></div><div class="sc"><a href="https://www.egecoskun.com/fieldfriends"><div class="tx"><div><div class="no"><span>05 / 05</span><span>FieldFriends</span></div><h2>Six weeks from field research to a tested prototype</h2><p>Interviews, persona, prototype, testing and final UI.</p><div class="tags"><span class="tag">Mobile</span><span class="tag">Field research</span></div></div><span class="pill">Read the case study <span aria-hidden="true">→</span></span></div><div class="md"><img class="" src="https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/68e29eba1471bde84a36352d_4a1878f8682d2d90e19d98781174e9e5_fieldfriends.png" alt="FieldFriends preview" loading="lazy"></div></a></div></section>
+<section class="in how" id="about"><div class="hd"><h2>How I work</h2><p>The same three habits show up in every case study.</p></div>
+<div class="g3"><div class="st3"><b>01</b><h3>Start where it breaks</h3><p>I look for the moment people give up or ask a colleague, then design around that moment.</p></div>
+<div class="st3"><b>02</b><h3>Prototype the real flow</h3><p>Clickable prototypes with real data, so reviewers test the decision, not the layout.</p></div>
+<div class="st3"><b>03</b><h3>Leave a system behind</h3><p>Components and rules developers can build from, so the next screen is faster.</p></div></div></section>
+</main>
+<footer class="foot"><style>.ec-foot{color:#fff;font-family:Manrope,sans-serif;padding:clamp(72px,8vw,128px) max(24px,calc((100% - 1340px) / 2)) 56px}.ec-foot .ec-k{font-size:15px;line-height:1.45;color:#a3a3a3;margin:0 0 16px;max-width:34em}.ec-mail{font-size:clamp(30px,5.6vw,96px);font-weight:600;letter-spacing:-.04em;line-height:1.1;color:#fff!important;text-decoration:none;display:inline-block;overflow-wrap:anywhere;background:linear-gradient(currentColor,currentColor) 0 100%/0 2px no-repeat;transition:background-size .35s cubic-bezier(.23,1,.32,1)}.ec-mail:hover{background-size:100% 2px}.ec-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.ec-btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff!important;font:500 15px/1 Manrope,sans-serif;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,border-color .2s}.ec-btn:hover{background:#fff;color:#111!important;border-color:#fff}.ec-btn:focus-visible{outline:2px solid #fff;outline-offset:3px}@media (min-width:992px){.ec-foot{padding-left:max(50px,calc((100% - 1340px) / 2));padding-right:max(50px,calc((100% - 1340px) / 2))}}@media (min-width:1200px){body:has(.bl-nav) .ec-foot{padding-left:max(var(--bl-gutter,236px),calc((100% - 1340px) / 2))}}</style><div class="ec-foot"><p class="ec-k">Currently looking for my next team. If my work fits yours, I'd like to hear about the role.</p><a class="ec-mail" href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a><div class="ec-btns"><button type="button" class="ec-btn" onclick="if(navigator.clipboard)navigator.clipboard.writeText('a.egecoskun@gmail.com');this.textContent='Copied'">Copy the address</button><a class="ec-btn" href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></div></div>
+</footer>
+<nav class="sw" aria-label="Drafts"><a href="../home-a/" class="">Draft A</a><a href="../home-b/" class="">Draft B</a><a href="../home-c/" class="on">Draft C</a></nav>
+<script>
+(function(){var cs=[].slice.call(document.querySelectorAll('.sc'));var mq=matchMedia('(min-width:768px)');
+function up(){if(!mq.matches)return;cs.forEach(function(c,i){var n=cs[i+1];if(!n){c.style.transform='';return}
+var r=n.getBoundingClientRect(),t=c.getBoundingClientRect().top,h=c.offsetHeight;var p=Math.min(Math.max((t+h-r.top)/h,0),1);
+c.style.transform='scale('+(1-p*.05)+')';c.style.opacity=String(1-p*.35)})}
+addEventListener('scroll',up,{passive:true});addEventListener('resize',up);up();
+document.querySelectorAll('[data-v]').forEach(function(m){var v=m.querySelector('video');function on(){if(!v.src)v.src=v.dataset.src;v.play().then(function(){m.classList.add('play')}).catch(function(){})}
+function off(){v.pause();m.classList.remove('play')}m.addEventListener('mouseenter',on);m.addEventListener('mouseleave',off);
+m.addEventListener('click',function(e){if(matchMedia('(hover:none)').matches){e.preventDefault();m.classList.contains('play')?off():on()}})})})();
+</script></body></html>
