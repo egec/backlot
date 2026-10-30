@@ -350,3 +350,8 @@ video[data-src]{max-width:min(100%,1440px)!important;margin-left:auto!important;
 .bl2-ph span{font-size:0.8125rem;color:#9a978f}
 .bl2-split .blr-rs{max-width:none}
 @media(min-width:992px){.bl2-cards.c3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* meta row: equal gaps between the four items, whatever their length */
+@media(min-width:992px){.bl2-meta{display:flex;justify-content:space-between;gap:40px}.bl2-meta>div{flex:0 1 auto;max-width:34ch}}
+/* tablet portrait: the pinned feature starts right under its heading, no centring gap */
+@media(min-width:768px) and (max-width:991px){.zs-pin{align-content:start;padding-top:16px}}

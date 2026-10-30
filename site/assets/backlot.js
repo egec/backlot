@@ -159,8 +159,9 @@ function top(i){return ft[i]-pageYOffset}
 function hh(){var h=document.querySelector('.site-h');return h?h.offsetHeight:0}
 function zs(){return (window.__zs||[]).filter(function(z){var p=z.el.querySelector('.zs-pin');return p&&getComputedStyle(p).position==='sticky'})}
 /* stop: on touch, also kill the momentum the finger left behind */
-function to(y,smooth,stop){y=Math.max(0,Math.round(y));var ms=smooth&&!RM?650:120;busy=1;clearTimeout(bt);bt=setTimeout(function(){busy=0},ms);lockUntil=Date.now()+ms;
-  var go=function(){scrollTo({top:y,behavior:smooth&&!RM?'smooth':'auto'})};
+function to(y,smooth,stop){y=Math.max(0,Math.min(Math.round(y),root.scrollHeight-innerHeight));var sm=smooth&&!RM,t0=Date.now();busy=1;
+  var go=function(){scrollTo({top:y,behavior:sm?'smooth':'auto'});
+    (function wait(){if(Math.abs(pageYOffset-y)<2||Date.now()-t0>900){busy=0;lastY=pageYOffset;return}requestAnimationFrame(wait)})()};
   if(stop){root.style.overflow='hidden';requestAnimationFrame(function(){root.style.overflow='';go()})}else go()}
 window.__pace=function(y){to(y,true,false)};
 /* what a move of dy pixels should do; null lets the page scroll as usual */
@@ -175,16 +176,20 @@ function plan(dy){
     if(d<0&&t>=h-2&&t<vh-2)return {y:Y-(vh-t)};
     if(d<0&&t<h-2&&t-dy>h-2)return {y:Y+t-h,snap:1}}
   return null}
-addEventListener('wheel',function(e){if(e.ctrlKey)return;var now=Date.now(),cont=now-lastWheel<200;lastWheel=now;
-  if(busy||now<lockUntil){e.preventDefault();lockUntil=Math.max(lockUntil,now+80);return}
-  var dy=e.deltaMode===1?e.deltaY*16:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;if(!dy)return;
-  var p=plan(dy);if(!p)return;e.preventDefault();
-  if(cont&&!p.snap){lockUntil=now+80;return}  /* the tail of a gesture that already moved: absorb it */
-  to(p.y,!p.snap,false)},{passive:false});
+var absorb=0,moveT=0,lastAbs=0;
+addEventListener('wheel',function(e){if(e.ctrlKey)return;var now=Date.now(),gap=now-lastWheel;lastWheel=now;
+  var dy=e.deltaMode===1?e.deltaY*16:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY,abs=Math.abs(dy);
+  if(Math.abs(e.deltaX)>abs)return;  /* sideways: tables and carousels */
+  var prev=lastAbs;lastAbs=abs;
+  if(busy){e.preventDefault();return}
+  /* the tail of the gesture that just moved: inertia fades, a new swipe starts after a pause or grows again */
+  if(absorb){if(gap>160||now-moveT>1800||(abs>prev*1.4&&abs>10&&now-moveT>300))absorb=0;else{e.preventDefault();return}}
+  if(!dy)return;var p=plan(dy);if(!p)return;e.preventDefault();absorb=1;moveT=now;to(p.y,!p.snap,false)},{passive:false});
 /* touch: one swipe, one move */
-var y0=0,ly=0,moved=0,finger=0,endT=0,lastY=pageYOffset;
-addEventListener('touchstart',function(e){finger=1;moved=0;y0=ly=e.touches[0].clientY},{passive:true});
+var y0=0,x0=0,ly=0,moved=0,side=0,finger=0,endT=0,lastY=pageYOffset;
+addEventListener('touchstart',function(e){finger=1;moved=0;side=0;y0=ly=e.touches[0].clientY;x0=e.touches[0].clientX},{passive:true});
 addEventListener('touchmove',function(e){var y=e.touches[0].clientY,inc=ly-y;ly=y;
+  if(side)return;if(!moved&&Math.abs(e.touches[0].clientX-x0)>Math.abs(y-y0)&&Math.abs(e.touches[0].clientX-x0)>6){side=1;return}
   if(moved||busy){e.preventDefault();return}if(!inc)return;
   var p=plan(inc);if(!p)return;e.preventDefault();
   if(!p.snap&&Math.abs(y0-y)<12)return;moved=1;to(p.y,!p.snap,true)},{passive:false});

@@ -71,7 +71,13 @@
   .bar>.steps,.bar>.instr{grid-column:1;grid-row:2}
   .bar>.right{grid-column:2;grid-row:1/3;margin-left:0}
   .instr{font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:30px;color:#222;white-space:nowrap}
-  @media (max-width:700px){.bar{grid-template-columns:1fr}.bar>.right{grid-column:1;grid-row:3}}
+  .bar>.right{flex-direction:column;align-items:flex-end;gap:6px}
+  .bar>.right .mode{order:-1}
+  .bar>.right .ibtn+.ibtn,.bar>.right .ibtn{margin:0}
+  .right .btns{display:flex;gap:8px}
+  .steps{flex-wrap:nowrap}
+  @media (max-width:1100px){.step:not(.on) span{display:none}}
+  @media (max-width:700px){.bar{grid-template-columns:1fr}.bar>.right{grid-column:1;grid-row:3;align-items:flex-start}}
   /* on the green card of the case page: light text */
   html.on-green body{color:#fff}
   html.on-green .tag{color:rgba(255,255,255,.85)}
@@ -102,8 +108,8 @@
     </div>
     <div class="right">
     <span class="mode" id="mode" aria-live="polite">Your turn. Click anywhere for a hint.</span>
-    <button class="ibtn" id="restart" type="button" aria-label="Restart" title="Restart"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    <a class="ibtn" id="full" href="./" target="_blank" rel="noopener" aria-label="Open full screen" title="Open full screen"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+    <span class="btns"><button class="ibtn" id="restart" type="button" aria-label="Restart" title="Restart"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <a class="ibtn" id="full" href="./" target="_blank" rel="noopener" aria-label="Open full screen" title="Open full screen"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a></span>
     </div>
   </div>
   <div class="stage" id="stage">
