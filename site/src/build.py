@@ -239,12 +239,11 @@ def head2(n, k, h, lead=''):
 
 def bilge():
     hero = ('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
-            '<p class="k">BİLGE KLTS, container tracking for Turkish customs</p><h1>Customs approvals where every change carries a reason</h1>'
-            '<div class="bl2-hg"><p class="lead">KLTS is the container and port tracking module of BİLGE, the customs platform of the Turkish Ministry of Trade. '
-            'Shipping agents register the containers they bring in, customs officers approve them, and deputy managers and managers sign off corrections, cancellations and time extensions. '
-            'I designed these flows for four roles on an existing design system and extended it where the flows needed more.</p>'
-            '<div class="bl2-meta"><div><b>Context</b>MilSOFT, for the Turkish Ministry of Trade</div><div><b>Category</b>Government, enterprise workflow</div>'
-            '<div><b>My role</b>UX/UI Designer, KLTS module</div><div><b>Date</b>2022 to 2023</div></div></div>'
+            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Customs approvals where every change carries a reason</h1>'
+            '<div class="bl2-hg"><p class="lead">BİLGE is built from dozens of modules, and I designed across many of them. This page shows one: KLTS, container and port tracking, where shipping agents register containers, customs officers approve them, and managers sign off what changes after approval. '
+            'I designed every flow from the system specifications and the backend rules behind them, so each screen offers only what the system allows.</p>'
+            '<div class="bl2-meta"><div><b>Company</b>MilSOFT</div><div><b>Client</b>Turkish Ministry of Trade</div>'
+            '<div><b>My role</b>UX/UI Designer</div><div><b>Date</b>2022 to 2023</div></div></div>'
             + ph('Hero screen from Claude Design') + '</div>')
     glance = ('<div class="bl2-t"><span class="cs-num bl2-x">01</span><p class="k">At a glance</p><h2 class="bl2-h cs-title">One form, up to four people, each against a deadline</h2>'
               + split('The problem', '<p>A container form passes through up to four people before it is closed: the agent who files it, the officer who approves it, and the deputy manager and manager who sign off what changes after approval. Each sees a different slice of the same form, and each decision runs against a deadline.</p>')
@@ -256,14 +255,17 @@ def bilge():
               + '</div>'
               + split('Constraints', '<p>Legal wording on every label, ministry review on changes, and real customs data I can’t show. Every screen on this page is rebuilt from the original designs with placeholder data.</p>')
               + '</div>')
-    domain = ('<div class="bl2-t">' + head2(2, 'Learning the domain', 'The paperwork came before any screen',
-              'Before any screen I had to learn the paperwork: the summary declaration a carrier files before arrival, the port’s own records, transit messages, and the container tracking form that ties them together. '
-              'Two screens came straight out of that: one that compares the declaration with the port data, and a container history that puts every event on one timeline.') + '</div>'
+    domain = ('<div class="bl2-t">' + head2(2, 'Working from specs', 'Designed from the system specifications, not from a brief',
+              'Every screen started from the system specifications: the analysts’ requirement documents, the regulation and the backend rules behind each field and status. '
+              'I read them, worked out what each role may do at each status, and designed the interface so it never offers an action the backend would refuse. '
+              'The specs also defined the domain: the summary declaration a carrier files before arrival, the port’s own records and transit messages. '
+              'Two screens came straight out of them: one that compares the declaration with the port data, and a container history that puts every event on one timeline.') + '</div>'
               + ph('Container history (page D) and declaration comparison'))
-    role = ('<div class="bl2-t">' + head2(3, 'My role', 'The KLTS module, on a design system I joined',
-            'I joined the BİLGE team after its design system was already in place. My job was the KLTS module: turning the regulation and the analysts’ requirements into flows for four roles, designing every screen and state, and extending the design system where these flows needed something it did not have.')
+    role = ('<div class="bl2-t">' + head2(3, 'My role', 'Many modules, one shown here',
+            'I joined the BİLGE team after its design system was already in place and designed across many of its modules, turning specifications and backend rules into flows, screens and states. '
+            'KLTS is one of dozens. It is on this page because it is the one whose designs I still have, and it shows the work well: four roles, one form and an approval chain.')
             + split('Team', '<p>TODO: team size and who was in it, and who you worked with day to day.</p>')
-            + split('What I owned', '<p>The agent’s form, the officer’s approval and query flows, time extensions, correction and cancellation approvals, the container history, the declaration comparison and closing a form with an official report. TODO: number of screens and states.</p>')
+            + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, correction and cancellation approvals, the container history, the declaration comparison and closing a form with an official report. TODO: number of screens and states.</p>')
             + split('Design system', '<p>The TM-22 design system was created by Dilmin Doğan and Gizem Turan Yücel. I joined after it existed and added to it: TODO list the components and patterns you added.</p>')
             + split('Ministry review', '<p>Labels and confirmations went through the ministry. Two changes in these flows came from that review: Register instead of Save on the agent’s form, and a confirmation that shows the remaining balance.</p>')
             + '</div>')
@@ -295,7 +297,7 @@ def bilge():
                + split('Next time', '<p>TODO: one thing that went wrong or that you would do differently, and what you changed because of it.</p>')
                + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. The real system holds customs data I can’t show, so I rebuilt the screens with Claude Design from the original designs, with placeholder data, and checked every screen against the originals.</p>')
                + '</div>')
-    w1 = (sec('ov', 'Overview', hero) + sec('gl', 'At a glance', glance) + sec('dm', 'Learning the domain', domain) + sec('mr', 'My role', role)
+    w1 = (sec('ov', 'Overview', hero) + sec('gl', 'At a glance', glance) + sec('dm', 'Working from specs', domain) + sec('mr', 'My role', role)
           + sec('ag', 'The agent files', agent) + sec('of', 'The officer decides', officer) + sec('ch', 'Sign-off up the chain', chain)
           + sec('ba', 'Before and after', ba) + sec('le', 'What I learned', learned))
     nb = (P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'].replace('href="/work"', 'href="/uwaverde"')
