@@ -55,12 +55,25 @@ def sub(title, text=''):
 def simple(n, f, media, nav=False):
     return f'<div class="bl2-t bl2-f{" first" if nav else ""}">{head(n, f, nav=nav)}{strip(f["on"])}{media_box(media)}</div>'
 
+ZCAP = 1.5
+def fit(s):
+    """z, x, y from the highlight boxes plus an optional context box (ctx) that must stay in view, e.g. a heading."""
+    if 'z' in s:
+        return s
+    bs = list(s.get('hl', [])) + ([s['ctx']] if 'ctx' in s else [])
+    x0 = min(b[0] for b in bs); y0 = min(b[1] for b in bs)
+    x1 = max(b[0] + b[2] for b in bs); y1 = max(b[1] + b[3] for b in bs)
+    z = max(1, min(ZCAP, 85 / max(x1 - x0, y1 - y0)))
+    return dict(s, z=round(z, 2), x=round((x0 + x1) / 2, 1), y=round((y0 + y1) / 2, 1))
+
 def zoom(n, f, steps, medias, after='', nav=False):
     """Steps that move the screen. Each step can switch media (m), seek a video (t), zoom to a point (z, x, y in %)
-    and highlight boxes (hl: list of (x, y, w, h) in % of the media)."""
+    and highlight boxes (hl: list of (x, y, w, h) in % of the media). The text and the screen stay pinned while
+    scrolling moves through the steps."""
+    steps = [fit(s) for s in steps]
     lis = ''.join(
         f'<li data-m="{s.get("m", 0)}" data-z="{s["z"]}" data-x="{s["x"]}" data-y="{s["y"]}"' + (f' data-t="{s["t"]}"' if 't' in s else '') +
-        f'><em>{i+1:02d}</em><strong>{s["h"]}</strong><span>{t}</span></li>'
+        f'><button type="button"><em>{i+1:02d}</em><strong>{s["h"]}</strong></button><div class="zs-d"><span>{t}</span></div></li>'
         for i, (s, t) in enumerate(zip(steps, f['r'])))
     ms = ''
     for i, m in enumerate(medias):
@@ -72,17 +85,20 @@ def zoom(n, f, steps, medias, after='', nav=False):
         hls = ''.join(f'<i class="zs-hl" data-s="{si}" style="left:{x}%;top:{y}%;width:{w}%;height:{h}%"></i>'
                       for si, s in enumerate(steps) if s.get('m', 0) == i for (x, y, w, h) in s.get('hl', []))
         ms += f'<div class="zs-mw{on}" data-i="{i}">{el}{hls}</div>'
-    bars = ''.join('<i></i>' for _ in steps)
+    bars = ''.join(f'<button type="button" aria-label="Step {i+1}"><i></i></button>' for i in range(len(steps)))
     has_video = any(m['type'] == 'video' for m in medias)
     ctl = ('<button type="button" class="zs-play" data-zplay><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>'
            '<span>Play the whole video</span></button>') if has_video else ''
-    return (f'<div class="bl2-t bl2-f{" first" if nav else ""}">{head(n, f, nav=nav)}<div class="zs" data-zs><ol class="zs-steps">{lis}</ol>'
+    return (f'<div class="bl2-t bl2-f{" first" if nav else ""}">{head(n, f, nav=nav)}<div class="zs" data-zs style="--n:{len(steps)}"><div class="zs-pin"><ol class="zs-steps">{lis}</ol>'
             f'<div class="zs-stick">{strip(f["on"])}<div class="zs-frame"><div class="zs-view">{ms}</div></div>'
-            f'<div class="zs-foot"><div class="zs-bar" aria-hidden="true">{bars}</div>{ctl}</div></div></div>{after}</div>')
+            f'<div class="zs-foot"><div class="zs-bar">{bars}</div>{ctl}</div></div></div></div>{after}</div>')
 
 IMG_SEASON = dict(type='img', src=GH + 'shots/thumbnails.webp', w=2880, h=1800, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
 IMG_EP2 = dict(type='img', src=GH + 'shots/ep2-shell.webp', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
-IMG_REJ = dict(type='img', src=GH + 'posters/rejection-flow.jpg', w=1844, h=1168, alt='Publisher review page for Sherlock Holmes with metadata rows')
+IMG_REJ = dict(type='img', src=GH + 'shots/reject-v2.webp', w=1846, h=1154, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
+IMG_UP3 = dict(type='img', src=GH + 'shots/upload-3.webp', w=1874, h=1172, alt='Upload drop zone open over the assets list')
+IMG_UP15 = dict(type='img', src=GH + 'shots/upload-15.webp', w=1874, h=1172, alt='Season 4 in Spain with the upload result in the corner and 15 files waiting in the readiness panel')
+IMG_AS = dict(type='img', src=GH + 'posters/assets-filters.jpg?v=11', w=2054, h=1284, alt='Assets: the delivery batch with a state per file, and the content list with completeness per title')
 VID_UP = dict(type='video', src=GH + 'upload.mp4?v=12', poster=GH + 'posters/upload.jpg?v=12', w=1874, h=1172)
 VID_AS = dict(type='video', src=GH + 'assets-filters.mp4?v=11', poster=GH + 'posters/assets-filters.jpg?v=11', w=2054, h=1284)
 
@@ -90,10 +106,10 @@ def features():
     F = FE
     o = []
     o.append(zoom(1, F[0], [
-        dict(h='Comments become reasons', z=1.5, x=52, y=78, hl=[(5.7, 74.8, 92.2, 4.6)]),
-        dict(h='Fixed in place', z=2, x=86, y=51, hl=[(89.6, 49.2, 8.4, 3.7)]),
-        dict(h='Counted before it is sent', z=2, x=86, y=14, hl=[(91.2, 9.8, 6.8, 4.1)]),
-        dict(h='Publishers can be wrong', z=1.5, x=80, y=74, hl=[(88.7, 62, 2.6, 37)])], [IMG_REJ],
+        dict(h='Comments become reasons', hl=[(69.5, 14.6, 28, 14.6), (5.6, 22.6, 61.4, 7.4)], ctx=(69.5, 10, 28, 1)),
+        dict(h='Fixed in place', hl=[(5.6, 22.6, 61.4, 7.4), (5.6, 63.6, 61.4, 7)]),
+        dict(h='Counted before it is sent', hl=[(86.6, 56.4, 10.6, 4.2), (70.2, 52.4, 20, 3.4)], ctx=(69.5, 10, 28, 1)),
+        dict(h='Publishers can be wrong', hl=[(61.4, 24.6, 5.6, 4.4), (61.4, 64.8, 5.6, 4.4)], ctx=(18, 24, 49, 1))], [IMG_REJ],
         after=sub('Try it', 'Flag two fields as the publisher, then fix them as the editor.') + media_box(EMB('f663202a')), nav=True))
     o.append(simple(2, F[1], EMB('faf58225')))
     o.append(simple(3, F[2], EMB('f6fe44e7')))
@@ -105,52 +121,64 @@ def features():
         dict(h='Save is not submit', m=1, z=1.05, x=50, y=52, hl=[(62.8, 8.8, 9.9, 3.9), (66.6, 95.1, 5.7, 3.7)])], [IMG_SEASON, IMG_EP2],
         after=sub('The whole page in one pass', 'A walkthrough from the season to the episode that blocks it.') + media_box(EMB('137e3b55'))))
     o.append(zoom(5, F[4], [
-        dict(h='Learns from rejections', z=1.8, x=87, y=24, hl=[(76, 15.5, 22, 9.6)]),
-        dict(h='Rules and AI stay apart', z=1.9, x=86, y=36, hl=[(76.8, 23.2, 7.2, 2.4), (76.8, 36.5, 7.2, 2.4), (76.8, 50.2, 7.2, 2.4)]),
-        dict(h='Nothing written on its own', z=1.9, x=88, y=32, hl=[(95.1, 17.2, 2.6, 3.4), (95.1, 28.6, 2.6, 3.4), (95.1, 41.9, 2.6, 3.4)])], [IMG_EP2],
+        dict(h='Learns from rejections', hl=[(76, 16, 22, 10.6)], ctx=(76, 12.5, 22, 1)),
+        dict(h='Rules and AI stay apart', hl=[(76.8, 23.2, 6.4, 2.4), (76.8, 36.6, 6.4, 2.4), (76.8, 49.9, 6.4, 2.4)], ctx=(76, 12.5, 22, 1)),
+        dict(h='Nothing written on its own', hl=[(95.2, 17, 2.6, 3.2), (95.2, 28.5, 2.6, 3.2), (95.2, 41.9, 2.6, 3.2)], ctx=(76, 12.5, 22, 41))], [IMG_EP2],
         after=sub('Rules and AI, side by side', 'Rule checks pass or fail. AI suggestions name their evidence, and a dismissed flag stays on record.') + media_box(EMB('e76ad60f'))))
     o.append(zoom(6, F[5], [
-        dict(h='Matched on upload', t=9, z=2, x=86, y=92, hl=[(74, 86.5, 24.5, 11)]),
-        dict(h='One line of results', t=15, z=1.8, x=20, y=13, hl=[(3, 7.5, 25, 7)]),
-        dict(h='Drop more any time', t=3, z=1.6, x=46, y=20, hl=[(28.5, 12.5, 35, 13.5)]),
-        dict(h='Files have their own states', t=15, z=1.3, x=40, y=52, hl=[(3, 28, 70, 52)])], [VID_UP]))
+        dict(h='Matched on upload', m=0, hl=[(75.6, 46, 22.2, 7.2)], ctx=(75.6, 11, 22.2, 1)),
+        dict(h='One line of results', m=0, hl=[(74.6, 87, 23.8, 11.2)]),
+        dict(h='Drop more any time', m=1, hl=[(27.2, 5.6, 45.8, 21.2)]),
+        dict(h='Files have their own states', m=2, hl=[(62.2, 30.6, 18.6, 26.4)], ctx=(5, 20.5, 80, 1))], [IMG_UP15, IMG_UP3, IMG_AS],
+        after=sub('The whole upload', 'From the drop to the files that need the editor.') + media_box(EMB('2f6c4fe9'))))
     o.append(zoom(7, F[6], [
-        dict(h='Completeness per title', t=0, z=1.7, x=86, y=85, hl=[(83, 74, 15, 26)]),
-        dict(h='Two views, two filters', t=0, z=1.4, x=55, y=68, hl=[(5, 65.5, 93, 6)])], [VID_AS]))
+        dict(h='Completeness per title', hl=[(88.8, 71.6, 9.8, 28.4)], ctx=(60, 66, 1, 1)),
+        dict(h='Two views, two filters', hl=[(5.2, 66.4, 53, 4.6), (87.4, 66.6, 11.2, 4.2)])], [IMG_AS],
+        after=sub('Switching views and filters', 'Content and Files, then Language and Type as filters.') + media_box(EMB('8364b5b0'))))
     o.append(zoom(8, F[7], [
-        dict(h='One thumbnail per taste', z=1.4, x=40, y=52, hl=[(6, 43, 67, 19)]),
-        dict(h='Tested per region', z=1.5, x=55, y=52, hl=[(54, 40.4, 19.5, 3), (33, 59.4, 8.2, 3.2), (50, 59.4, 8.2, 3.2), (67, 59.4, 8.2, 3.2)]),
-        dict(h='Backed by click-through', z=2, x=20, y=58, hl=[(6, 58.4, 15.5, 5.6)])], [IMG_SEASON]))
+        dict(h='One thumbnail per taste', hl=[(6.2, 44, 66.4, 20.4)], ctx=(6.2, 40.5, 1, 1)),
+        dict(h='Tested per region', hl=[(55.4, 40.4, 17.4, 3.2), (33, 59.6, 6, 2.8), (49.8, 59.6, 6, 2.8), (66.6, 59.6, 6, 2.8)]),
+        dict(h='Backed by click-through', hl=[(6.2, 59.2, 15.8, 5), (22.8, 61.2, 4.4, 2.4), (39.6, 61.2, 4.4, 2.4), (56.4, 61.2, 4.4, 2.4)], ctx=(6.2, 40.5, 1, 1))], [IMG_SEASON]))
     o.append(simple(9, F[8], EMB('1ee3cd39')))
     o.append(simple(10, F[9], EMB('59ab0c6b')))
     return ''.join(o)
 
 # ---------- research: findings with a small product visual each ----------
+def crop(img, w, h, x0, y0, x1, y1, alt):
+    """a part of a real screen, as a background crop (coordinates in % of the image)"""
+    cw, ch = x1 - x0, y1 - y0
+    pos = lambda v, c: 0 if c >= 100 else v / (100 - c) * 100
+    return (f'<div class="rs-v" role="img" aria-label="{alt}" style="aspect-ratio:{cw * w / 100:.0f}/{ch * h / 100:.0f};'
+            f'background-image:url({GH}shots/{img});background-size:{10000 / cw:.2f}% auto;background-position:{pos(x0, cw):.2f}% {pos(y0, ch):.2f}%"></div>')
+
 def research():
     def card(vis, finding, decision):
-        return (f'<div class="rs-c"><div class="rv">{vis}</div><div class="rs-t"><p class="rs-k">Finding</p><p>{finding}</p>'
-                f'<p class="rs-k rs-d"><span aria-hidden="true">→</span> Decision</p><p class="rs-dec">{decision}</p></div></div>')
-    tree = ('<div class="rv-tree"><div class="rv-l">Series <span>Lupin</span></div><div class="rv-l l2">Season 4</div>'
-            '<div class="rv-l l3 on">Episode 2 <b>Age rating lives here</b></div><div class="rv-l l4">Files <span>video, subtitles, audio</span></div></div>')
-    reg = ('<div class="rv-reg"><div class="rv-chips"><span class="on">ES</span><span>FR</span><span>DE</span></div>'
-           '<div class="rv-f"><small>Localised title (ES)</small>El collar de la reina</div><div class="rv-f"><small>Age rating (ES)</small>16</div></div>')
-    rsn = ('<div class="rv-rsn"><div class="rv-top"><span class="rv-chip">Rejected</span><b>2 reasons</b></div>'
-           '<div class="rv-r"><span>Age rating</span><i>Compliance</i></div><div class="rv-r"><span>Synopsis (ES)</span><i>Localization</i></div></div>')
+        return (f'<div class="rs-c">{vis}<div class="rs-t"><p class="rs-k">Finding</p><p>{finding}</p>'
+                f'<p class="rs-k rs-d">Decision</p><p class="rs-dec">{decision}</p></div></div>')
+    a = crop('ep2-shell.webp', 2880, 1800, 3.5, 0, 45, 23.5, 'Episode 2 header with the breadcrumb Content library, Lupin, Season 4, Episode 2')
+    b = crop('thumbnails.webp', 2880, 1800, 58.5, 7, 99, 30, 'Spain selected as the region, with readiness in Spain beside it')
+    c = crop('reject-v2.webp', 1846, 1154, 68.5, 9, 98.5, 26, 'Rejection reasons: Age rating under Compliance, with the publisher comment')
     return ('<div class="bl2-t"><span class="cs-num bl2-x">03</span><div class="bl2-head"><div><p class="k">Research</p>'
             '<h2 class="bl2-h cs-title">What the domain taught me, and what it changed</h2></div>'
             '<p class="lead">CMS tools are built in-house and rarely shown, so I studied products that each solve part of the job, and one from outside media: code review on GitHub.</p></div>'
             '<div class="rs-g">'
-            + card(tree, 'Mistakes come from structure the editor can’t see, like metadata on the wrong level.', 'Every field shows the level it lives on.')
-            + card(reg, 'Almost every field changes by region, from title to audio.', 'Region comes first. Everything under it shows for that region only.')
-            + card(rsn, 'Every tool lets you comment on a field. None turns a rejection into data.', 'A rejection is a list of reasons, pinned to fields and counted.')
+            + card(a, 'Mistakes come from structure the editor can’t see, like metadata on the wrong level.', 'Every field shows the level it lives on.')
+            + card(b, 'Almost every field changes by region, from title to audio.', 'Region comes first. Everything under it shows for that region only.')
+            + card(c, 'Every tool lets you comment on a field. None turns a rejection into data.', 'A rejection is a list of reasons, pinned to fields and counted.')
             + '</div><p class="bl2-strong">Field comments exist. A rejection made of reasons that teach the next check does not.</p></div>')
 
 def roles_viewer():
     e = EMB('13941d11')
-    e = e.replace('<div class="blr-bar"', '<div class="blr-fs"><div class="blr-bar"', 1)
-    e = e.replace('Publisher reviews</button></div>', 'Publisher reviews</button><button type="button" class="blr-full" data-fs aria-label="Full screen" title="Full screen">' + FULL_IC + '</button></div>', 1)
-    e = e.replace('</div></div><script>', '</div></div></div><script>', 1)
-    return e
+    T = re.search(r'T=(\{.*?\]\]\})', e, re.S)
+    imgs = re.search(r'<div class="blr-stage">(.*?)</div></div><script>', e, re.S).group(1)
+    tabs = [('ed-dash', 'Editor dashboard'), ('pub-dash', 'Publisher dashboard'), ('ed-work', 'Editor workspace'), ('pub-work', 'Publisher reviews')]
+    sel = lambda k: ' aria-selected="true"' if k == 'ed-work' else ' aria-selected="false" tabindex="-1"'
+    bt = ''.join(f'<button class="blr-t" role="tab" data-k="{k}"{sel(k)}>{t}</button>' for k, t in tabs)
+    return (f'<div class="blr" data-blr><div class="blr-fs"><div class="blr-top"><div class="blr-l"><div class="blr-bar" role="tablist" aria-label="Screen" aria-orientation="vertical">{bt}</div>'
+            f'<button type="button" class="blr-full" data-fs>{FULL_IC}<span>Full screen</span></button></div>'
+            f'<div class="blr-txt"><p class="blr-c" aria-live="polite"></p><div class="blr-rs"></div></div></div>'
+            f'<div class="blr-stage">{imgs}</div></div>'
+            f'<script type="application/json" class="blr-data">{T.group(1)}</script></div>')
 
 def changed():
     story = ('<div class="bl2-t"><span class="cs-num bl2-x">06</span><p class="k">What I changed</p>'
@@ -161,13 +189,19 @@ def changed():
             + media_box(EMB('8a2ee889'))
             + '<div class="bl2-t">' + sub('What I took out', 'Most of what I added stayed. Four things didn’t.') + '</div>' + P['CARDS'])
 
+def north_star():
+    h = P['1f11a2c4-c927-6c80-452e-1af7129ee08d']
+    lead = re.search(r'<div class="bl2-nst">.*?<p>(.*?)</p></div>', h, re.S).group(1)
+    a = h.index('<div class="bl2-ns">'); b = h.index('<div class="bl2-split">')
+    return h[:a] + f'<p class="lead">{lead}</p>' + h[b:]
+
 def sec(k, label, inner):
     return f'<section data-bl2="{k}" data-nav-label="{label}">{inner}</section>'
 
 def backlot():
     w1 = (sec('ov', 'Overview', P['411a7ea2-ad8e-e2d4-3a36-2ddce0bbd66d'])
-          + sec('pr', 'The problem', P['cf0faf68-fe6a-067e-c1f5-2da983ff1039'])
-          + sec('ns', 'North star', P['1f11a2c4-c927-6c80-452e-1af7129ee08d'])
+          + sec('pr', 'The problem', P['cf0faf68-fe6a-067e-c1f5-2da983ff1039'] + media_box(EMB('08e54bfa')))
+          + sec('ns', 'North star', north_star())
           + sec('rs', 'Research', research() + media_box(EMB('c3c045d7')))
           + sec('ro', 'Two roles', P['a5644849-2272-9536-b83b-9657f2bbdb98'] + roles_viewer())
           + sec('fe', 'Features', features())
@@ -192,7 +226,7 @@ def split_nav():
 
 def styles():
     nav_css, nav_js = split_nav()
-    emb_css = ''.join(re.findall(r'<style>(.*?)</style>', EMB('c3c045d7') + EMB('13941d11') + EMB('f6fe44e7') + EMB('020e6363'), re.S))
+    emb_css = ''.join(re.findall(r'<style>(.*?)</style>', EMB('08e54bfa') + EMB('c3c045d7') + EMB('13941d11') + EMB('f6fe44e7') + EMB('020e6363'), re.S))
     return rem(rd('bl2.css') + '\n' + nav_css + emb_css + DS_CSS + '\n' + rd('page.css')), nav_js
 
 def write(path, s):
@@ -205,7 +239,7 @@ if __name__ == '__main__':
     write('assets/backlot.css', css)
     write('assets/site.css', rem(rd('site.css')))
     vid_js = re.search(r'<script>(.*?)</script>', EMB('020e6363'), re.S).group(1)
-    write('assets/backlot.js', nav_js + '\n' + rd('bl2.js') + '\n' + vid_js + '\n' + rd('zoom.js'))
+    write('assets/backlot.js', nav_js + '\n' + rd('bl2.js') + '\n' + vid_js + '\n' + rd('zoom.js') + '\n' + rd('roles.js'))
     write('assets/site.js', rd('site.js'))
     html = backlot()
     a, b = html.index('<main'), html.index('</main>')

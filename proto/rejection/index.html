@@ -99,6 +99,7 @@
 </div>
 <script>
 (function(){
+function inView(el){try{var d=el.ownerDocument,w=d.defaultView,p=el.parentElement;while(p&&p!==d.body&&p!==d.documentElement){var cs=w.getComputedStyle(p);if(/(auto|scroll)/.test(cs.overflowY)&&p.scrollHeight>p.clientHeight){var r=el.getBoundingClientRect(),pr=p.getBoundingClientRect();p.scrollTop+=(r.top-pr.top)-(p.clientHeight-r.height)/2;return}p=p.parentElement}}catch(e){}}
 const W=1440,H=900;
 const $=id=>document.getElementById(id);
 const stage=$('stage'),pubF=$('pub'),edF=$('ed'),ring=$('ring'),tip=$('tip'),cur=$('cur'),banner=$('banner'),endEl=$('end'),mode=$('mode');
@@ -111,8 +112,8 @@ const SYN='Assane se acerca a la finca Pellegrini justo cuando empieza la subast
 const sleep=ms=>new Promise(r=>{timer=setTimeout(r,ms)});
 
 function size(){if(window.top!==window)return;const c=document.getElementById('app')||document.body;c.style.maxWidth='';c.style.margin='0 auto';const top=stage.getBoundingClientRect().top+scrollY;const w=Math.min(c.clientWidth,(innerHeight-top-16)*1440/900);c.style.maxWidth=Math.max(320,w)+'px'}
-function fit(){size();s=stage.clientWidth/W;[pubF,edF].forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';place();post()}
-function post(){try{parent.postMessage({backlotProto:'rejection',height:document.body.scrollHeight},'*')}catch(e){}}
+function fit(){maxH=0;size();s=stage.clientWidth/W;[pubF,edF].forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';place();post()}
+var maxH=0;function post(){var h=document.body.scrollHeight;if(h<maxH)return;maxH=h;try{parent.postMessage({backlotProto:'rejection',height:h},'*')}catch(e){}}
 addEventListener('resize',fit);addEventListener('load',fit);
 
 /* ---------- helpers inside frames ---------- */
@@ -224,14 +225,14 @@ const A={
     banner.classList.remove('show');
   },
   async res1(){
-    const d=D(edF),f=P(d,'age');f.scrollIntoView({block:'center'});await sleep(400);f.focus();
+    const d=D(edF),f=P(d,'age');inView(f);await sleep(400);f.focus({preventScroll:true});
   },
   async pick(){
     const d=D(edF),f=P(d,'age');f.style.color='var(--color-text)';f.style.borderColor='var(--color-neutral-800)';f.blur();
     resolved(d,'1',146,0);
   },
   async res2(){
-    const d=D(edF),ta=P(d,'syn');ta.scrollIntoView({block:'center'});await sleep(400);ta.focus();
+    const d=D(edF),ta=P(d,'syn');inView(ta);await sleep(400);ta.focus({preventScroll:true});
     await typeInto(t=>{ta.value=t;const c=T(d,190);if(c)c.innerHTML='<span>'+t.length+'</span> / 240'},SYN,24);
     await sleep(300);ta.blur();ta.style.borderColor='var(--color-neutral-800)';
     resolved(d,'2',182,2);
@@ -293,7 +294,7 @@ function place(){
 async function go(i){
   step=i;const st=STEPS[i];if(!st){ring.classList.remove('show');tip.classList.remove('show');return}
   setSteps(st.s);
-  const t=st.t();if(t){const r=t.getBoundingClientRect();if(r.top<70||r.bottom>H-70){t.scrollIntoView({block:'center'});await sleep(350)}}
+  const t=st.t();if(t){const r=t.getBoundingClientRect();if(r.top<70||r.bottom>H-70){inView(t);await sleep(350)}}
 }
 async function act(){
   if(busy)return;const st=STEPS[step];busy=true;place();cur.classList.remove('show');
@@ -339,6 +340,8 @@ new IntersectionObserver(e=>{const was=visible;visible=e[0].isIntersecting;if(vi
 if(window.top===window){const fl=document.getElementById('full');if(fl)fl.remove();document.body.style.padding='16px'}
 fit();
 })();
+
+[document.getElementById('pub'),document.getElementById('ed')].forEach(function(f){if(!f)return;function L(){try{var d=f.contentDocument;d.documentElement.style.overflow='hidden';d.body.style.overflow='hidden'}catch(e){}}f.addEventListener('load',L);L()});
 </script>
 </body>
 </html>

@@ -105,8 +105,8 @@ const STEPS=[
   {s:3,t:()=>opt('Germany'),tip:'Germany licensed only 6 episodes.',end:true,flash:1}
 ];
 function size(){if(window.top!==window)return;const c=document.getElementById('app')||document.body;c.style.maxWidth='';c.style.margin='0 auto';const top=stage.getBoundingClientRect().top+scrollY;const w=Math.min(c.clientWidth,(innerHeight-top-16)*1440/900);c.style.maxWidth=Math.max(320,w)+'px'}
-function fit(){size();s=stage.clientWidth/W;pg.style.transform='scale('+s+')';stage.style.height=(H*s)+'px';place();post()}
-function post(){try{parent.postMessage({backlotProto:'region',height:document.body.scrollHeight},'*')}catch(e){}}
+function fit(){maxH=0;size();s=stage.clientWidth/W;pg.style.transform='scale('+s+')';stage.style.height=(H*s)+'px';place();post()}
+var maxH=0;function post(){var h=document.body.scrollHeight;if(h<maxH)return;maxH=h;try{parent.postMessage({backlotProto:'region',height:h},'*')}catch(e){}}
 addEventListener('resize',fit);addEventListener('load',fit);
 function setSteps(n){document.querySelectorAll('.step').forEach(e=>{const v=+e.dataset.s;e.classList.toggle('on',v===n);e.classList.toggle('done',v<n)})}
 function rectOf(st){const t=st&&st.t();if(!t)return null;const r=t.getBoundingClientRect();return{x:r.left*s,y:r.top*s,w:r.width*s,h:r.height*s}}
@@ -175,6 +175,8 @@ new IntersectionObserver(e=>{const was=visible;visible=e[0].isIntersecting;if(vi
 if(window.top===window){const fl=document.getElementById('full');if(fl)fl.remove();document.body.style.padding='16px'}
 fit();
 })();
+
+[document.getElementById('pub'),document.getElementById('ed')].forEach(function(f){if(!f)return;function L(){try{var d=f.contentDocument;d.documentElement.style.overflow='hidden';d.body.style.overflow='hidden'}catch(e){}}f.addEventListener('load',L);L()});
 </script>
 </body>
 </html>
