@@ -24,7 +24,7 @@
 .bl2-subh p{margin:6px 0 0;font-size:15px;line-height:1.45;color:var(--mute);max-width:40em}
 
 /* feature: steps that move the screen. Text and screen stay pinned; scrolling moves through the steps */
-.zs{position:relative;height:calc(100svh + var(--n) * 40svh);margin-top:clamp(24px,3vw,48px)}
+.zs{position:relative;height:calc(100svh + var(--n) * 50svh);margin-top:clamp(24px,3vw,48px)}
 .zs-pin{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);display:grid;grid-template-columns:minmax(240px,3fr) minmax(0,8fr);gap:clamp(32px,4vw,72px);align-content:center;align-items:start}
 .bl2-t .zs-steps{list-style:none;padding:0;margin:0;border-bottom:1px solid var(--line)}
 .zs-steps li{border-top:1px solid var(--line)}
