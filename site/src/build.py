@@ -212,11 +212,96 @@ def backlot():
     ds = ds_build().replace('Lupin, S4-E2', 'Lupin · S4-E2').replace('Community, S6-E6', 'Community · S6-E6').replace('Long Story Short, S1-E3', 'Long Story Short · S1-E3') \
         .replace('Crime, Drama', 'Crime · Drama').replace('Edit requested, waiting', 'Edit requested · waiting').replace('Editor, Alex', 'Editor · Alex').replace('Publisher, Maya', 'Publisher · Maya')
     w2 = sec('re', "What's next", P['c2545a3c-0f01-ab8f-4f5f-45336f755274'])
-    nb = P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'].replace('href="/work"', 'href="/"')
+    nb = P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'].replace('href="/work"', 'href="/bilge"')
     body = (f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>'
             f'{ds}<div class="cs-wrap" data-bl2root="2">{w2}</div>{nb}</main>')
     return page('Backlot case study | Ege Coskun',
                 'Backlot, a B2B SaaS CMS for streaming services: review and approval workflows, region-specific metadata and an AI check that flags likely rejections.',
+                body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
+
+# ---------- BİLGE: same components as Backlot ----------
+def ph(label):
+    """placeholder until the Claude Design screens are in"""
+    return media_box(f'<div class="bl2-ph"><span>{label}</span></div>')
+
+def split(k, html):
+    return f'<div class="bl2-split"><p class="k">{k}</p><div>{html}</div></div>'
+
+def rules(items):
+    return '<div class="blr-rs">' + ''.join(f'<p>{t}</p>' for t in items) + '</div>'
+
+def head2(n, k, h, lead=''):
+    return (f'<span class="cs-num bl2-x">{n:02d}</span><p class="k">{k}</p><h2 class="bl2-h cs-title">{h}</h2>'
+            + (f'<p class="lead">{lead}</p>' if lead else ''))
+
+def bilge():
+    hero = ('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
+            '<p class="k">BİLGE KLTS, container tracking for Turkish customs</p><h1>Customs approvals where every change carries a reason</h1>'
+            '<div class="bl2-hg"><p class="lead">KLTS is the container and port tracking module of BİLGE, the customs platform of the Turkish Ministry of Trade. '
+            'Shipping agents register the containers they bring in, customs officers approve them, and deputy managers and managers sign off corrections, cancellations and time extensions. '
+            'I designed these flows for four roles on an existing design system and extended it where the flows needed more.</p>'
+            '<div class="bl2-meta"><div><b>Context</b>MilSOFT, for the Turkish Ministry of Trade</div><div><b>Category</b>Government, enterprise workflow</div>'
+            '<div><b>My role</b>UX/UI Designer, KLTS module</div><div><b>Date</b>2022 to 2023</div></div></div>'
+            + ph('Hero screen from Claude Design') + '</div>')
+    glance = ('<div class="bl2-t"><span class="cs-num bl2-x">01</span><p class="k">At a glance</p><h2 class="bl2-h cs-title">One form, up to four people, each against a deadline</h2>'
+              + split('The problem', '<p>A container form passes through up to four people before it is closed: the agent who files it, the officer who approves it, and the deputy manager and manager who sign off what changes after approval. Each sees a different slice of the same form, and each decision runs against a deadline.</p>')
+              + '<div class="bl2-cards c3">'
+              + ''.join(f'<div class="bl2-c"><span class="bl2-tag">Decision {i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate([
+                  ('One form, four roles', 'Every role opens the same form. What changes is what each role can do with it, and the header colour tells them which side they are on.'),
+                  ('No change without a reason', 'Correction, cancellation, update and rejection all ask for a written reason, and the next role reads it before deciding.'),
+                  ('Registering is binding', 'At the ministry’s request the agent’s last button says Register, not Save, and the confirmation shows the registration number and the remaining balance.')], 1))
+              + '</div>'
+              + split('Constraints', '<p>Legal wording on every label, ministry review on changes, and real customs data I can’t show. Every screen on this page is rebuilt from the original designs with placeholder data.</p>')
+              + '</div>')
+    domain = ('<div class="bl2-t">' + head2(2, 'Learning the domain', 'The paperwork came before any screen',
+              'Before any screen I had to learn the paperwork: the summary declaration a carrier files before arrival, the port’s own records, transit messages, and the container tracking form that ties them together. '
+              'Two screens came straight out of that: one that compares the declaration with the port data, and a container history that puts every event on one timeline.') + '</div>'
+              + ph('Container history (page D) and declaration comparison'))
+    role = ('<div class="bl2-t">' + head2(3, 'My role', 'The KLTS module, on a design system I joined',
+            'I joined the BİLGE team after its design system was already in place. My job was the KLTS module: turning the regulation and the analysts’ requirements into flows for four roles, designing every screen and state, and extending the design system where these flows needed something it did not have.')
+            + split('Team', '<p>TODO: team size and who was in it, and who you worked with day to day.</p>')
+            + split('What I owned', '<p>The agent’s form, the officer’s approval and query flows, time extensions, correction and cancellation approvals, the container history, the declaration comparison and closing a form with an official report. TODO: number of screens and states.</p>')
+            + split('Design system', '<p>The TM-22 design system was created by Dilmin Doğan and Gizem Turan Yücel. I joined after it existed and added to it: TODO list the components and patterns you added.</p>')
+            + split('Ministry review', '<p>Labels and confirmations went through the ministry. Two changes in these flows came from that review: Register instead of Save on the agent’s form, and a confirmation that shows the remaining balance.</p>')
+            + '</div>')
+    def flow(n, k, h, lead, shot, items):
+        return '<div class="bl2-t">' + head2(n, k, h, lead) + '</div>' + ph(shot) + '<div class="bl2-t">' + split('Decisions', rules(items)) + '</div>'
+    agent = flow(4, 'The agent files', 'General information first, then the containers',
+                 'An agent creates the form in two steps: general information, then the containers. Containers are added one by one or in bulk, each with its parts and equipment. Registering the form sends it to the officer’s queue.',
+                 'Page A walkthrough: Add Container, Register', [
+                     'General information first, because every container on the form shares it',
+                     'Parts and equipment sit under their container, so nothing is filed against the wrong one',
+                     'Register, not Save: once sent, the form is binding'])
+    officer = flow(5, 'The officer decides', 'Approve, edit or cancel, and every cancel has a reason',
+                   'Officers work from a queue of forms waiting for approval. From a form they approve, edit or cancel it, and cancelling asks for a reason. An approved form can still change later through a correction, cancellation or update request, each with its own reason.',
+                   'Page B walkthrough: approve selected, reason drawer', [
+                       'The officer can approve the selected containers and reject the rest in one step, and the confirmation says exactly that',
+                       'Reasons open in a side drawer, so the form stays in view while the officer writes',
+                       'Editing a form the agent registered warns that the agent’s record will change'])
+    chain = flow(6, 'Sign-off up the chain', 'Managers decide on the row',
+                 'Some changes need a second signature. Time extensions go from the officer to the manager, corrections to the deputy manager, and cancellations to the manager. Each of them works from a list with the request, the reason and its status, and decides on the row.',
+                 'Page C walkthrough: approve and reject on the row', [
+                     'Approve and reject sit on the row with a confirmation, so a manager can clear a queue without opening every form',
+                     'The result appears as a message on the same list, not on a new page',
+                     'The same three statuses at every level: pending, approved, rejected'])
+    ba = ('<div class="bl2-t">' + head2(7, 'Before and after', 'Closing a form with an official report',
+          'Closing a form with an official report is one of the screens I redesigned. TODO: what the old screen made hard, what you changed, and why.') + '</div>'
+          + ph('Before and after: old screen and page E'))
+    learned = ('<div class="bl2-t">' + head2(8, 'What I learned', 'In government software the wording is part of the design')
+               + split('Wording', '<p>A word like Register carries legal weight, so ministry review became an input to the design, not a last check. TODO: confirm or rewrite in your words.</p>')
+               + split('Next time', '<p>TODO: one thing that went wrong or that you would do differently, and what you changed because of it.</p>')
+               + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. The real system holds customs data I can’t show, so I rebuilt the screens with Claude Design from the original designs, with placeholder data, and checked every screen against the originals.</p>')
+               + '</div>')
+    w1 = (sec('ov', 'Overview', hero) + sec('gl', 'At a glance', glance) + sec('dm', 'Learning the domain', domain) + sec('mr', 'My role', role)
+          + sec('ag', 'The agent files', agent) + sec('of', 'The officer decides', officer) + sec('ch', 'Sign-off up the chain', chain)
+          + sec('ba', 'Before and after', ba) + sec('le', 'What I learned', learned))
+    nb = (P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'].replace('href="/work"', 'href="/uwaverde"')
+          .replace('<span>BİLGE</span>', '<span>UwaVerde</span>')
+          .replace('Customs approvals where every change carries a reason.', 'NGO website and member portal.')
+          .replace('<b>Pending Approval</b>', '<b>Member portal</b>'))
+    body = f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>{nb}</main>'
+    return page('BİLGE container tracking case study | Ege Coskun',
+                'BİLGE KLTS: container and port tracking for Turkish customs. Approval chains across agents, officers and managers, built on an existing design system.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
 
 def split_nav():
@@ -248,4 +333,5 @@ if __name__ == '__main__':
     a, b = html.index('<main'), html.index('</main>')
     html = html[:a] + re.sub(r'<style>.*?</style>', '', html[a:b], flags=re.S) + html[b:]
     write('backlot/index.html', html)
+    write('bilge/index.html', bilge())
     print('built', len(html))

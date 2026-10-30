@@ -95,3 +95,9 @@
 @media(max-width:991px){.blr-fs{grid-template-columns:1fr;row-gap:20px}.blr-l{grid-row:auto;position:static}.blr-txt,.blr-stage{grid-column:1}[data-bl2] .blr-bar{flex-direction:row;flex-wrap:wrap}.blr-l{flex-direction:row;flex-wrap:wrap;gap:8px}.rs-g{grid-template-columns:1fr}
 .zs{height:auto}.zs-pin{position:static;height:auto;display:flex;flex-direction:column-reverse;gap:24px}.zs-stick{width:100%}.bl2-t .zs-steps{margin:0}.zs-steps button{cursor:default;padding:14px 0 6px}.zs-steps strong{color:var(--ink)}.zs-steps em{color:var(--gd)}.zs-d{grid-template-rows:1fr}.zs-mw{transform:none!important}.zs-hl{display:none}.zs-bar{display:none}}
 @media(min-width:768px) and (max-width:991px){.rs-g{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* placeholder until a screen is in */
+.bl2-ph{aspect-ratio:16/10;border-radius:8px;background:#121212;display:flex;align-items:center;justify-content:center}
+.bl2-ph span{font-size:13px;color:#9a978f}
+.bl2-split .blr-rs{max-width:none}
+@media(min-width:992px){.bl2-cards.c3{grid-template-columns:repeat(3,minmax(0,1fr))}}
