@@ -336,7 +336,12 @@ video[data-src]{max-width:min(100%,1440px)!important;margin-left:auto!important;
 /* interactive prototypes sit on a green tint, so they read apart from screens and recordings */
 .bl2-media.is-proto{background:#56652A}
 
-@media(max-width:991px){.blr-fs{grid-template-columns:1fr;row-gap:20px}.blr-l{grid-row:auto;position:static}.blr-txt,.blr-stage{grid-column:1}[data-bl2] .blr-bar{flex-direction:row;flex-wrap:wrap}.blr-l{flex-direction:row;flex-wrap:wrap;gap:8px}.rs-g{grid-template-columns:1fr}
+@media(max-width:991px){.blr-fs{grid-template-columns:1fr;row-gap:20px}.blr-l{grid-row:auto;position:static}.blr-txt,.blr-stage{grid-column:1}[data-bl2] .blr-bar{flex-direction:row;flex-wrap:wrap}.blr-l{flex-direction:row;flex-wrap:wrap;gap:8px}.rs-g{grid-template-columns:1fr}}
+/* tablets: the screen gets more of the width */
+@media(min-width:992px) and (max-width:1439px){.zs-pin{grid-template-columns:minmax(210px,2.6fr) minmax(0,8fr);gap:32px}}
+/* tablet portrait: still pinned, the screen on top and the steps under it */
+@media(min-width:768px) and (max-width:991px){.zs-pin{grid-template-columns:1fr;row-gap:20px}.zs-stick{order:-1;justify-self:center;width:min(100%,calc((100svh - 4.75rem - 30rem) * 1.6 + 48px))}.bl2-t .zs-steps{margin:0}.zs-steps button{padding:10px 0}}
+@media(max-width:767px){
 .zs{height:auto}.zs-pin{position:static;height:auto;display:flex;flex-direction:column-reverse;gap:24px}.zs-stick{width:100%}.bl2-t .zs-steps{margin:0}.zs-steps button{cursor:default;padding:14px 0 6px}.zs-steps strong{color:var(--ink)}.zs-steps em{color:var(--gd)}.zs-d{grid-template-rows:1fr}.zs-mw{transform:none!important}.zs-hl{display:none}.zs-bar{display:none}}
 @media(min-width:768px) and (max-width:991px){.rs-g{grid-template-columns:repeat(3,minmax(0,1fr))}}
 

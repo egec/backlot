@@ -327,7 +327,7 @@ if __name__ == '__main__':
     write('assets/backlot.css', css)
     write('assets/site.css', rem(rd('site.css')))
     vid_js = re.search(r'<script>(.*?)</script>', EMB('020e6363'), re.S).group(1)
-    write('assets/backlot.js', nav_js + '\n' + rd('bl2.js') + '\n' + vid_js + '\n' + rd('zoom.js') + '\n' + rd('roles.js'))
+    write('assets/backlot.js', nav_js + '\n' + rd('bl2.js') + '\n' + vid_js + '\n' + rd('zoom.js') + '\n' + rd('roles.js') + '\n' + rd('pace.js'))
     write('assets/site.js', rd('site.js'))
     html = backlot()
     a, b = html.index('<main'), html.index('</main>')

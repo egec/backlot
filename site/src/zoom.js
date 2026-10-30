@@ -1,5 +1,5 @@
 (function(){
-var mq=matchMedia('(min-width:992px)');
+var mq=matchMedia('(min-width:768px)');
 var PLAY='<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>',PAUSE='<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z" fill="currentColor"/></svg>';
 var all=[];
 [].forEach.call(document.querySelectorAll('[data-zs]'),function(z){
@@ -16,12 +16,13 @@ var v=vid(w);if(v&&l.dataset.t!=null){v.pause();var t=+l.dataset.t,seek=function
 /* the pinned area scrolls through the steps: one step per share of the extra height */
 function range(){var r=z.getBoundingClientRect(),pin=z.querySelector('.zs-pin'),run=z.offsetHeight-pin.offsetHeight;return {top:r.top-parseFloat(getComputedStyle(pin).top||0),run:Math.max(1,run)}}
 function onScroll(){if(!mq.matches||free)return;var g=range(),p=Math.min(.999,Math.max(0,-g.top/g.run));act(Math.floor(p*n))}
-function go(i){if(!mq.matches){act(i);return}var g=range(),y=window.pageYOffset+g.top+(i+.5)/n*g.run;window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}
+function go(i){if(!mq.matches){act(i);return}var g=range(),y=window.pageYOffset+g.top+(i+.5)/n*g.run;if(window.__pace)window.__pace(y);else window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}
 st.forEach(function(s,i){s.querySelector('button').addEventListener('click',function(){go(i)})});
 bars.forEach(function(b,i){b.addEventListener('click',function(){go(i)})});
 if(pb)pb.addEventListener('click',function(){var w=ws.filter(function(x){return x.classList.contains('on')})[0],v=vid(w);if(!v)return;if(free&&!v.paused){v.pause();setBtn(v);return}free=true;z.classList.add('is-free');w.style.transform='';v.loop=true;if(!z.dataset.played){try{v.currentTime=0}catch(e){}}z.dataset.played=1;var p=v.play();if(p&&p.then)p.then(function(){setBtn(v)});else setBtn(v)});
 act(0,true);
 all.push({sc:onScroll,rs:function(){act(cur,true);onScroll()}});
+(window.__zs=window.__zs||[]).push({el:z,n:n,range:range,cur:function(){return cur},y:function(i){var g=range();return window.pageYOffset+g.top+(i+.5)/n*g.run}});
 });
 var raf=0;
 window.addEventListener('scroll',function(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;all.forEach(function(a){a.sc()})})},{passive:true});
