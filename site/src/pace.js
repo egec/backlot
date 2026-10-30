@@ -34,8 +34,8 @@ addEventListener('wheel',function(e){if(e.ctrlKey)return;var now=Date.now(),gap=
   if(Math.abs(e.deltaX)>abs)return;  /* sideways: tables and carousels */
   var prev=lastAbs;lastAbs=abs;
   if(busy){e.preventDefault();return}
-  /* the tail of the gesture that just moved: inertia fades, a new swipe starts after a pause or grows again */
-  if(absorb){if(gap>160||now-moveT>1800||(abs>prev*1.4&&abs>10&&now-moveT>300))absorb=0;else{e.preventDefault();return}}
+  /* after a move the page holds still until the gesture that caused it has ended: a pause starts the next move */
+  if(absorb){if(gap>220||now-moveT>3000)absorb=0;else{e.preventDefault();return}}
   if(!dy)return;var p=plan(dy);if(!p)return;e.preventDefault();absorb=1;moveT=now;to(p.y,!p.snap,false)},{passive:false});
 /* touch: one swipe, one move */
 var y0=0,x0=0,ly=0,moved=0,side=0,finger=0,endT=0,lastY=pageYOffset;

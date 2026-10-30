@@ -111,3 +111,6 @@
 @media(min-width:992px){.bl2-meta{display:flex;justify-content:space-between;gap:40px}.bl2-meta>div{flex:0 1 auto;max-width:34ch}}
 /* tablet portrait: the pinned feature starts right under its heading, no centring gap */
 @media(min-width:768px) and (max-width:991px){.zs-pin{align-content:start;padding-top:16px}}
+
+/* font trial: Inter Tight on the case page, the design system section keeps its own type */
+html.f-it body,html.f-it .site-h *,html.f-it [data-bl2root] *:not(svg):not(svg *),html.f-it .bl2-nb *,html.f-it .finalfooter *{font-family:"Inter Tight",system-ui,sans-serif!important}

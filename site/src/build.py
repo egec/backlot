@@ -24,13 +24,14 @@ def rem(css):
 LOGO = 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/67a7e87a22185065ca4c8d61_Ege%20Coskun%20(2).png'
 FULL_IC = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>'
 
-def page(title, desc, body, css_files, js_files):
+def page(title, desc, body, css_files, js_files, font=''):
     css = ''.join('<link rel="stylesheet" href="../assets/%s">' % c for c in css_files)
     js = ''.join('<script src="../assets/%s" defer></script>' % j for j in js_files)
-    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">' if font else ''
+    return f'''<!doctype html><html lang="en"{' class="f-it"' if font else ''}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">{css}</head><body>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">{fl}{css}</head><body>
 <header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home"><img src="{LOGO}" alt="Ege Coskun" width="140" height="43"></a>
 <nav class="site-n" aria-label="Main"><a href="/work">Work</a><a href="/about">About</a><a href="#contact">Contact</a></nav></div></header>
 {body}
@@ -217,7 +218,7 @@ def backlot():
             f'{ds}<div class="cs-wrap" data-bl2root="2">{w2}</div>{nb}</main>')
     return page('Backlot case study | Ege Coskun',
                 'Backlot, a B2B SaaS CMS for streaming services: review and approval workflows, region-specific metadata and an AI check that flags likely rejections.',
-                body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
+                body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'], font='it')
 
 # ---------- BİLGE: same components as Backlot ----------
 def ph(label):
