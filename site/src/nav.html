@@ -92,7 +92,6 @@
     });
     if(active<0)active=0;
     items.forEach(function(it,i){it.link.classList.toggle('is-active',i===active);});
-    if(last>=0&&active===last+1)fly(items[active]);
     last=active;
     var nr=nav.getBoundingClientRect(), off=false;
     var darks=[].map.call(document.querySelectorAll('.cs-quote,.cs-dsec'),function(q){return q.getBoundingClientRect();});

@@ -13,8 +13,8 @@
   #app{position:relative;width:100%}
   .bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:0 0 12px}
   .tag{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 14px 0 10px;border-right:1px solid #e1e1e1;margin-right:6px;font-size:12.5px;font-weight:500;color:#222;white-space:nowrap}
-  .tag i{width:8px;height:8px;border-radius:50%;background:#2fbf5b;box-shadow:0 0 0 0 rgba(47,191,91,.5);animation:live 1.8s ease-out infinite}
-  @keyframes live{0%{box-shadow:0 0 0 0 rgba(47,191,91,.55)}70%{box-shadow:0 0 0 7px rgba(47,191,91,0)}100%{box-shadow:0 0 0 0 rgba(47,191,91,0)}}
+  .tag i{width:8px;height:8px;border-radius:50%;background:#728437;box-shadow:0 0 0 0 rgba(114,132,55,.5);animation:live 1.8s ease-out infinite}
+  @keyframes live{0%{box-shadow:0 0 0 0 rgba(114,132,55,.55)}70%{box-shadow:0 0 0 7px rgba(114,132,55,0)}100%{box-shadow:0 0 0 0 rgba(114,132,55,0)}}
   @media (prefers-reduced-motion:reduce){.tag i{animation:none}}
   .steps{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
   .tab{display:flex;align-items:center;height:30px;padding:0 13px;border-radius:999px;border:1px solid #e1e1e1;background:#fff;font:500 12.5px/1 Manrope,sans-serif;color:#707070;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
@@ -56,6 +56,12 @@
   .end p{margin:2px 0 0;color:#5f5c57;font-size:12.5px}
   @media (max-width:700px){.step span{display:none}.step{padding:0 6px}.mode{display:none}.right{margin-left:0}}
   @media (prefers-reduced-motion:reduce){.ring.show{animation:none}.cur,.ring,.tip,.banner,.stage iframe{transition:none}}
+
+  /* step numbers: black and white, centred */
+  .step b{width:18px;height:18px;padding-top:1px;font-size:10px;line-height:1;font-weight:600;font-variant-numeric:tabular-nums;border:1.5px solid #cfcfcf;box-sizing:border-box}
+  .step.on b{background:#fff;border-color:#161616;color:#161616}
+  .step.done b{background:#161616;border-color:#161616;color:#fff}
+  .step.done+.step::before,.step.on::before{background:#161616}
 </style>
 </head>
 <body>
