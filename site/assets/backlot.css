@@ -360,3 +360,5 @@ html.f-it body,html.f-it .site-h *,html.f-it [data-bl2root] *:not(svg):not(svg *
 
 /* the benchmark table scrolls sideways only, so the page keeps the wheel */
 .bm{overflow-y:hidden!important}
+/* design system section: the words around the components use the site font, the components keep the product's */
+html.f-it .cs-dsec .ds-head *,html.f-it .cs-dsec .ds-title,html.f-it .cs-dsec .ds-lead,html.f-it .cs-dsec .ds-note,html.f-it .cs-dsec .ds-rl,html.f-it .cs-dsec .ds-k,html.f-it .cs-dsec .ds-g p{font-family:"Inter Tight",system-ui,sans-serif!important}
