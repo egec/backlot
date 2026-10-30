@@ -172,7 +172,9 @@ function plan(dy){
     if(d>0&&g.top>1&&g.top-dy<=1)return {y:Y+g.top,snap:1};
     if(d<0&&-g.top>g.run+1&&-(g.top-dy)<=g.run+1)return {y:Y+g.top+g.run,snap:1}}
   for(var i=1;i<secs.length;i++){var t=top(i);
-    if(d>0&&t>h+2&&t-dy<vh)return {y:Y+t-h};
+    /* first stop with the section's end in full view, the next move brings the new section to the top */
+    if(d>0&&t>vh+2&&t-dy<vh)return {y:Y+t-vh,snap:1};
+    if(d>0&&t>h+2&&t<=vh+2)return {y:Y+t-h};
     if(d<0&&t>=h-2&&t<vh-2)return {y:Y-(vh-t)};
     if(d<0&&t<h-2&&t-dy>h-2)return {y:Y+t-h,snap:1}}
   return null}
@@ -196,10 +198,11 @@ addEventListener('touchmove',function(e){var y=e.touches[0].clientY,inc=ly-y;ly=
 addEventListener('touchend',function(){finger=0;endT=Date.now()},{passive:true});
 /* a flick keeps scrolling after the finger lifts: stop it at the next section top or feature */
 addEventListener('scroll',function(){var Y=pageYOffset,dY=Y-lastY;lastY=Y;
-  if(finger||busy||!dY||Date.now()-endT>2500)return;var h=hh(),Z=zs();
+  if(finger||busy||!dY||Date.now()-endT>2500)return;var h=hh(),vh=innerHeight,Z=zs();
   for(var k=0;k<Z.length;k++){var g=Z[k].range(),gp=g.top+dY;
     if(gp>1&&g.top<=1){to(Y+g.top,false,true);return}
     if(-gp>g.run+1&&-g.top<=g.run+1){to(Y+g.top+g.run,false,true);return}}
   for(var i=1;i<secs.length;i++){var t=top(i),tp=t+dY;
+    if(dY>0&&tp>vh+2&&t<=vh+2){to(Y+t-vh,false,true);return}
     if((tp-h)*(t-h)<0){to(Y+t-h,false,true);return}}},{passive:true});
 })();

@@ -24,7 +24,7 @@ def rem(css):
 LOGO = 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/67a7e87a22185065ca4c8d61_Ege%20Coskun%20(2).png'
 FULL_IC = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>'
 
-def page(title, desc, body, css_files, js_files, font=''):
+def page(title, desc, body, css_files, js_files, font='it'):
     css = ''.join('<link rel="stylesheet" href="../assets/%s">' % c for c in css_files)
     js = ''.join('<script src="../assets/%s" defer></script>' % j for j in js_files)
     fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">' if font else ''
@@ -58,7 +58,7 @@ def sub(title, text=''):
     return f'<div class="bl2-subh"><h3>{title}</h3>' + (f'<p>{text}</p>' if text else '') + '</div>'
 
 def simple(n, f, media, nav=False):
-    return f'<div class="bl2-t bl2-f{" first" if nav else ""}">{head(n, f, nav=nav)}{strip(f["on"])}{media_box(media)}</div>'
+    return f'<div class="bl2-t bl2-f{" first" if nav else ""}">{head(n, f, nav=nav)}{media_box(media)}</div>'
 
 ZCAP = 1.5
 def fit(s):
@@ -95,7 +95,7 @@ def zoom(n, f, steps, medias, after='', nav=False):
     ctl = ('<button type="button" class="zs-play" data-zplay><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>'
            '<span>Play the whole video</span></button>') if has_video else ''
     return (f'<div class="bl2-t bl2-f{" first" if nav else ""}">{head(n, f, nav=nav)}<div class="zs" data-zs style="--n:{len(steps)}"><div class="zs-pin"><ol class="zs-steps">{lis}</ol>'
-            f'<div class="zs-stick">{strip(f["on"])}<div class="zs-frame"><div class="zs-view">{ms}</div></div>'
+            f'<div class="zs-stick"><div class="zs-frame"><div class="zs-view">{ms}</div></div>'
             f'<div class="zs-foot"><div class="zs-bar">{bars}</div>{ctl}</div></div></div></div>{after}</div>')
 
 IMG_SEASON = dict(type='img', src=GH + 'shots/thumbnails.webp', w=2880, h=1800, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
@@ -176,12 +176,14 @@ def roles_viewer():
     e = EMB('13941d11')
     T = re.search(r'T=(\{.*?\]\]\})', e, re.S)
     imgs = re.search(r'<div class="blr-stage">(.*?)</div></div><script>', e, re.S).group(1)
-    tabs = [('ed-dash', 'Editor dashboard'), ('pub-dash', 'Publisher dashboard'), ('ed-work', 'Editor workspace'), ('pub-work', 'Publisher reviews')]
     sel = lambda k: ' aria-selected="true"' if k == 'ed-work' else ' aria-selected="false" tabindex="-1"'
-    bt = ''.join(f'<button class="blr-t" role="tab" data-k="{k}"{sel(k)}>{t}</button>' for k, t in tabs)
-    return (f'<div class="blr" data-blr><div class="blr-fs"><div class="blr-l"><div class="blr-bar" role="tablist" aria-label="Screen" aria-orientation="vertical">{bt}</div>'
-            f'<button type="button" class="blr-full" data-fs>{FULL_IC}<span>Full screen</span></button></div>'
+    tab = lambda k, t, full: f'<button class="blr-t" role="tab" data-k="{k}" aria-label="{full}"{sel(k)}>{t}</button>'
+    bar = ('<div class="blr-bar" role="tablist" aria-label="Screen">'
+           '<div class="blr-grp" role="presentation"><span class="blr-g">Editor</span>' + tab('ed-dash', 'Dashboard', 'Editor dashboard') + tab('ed-work', 'Workspace', 'Editor workspace') + '</div>'
+           '<div class="blr-grp" role="presentation"><span class="blr-g">Publisher</span>' + tab('pub-dash', 'Dashboard', 'Publisher dashboard') + tab('pub-work', 'Reviews', 'Publisher reviews') + '</div></div>')
+    return (f'<div class="blr" data-blr><div class="blr-fs"><div class="blr-l">{bar}'
             f'<div class="blr-txt"><p class="blr-c" aria-live="polite"></p><div class="blr-rs"></div></div>'
+            f'<button type="button" class="blr-full" data-fs>{FULL_IC}<span>Full screen</span></button></div>'
             f'<div class="blr-stage">{imgs}</div></div>'
             f'<script type="application/json" class="blr-data">{T.group(1)}</script></div>')
 

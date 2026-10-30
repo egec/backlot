@@ -93,7 +93,13 @@
   html.on-green .step.done+.step::before,html.on-green .step.on::before{background:#fff}
   html.on-green .mode{color:rgba(255,255,255,.85)}
   html.on-green .ibtn{border-color:#fff}
+  /* step numbers: the digit itself sits in the middle of the circle, not its line box */
+  .step b{display:inline-flex;align-items:center;justify-content:center;padding:0!important;line-height:1}
+  .step b em{display:block;font-style:normal;line-height:1;text-box:trim-both cap alphabetic}
+  /* site type for the frame around the product */
+  .bar,.bar *{font-family:"Inter Tight",Manrope,system-ui,sans-serif!important}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>if(/[?&]on=green/.test(location.search))document.documentElement.classList.add('on-green')</script>
 </head>
 <body>
@@ -101,10 +107,10 @@
   <div class="bar">
     <span class="tag"><i></i>Interactive prototype</span>
     <div class="steps" aria-label="Steps">
-      <div class="step" data-s="1"><b>1</b><span>Publisher flags a field</span></div>
-      <div class="step" data-s="2"><b>2</b><span>Rejects</span></div>
-      <div class="step" data-s="3"><b>3</b><span>Editor resolves</span></div>
-      <div class="step" data-s="4"><b>4</b><span>Resubmits</span></div>
+      <div class="step" data-s="1"><b><em>1</em></b><span>Publisher flags a field</span></div>
+      <div class="step" data-s="2"><b><em>2</em></b><span>Rejects</span></div>
+      <div class="step" data-s="3"><b><em>3</em></b><span>Editor resolves</span></div>
+      <div class="step" data-s="4"><b><em>4</em></b><span>Resubmits</span></div>
     </div>
     <div class="right">
     <span class="mode" id="mode" aria-live="polite">Your turn. Click anywhere for a hint.</span>
