@@ -215,7 +215,7 @@ def backlot():
     ds = ds_build().replace('Lupin, S4-E2', 'Lupin · S4-E2').replace('Community, S6-E6', 'Community · S6-E6').replace('Long Story Short, S1-E3', 'Long Story Short · S1-E3') \
         .replace('Crime, Drama', 'Crime · Drama').replace('Edit requested, waiting', 'Edit requested · waiting').replace('Editor, Alex', 'Editor · Alex').replace('Publisher, Maya', 'Publisher · Maya')
     w2 = sec('re', "What's next", P['c2545a3c-0f01-ab8f-4f5f-45336f755274'])
-    nb = P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'].replace('href="/work"', 'href="/bilge"')
+    nb = P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'].replace('href="/work"', 'href="/bilge"').replace('Customs approvals where every change carries a reason.', 'Container tracking for Turkish customs, designed from the system specs.')
     body = (f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>'
             f'{ds}<div class="cs-wrap" data-bl2root="2">{w2}</div>{nb}</main>')
     return page('Backlot case study | Ege Coskun',
@@ -239,7 +239,7 @@ def head2(n, k, h, lead=''):
 
 def bilge():
     hero = ('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
-            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Customs approvals where every change carries a reason</h1>'
+            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Tracking every container through Turkish customs, designed from the system specs</h1>'
             '<div class="bl2-hg"><p class="lead">BİLGE is built from dozens of modules, and I designed across many of them. This page shows one: KLTS, container and port tracking, where shipping agents register containers, customs officers approve them, and managers sign off what changes after approval. '
             'I designed every flow from the system specifications and the backend rules behind them, so each screen offers only what the system allows.</p>'
             '<div class="bl2-meta"><div><b>Company</b>MilSOFT</div><div><b>Client</b>Turkish Ministry of Trade</div>'
