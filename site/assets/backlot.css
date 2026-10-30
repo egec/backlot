@@ -251,9 +251,11 @@ video[data-src]{max-width:min(100%,1440px)!important;margin-left:auto!important;
 /* media: framed, and never taller than the screen, so its controls stay in view */
 .bl2-media{margin-top:var(--gap);border-radius:16px;background:var(--card);padding:clamp(12px,2.4vw,40px)}
 .bl2-strip+.bl2-media,.bl2-subh+.bl2-media,.bl2-t:has(>.bl2-subh:last-child)+.bl2-media{margin-top:16px}
-.bl2-media>div[style*="margin"]{margin:0!important}
+.bl2-media>div[style*="margin"]{margin-top:0!important;margin-bottom:0!important}
 .bl2-media video{display:block;width:100%;height:auto;border-radius:8px}
-.bl2-media>*,.bl2-media video[data-src],.bl2-media .bl-vctl{max-width:min(100%,var(--fit))!important;margin-left:auto!important;margin-right:auto!important}
+.bl2-media>*,.bl2-media video[data-src],.bl2-media .bl-vctl{max-width:100%!important;margin-left:auto!important;margin-right:auto!important}
+/* screens never grow taller than the window: the card shrinks with them, so its padding stays equal on every side */
+.bl2-media:not(:has(.bm,.blp)){max-width:calc(var(--fit) + 2 * clamp(12px,2.4vw,40px))}
 .bl2-media iframe{display:block}
 .bl2-media .bm{margin:0}
 .bl2-media .bl-tree{margin-top:0;background:transparent;padding:0}
@@ -332,7 +334,7 @@ video[data-src]{max-width:min(100%,1440px)!important;margin-left:auto!important;
 .blr-fs:fullscreen .blr-rs{display:none}
 .blr-fs:fullscreen .blr-stage{margin:0!important;max-width:none!important;width:min(100%,calc((100vh - 64px - 3.5rem) * 1.6))}
 /* interactive prototypes sit on a green tint, so they read apart from screens and recordings */
-.bl2-media.is-proto{background:#DCE2C5}
+.bl2-media.is-proto{background:#56652A}
 
 @media(max-width:991px){.blr-fs{grid-template-columns:1fr;row-gap:20px}.blr-l{grid-row:auto;position:static}.blr-txt,.blr-stage{grid-column:1}[data-bl2] .blr-bar{flex-direction:row;flex-wrap:wrap}.blr-l{flex-direction:row;flex-wrap:wrap;gap:8px}.rs-g{grid-template-columns:1fr}
 .zs{height:auto}.zs-pin{position:static;height:auto;display:flex;flex-direction:column-reverse;gap:24px}.zs-stick{width:100%}.bl2-t .zs-steps{margin:0}.zs-steps button{cursor:default;padding:14px 0 6px}.zs-steps strong{color:var(--ink)}.zs-steps em{color:var(--gd)}.zs-d{grid-template-rows:1fr}.zs-mw{transform:none!important}.zs-hl{display:none}.zs-bar{display:none}}

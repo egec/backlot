@@ -46,7 +46,10 @@ def head(n, f, nav=False):
     return f'{hid}<p class="k">Feature {n:02d}</p><h2 class="bl2-h">{f["t"]}</h2><p class="lead">{f["l"]}</p>'
 
 def media_box(inner):
-    cls = ' is-proto' if 'proto/' in inner else ''
+    cls = ''
+    if re.search(r'proto/(rejection|region)/', inner):  # clickable prototypes stand out on her green
+        cls = ' is-proto'
+        inner = re.sub(r'(proto/(?:rejection|region)/)"', r'\1?on=green"', inner)
     return f'<div class="bl2-media{cls}">{inner}</div>'
 
 def sub(title, text=''):
@@ -186,8 +189,7 @@ def changed():
              '<h2 class="bl2-h cs-title">One label showed me the first version was wrong</h2>'
              '<div class="bl2-split bl2-split-first"><p class="k">The first version</p><div><p>The first version allowed one rejection reason per item, and I caught myself labelling rejected items “Multiple Issues”. '
              'That label was a symptom, not a reason, so reasons became a list, each pinned to a field and resolvable on its own.</p></div></div></div>')
-    return (story + '<div class="bl2-t">' + sub('Version 1 and version 2', 'The same rejection, first with one reason, then with reasons pinned to fields.') + '</div>'
-            + media_box(EMB('8a2ee889'))
+    return (story + media_box(EMB('8a2ee889'))
             + '<div class="bl2-t">' + sub('What I took out', 'Most of what I added stayed. Four things didn’t.') + '</div>' + P['CARDS'])
 
 def north_star():

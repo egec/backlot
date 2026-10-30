@@ -62,13 +62,37 @@
   .step.on b{background:#fff;border-color:#161616;color:#161616}
   .step.done b{background:#161616;border-color:#161616;color:#fff}
   .step.done+.step::before,.step.on::before{background:#161616}
+
+  /* header: label on top, title or steps under it, controls on the right */
+  .bar{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:16px;row-gap:4px;align-items:center;padding:0 0 16px}
+  .bar>.tag{grid-column:1;border-right:0;padding:0;margin:0;height:22px}
+  .bar>.steps,.bar>.instr{grid-column:1;grid-row:2}
+  .bar>.right{grid-column:2;grid-row:1/3;margin-left:0}
+  .instr{font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:30px;color:#222;white-space:nowrap}
+  @media (max-width:700px){.bar{grid-template-columns:1fr}.bar>.right{grid-column:1;grid-row:3}}
+  /* on the green card of the case page: light text */
+  html.on-green body{color:#fff}
+  html.on-green .tag{color:rgba(255,255,255,.85)}
+  html.on-green .tag i{background:#fff;animation:none}
+  html.on-green .instr{color:#fff}
+  html.on-green .step{color:rgba(255,255,255,.65)}
+  html.on-green .step b{border-color:rgba(255,255,255,.55);color:rgba(255,255,255,.85)}
+  html.on-green .step.on{color:#fff}
+  html.on-green .step.on b{background:transparent;border-color:#fff;color:#fff}
+  html.on-green .step.done{color:rgba(255,255,255,.9)}
+  html.on-green .step.done b{background:#fff;border-color:#fff;color:#56652A}
+  html.on-green .step+.step::before{background:rgba(255,255,255,.3)}
+  html.on-green .step.done+.step::before,html.on-green .step.on::before{background:#fff}
+  html.on-green .mode{color:rgba(255,255,255,.85)}
+  html.on-green .ibtn{border-color:#fff}
 </style>
+<script>if(/[?&]on=green/.test(location.search))document.documentElement.classList.add('on-green')</script>
 </head>
 <body>
 <div id="app">
   <div class="bar">
     <span class="tag"><i></i>Interactive prototype</span>
-    <span class="instr" style="font-size:12.5px;font-weight:500;color:#222;white-space:nowrap;line-height:30px">Change the region</span>
+    <span class="instr">Change the region</span>
     <div class="right">
     <span class="mode" id="mode" aria-live="polite">Your turn. Click anywhere for a hint.</span>
     <button class="ibtn" id="restart" type="button" aria-label="Restart" title="Restart"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
