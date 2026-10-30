@@ -22,7 +22,7 @@
 .bl2-subh p{margin:6px 0 0;font-size:15px;line-height:1.45;color:var(--mute);max-width:40em}
 
 /* feature: steps that move the screen. Text and screen stay pinned; scrolling moves through the steps */
-.zs{position:relative;height:calc(100svh + var(--n) * 55svh);margin-top:clamp(24px,3vw,48px)}
+.zs{position:relative;height:calc(100svh + var(--n) * 40svh);margin-top:clamp(24px,3vw,48px)}
 .zs-pin{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);display:grid;grid-template-columns:minmax(240px,3fr) minmax(0,8fr);gap:clamp(32px,4vw,72px);align-content:center;align-items:start}
 .bl2-t .zs-steps{list-style:none;padding:0;margin:calc(1.375rem + 16px) 0 0;border-bottom:1px solid var(--line)}
 .zs-steps li{border-top:1px solid var(--line)}
@@ -71,21 +71,25 @@
 
 /* role viewer: the tabs sit where the label was, so choosing a screen reads top to bottom */
 [data-bl2] .blr{margin-top:var(--gap2)}
-.blr-top{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,3fr);gap:32px}
-.blr-l{display:flex;flex-direction:column;align-items:flex-start;gap:24px}
+.blr-fs{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,3fr);column-gap:32px;align-items:start}
+.blr-l{grid-row:1/3;position:sticky;top:calc(4.75rem + 24px);display:flex;flex-direction:column;align-items:flex-start;gap:24px}
+.blr-txt,.blr-stage{grid-column:2}
 [data-bl2] .blr-bar{flex-direction:column;align-items:flex-start;flex-wrap:nowrap;margin:0}
 .blr-c{margin:0 0 12px;font-size:18px;line-height:1.35;font-weight:600}
 .blr-rs{max-width:600px}
 .bl2-t .blr-rs p,.blr-rs p{margin:0;padding:10px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.45;color:#3a3936}
 .blr-rs p:last-child{border-bottom:1px solid var(--line)}
-.blr-stage{margin-top:var(--gap)!important;max-width:min(100%,var(--fit))!important}
+.blr-stage{margin:var(--gap) 0 0!important;max-width:min(100%,var(--fit))!important}
 .blr-full{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 14px 0 10px;border-radius:999px;border:1px solid #d4d4d4;background:#fff;color:#222;font:500 13px/1 Manrope,sans-serif;cursor:pointer;transition:background .2s}
 .blr-full:hover{background:#f1f1f1}.blr-full:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-.blr-fs:fullscreen{background:var(--bg);padding:32px;display:grid;grid-template-columns:minmax(200px,260px) minmax(0,1fr);gap:32px;align-items:center}
-.blr-fs:fullscreen .blr-top{display:flex;flex-direction:column;gap:24px}
+.blr-fs:fullscreen{background:var(--bg);padding:32px;grid-template-columns:minmax(200px,260px) minmax(0,1fr);grid-template-rows:auto 1fr;column-gap:40px;row-gap:16px;align-content:center}
+.blr-fs:fullscreen .blr-l{position:static}
+.blr-fs:fullscreen .blr-c{margin:0}
 .blr-fs:fullscreen .blr-rs{display:none}
-.blr-fs:fullscreen .blr-stage{margin:0!important;max-width:none!important;width:min(100%,calc((100vh - 64px) * 1.6));justify-self:center}
+.blr-fs:fullscreen .blr-stage{margin:0!important;max-width:none!important;width:min(100%,calc((100vh - 64px - 3.5rem) * 1.6))}
+/* interactive prototypes sit on a green tint, so they read apart from screens and recordings */
+.bl2-media.is-proto{background:#DCE2C5}
 
-@media(max-width:991px){.blr-top{grid-template-columns:1fr;gap:20px}[data-bl2] .blr-bar{flex-direction:row;flex-wrap:wrap}.blr-l{flex-direction:row;flex-wrap:wrap;gap:8px}.rs-g{grid-template-columns:1fr}
+@media(max-width:991px){.blr-fs{grid-template-columns:1fr;row-gap:20px}.blr-l{grid-row:auto;position:static}.blr-txt,.blr-stage{grid-column:1}[data-bl2] .blr-bar{flex-direction:row;flex-wrap:wrap}.blr-l{flex-direction:row;flex-wrap:wrap;gap:8px}.rs-g{grid-template-columns:1fr}
 .zs{height:auto}.zs-pin{position:static;height:auto;display:flex;flex-direction:column-reverse;gap:24px}.zs-stick{width:100%}.bl2-t .zs-steps{margin:0}.zs-steps button{cursor:default;padding:14px 0 6px}.zs-steps strong{color:var(--ink)}.zs-steps em{color:var(--gd)}.zs-d{grid-template-rows:1fr}.zs-mw{transform:none!important}.zs-hl{display:none}.zs-bar{display:none}}
 @media(min-width:768px) and (max-width:991px){.rs-g{grid-template-columns:repeat(3,minmax(0,1fr))}}

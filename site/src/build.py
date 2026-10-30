@@ -46,7 +46,8 @@ def head(n, f, nav=False):
     return f'{hid}<p class="k">Feature {n:02d}</p><h2 class="bl2-h">{f["t"]}</h2><p class="lead">{f["l"]}</p>'
 
 def media_box(inner):
-    return f'<div class="bl2-media">{inner}</div>'
+    cls = ' is-proto' if 'proto/' in inner else ''
+    return f'<div class="bl2-media{cls}">{inner}</div>'
 
 def sub(title, text=''):
     """small heading that says what the next media shows"""
@@ -174,9 +175,9 @@ def roles_viewer():
     tabs = [('ed-dash', 'Editor dashboard'), ('pub-dash', 'Publisher dashboard'), ('ed-work', 'Editor workspace'), ('pub-work', 'Publisher reviews')]
     sel = lambda k: ' aria-selected="true"' if k == 'ed-work' else ' aria-selected="false" tabindex="-1"'
     bt = ''.join(f'<button class="blr-t" role="tab" data-k="{k}"{sel(k)}>{t}</button>' for k, t in tabs)
-    return (f'<div class="blr" data-blr><div class="blr-fs"><div class="blr-top"><div class="blr-l"><div class="blr-bar" role="tablist" aria-label="Screen" aria-orientation="vertical">{bt}</div>'
+    return (f'<div class="blr" data-blr><div class="blr-fs"><div class="blr-l"><div class="blr-bar" role="tablist" aria-label="Screen" aria-orientation="vertical">{bt}</div>'
             f'<button type="button" class="blr-full" data-fs>{FULL_IC}<span>Full screen</span></button></div>'
-            f'<div class="blr-txt"><p class="blr-c" aria-live="polite"></p><div class="blr-rs"></div></div></div>'
+            f'<div class="blr-txt"><p class="blr-c" aria-live="polite"></p><div class="blr-rs"></div></div>'
             f'<div class="blr-stage">{imgs}</div></div>'
             f'<script type="application/json" class="blr-data">{T.group(1)}</script></div>')
 
