@@ -17,3 +17,9 @@ draw()});
 if(!('IntersectionObserver' in window)){ns.forEach(function(n){n.classList.add('in')});return}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -30% 0px'});
 ns.forEach(function(n){io.observe(n)})})();
+
+/* interactive prototypes: when one first comes into view, ask it to show where to click first */
+(function(){var fs=[].slice.call(document.querySelectorAll('.bl2-media.is-proto iframe'));if(!fs.length||!('IntersectionObserver' in window))return;
+function ping(f){try{f.contentWindow.postMessage({blHint:1},'*')}catch(e){}}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var f=e.target;io.unobserve(f);setTimeout(function(){ping(f)},700);setTimeout(function(){ping(f)},2400);f.addEventListener('load',function(){setTimeout(function(){ping(f)},900)},{once:true})})},{threshold:.4});
+fs.forEach(function(f){io.observe(f)})})();

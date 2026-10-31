@@ -66,6 +66,12 @@ def sub(title, text='', note=''):
     return f'<div class="bl2-subh">{h3}' + (f'<p>{text}</p>' if text else '') + '</div>'
 
 ZCAP = 1.5
+PADX, PADY = 0.6, 0.96  # breathing room around every highlight, equal in pixels on a 1.6 screen
+def padbox(b):
+    x, y, w, h = b
+    x0, y0 = max(0.25, x - PADX), max(0.4, y - PADY)
+    x1, y1 = min(99.6, x + w + PADX), min(99.3, y + h + PADY)
+    return (round(x0, 2), round(y0, 2), round(x1 - x0, 2), round(y1 - y0, 2))
 def fit(s):
     """z, x, y from the highlight boxes plus an optional context box (ctx) that must stay in view, e.g. a heading."""
     if 'z' in s:
@@ -80,7 +86,7 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note=''):
     """Steps that move the screen. Each step can switch media (m), seek a video (t), zoom to a point (z, x, y in %)
     and highlight boxes (hl: list of (x, y, w, h) in % of the media). The text and the screen stay pinned while
     scrolling moves through the steps."""
-    steps = [fit(s) for s in steps]
+    steps = [fit(dict(s, hl=[padbox(b) for b in s.get('hl', [])])) for s in steps]
     lis = ''.join(
         f'<li data-m="{s.get("m", 0)}" data-z="{s["z"]}" data-x="{s["x"]}" data-y="{s["y"]}"' + (f' data-t="{s["t"]}"' if 't' in s else '') +
         f'><button type="button"><em>{i+1:02d}</em><strong>{s["h"]}</strong></button><div class="zs-d"><span>{t}</span></div></li>'
@@ -101,7 +107,7 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note=''):
            '<span>Play the whole video</span></button>') if has_video else ''
     hd = head_html if head_html is not None else head(n, f, nav=nav, note=note)
     return (f'<div class="bl2-t bl2-f{" first" if nav else ""}">{hd}<div class="zs" data-zs style="--n:{len(steps)}"><div class="zs-pin"><ol class="zs-steps">{lis}</ol>'
-            f'<div class="zs-stick"><div class="zs-frame"><div class="zs-view">{ms}</div></div>'
+            f'<div class="zs-stick"><div class="zs-frame"><div class="zs-view" style="aspect-ratio:{medias[0]["w"]}/{medias[0]["h"]}">{ms}</div></div>'
             f'<div class="zs-foot"><div class="zs-bar">{bars}</div>{ctl}</div></div></div></div>{after}</div>')
 
 IMG_SEASON = dict(type='img', src=GH + 'shots/thumbnails.webp', w=2880, h=1800, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
@@ -133,6 +139,11 @@ def hero():
         h = h.replace(o, n)
     return h
 
+MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
+def nbthumb(html, src, alt=''):
+    assert MINI in html
+    return html.replace(MINI, f'<img src="{src}" alt="{alt}" loading="lazy">')
+
 def sec(k, label, inner):
     return f'<section data-bl2="{k}" data-nav-label="{label}">{inner}</section>'
 
@@ -147,7 +158,7 @@ def backlot():
     ds = ds_build().replace('Lupin, S4-E2', 'Lupin · S4-E2').replace('Community, S6-E6', 'Community · S6-E6').replace('Long Story Short, S1-E3', 'Long Story Short · S1-E3') \
         .replace('Crime, Drama', 'Crime · Drama').replace('Edit requested, waiting', 'Edit requested · waiting').replace('Editor, Alex', 'Editor · Alex').replace('Publisher, Maya', 'Publisher · Maya')
     w2 = sec('re', "What's next", P['c2545a3c-0f01-ab8f-4f5f-45336f755274'])
-    nb = P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'].replace('href="/work"', 'href="/bilge"').replace('Customs approvals where every change carries a reason.', 'Container tracking for Turkish customs, designed from the system specs.')
+    nb = nbthumb(P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'], GH + 'shots/bilge/b-queue-th.webp').replace('href="/work"', 'href="/bilge"').replace('Customs approvals where every change carries a reason.', 'Container tracking for Turkish customs, designed from the system specs.')
     body = (f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>'
             f'{ds}<div class="cs-wrap" data-bl2root="2">{w2}</div>{nb}</main>')
     return page('Backlot case study | Ege Coskun',
@@ -194,9 +205,9 @@ def features():
     F.append(lambda n, nav: zoom(n, f_fill, [
         dict(h='Gaps come first', m=1, z=1.25, x=40, y=40, hl=[(5, 23.5, 68, 34.5)]),
         dict(h='Locked by its source', m=1, z=1.4, x=40, y=78, hl=[(14.6, 63.4, 5.4, 2.9), (36.1, 70.4, 2, 23), (70.1, 70.4, 2, 23)]),
-        dict(h='Save is not submit', m=1, z=1.05, x=50, y=52, hl=[(62.8, 8.8, 9.9, 3.9), (66.6, 95.1, 5.7, 3.7)]),
+        dict(h='Save is not submit', m=1, hl=[(62.8, 8.8, 9.9, 3.9), (66.6, 95.1, 5.7, 3.7)]),
         dict(h='Progress, not pass or fail', m=0, z=1.9, x=85, y=29, hl=[(91.6, 23.4, 5.6, 14.4), (91.4, 10.8, 6.2, 2.6)]),
-        dict(h='Readiness for the season', m=0, z=1.5, x=78, y=20, hl=[(59.5, 8.9, 13.7, 3.9), (75.6, 9.4, 22, 7.8)])], [IMG_SEASON, IMG_EP2],
+        dict(h='Readiness for the season', m=0, z=1.5, x=78, y=20, hl=[(59.3, 8.7, 38.4, 8.7)])], [IMG_SEASON, IMG_EP2],
         after=sub('A season keeps its own metadata, apart from its episodes', 'Episodes, season metadata, season assets, deliveries per region and the audit log, with the readiness panel in view on every tab.') + media_box(EMB('137e3b55')), nav=nav))
     # upload, the unhappy path
     f_up = dict(t='Designed for the delivery that arrives broken',
@@ -210,7 +221,7 @@ def features():
         dict(h='Keep working while it uploads', m=0, hl=[(74.6, 86.6, 23.8, 11.4)], ctx=(60, 60, 1, 1)),
         dict(h='Add files mid-upload', m=1, hl=[(27, 5.4, 46.2, 21.6)]),
         dict(h='Each file has its own state', m=2, hl=[(61.8, 30.4, 19.4, 26.8)], ctx=(5, 20.5, 80, 1))], [IMG_UP15, IMG_UP3, IMG_AS],
-        after=sub('Resolving the 15 files processing couldn’t place', 'Each problem gets its own fix: assign files in bulk, keep or replace a duplicate master, or create the episode a file points to.') + media_box(EMB('2f6c4fe9')),
+        after=sub('Resolving the files processing couldn’t place', 'Each problem gets its own fix: assign files in bulk, keep or replace a duplicate master, or create the episode a file points to.') + media_box(EMB('2f6c4fe9')),
         note='unhappy path', nav=nav))
     # rejection
     f_rej = dict(t='A rejection is a list of reasons',
@@ -221,8 +232,8 @@ def features():
     F.append(lambda n, nav: zoom(n, f_rej, [
         dict(h='Comments become reasons', hl=[(69.5, 14.6, 28, 14.6), (5.6, 22.6, 61.4, 7.4)], ctx=(69.5, 10, 28, 1)),
         dict(h='Fixed in place', hl=[(5.6, 22.6, 61.4, 7.4), (5.6, 63.6, 61.4, 7)]),
-        dict(h='Counted before it is sent', hl=[(86.6, 56.4, 10.6, 4.2), (70.2, 52.4, 20, 3.4)], ctx=(69.5, 10, 28, 1))], [IMG_REJ],
-        after=sub('Try it', 'Flag two fields as the publisher, then fix them as the editor.', note='start here') + media_box(EMB('f663202a')), nav=nav))
+        dict(h='Counted before it is sent', hl=[(70, 52.2, 27.4, 8.6)], ctx=(69.5, 10, 28, 1))], [IMG_REJ],
+        after=sub('Try it', 'Flag two fields as the publisher, then fix them as the editor.') + media_box(EMB('f663202a')), nav=nav))
     # AI
     f_ai = dict(t='AI suggests, the editor accepts',
              l='The AI points at likely rejections before the publisher sees them and proposes values like keywords. Nothing is written until the editor accepts.',
@@ -266,7 +277,8 @@ def features():
     index = ('<div class="bl2-t"><span class="cs-num bl2-x">05</span><span class="cs-title bl2-x">Features</span><p class="k">Features</p>'
              '<h2 class="bl2-h">Nine decisions across the workflow</h2>'
              f'<ol class="fx-ix">{ix}</ol></div>')
-    return index + ''.join(f'<div id="f-{i}" class="fx-a">' + mk(i, False) + '</div>' for i, mk in enumerate(F, 1))
+    short = ['Region scope', 'Missing fields', 'Broken deliveries', 'Rejections', 'AI suggestions', 'Artwork', 'Row actions', 'Files', 'Locking']
+    return index + ''.join(f'<div id="f-{i}" class="fx-a" data-nav-sub="{short[i-1]}">' + mk(i, False) + '</div>' for i, mk in enumerate(F, 1))
 
 # ---------- problem, built on what the research found ----------
 def problem():
@@ -359,7 +371,7 @@ def bilge():
             'This page shows KLTS, container and port tracking, designed from the system specifications and backend rules so every screen offers only what the system allows.</p>'
             '<div class="bl2-meta"><div><b>Company</b>MilSOFT</div><div><b>Client</b>Turkish Ministry of Trade</div>'
             '<div><b>My role</b>UX/UI Designer</div><div><b>Date</b>2022 to 2023</div></div></div>'
-            + ph('Hero screen from Claude Design') + '</div>')
+            + media_box(f'<img class="bl2-img" src="{GH}shots/bilge/b-detail.webp" width="1920" height="1080" alt="Container tracking form detail as a customs officer sees it: the agent’s details above the containers and their parts">') + '</div>')
     cards = ''.join(f'<div class="bl2-c"><span class="bl2-tag">Decision {i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate([
         ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. Blue and red headers separate the agent side from customs.'),
         ('Sources side by side', 'The carrier’s declaration and the port’s records sit next to each other, so a mismatch is visible at a glance.'),
@@ -376,44 +388,66 @@ def bilge():
              'I designed so the interface never offers an action the backend would refuse.') + '</div>')
     role = ('<div class="bl2-t">' + head2(3, 'My role', 'One module of many',
             'I joined after BİLGE’s design system was in place and worked across many modules. KLTS is the one whose designs I still have.')
-            + split('Team', '<p>TODO: team size and who was in it, and who you worked with day to day.</p>')
-            + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, corrections, cancellations, the container history, the declaration comparison and closing a form with an official report. TODO: number of screens and states.</p>')
-            + split('Design system', '<p>TM-22 was created by Dilmin Doğan and Gizem Turan Yücel. I extended it with: TODO.</p>')
+            + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, corrections, cancellations, the container history, the declaration comparison and closing a form with an official report.</p>')
+            + split('Design system', '<p>The TM-22 design system was created by Dilmin Doğan and Gizem Turan Yücel. I added to it where these flows needed something it did not have.</p>')
             + '</div>')
-    def flow(n, k, h, lead, shot, items):
-        return ('<div class="bl2-t">' + head2(n, k, h, lead) + '</div>' + ph(shot)
-                + ('<div class="bl2-t">' + split('Decisions', rules(items)) + '</div>' if items else ''))
+    V = lambda k: dict(type='video', src=GH + f'bilge/{k}.mp4', poster=GH + f'bilge/{k}.jpg', w=1600, h=900)
+    def flow(n, k, h, lead, steps, texts, medias, after=''):
+        return zoom(0, dict(r=texts), steps, medias, head_html=head2(n, k, h, lead), after=after)
+    POP = (37, 25, 26, 39)
     agent = flow(4, 'The agent files', 'General information first, then the containers',
-                 'The agent picks the movement (foreign or domestic, entry or exit), fills in general information, then adds containers one by one or in bulk, each with its parts and equipment. Until an officer approves it, the agent can still edit the form.',
-                 'Page A walkthrough: Add Container, Register', [
-                     'General information comes first, because every container on the form shares it.',
-                     'Parts and equipment sit under their container, so nothing is filed against the wrong one.',
-                     'Register, not Save: once sent, the form is binding.'])
+                 'The agent picks the movement (foreign or domestic, entry or exit), fills in general information, then adds containers one by one or in bulk. Until an officer approves the form, the agent can still edit it.',
+                 [dict(h='General information first', t=4.45, hl=[(33.5, 25.5, 36.5, 50)]),
+                  dict(h='Parts sit under their container', t=28.5, hl=[(63.5, 53.5, 35.5, 9)]),
+                  dict(h='Every container before sending', t=30.5, hl=[(34, 29, 63, 22)]),
+                  dict(h='Register, not Save', t=32.3, hl=[POP]),
+                  dict(h='Waiting for an officer', t=36.6, hl=[(42, 9, 31.5, 4.5), (20, 29.5, 72, 3)])],
+                 ['Every container on the form shares it, so the agent fills it once. Picking a tax ID fills in the company details.',
+                  'Each container carries its own parts and equipment, so nothing is filed against the wrong one.',
+                  'The list shows each container’s route, weight and parts before anything is sent.',
+                  'At the ministry’s request the last button says Register: from that moment the form is binding.',
+                  'The confirmation gives the registration number, and the form moves to the pending list.'],
+                 [V('a')])
     track = flow(5, 'Tracking a container', 'Every source and every event in one place',
-                 'Two screens came straight from the specs. One compares the carrier’s summary declaration with the port’s records. The other, the container history, puts every event on one timeline.',
-                 'Container lookup (page D) and declaration comparison', [])
+                 'Two screens came straight from the specs. The container history puts every event on one timeline. The comparison sets the carrier’s summary declaration against the port’s records.',
+                 [dict(h='One timeline per container', t=0.6, hl=[(20, 43, 77, 55)]),
+                  dict(h='Each event keeps its record', t=2.6, hl=[(20, 70, 77, 22)]),
+                  dict(h='Declaration against port data', t=4.3, hl=[(21, 59.5, 12, 19), (58.5, 59.5, 12, 19)]),
+                  dict(h='A mismatch opens its record', t=7.5, hl=[(34.5, 59.5, 15.5, 25), (74.5, 59.5, 15.5, 25)])],
+                 ['Gate moves, declarations and form approvals from different systems, newest first.',
+                  'Opening an event shows its stage, package count, weight and the form it belongs to.',
+                  'Shortfall lists containers the port recorded but the declaration missed. Surplus lists the reverse.',
+                  'Selecting a container shows its notice, registration and bill of lading next to the other source.'],
+                 [V('d')])
     customs = flow(6, 'Customs decides', 'Officers and managers act from their queue',
                    'Officers approve, edit or cancel registered forms; after approval, only customs can change them. Some changes need a second signature: time extensions and cancellations go to the manager, corrections to the deputy manager.',
-                   'Pages B and C walkthrough', [
-                       'An officer can approve some containers on a form and reject the rest in one step.',
+                   [dict(h='The form at a glance', m=0, t=3.2, hl=[(20.5, 17, 77, 16.5)]),
+                    dict(h='Approve some, reject the rest', m=0, t=6.0, hl=[(21.5, 49.5, 3, 22), (76.5, 37.5, 12.5, 4)]),
+                    dict(h='Both sides counted', m=0, t=8.3, hl=[POP]),
+                    dict(h='The balance after approval', m=0, t=11.4, hl=[POP]),
+                    dict(h='Managers decide on the row', m=1, t=1.4, hl=[(20, 57, 77, 6)]),
+                    dict(h='The result stays on the list', m=1, t=6.0, hl=[(42, 8.8, 32, 4.6), (82.5, 57.5, 5.5, 4)])],
+                   ['The agent’s details sit above the containers, each with its parts and equipment.',
+                    'The officer selects the containers that pass. Approving the selection rejects the others in the same step.',
+                    'Before anything changes, the confirmation says how many containers are approved and how many rejected.',
+                    'The success message shows how much of the agent’s prepaid balance is left.',
+                    'Time extensions reach the manager as a list with the request and its reason. Approve and Reject sit on the row, behind a confirmation.',
+                    'The status changes in place and a message confirms it, so the manager carries on with the queue.'],
+                   [V('b'), V('c')],
+                   after='<div class="bl2-t">' + split('Also in this flow', rules([
                        'Written reasons open in a side drawer, so the form stays in view.',
-                       'Managers decide on the row, and the result appears on the same list.',
-                       'Editing a form an agent registered warns that the agent’s record will change.'])
-    ba = ('<div class="bl2-t">' + head2(7, 'Before and after', 'Closing a form with an official report',
-          'One of the screens I redesigned. TODO: what the old screen made hard, what you changed, and why.') + '</div>'
-          + ph('Before and after: old screen and page E'))
-    learned = ('<div class="bl2-t">' + head2(8, 'What I learned', 'In government software the wording is part of the design')
+                       'Editing a form an agent registered warns that the agent’s record will change.'])) + '</div>')
+    learned = ('<div class="bl2-t">' + head2(7, 'What I learned', 'In government software the wording is part of the design')
                + split('Wording', '<p>A word like Register carries legal weight, so ministry review shaped the design from the start.</p>')
-               + split('Next time', '<p>TODO: one thing that went wrong or that you would do differently, and what you changed because of it.</p>')
                + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. The real system holds customs data, so I rebuilt the screens in Claude Design from the originals with placeholder data and checked each one against them.</p>')
                + '</div>')
     w1 = (sec('ov', 'Overview', hero) + sec('gl', 'At a glance', glance) + sec('dm', 'Working from specs', specs) + sec('mr', 'My role', role)
           + sec('ag', 'The agent files', agent) + sec('tr', 'Tracking a container', track) + sec('cu', 'Customs decides', customs)
-          + sec('ba', 'Before and after', ba) + sec('le', 'What I learned', learned))
-    nb = (P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'].replace('href="/work"', 'href="/uwaverde"')
+          + sec('le', 'What I learned', learned))
+    nb = (nbthumb(P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png').replace('href="/work"', 'href="/uwaverde"')
           .replace('<span>BİLGE</span>', '<span>UwaVerde</span>')
           .replace('Customs approvals where every change carries a reason.', 'NGO website and member portal.')
-          .replace('<b>Pending Approval</b>', '<b>Member portal</b>'))
+          )
     body = f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>{nb}</main>'
     return page('BİLGE container tracking case study | Ege Coskun',
                 'BİLGE KLTS: container and port tracking for Turkish customs. Approval chains across agents, officers and managers, built on an existing design system.',

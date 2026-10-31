@@ -17,7 +17,14 @@
       if(history.replaceState)history.replaceState(null,'','#'+s.id);
     });
     var li=document.createElement('li');li.appendChild(a);list.appendChild(li);
-    items.push({sec:s,link:a,bar:a.querySelector('.bl-bar'),fill:a.querySelector('.bl-fill'),lab:a.querySelector('.bl-label')});
+    var it={sec:s,link:a,bar:a.querySelector('.bl-bar'),fill:a.querySelector('.bl-fill'),lab:a.querySelector('.bl-label'),subs:[]};
+    items.push(it);
+    /* long sections list their parts under them while they are being read */
+    [].forEach.call(s.querySelectorAll('[data-nav-sub]'),function(el){
+      var b=document.createElement('a');b.href='#'+el.id;b.innerHTML='<span class="bl-label"></span>';b.querySelector('.bl-label').textContent=el.getAttribute('data-nav-sub');
+      b.addEventListener('click',function(e){e.preventDefault();var y=flowTop(s)+(el.getBoundingClientRect().top-s.getBoundingClientRect().top);window.scrollTo({top:y-OFFSET,behavior:'smooth'});if(history.replaceState)history.replaceState(null,'','#'+el.id);});
+      if(!it.ul){it.ul=document.createElement('ol');it.ul.className='bl-subs';li.classList.add('has-subs');li.appendChild(it.ul);}var sl=document.createElement('li');sl.className='bl-sub';sl.appendChild(b);it.ul.appendChild(sl);it.subs.push({el:el,link:b,li:sl});
+    });
   }
   function build(){
     var hero=document.querySelector('.cs-hero');
@@ -32,7 +39,7 @@
     if(!items.length)return;
     var total=Math.min(window.innerHeight*0.6,520)-items.length*6, sum=0;
     items.forEach(function(it){it.h=it.sec.offsetHeight;sum+=it.h;});
-    items.forEach(function(it){it.bar.style.height=Math.max(16,Math.round(total*it.h/sum))+'px';});
+    items.forEach(function(it){it.bar.style.height=Math.max(it.subs.length?it.subs.length*18+30:16,Math.round(total*it.h/sum))+'px';});
   }
   function gutter(){
     if(window.innerWidth<1200)return;
@@ -63,11 +70,15 @@
       if(r.top<=mark)active=i;
     });
     if(active<0)active=0;
-    items.forEach(function(it,i){it.link.classList.toggle('is-active',i===active);});
+    items.forEach(function(it,i){it.link.classList.toggle('is-active',i===active);
+      var on=i===active&&it.subs.length,cur=-1;
+      it.subs.forEach(function(sb,j){sb.li.classList.toggle('on',!!on);if(sb.el.getBoundingClientRect().top<=mark)cur=j;});
+      it.subs.forEach(function(sb,j){sb.link.classList.toggle('is-active',on&&j===cur);});
+    });
     last=active;
     var nr=nav.getBoundingClientRect(), off=false;
     var darks=[].map.call(document.querySelectorAll('.cs-quote,.cs-dsec'),function(q){return q.getBoundingClientRect();});
-    items.forEach(function(it){
+    items.concat([].concat.apply([],items.map(function(x){return x.subs}))).forEach(function(it){
       var r=it.link.getBoundingClientRect(), cy=r.top+r.height/2, d=false;
       darks.forEach(function(q){if(cy>=q.top&&cy<=q.bottom)d=true;});
       it.link.classList.toggle('is-dark',d);
@@ -151,6 +162,12 @@ draw()});
 if(!('IntersectionObserver' in window)){ns.forEach(function(n){n.classList.add('in')});return}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -30% 0px'});
 ns.forEach(function(n){io.observe(n)})})();
+
+/* interactive prototypes: when one first comes into view, ask it to show where to click first */
+(function(){var fs=[].slice.call(document.querySelectorAll('.bl2-media.is-proto iframe'));if(!fs.length||!('IntersectionObserver' in window))return;
+function ping(f){try{f.contentWindow.postMessage({blHint:1},'*')}catch(e){}}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var f=e.target;io.unobserve(f);setTimeout(function(){ping(f)},700);setTimeout(function(){ping(f)},2400);f.addEventListener('load',function(){setTimeout(function(){ping(f)},900)},{once:true})})},{threshold:.4});
+fs.forEach(function(f){io.observe(f)})})();
 
 /* Scrolling is left to the browser: no wheel or touch handling here.
    Step and bar clicks in the features scroll smoothly to their step. */

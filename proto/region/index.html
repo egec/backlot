@@ -50,8 +50,8 @@
   .cur.click svg{transform:scale(.85)}
   .banner{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%) scale(.96);padding:14px 22px;border-radius:12px;background:#f5f3f0;color:#1a1a1a;font-size:16px;font-weight:500;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;box-shadow:0 12px 32px rgba(0,0,0,.45)}
   .banner.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
-  .end{position:absolute;left:50%;bottom:20px;transform:translate(-50%,8px);display:flex;align-items:center;gap:16px;max-width:calc(100% - 32px);padding:12px 12px 12px 18px;border-radius:12px;background:#f5f3f0;color:#1a1a1a;box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
-  .end.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+  .end{position:absolute;left:50%;top:38%;transform:translate(-50%,calc(-50% + 8px));display:flex;align-items:center;gap:16px;max-width:calc(100% - 32px);padding:12px 12px 12px 18px;border-radius:12px;background:#f5f3f0;color:#1a1a1a;box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+  .end.show{opacity:1;transform:translate(-50%,-50%);pointer-events:auto}
   .end h2{margin:0;font-size:14px;font-weight:600;letter-spacing:-.01em}
   .end p{margin:2px 0 0;color:#5f5c57;font-size:12.5px}
   @media (max-width:700px){.step span{display:none}.step{padding:0 6px}.mode{display:none}.right{margin-left:0}}
@@ -149,6 +149,8 @@ addEventListener('resize',fit);addEventListener('load',fit);
 function setSteps(n){document.querySelectorAll('.step').forEach(e=>{const v=+e.dataset.s;e.classList.toggle('on',v===n);e.classList.toggle('done',v<n)})}
 function rectOf(st){const t=st&&st.t();if(!t)return null;const r=t.getBoundingClientRect();return{x:r.left*s,y:r.top*s,w:r.width*s,h:r.height*s}}
 function showTip(){tipOn=true;clearTimeout(tipTimer);place();tipTimer=setTimeout(()=>{tipOn=false;place()},2800)}
+/* the page asks for one hint when the prototype first scrolls into view: it shows where to click first, then fades */
+addEventListener('message',e=>{if(e.data&&e.data.blHint&&step===0&&!busy&&!tipOn){tipOn=true;clearTimeout(tipTimer);place();tipTimer=setTimeout(()=>{tipOn=false;place()},4200)}});
 function place(){
   const st=STEPS[step];const r=rectOf(st);
   if(!r||busy){ring.classList.remove('show');tip.classList.remove('show');return}

@@ -86,7 +86,7 @@ body{background:#F4F2EE}
 .bl2-nb .d{font-size:clamp(1.062rem,1.2vw,1.312rem);line-height:1.45;color:#3a3936;margin:16px 0 0;max-width:34em;transition:color .3s,transform .5s cubic-bezier(.23,1,.32,1)}
 .bl2-nb-r{display:flex;align-items:center;gap:clamp(24px,3vw,48px)}
 .bl2-nb-th{width:240px;height:150px;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 18px 40px rgba(0,0,0,.16);opacity:0;transform:translateY(16px) rotate(-4deg) scale(.92);transition:opacity .35s,transform .6s cubic-bezier(.23,1,.32,1)}
-.bl2-nb-th i{display:block;height:26px;background:#A31A28}.bl2-nb-th b{display:block;color:#2F4366;font-size:0.75rem;padding:10px 12px}
+.bl2-nb-th img{display:block;width:100%;height:100%;object-fit:cover;object-position:0 0}.bl2-nb-th i{display:block;height:26px;background:#A31A28}.bl2-nb-th b{display:block;color:#2F4366;font-size:0.75rem;padding:10px 12px}
 .bl2-nb-th u{display:block;height:8px;margin:6px 12px;border-radius:4px;background:#EDEDED;text-decoration:none}
 .bl2-nb-th u:nth-of-type(2){width:70%}.bl2-nb-th u:nth-of-type(3){width:82%;background:#FECC65}
 .bl2-nb-a{display:block;width:clamp(44px,4vw,64px);height:clamp(44px,4vw,64px);overflow:hidden;position:relative}
@@ -115,6 +115,15 @@ html.f-archivo .bl2-loop text{font-family:Archivo,sans-serif}
 
 .bl-nav{position:fixed;left:24px;top:50%;transform:translateY(-50%);z-index:60;font-family:Manrope,sans-serif;transition:opacity .2s}
 .bl-nav.is-off{opacity:0;pointer-events:none}
+.bl-nav li.has-subs{position:relative}
+.bl-nav ol.bl-subs{position:absolute;left:12px;top:22px;gap:3px}
+.bl-nav li.bl-sub{display:none}
+.bl-nav li.bl-sub.on{display:block}
+.bl-nav li.bl-sub a{padding-left:0;font-size:0.6875rem;line-height:15px;color:#a4a4a4}
+.bl-nav li.bl-sub a:before{content:"";flex:none;width:6px;height:1px;margin-top:7px;background:currentColor;opacity:.6}
+.bl-nav li.bl-sub .bl-label{opacity:1;transform:none}
+.bl-nav li.bl-sub a.is-active{color:#333;font-weight:500}
+.bl-nav li.bl-sub a.is-dark{color:#7a7a7a}
 .bl-nav ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .bl-nav li{margin:0;padding:0}
 .bl-nav a{display:flex;align-items:stretch;gap:10px;text-decoration:none;font-size:0.6875rem;line-height:16px;font-weight:400;color:#a4a4a4;white-space:nowrap}
@@ -289,7 +298,7 @@ video[data-src]{max-width:min(100%,1440px)!important;margin-left:auto!important;
 .zs-mw{position:absolute;inset:0;transform-origin:0 0;opacity:0;transition:opacity .4s,transform .9s var(--ease)}
 .zs-mw.on{opacity:1}
 .zs-m{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0 0}
-.zs-hl{position:absolute;border-radius:6px;box-shadow:0 0 0 1.5px var(--g),0 0 0 6px rgba(114,132,55,.28);opacity:0;transform:scale(1.04);transition:opacity .35s .35s,transform .45s .35s var(--ease);pointer-events:none}
+.zs-hl{position:absolute;border-radius:8px;box-shadow:0 0 0 1.25px rgba(152,176,74,.9),0 0 0 4px rgba(114,132,55,.14);opacity:0;transform:scale(1.04);transition:opacity .35s .35s,transform .45s .35s var(--ease);pointer-events:none}
 .zs-hl.on{opacity:1;transform:none}
 .zs.is-free .zs-hl{opacity:0}
 .zs-foot{display:flex;align-items:center;gap:16px;margin-top:8px}
@@ -414,3 +423,9 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 2.125rem/1 "Reenie Bea
 .bl2-note.down{left:calc(100% + 20px);bottom:auto;top:4px;align-items:flex-start;gap:4px}
 .bl2-note.down svg{width:40px;height:48px;transform:translateY(20px)}
 .bl2-note.down b{transform:rotate(-4deg) translateY(-2px)}
+
+/* cards answer the pointer, quietly: they are not links, so no cursor change */
+.bl2-c,.bl2-role{transition:background-color .3s,transform .45s cubic-bezier(.23,1,.32,1),box-shadow .45s}
+.bl2-c .bl2-tag{transition:background-color .3s}
+@media (hover:hover){.bl2-c:hover,.bl2-role:hover{background:#EFEEEA;transform:translateY(-3px);box-shadow:0 14px 30px rgba(22,22,22,.06)}.bl2-c:hover .bl2-tag{background:#56652A}}
+@media (prefers-reduced-motion:reduce){.bl2-c:hover,.bl2-role:hover{transform:none}}

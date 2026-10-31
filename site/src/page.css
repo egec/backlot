@@ -45,7 +45,7 @@
 .zs-mw{position:absolute;inset:0;transform-origin:0 0;opacity:0;transition:opacity .4s,transform .9s var(--ease)}
 .zs-mw.on{opacity:1}
 .zs-m{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0 0}
-.zs-hl{position:absolute;border-radius:6px;box-shadow:0 0 0 1.5px var(--g),0 0 0 6px rgba(114,132,55,.28);opacity:0;transform:scale(1.04);transition:opacity .35s .35s,transform .45s .35s var(--ease);pointer-events:none}
+.zs-hl{position:absolute;border-radius:8px;box-shadow:0 0 0 1.25px rgba(152,176,74,.9),0 0 0 4px rgba(114,132,55,.14);opacity:0;transform:scale(1.04);transition:opacity .35s .35s,transform .45s .35s var(--ease);pointer-events:none}
 .zs-hl.on{opacity:1;transform:none}
 .zs.is-free .zs-hl{opacity:0}
 .zs-foot{display:flex;align-items:center;gap:16px;margin-top:8px}
@@ -170,3 +170,9 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 34px/1 "Reenie Beanie"
 .bl2-note.down{left:calc(100% + 20px);bottom:auto;top:4px;align-items:flex-start;gap:4px}
 .bl2-note.down svg{width:40px;height:48px;transform:translateY(20px)}
 .bl2-note.down b{transform:rotate(-4deg) translateY(-2px)}
+
+/* cards answer the pointer, quietly: they are not links, so no cursor change */
+.bl2-c,.bl2-role{transition:background-color .3s,transform .45s cubic-bezier(.23,1,.32,1),box-shadow .45s}
+.bl2-c .bl2-tag{transition:background-color .3s}
+@media (hover:hover){.bl2-c:hover,.bl2-role:hover{background:#EFEEEA;transform:translateY(-3px);box-shadow:0 14px 30px rgba(22,22,22,.06)}.bl2-c:hover .bl2-tag{background:#56652A}}
+@media (prefers-reduced-motion:reduce){.bl2-c:hover,.bl2-role:hover{transform:none}}
