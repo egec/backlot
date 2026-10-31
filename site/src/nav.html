@@ -65,7 +65,7 @@
   function gutter(){
     if(window.innerWidth<1200)return;
     var r=nav.getBoundingClientRect();
-    document.documentElement.style.setProperty('--bl-gutter',Math.ceil(r.right+96)+'px');
+    document.documentElement.style.setProperty('--bl-gutter',Math.max(232,Math.ceil(r.right+96))+'px');
   }
   function fly(it){
     if(RM||window.innerWidth<1200)return;

@@ -118,3 +118,41 @@ html.f-it body,html.f-it .site-h *,html.f-it [data-bl2root] *:not(svg):not(svg *
 .bm{overflow-y:hidden!important}
 /* design system section: the words around the components use the site font, the components keep the product's */
 html.f-it .cs-dsec .ds-head *,html.f-it .cs-dsec .ds-title,html.f-it .cs-dsec .ds-lead,html.f-it .cs-dsec .ds-note,html.f-it .cs-dsec .ds-rl,html.f-it .cs-dsec .ds-k,html.f-it .cs-dsec .ds-g p{font-family:"Inter Tight",system-ui,sans-serif!important}
+
+/* the big line: one sentence per line, sized so the longest line always fits */
+[data-bl2="pr"] .bl2-t{container-type:inline-size}
+.bl2-big .bl2-line{display:block}
+.bl2-big{font-size:min(clamp(44px,7.2vw,132px),8.6cqi)}
+
+/* benchmark: equal dots, in her green */
+.bm{overflow-x:auto;margin:0}
+.bm table{width:100%;min-width:760px;border-collapse:collapse;font-size:15px;line-height:22px;color:#333}
+.bm th{font-weight:500;color:#8a8a8a;text-align:center;padding:0 12px 12px;vertical-align:bottom;font-size:13px;line-height:18px}
+.bm td{padding:12px;border-top:1px solid #dcdad5;text-align:center;vertical-align:middle}
+.bm td:first-child,.bm th:first-child{text-align:left;padding-left:0}
+.bm .k{display:block;font-size:12px;line-height:16px;color:#8a8a8a}
+.bm tr.me td{font-weight:600;border-top:1px solid #333}
+.bd{display:inline-block;width:12px;height:12px;border-radius:50%;box-sizing:border-box;vertical-align:middle}
+.bd-y{background:#728437}
+.bd-p{border:1.5px solid #728437;background:linear-gradient(90deg,#728437 50%,transparent 50%)}
+.bd-n{width:12px;height:1.5px;border-radius:1px;background:#b5b3ae}
+.bm-l{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;margin:16px 0 0;font-size:13px;line-height:18px;color:#8a8a8a}
+.bm-l span{display:inline-flex;align-items:center;gap:6px}
+.bm-l span:last-child{flex-basis:100%;display:block}
+
+/* handwritten aside on a feature title */
+.bl2-hn{position:relative;display:inline-block;max-width:calc(100% - 210px)}
+.bl2-note{position:absolute;left:calc(100% + 6px);bottom:.35em;display:flex;align-items:flex-start;gap:2px;color:#56652A;pointer-events:none}
+.bl2-note svg{width:68px;height:40px;flex:none}
+.bl2-note b{font:600 26px/1 Caveat,cursive!important;white-space:nowrap;transform:rotate(-6deg) translateY(-12px);opacity:0;transition:opacity .4s .55s}
+.bl2-note path{stroke-dasharray:120;stroke-dashoffset:120;transition:stroke-dashoffset .6s cubic-bezier(.65,0,.35,1)}
+.bl2-note .nh{transition-delay:.45s;transition-duration:.25s}
+.bl2-note.in path{stroke-dashoffset:0}.bl2-note.in b{opacity:1}
+@media (prefers-reduced-motion:reduce){.bl2-note path{stroke-dashoffset:0;transition:none}.bl2-note b{opacity:1;transition:none}}
+@media(max-width:767px){.bl2-note{display:none}.bl2-hn{max-width:100%}}
+
+/* the header lines up with the case content */
+@media(min-width:1200px){body.case .site-hi{padding-left:max(var(--bl-gutter,var(--gut)),calc((100% - var(--w)) / 2))}}
+
+/* a still image in a media card */
+.bl2-img{display:block;width:100%;height:auto;border-radius:8px}

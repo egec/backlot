@@ -37,7 +37,7 @@
   function gutter(){
     if(window.innerWidth<1200)return;
     var r=nav.getBoundingClientRect();
-    document.documentElement.style.setProperty('--bl-gutter',Math.ceil(r.right+96)+'px');
+    document.documentElement.style.setProperty('--bl-gutter',Math.max(232,Math.ceil(r.right+96))+'px');
   }
   function fly(it){
     if(RM||window.innerWidth<1200)return;
@@ -89,7 +89,7 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 
-(function(){function go(){document.querySelectorAll('[data-big]').forEach(function(e){if(e.dataset.done)return;e.dataset.done=1;e.innerHTML=e.textContent.split(' ').map(function(w){return '<span>'+w+'</span>'}).join(' ');e.querySelectorAll('span').forEach(function(s,i){s.style.transitionDelay=(i*60)+'ms'});if(!('IntersectionObserver' in window)){e.classList.add('in');return}new IntersectionObserver(function(x,o){if(x[0].isIntersecting){e.classList.add('in');o.disconnect()}},{threshold:.4}).observe(e)});var cp=document.querySelector('[data-copy]');if(cp)cp.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText('a.egecoskun@gmail.com');cp.textContent='Copied'})}var q=location.search,h=document.documentElement;if(/font=archivo/.test(q)){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap';document.head.appendChild(l);h.classList.add('f-archivo')}function st(){var nb=document.querySelector('[data-nb]');if(nb){if('IntersectionObserver' in window)new IntersectionObserver(function(x,o){if(x[0].isIntersecting){nb.classList.add('in');o.disconnect()}},{threshold:.35}).observe(nb);else nb.classList.add('in')}
+(function(){function go(){document.querySelectorAll('[data-big]').forEach(function(e){if(e.dataset.done)return;e.dataset.done=1;var ls=e.querySelectorAll('.bl2-line');var wrap=function(t){return t.split(' ').map(function(w){return '<span>'+w+'</span>'}).join(' ')};e.innerHTML=ls.length?[].map.call(ls,function(l){return '<span class="bl2-line">'+wrap(l.textContent)+'</span>'}).join(''):wrap(e.textContent);e.querySelectorAll('span:not(.bl2-line)').forEach(function(s,i){s.style.transitionDelay=(i*60)+'ms'});if(!('IntersectionObserver' in window)){e.classList.add('in');return}new IntersectionObserver(function(x,o){if(x[0].isIntersecting){e.classList.add('in');o.disconnect()}},{threshold:.4}).observe(e)});var cp=document.querySelector('[data-copy]');if(cp)cp.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText('a.egecoskun@gmail.com');cp.textContent='Copied'})}var q=location.search,h=document.documentElement;if(/font=archivo/.test(q)){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap';document.head.appendChild(l);h.classList.add('f-archivo')}function st(){var nb=document.querySelector('[data-nb]');if(nb){if('IntersectionObserver' in window)new IntersectionObserver(function(x,o){if(x[0].isIntersecting){nb.classList.add('in');o.disconnect()}},{threshold:.35}).observe(nb);else nb.classList.add('in')}
 if(!matchMedia('(prefers-reduced-motion:reduce)').matches){var w=document.querySelector('[data-bl2root="1"]');if(w){var ss=[].filter.call(w.children,function(e){return e.matches('section[data-bl2]')}),rf=0;
 for(var a=w.parentElement;a&&a!==document.documentElement;a=a.parentElement){var cs=getComputedStyle(a);if(/hidden|auto|scroll/.test(cs.overflowY+cs.overflowX))a.style.overflow='clip'}
 function pd(){var c=getComputedStyle(w),vh=innerHeight;w.style.setProperty('--pl',c.paddingLeft);w.style.setProperty('--pr',c.paddingRight);ss.forEach(function(x){x.style.setProperty('--st',Math.min(0,vh-x.offsetHeight)+'px')})}
@@ -145,6 +145,12 @@ tabs.forEach(function(b,i){b.addEventListener('click',function(){k=b.dataset.k;d
 b.addEventListener('keydown',function(e){var d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();var n=tabs[(i+d+tabs.length)%tabs.length];n.click();n.focus()})});
 draw()});
 })();
+
+/* handwritten notes draw in once the title is a little way into view */
+(function(){var ns=[].slice.call(document.querySelectorAll('[data-note]'));if(!ns.length)return;
+if(!('IntersectionObserver' in window)){ns.forEach(function(n){n.classList.add('in')});return}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -30% 0px'});
+ns.forEach(function(n){io.observe(n)})})();
 
 /* Scrolling is left to the browser: no wheel or touch handling here.
    Step and bar clicks in the features scroll smoothly to their step. */

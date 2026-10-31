@@ -11,3 +11,9 @@ tabs.forEach(function(b,i){b.addEventListener('click',function(){k=b.dataset.k;d
 b.addEventListener('keydown',function(e){var d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();var n=tabs[(i+d+tabs.length)%tabs.length];n.click();n.focus()})});
 draw()});
 })();
+
+/* handwritten notes draw in once the title is a little way into view */
+(function(){var ns=[].slice.call(document.querySelectorAll('[data-note]'));if(!ns.length)return;
+if(!('IntersectionObserver' in window)){ns.forEach(function(n){n.classList.add('in')});return}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -30% 0px'});
+ns.forEach(function(n){io.observe(n)})})();
