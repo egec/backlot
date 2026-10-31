@@ -1,90 +1,90 @@
 [
-{
-"t": "A rejection is a list of reasons",
-"l": "The publisher approves an item, or sends it back with reasons the editor can act on one by one. Each reason is pinned to its field.",
-"r": [
-"The publisher comments on the metadata row itself. Each comment becomes a reason that carries its field and a category",
-"Flagged rows stay marked on the page, so the editor resolves them in place instead of searching",
-"Reasons resolve one by one. Reject counts them, names who gets the item back, and asks for confirmation first",
-"A flagged field can be unflagged, because publishers are sometimes wrong too"
-],
-"on": "Review"
-},
-{
-"t": "Region comes first",
-"l": "Almost every field changes by region: title, synopsis, age rating, release date, rights, audio and subtitles. So the editor picks a region first, and everything under it shows for that region only.",
-"r": [],
-"on": "Prepare"
-},
-{
-"t": "A series is a tree",
-"l": "A film is one item. A series is a tree: seasons under the series, episodes under each season, files under each episode, and every level has its own metadata and status.",
-"r": [],
-"on": "Prepare"
-},
-{
-"t": "The editor never hunts for what is missing",
-"l": "It sits at the top. Everything the region still needs comes first, above what the upload already filled.",
-"r": [
-"The readiness panel lists what must be complete before the season can be scheduled in this region",
-"Checks show progress, not pass or fail: “4 of 8” tells the editor how much work is left and where to start, “incomplete” only says something is wrong",
-"Every empty field is grouped in “Needs your input”, above what the upload already filled",
-"Values read from the media file, like runtime and codec, can never be edited, because they describe the file itself. Values from the delivery unlock one field at a time, so every change is deliberate",
-"Submit for review hands the episode to the publisher. Save keeps unfinished work without submitting it, so the episode stays under In progress on the dashboard, easy to pick up later"
-],
-"on": "Prepare"
-},
-{
-"t": "AI flags, it never fills",
-"l": "Catch the rejection before the publisher does. A wrong auto-fill is an error nobody sees, so every flag waits for a person.",
-"r": [
-"The AI learns from past rejection reasons. Every reason carries a field and a category, so they can be counted per team and per region",
-"Rules and AI stay apart. A broken rule is a failed check in the Readiness panel, never a guess. The AI only raises judgement calls and says how sure it is",
-"The AI writes nothing on its own. A flag opens its field, or gets dismissed with a reason that stays on record"
-],
-"on": "Prepare"
-},
-{
-"t": "Designed for the delivery that arrives broken",
-"l": "Automation sits in one step: after upload, the system reads technical metadata and assigns the files it can match. A wrong match is a mistake editors can't see, so the system suggests and the editor confirms.",
-"r": [
-"Processing reads each file’s technical metadata and matches it to its content, so most files are assigned automatically. Only the ones it cannot place wait for the editor",
-"One line reports the result: 24 uploaded, 9 assigned automatically, 15 need the editor",
-"The drop zone stays, so files can be added mid-upload",
-"Files keep their own states (Uploading, Processing, Ready, Needs assignment, Failed), separate from the workflow status of their content"
-],
-"on": "Deliver"
-},
-{
-"t": "Every file sits under the content it belongs to",
-"l": "So a missing one shows as a gap, before a delivery is rejected.",
-"r": [
-"Each film or episode shows how complete its files are (2 of 7), so a gap surfaces before a delivery is rejected",
-"Two views: Content groups files under their film or episode, Files lists them all for bulk work. Language and Type are filters, not groupings"
-],
-"on": "Deliver"
-},
-{
-"t": "Artwork is chosen by taste, not by country",
-"l": "Most viewing starts from a recommendation, so the thumbnail does much of the selling. Taste predicts a click better than age or location, so each season carries one thumbnail per taste cluster.",
-"r": [
-"One thumbnail per taste cluster: action, drama, romance and mystery fans each see the scene that speaks to them",
-"Variants are tested against each other in each region, with the time left on the test, so the editor knows when the artwork is final",
-"Each variant shows its click-through rate, and the leader is marked, so the choice is backed by data, not taste"
-],
-"on": "Release",
-"x": "<div class=\"bl2-shot\"><img src=\"https://egec.github.io/backlot/shots/thumbnails.webp\" width=\"2880\" height=\"1800\" alt=\"Season 4 assets in Spain: four personalized thumbnails for action, drama, romance and mystery fans with their click-through rates\" loading=\"lazy\"></div>"
-},
-{
-"t": "The queue is sorted by what airs first",
-"l": "Row actions follow the status: Review while content waits, Publish once it is approved. Checks only prove the fields are filled. Judgement on ratings, artwork and sync stays with the publisher.",
-"r": [],
-"on": "Review"
-},
-{
-"t": "Once review starts, content is locked",
-"l": "Changes go through an edit request, not a reopen. It covers new information from outside, like an updated regional age rating, never a mistake in approved work.",
-"r": [],
-"on": "Review"
-}
+ {
+  "t": "A rejection is a list of reasons",
+  "l": "The publisher approves an item, or sends it back with reasons the editor can act on one by one. Each reason is pinned to its field.",
+  "r": [
+   "The publisher comments on the metadata row itself. Each comment becomes a reason that carries its field and a category",
+   "Flagged rows stay marked on the page, so the editor resolves them in place instead of searching",
+   "Reasons resolve one by one. Reject counts them, names who gets the item back, and asks for confirmation first",
+   "A flagged field can be unflagged, because publishers are sometimes wrong too"
+  ],
+  "on": "Review"
+ },
+ {
+  "t": "Treating region as a structural scope, not just a filter",
+  "l": "Almost every field changes by region: title, synopsis, age rating, release date, rights, audio and subtitles. So the editor picks a region first, and everything under it shows for that region only.",
+  "r": [],
+  "on": "Prepare"
+ },
+ {
+  "t": "A series is a tree",
+  "l": "A film is one item. A series is a tree: seasons under the series, episodes under each season, files under each episode, and every level has its own metadata and status.",
+  "r": [],
+  "on": "Prepare"
+ },
+ {
+  "t": "The editor never hunts for what is missing",
+  "l": "It sits at the top. Everything the region still needs comes first, above what the upload already filled.",
+  "r": [
+   "The readiness panel lists what must be complete before the season can be scheduled in this region",
+   "Checks show progress, not pass or fail: “4 of 8” tells the editor how much work is left and where to start, “incomplete” only says something is wrong",
+   "Every empty field is grouped in “Needs your input”, above what the upload already filled",
+   "Values read from the media file, like runtime and codec, can never be edited, because they describe the file itself. Values from the delivery unlock one field at a time, so every change is deliberate",
+   "Submit for review hands the episode to the publisher. Save keeps unfinished work without submitting it, so the episode stays under In progress on the dashboard, easy to pick up later"
+  ],
+  "on": "Prepare"
+ },
+ {
+  "t": "AI flags, it never fills",
+  "l": "Catch the rejection before the publisher does. A wrong auto-fill is an error nobody sees, so every flag waits for a person.",
+  "r": [
+   "The AI learns from past rejection reasons. Every reason carries a field and a category, so they can be counted per team and per region",
+   "Rules and AI stay apart. A broken rule is a failed check in the Readiness panel, never a guess. The AI only raises judgement calls and says how sure it is",
+   "The AI writes nothing on its own. A flag opens its field, or gets dismissed with a reason that stays on record"
+  ],
+  "on": "Prepare"
+ },
+ {
+  "t": "Designed for the delivery that arrives broken",
+  "l": "Automation sits in one step: after upload, the system reads technical metadata and assigns the files it can match. A wrong match is a mistake editors can't see, so the system suggests and the editor confirms.",
+  "r": [
+   "Processing reads each file’s technical metadata and matches it to its content, so most files are assigned automatically. Only the ones it cannot place wait for the editor",
+   "One line reports the result: 24 uploaded, 9 assigned automatically, 15 need the editor",
+   "The drop zone stays, so files can be added mid-upload",
+   "Files keep their own states (Uploading, Processing, Ready, Needs assignment, Failed), separate from the workflow status of their content"
+  ],
+  "on": "Deliver"
+ },
+ {
+  "t": "Every file sits under the content it belongs to",
+  "l": "So a missing one shows as a gap, before a delivery is rejected.",
+  "r": [
+   "Each film or episode shows how complete its files are (2 of 7), so a gap surfaces before a delivery is rejected",
+   "Two views: Content groups files under their film or episode, Files lists them all for bulk work. Language and Type are filters, not groupings"
+  ],
+  "on": "Deliver"
+ },
+ {
+  "t": "Artwork is chosen by taste, not by country",
+  "l": "Most viewing starts from a recommendation, so the thumbnail does much of the selling. Taste predicts a click better than age or location, so each season carries one thumbnail per taste cluster.",
+  "r": [
+   "One thumbnail per taste cluster: action, drama, romance and mystery fans each see the scene that speaks to them",
+   "Variants are tested against each other in each region, with the time left on the test, so the editor knows when the artwork is final",
+   "Each variant shows its click-through rate, and the leader is marked, so the choice is backed by data, not taste"
+  ],
+  "on": "Release",
+  "x": "<div class=\"bl2-shot\"><img src=\"https://egec.github.io/backlot/shots/thumbnails.webp\" width=\"2880\" height=\"1800\" alt=\"Season 4 assets in Spain: four personalized thumbnails for action, drama, romance and mystery fans with their click-through rates\" loading=\"lazy\"></div>"
+ },
+ {
+  "t": "The queue is sorted by what airs first",
+  "l": "Row actions follow the status: Review while content waits, Publish once it is approved. Checks only prove the fields are filled. Judgement on ratings, artwork and sync stays with the publisher.",
+  "r": [],
+  "on": "Review"
+ },
+ {
+  "t": "Once review starts, content is locked",
+  "l": "Changes go through an edit request, not a reopen. It covers new information from outside, like an updated regional age rating, never a mistake in approved work.",
+  "r": [],
+  "on": "Review"
+ }
 ]

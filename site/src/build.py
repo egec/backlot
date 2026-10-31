@@ -189,7 +189,7 @@ def roles_viewer():
 
 def changed():
     story = ('<div class="bl2-t"><span class="cs-num bl2-x">06</span><p class="k">What I changed</p>'
-             '<h2 class="bl2-h cs-title">One label showed me the first version was wrong</h2>'
+             '<h2 class="bl2-h cs-title">Why I moved from a single rejection modal to field-pinned reasons</h2>'
              '<div class="bl2-split bl2-split-first"><p class="k">The first version</p><div><p>The first version allowed one rejection reason per item, and I caught myself labelling rejected items “Multiple Issues”. '
              'That label was a symptom, not a reason, so reasons became a list, each pinned to a field and resolvable on its own.</p></div></div></div>')
     return (story + media_box(EMB('8a2ee889'))
@@ -198,6 +198,7 @@ def changed():
 def north_star():
     h = P['1f11a2c4-c927-6c80-452e-1af7129ee08d']
     lead = re.search(r'<div class="bl2-nst">.*?<p>(.*?)</p></div>', h, re.S).group(1)
+    lead = lead.replace(' Each feature below shows which part of the loop it cuts.', '')
     a = h.index('<div class="bl2-ns">'); b = h.index('<div class="bl2-split">')
     return h[:a] + f'<p class="lead">{lead}</p>' + h[b:]
 

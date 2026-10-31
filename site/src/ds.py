@@ -93,7 +93,7 @@ def build():
              + '<div class="ds-cell"><span class="ds-k">AI</span><div class="ds-sws"><i class="ds-sw" style="background:#D2CEFD"></i><i class="ds-sw" style="background:rgba(145,132,217,.12);border:1px solid #423A6A"></i></div>' + note('Accent 300 ink and the 12% tint. A proposal, never a fill.') + '</div>'
              + '<div class="ds-cell"><span class="ds-k">Urgency</span><div class="ds-sws"><i class="ds-sw" style="background:#D2983F"></i><i class="ds-sw" style="background:#EC5B57"></i></div>' + note('Amber inside 7 days of release. Red once release has passed.') + '</div></div>')
     sec = lambda t, lead, body: f'<div class="ds-sec"><h3 class="ds-title">{t}</h3>' + (f'<p class="ds-lead">{lead}</p>' if lead else '') + body + '</div>'
-    return ('<section class="cs-dsec" data-nav-label="Design system" id="design-system"><div class="ds-in"><div class="ds-head"><span class="cs-num">05</span><h2 class="cs-title">Design system</h2></div><div class="ds-show">'
+    return ('<section class="cs-dsec" data-nav-label="Design system" id="design-system"><div class="ds-in"><div class="ds-head"><span class="cs-num">07</span><h2 class="cs-title">Design system</h2></div><div class="ds-show">'
             + sec('Eight states, one icon family.', 'Status tells you where the work is. Availability tells you what viewers can see. Two layers, and availability is never a ninth status.',
                   '<div class="ds-panel ds-chips"><p class="ds-rl">Workflow status</p>' + chips + '</div>' + avail)
             + sec('Only the release date earns a spine.', 'The release date is the only thing the team cannot move, so it is the only thing that raises urgency.', spine)
