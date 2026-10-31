@@ -80,7 +80,7 @@ body{background:#F4F2EE}
 .bl2-nb:before{content:"";position:absolute;inset:0;z-index:-1;background:#56652A;transform:scaleX(0);transform-origin:0 50%;transition:transform .7s cubic-bezier(.23,1,.32,1)}
 .bl2-nb-in{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:32px;padding-top:clamp(56px,6vw,96px);padding-bottom:clamp(56px,6vw,96px)}
 .bl2-nb .k{font-size:13px;font-weight:500;color:#6B6A66;margin:0 0 12px;transition:color .3s}
-.bl2-nb .t{font-size:clamp(40px,5vw,88px);line-height:1;font-weight:600;letter-spacing:-.035em;margin:0;overflow:hidden;padding-bottom:.06em}
+.bl2-nb .t{font-size:clamp(40px,5vw,88px);line-height:1;font-weight:600;letter-spacing:-.035em;margin:-.2em 0 0;overflow:hidden;padding:.2em 0 .06em}
 .bl2-nb .t span{display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.23,1,.32,1)}
 .bl2-nb.in .t span{transform:none}
 .bl2-nb .d{font-size:clamp(17px,1.2vw,21px);line-height:1.45;color:#3a3936;margin:16px 0 0;max-width:34em;transition:color .3s,transform .5s cubic-bezier(.23,1,.32,1)}

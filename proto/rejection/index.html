@@ -13,8 +13,8 @@
   #app{position:relative;width:100%}
   .bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:0 0 12px}
   .tag{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 14px 0 10px;border-right:1px solid #e1e1e1;margin-right:6px;font-size:12.5px;font-weight:500;color:#222;white-space:nowrap}
-  .tag i{width:8px;height:8px;border-radius:50%;background:#728437;box-shadow:0 0 0 0 rgba(114,132,55,.5);animation:live 1.8s ease-out infinite}
-  @keyframes live{0%{box-shadow:0 0 0 0 rgba(114,132,55,.55)}70%{box-shadow:0 0 0 7px rgba(114,132,55,0)}100%{box-shadow:0 0 0 0 rgba(114,132,55,0)}}
+  .tag i{width:8px;height:8px;border-radius:50%;background:#728437;animation:live 1.6s ease-in-out infinite}
+  @keyframes live{0%,100%{opacity:1}50%{opacity:.25}}
   @media (prefers-reduced-motion:reduce){.tag i{animation:none}}
   .steps{display:flex;gap:0;flex-wrap:wrap;min-width:0}
   .tab{display:flex;align-items:center;height:30px;padding:0 13px;border-radius:999px;border:1px solid #e1e1e1;background:#fff;font:500 12.5px/1 Manrope,sans-serif;color:#707070;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
@@ -81,7 +81,7 @@
   /* on the green card of the case page: light text */
   html.on-green body{color:#fff}
   html.on-green .tag{color:rgba(255,255,255,.85)}
-  html.on-green .tag i{background:#fff;animation:livew 1.8s ease-out infinite}
+  html.on-green .tag i{background:#fff;animation:live 1.6s ease-in-out infinite}
   @keyframes livew{0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}70%{box-shadow:0 0 0 7px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
   @media (prefers-reduced-motion:reduce){html.on-green .tag i{animation:none}}
   html.on-green .instr{color:#fff}

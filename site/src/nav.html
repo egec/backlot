@@ -32,7 +32,7 @@
   if(!nav)return;
   var list=nav.querySelector('ol'), OFFSET=96, items=[], last=-1, RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
   function visible(el){return !!(el.offsetWidth||el.offsetHeight||el.getClientRects().length);}
-  function flowTop(s){var p=s.style.position;s.style.position='relative';var y=s.getBoundingClientRect().top+window.pageYOffset;s.style.position=p;return y;}
+  function flowTop(s){var p=s.style.position;s.style.position='static';var y=s.getBoundingClientRect().top+window.pageYOffset;s.style.position=p;return y;}
   function add(s,label){
     if(!s.id)s.id='s-'+items.length;
     var a=document.createElement('a');

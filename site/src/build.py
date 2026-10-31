@@ -27,7 +27,7 @@ FULL_IC = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><p
 def page(title, desc, body, css_files, js_files, font='it'):
     css = ''.join('<link rel="stylesheet" href="../assets/%s">' % c for c in css_files)
     js = ''.join('<script src="../assets/%s" defer></script>' % j for j in js_files)
-    fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Caveat:wght@500;600&display=swap" rel="stylesheet">' if font else ''
+    fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">' if font else ''
     return f'''<!doctype html><html lang="en"{' class="f-it"' if font else ''}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,8 @@ def strip(on):
     return '<div class="bl2-strip">Cuts the loop at ' + '<b>→</b>'.join(
         '<i class="on">%s</i>' % x if x == on else '<i>%s</i>' % x for x in ['Deliver', 'Prepare', 'Review', 'Release']) + '</div>'
 
-NOTE_ARROW = '<svg viewBox="0 0 96 56" aria-hidden="true"><path class="nb" d="M90 18 C 66 2, 30 4, 12 38" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path class="nh" d="M6 25 L12 39 L25 33" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+NOTE_ARROW = '<svg viewBox="0 0 96 56" aria-hidden="true"><path class="nb" d="M90 20 C 70 6, 34 6, 13 38" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="nh" d="M12 24 L13 39 L25 31" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+NOTE_DOWN = '<svg viewBox="0 0 60 72" aria-hidden="true"><path class="nb" d="M8 8 C 32 10, 50 30, 44 64" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="nh" d="M34 54 L44 65 L52 52" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 def head(n, f, nav=False, note=''):
     hid = '<span class="cs-num bl2-x">05</span><span class="cs-title bl2-x">Features</span>' if nav else ''
     h2 = f'<h2 class="bl2-h">{f["t"]}</h2>'
@@ -52,14 +53,17 @@ def head(n, f, nav=False, note=''):
 
 def media_box(inner):
     cls = ''
-    if re.search(r'proto/(rejection|region)/', inner):  # clickable prototypes stand out on her green
+    if re.search(r'proto/(rejection|region)/', inner):  # clickable prototypes carry a green stroke
         cls = ' is-proto'
-        inner = re.sub(r'(proto/(?:rejection|region)/)"', r'\1?on=green"', inner)
     return f'<div class="bl2-media{cls}">{inner}</div>'
 
-def sub(title, text=''):
-    """small heading that says what the next media shows"""
-    return f'<div class="bl2-subh"><h3>{title}</h3>' + (f'<p>{text}</p>' if text else '') + '</div>'
+def sub(title, text='', note=''):
+    """small heading that says what the next media shows; note adds a handwritten pointer down to it"""
+    h3 = f'<h3>{title}</h3>'
+    if note:
+        return (f'<div class="bl2-subh"><div class="bl2-sw">{h3}' + (f'<p>{text}</p>' if text else '')
+                + f'<span class="bl2-note down" data-note aria-hidden="true"><b>{note}</b>{NOTE_DOWN}</span></div></div>')
+    return f'<div class="bl2-subh">{h3}' + (f'<p>{text}</p>' if text else '') + '</div>'
 
 ZCAP = 1.5
 def fit(s):
@@ -122,7 +126,8 @@ def hero():
     rep = [('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>From delivery to release, one region at a time</h1>'),
            ('<p class="lead">Backlot is where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher, so a rejection is a list of reasons pinned to fields, not a vague note.</p>',
             '<p class="lead">Streaming teams use Backlot to take films and series from delivery to release, region by region. I designed the whole workflow for both sides: dashboards, upload and file matching, fields that fill from the file, the publisher’s review and artwork tests.</p>'),
-           ('<b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.', '<b>Context</b>The take-home that got me hired for my last role, rebuilt and extended.')]
+           ('<b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.', '<b>Context</b>The take-home that got me hired for my last role, rebuilt and extended.'),
+           ('<b>Date</b>2026', '<b>Timeline</b>2026, 3 weeks')]
     for o, n in rep:
         assert o in h, o[:40]
         h = h.replace(o, n)
@@ -169,94 +174,99 @@ IMG_ED_WORK = dict(type='img', src=GH + 'shots/roles/ed-workspace.webp', w=2304,
 IMG_PUB_WORK = dict(type='img', src=GH + 'shots/roles/pub-reviews.webp', w=2304, h=1440, alt='Publisher reviews: review queue by status and review history')
 
 def features():
-    o = []
-    # 01 region (the old series tree folds in here)
+    """Nine features, most telling first, with an index so a skimmer sees all nine at once."""
+    F = []
+    # region (the old series tree folds in here)
     f = dict(t='Treating region as a structural scope, not just a filter',
              l='Title, synopsis, age rating, dates, rights, audio and subtitles all change by region. The editor picks a region first, and the whole page answers for it.')
-    o.append(simple(1, f, EMB('faf58225'), nav=True,
+    F.append(lambda n, nav: simple(n, f_region, EMB('faf58225'), nav=nav,
                     after=split('Every level', '<p>Series, season, episode and file each keep their own fields and status, so the editor can tell which level a change affects. '
                                 'Age rating rolls up: a season takes the highest rating among its episodes in that region.</p>')))
-    # 02 rejection
-    f = dict(t='A rejection is a list of reasons',
-             l='The publisher approves an item, or sends it back with reasons the editor can act on one by one. Each reason is pinned to its field.',
-             r=['The publisher comments on the metadata row itself. Each comment becomes a reason with its field and a category.',
-                'Flagged rows stay marked on the page, so the editor fixes them in place.',
-                'Before anything is sent, Reject shows how many reasons there are and who gets the item back.',
-                'Unflag removes a reason before it’s sent, for when the publisher misread a field.'])
-    o.append(zoom(2, f, [
-        dict(h='Comments become reasons', hl=[(69.5, 14.6, 28, 14.6), (5.6, 22.6, 61.4, 7.4)], ctx=(69.5, 10, 28, 1)),
-        dict(h='Fixed in place', hl=[(5.6, 22.6, 61.4, 7.4), (5.6, 63.6, 61.4, 7)]),
-        dict(h='Counted before it is sent', hl=[(86.6, 56.4, 10.6, 4.2), (70.2, 52.4, 20, 3.4)], ctx=(69.5, 10, 28, 1)),
-        dict(h='Publishers can be wrong', hl=[(61.4, 24.6, 5.6, 4.4), (61.4, 64.8, 5.6, 4.4)], ctx=(18, 24, 49, 1))], [IMG_REJ],
-        after=sub('Try it', 'Flag two fields as the publisher, then fix them as the editor.') + media_box(EMB('f663202a'))))
-    # 03 readiness and fields that fill themselves
-    f = dict(t='The editor only fills what is missing',
+    f_region = f
+    # the editor only fills what is missing
+    f_fill = dict(t='The editor only fills what is missing',
              l='Runtime, codec and audio are read from the file, and the delivery fills most of the rest. What is still missing sits at the top of the page.',
              r=['Every empty field is grouped in “Needs your input”, above what the upload already filled.',
                 'Values read from the file can’t be edited. Values from the delivery unlock one field at a time, so every change is deliberate.',
                 'Submit hands the episode to the publisher. Save keeps it under In progress, ready to pick up later.',
                 '“4 of 8” tells the editor how much is left and where to start. “Incomplete” only says something is wrong.',
                 'The season page lists what must be complete before the season can be scheduled.'])
-    o.append(zoom(3, f, [
+    F.append(lambda n, nav: zoom(n, f_fill, [
         dict(h='Gaps come first', m=1, z=1.25, x=40, y=40, hl=[(5, 23.5, 68, 34.5)]),
         dict(h='Locked by its source', m=1, z=1.4, x=40, y=78, hl=[(14.6, 63.4, 5.4, 2.9), (36.1, 70.4, 2, 23), (70.1, 70.4, 2, 23)]),
         dict(h='Save is not submit', m=1, z=1.05, x=50, y=52, hl=[(62.8, 8.8, 9.9, 3.9), (66.6, 95.1, 5.7, 3.7)]),
         dict(h='Progress, not pass or fail', m=0, z=1.9, x=85, y=29, hl=[(91.6, 23.4, 5.6, 14.4), (91.4, 10.8, 6.2, 2.6)]),
         dict(h='Readiness for the season', m=0, z=1.5, x=78, y=20, hl=[(59.5, 8.9, 13.7, 3.9), (75.6, 9.4, 22, 7.8)])], [IMG_SEASON, IMG_EP2],
-        after=sub('One season, five tabs', 'Episodes, metadata, assets, deliveries and the audit log, with the readiness panel always in view.') + media_box(EMB('137e3b55'))))
-    # 04 AI
-    f = dict(t='AI suggests, the editor accepts',
-             l='The AI points at likely rejections before the publisher sees them and proposes values like keywords. Nothing is written until the editor accepts.',
-             r=['It learns from past rejection reasons. Each reason carries a field and a category, so they can be counted per team and per region.',
-                'A broken rule is a failed check, never a guess. The AI only raises judgement calls and says how sure it is.',
-                'A flag opens its field, or gets dismissed with a reason that stays on record.'])
-    o.append(zoom(4, f, [
-        dict(h='Learns from rejections', hl=[(76, 16, 22, 10.6)], ctx=(76, 12.5, 22, 1)),
-        dict(h='Rules and AI stay apart', hl=[(76.8, 23.2, 6.4, 2.4), (76.8, 36.6, 6.4, 2.4), (76.8, 49.9, 6.4, 2.4)], ctx=(76, 12.5, 22, 1)),
-        dict(h='Nothing written on its own', hl=[(95.2, 17, 2.6, 3.2), (95.2, 28.5, 2.6, 3.2), (95.2, 41.9, 2.6, 3.2)], ctx=(76, 12.5, 22, 41))], [IMG_EP2],
-        after=sub('Rules and AI, side by side', 'Rule checks pass or fail. AI suggestions name their evidence, and a dismissed flag stays on record.') + media_box(EMB('e76ad60f'))))
-    # 05 upload, the unhappy path
-    f = dict(t='Designed for the delivery that arrives broken',
+        after=sub('A season keeps its own metadata, apart from its episodes', 'Episodes, season metadata, season assets, deliveries per region and the audit log, with the readiness panel in view on every tab.') + media_box(EMB('137e3b55')), nav=nav))
+    # upload, the unhappy path
+    f_up = dict(t='Designed for the delivery that arrives broken',
              l='Deliveries often arrive incomplete or mislabelled. Processing assigns the files it can match, and the rest wait for the editor under Needs assignment.',
              r=['Processing reads each file’s technical metadata and links it to its episode. Files it can’t place go to Needs assignment.',
                 'The upload folds into a panel in the corner, so the editor can open other pages and come back to it.',
                 'The drop zone stays open, so files can be added while others are still uploading.',
                 'Uploading, Processing, Ready, Needs assignment and Failed belong to the file, apart from the episode’s workflow status.'])
-    o.append(zoom(5, f, [
+    F.append(lambda n, nav: zoom(n, f_up, [
         dict(h='Processing assigns what it can', m=0, hl=[(75.6, 46, 22.2, 7.2)], ctx=(75.6, 11, 22.2, 1)),
-        dict(h='Keep working while it uploads', m=0, hl=[(74.6, 87, 23.8, 11.2)]),
-        dict(h='Add files mid-upload', m=1, hl=[(27.2, 5.6, 45.8, 21.2)]),
-        dict(h='Each file has its own state', m=2, hl=[(62.2, 30.6, 18.6, 26.4)], ctx=(5, 20.5, 80, 1))], [IMG_UP15, IMG_UP3, IMG_AS],
-        after=sub('One delivery, start to finish', 'From the drop zone to the 15 files the editor assigns by hand.') + media_box(EMB('2f6c4fe9')),
-        note='unhappy path'))
-    # 06 assets
-    f = dict(t='Every file sits under the content it belongs to',
-             l='A missing file shows as a gap on its film or episode, before the delivery gets rejected.',
-             r=['Each film or episode shows how complete its files are, like 2 of 7.',
-                'Content groups files under their film or episode; Files lists them all for bulk work. Language and type are filters.'])
-    o.append(zoom(6, f, [
-        dict(h='A file count on every row', hl=[(88.8, 71.6, 9.8, 28.4)], ctx=(60, 66, 1, 1)),
-        dict(h='Two views, two filters', hl=[(5.2, 66.4, 53, 4.6), (87.4, 66.6, 11.2, 4.2)])], [IMG_AS],
-        after=sub('Switching views', 'The same items grouped by content, then listed as files and filtered.') + media_box(EMB('8364b5b0'))))
-    # 07 artwork
-    f = dict(t='Artwork is chosen by taste, not by country',
+        dict(h='Keep working while it uploads', m=0, hl=[(74.6, 86.6, 23.8, 11.4)], ctx=(60, 60, 1, 1)),
+        dict(h='Add files mid-upload', m=1, hl=[(27, 5.4, 46.2, 21.6)]),
+        dict(h='Each file has its own state', m=2, hl=[(61.8, 30.4, 19.4, 26.8)], ctx=(5, 20.5, 80, 1))], [IMG_UP15, IMG_UP3, IMG_AS],
+        after=sub('Resolving the 15 files processing couldn’t place', 'Each problem gets its own fix: assign files in bulk, keep or replace a duplicate master, or create the episode a file points to.') + media_box(EMB('2f6c4fe9')),
+        note='unhappy path', nav=nav))
+    # rejection
+    f_rej = dict(t='A rejection is a list of reasons',
+             l='The publisher approves an item, or sends it back with reasons the editor can act on one by one. Each reason is pinned to its field.',
+             r=['The publisher comments on the metadata row itself. Each comment becomes a reason with its field and a category.',
+                'Flagged rows stay marked on the page, so the editor fixes them in place.',
+                'Before anything is sent, Reject shows how many reasons there are and who gets the item back.'])
+    F.append(lambda n, nav: zoom(n, f_rej, [
+        dict(h='Comments become reasons', hl=[(69.5, 14.6, 28, 14.6), (5.6, 22.6, 61.4, 7.4)], ctx=(69.5, 10, 28, 1)),
+        dict(h='Fixed in place', hl=[(5.6, 22.6, 61.4, 7.4), (5.6, 63.6, 61.4, 7)]),
+        dict(h='Counted before it is sent', hl=[(86.6, 56.4, 10.6, 4.2), (70.2, 52.4, 20, 3.4)], ctx=(69.5, 10, 28, 1))], [IMG_REJ],
+        after=sub('Try it', 'Flag two fields as the publisher, then fix them as the editor.', note='start here') + media_box(EMB('f663202a')), nav=nav))
+    # AI
+    f_ai = dict(t='AI suggests, the editor accepts',
+             l='The AI points at likely rejections before the publisher sees them and proposes values like keywords. Nothing is written until the editor accepts.',
+             r=['It learns from past rejection reasons. Each reason carries a field and a category, so they can be counted per team and per region.',
+                'A broken rule is a failed check, never a guess. The AI only raises judgement calls and says how sure it is.',
+                'A flag opens its field, or gets dismissed with a reason that stays on record.'])
+    F.append(lambda n, nav: zoom(n, f_ai, [
+        dict(h='Learns from rejections', hl=[(76, 16, 22, 10.6)], ctx=(76, 12.5, 22, 1)),
+        dict(h='Rules and AI stay apart', hl=[(76.8, 23.2, 6.4, 2.4), (76.8, 36.6, 6.4, 2.4), (76.8, 49.9, 6.4, 2.4)], ctx=(76, 12.5, 22, 1)),
+        dict(h='Nothing written on its own', hl=[(95.2, 17, 2.6, 3.2), (95.2, 28.5, 2.6, 3.2), (95.2, 41.9, 2.6, 3.2)], ctx=(76, 12.5, 22, 41))], [IMG_EP2],
+        after=sub('Rules and AI, side by side', 'Rule checks pass or fail. AI suggestions name their evidence, and a dismissed flag stays on record.') + media_box(EMB('e76ad60f')), nav=nav))
+    # artwork
+    f_art = dict(t='Artwork is chosen by taste, not by country',
              l='Most viewing starts from a recommendation, so the thumbnail does much of the selling. Taste predicts a click better than age or location, so each season carries one thumbnail per taste cluster.',
              r=['Action, drama, romance and mystery fans each see the scene most likely to make them click.',
                 'Variants are tested against each other in each region, with the time left on the test, so the editor knows when the artwork is final.',
                 'Each variant shows its click-through rate, and the leader is marked.'])
-    o.append(zoom(7, f, [
+    F.append(lambda n, nav: zoom(n, f_art, [
         dict(h='One thumbnail per taste', hl=[(6.2, 44, 66.4, 20.4)], ctx=(6.2, 40.5, 1, 1)),
         dict(h='A/B tested per region', hl=[(55.4, 40.4, 17.4, 3.2), (33, 59.6, 6, 2.8), (49.8, 59.6, 6, 2.8), (66.6, 59.6, 6, 2.8)]),
-        dict(h='Backed by click-through', hl=[(6.2, 59.2, 15.8, 5), (22.8, 61.2, 4.4, 2.4), (39.6, 61.2, 4.4, 2.4), (56.4, 61.2, 4.4, 2.4)], ctx=(6.2, 40.5, 1, 1))], [IMG_SEASON]))
-    # 08 row actions
-    f = dict(t='Each row offers only its next step',
+        dict(h='Backed by click-through', hl=[(6.2, 59.2, 15.8, 5), (22.8, 61.2, 4.4, 2.4), (39.6, 61.2, 4.4, 2.4), (56.4, 61.2, 4.4, 2.4)], ctx=(6.2, 40.5, 1, 1))], [IMG_SEASON], nav=nav))
+    # row actions
+    f_row = dict(t='Each row offers only its next step',
              l='Review while an episode waits, Publish once it’s approved. Checks only prove the fields are filled; judgement on ratings, artwork and sync stays with the publisher.')
-    o.append(simple(8, f, EMB('1ee3cd39')))
-    # 09 locked
-    f = dict(t='Once review starts, content is locked',
+    F.append(lambda n, nav: simple(n, f_row, EMB('1ee3cd39'), nav=nav))
+    # assets
+    f_as = dict(t='Every file sits under the content it belongs to',
+             l='A missing file shows as a gap on its film or episode, before the delivery gets rejected.',
+             r=['Each film or episode shows how complete its files are, like 2 of 7.',
+                'Content groups files under their film or episode; Files lists them all for bulk work. Language and type are filters.'])
+    F.append(lambda n, nav: zoom(n, f_as, [
+        dict(h='A file count on every row', hl=[(83.4, 70.8, 11.6, 22.6)]),
+        dict(h='Two views, two filters', hl=[(5, 66.2, 55, 4.4), (87.2, 66.2, 11.4, 4.2)])], [IMG_AS],
+        after=sub('Filtering down to one delivery', 'Content narrows the list to Lupin, Files lists every file in it, and the batch filter finds the files from one delivery.') + media_box(EMB('8364b5b0')), nav=nav))
+    # locked
+    f_lock = dict(t='Once review starts, content is locked',
              l='After approval, a change needs an edit request. It’s for news from outside, like a new regional age rating. Fixing approved work isn’t what it’s for.')
-    o.append(simple(9, f, EMB('59ab0c6b')))
-    return ''.join(o)
+    F.append(lambda n, nav: simple(n, f_lock, EMB('59ab0c6b'), nav=nav))
+    titles = [f_region['t'], f_fill['t'], f_up['t'], f_rej['t'], f_ai['t'], f_art['t'], f_row['t'], f_as['t'], f_lock['t']]
+    ix = ''.join(f'<li><a href="#f-{i}"><em>{i:02d}</em><span>{t}</span></a></li>' for i, t in enumerate(titles, 1))
+    index = ('<div class="bl2-t"><span class="cs-num bl2-x">05</span><span class="cs-title bl2-x">Features</span><p class="k">Features</p>'
+             '<h2 class="bl2-h">Nine decisions across the workflow</h2>'
+             f'<ol class="fx-ix">{ix}</ol></div>')
+    return index + ''.join(f'<div id="f-{i}" class="fx-a">' + mk(i, False) + '</div>' for i, mk in enumerate(F, 1))
 
 # ---------- problem, built on what the research found ----------
 def problem():
@@ -279,19 +289,19 @@ def north_star():
             + '</div>')
 
 # ---------- research: how I looked, and the benchmark ----------
-DOT = {'y': '<i class="bd bd-y" aria-label="yes"></i>', 'p': '<i class="bd bd-p" aria-label="partly"></i>', 'n': '<i class="bd bd-n" aria-label="no"></i>'}
+DOT = {'y': '<i class="bd bd-y" role="img" aria-label="yes"></i>', 'n': '<i class="bd bd-n" role="img" aria-label="no"></i>'}
 def benchmark():
-    cols = ['Versions per language or region', 'Approval workflow', 'Comments on a field or frame', 'Reads metadata from the file', 'Checks before review']
-    rows = [('Contentful', 'Headless CMS', 'yyypp'), ('Contentstack', 'Headless CMS', 'yyypp'), ('Strapi', 'Headless CMS', 'yynpp'),
-            ('Directus', 'Headless CMS', 'yppp' + 'p'), ('Brightcove', 'Video platform', 'ynnyn'), ('Frame.io', 'Video review', 'nyyyn'),
+    cols = ['Versions per language', 'Built-in approval workflow', 'Comments on a field or frame', 'Reads duration and codec from the file', 'Automatic checks before review']
+    rows = [('Contentful', 'Headless CMS', 'yyyny'), ('Contentstack', 'Headless CMS', 'yyyny'), ('Strapi', 'Headless CMS', 'yynny'),
+            ('Directus', 'Headless CMS', 'ynnny'), ('Brightcove', 'Video platform', 'ynnyn'), ('Frame.io', 'Video review', 'nyyyn'),
             ('Ziflow', 'Creative approval', 'nyynn'), ('GitHub pull requests', 'Code review, outside media', 'nyyny')]
     th = ''.join(f'<th>{c}</th>' for c in cols)
     tr = ''.join(f'<tr><td>{n}<span class="k">{k}</span></td>' + ''.join(f'<td>{DOT[v]}</td>' for v in vals) + '</tr>' for n, k, vals in rows)
     tr += '<tr class="me"><td>Backlot<span class="k">This case</span></td>' + ''.join(f'<td>{DOT["y"]}</td>' for _ in cols) + '</tr>'
     return (f'<div class="bm"><table><thead><tr><th>Tool</th>{th}</tr></thead><tbody>{tr}</tbody></table>'
-            f'<p class="bm-l"><span>{DOT["y"]} yes</span><span>{DOT["p"]} partly</span><span>{DOT["n"]} no</span>'
-            '<span>From each tool’s public documentation, May 2026. “Partly” on file metadata means size and dimensions only. '
-            'Backlot pins comments to metadata fields; frame-accurate comments on video were out of scope for this case.</span></p></div>')
+            f'<p class="bm-l"><span>{DOT["y"]} yes</span><span>{DOT["n"]} no</span>'
+            '<span>From each tool’s public documentation, May 2026. Contentful Workflows and Strapi Review Workflows need a paid plan. '
+            'Directus can build an approval flow with custom permissions, but has none built in. Backlot pins comments to metadata fields; frame-accurate comments on video were out of scope for this case.</span></p></div>')
 
 def research():
     return ('<div class="bl2-t"><span class="cs-num bl2-x">03</span><p class="k">Research</p>'
@@ -309,15 +319,32 @@ def roles():
              '<p class="bl2-sub">Decides before a release date, can’t re-check everything.</p><ul class="bl2-ck"><li>The queue sorted by release date</li><li>Only the fields that came back</li><li>Reasons tied to fields, not a note</li></ul></div></div>')
     top = ('<div class="bl2-t"><span class="cs-num bl2-x">04</span><p class="k">Two roles</p>'
            '<h2 class="bl2-h cs-title">One episode, two people asking different questions</h2>' + cards + '</div>')
-    dash = zoom(0, dict(r=['What is blocking groups missing fields across everything assigned to the editor, so one pass fills the Spanish synopsis for seven items.',
-                           'The banner names the one item that airs within seven days and still needs a decision. Deliveries this week show each region’s progress.']),
-                [dict(h='Editor: blockers first', m=0, hl=[(74.5, 56, 23.5, 41)]),
-                 dict(h='Publisher: what airs this week', m=1, z=1, x=50, y=50, hl=[(19, 10, 54.5, 7.5), (74.5, 66, 23.5, 30.5)])],
+    full = dict(z=1, x=50, y=50)
+    dash = zoom(0, dict(r=['Blockers, counts and the work the editor left off, on one page.',
+                           'What airs soon, what waits for review, and what each region has received.',
+                           'The editor’s counts start with Rejected, the publisher’s with Pending review: each role sees first what needs them.',
+                           'The editor’s banner names files that couldn’t be assigned. The publisher’s names the one item that airs within seven days and still needs a decision.',
+                           'Missing fields grouped across everything assigned to the editor, so one pass fills the Spanish synopsis for seven items.',
+                           'In place of blockers, the publisher sees each region’s deliveries this week and how far along they are.']),
+                [dict(h='Editor dashboard', m=0, **full),
+                 dict(h='Publisher dashboard', m=1, **full),
+                 dict(h='Counts that follow the role', m=1, hl=[(19.3, 20.2, 54.4, 13)]),
+                 dict(h='A banner for today’s blocker', m=0, hl=[(19.3, 10, 54.4, 7.6)]),
+                 dict(h='What is blocking, grouped by field', m=0, hl=[(74.8, 55.4, 23.4, 41.6)]),
+                 dict(h='Deliveries this week, per region', m=1, hl=[(74.8, 66.2, 23.4, 30.6)])],
                 [IMG_ED_DASH, IMG_PUB_DASH], head_html=sub('Dashboards', 'Where each role starts the day.'))
-    work = zoom(0, dict(r=['Each status has its own columns and shows only what matters at that stage. Rejections are cards, so the reason is visible before the item opens.',
-                           'The same statuses the editor sees, so both sides talk about the same thing. Review history keeps every decision, with who decided and when.']),
-                [dict(h='Editor: work sorted by state', m=0, hl=[(19.5, 25.5, 15, 22)]),
-                 dict(h='Publisher: the queue sorted by what airs first', m=1, hl=[(86.5, 24.5, 6, 36)], ctx=(59, 24, 1, 1))],
+    work = zoom(0, dict(r=['The editor’s work, sorted by status, with rejections underneath.',
+                           'The publisher’s queue, with every past decision underneath.',
+                           'Both rails use the same statuses, so editor and publisher talk about the same thing.',
+                           'The publisher’s queue is sorted by release date and shows how long each item has waited. The editor’s table shows blockers in that place.',
+                           'Rejected work sits as cards, so the reason shows before the item opens.',
+                           'Every decision stays on record, with who decided and when.']),
+                [dict(h='Editor workspace', m=0, **full),
+                 dict(h='Publisher reviews', m=1, **full),
+                 dict(h='The same statuses on both sides', m=0, hl=[(19.4, 24.6, 15.4, 31)]),
+                 dict(h='Sorted by what airs first', m=1, hl=[(75.4, 24.6, 12, 36.4)]),
+                 dict(h='Rejections as cards', m=0, hl=[(19.4, 64.6, 79, 28.6)]),
+                 dict(h='Review history', m=1, hl=[(19.4, 64.4, 79, 33)])],
                 [IMG_ED_WORK, IMG_PUB_WORK], head_html=sub('Workspaces', 'Where the work itself happens.'))
     return top + dash + work
 
