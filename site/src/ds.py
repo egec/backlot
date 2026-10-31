@@ -96,7 +96,7 @@ def build():
     return ('<section class="cs-dsec" data-nav-label="Design system" id="design-system"><div class="ds-in"><div class="ds-head"><span class="cs-num">07</span><h2 class="cs-title">Design system</h2></div><div class="ds-show">'
             + sec('Eight states, one icon family.', 'Status tells you where the work is. Availability tells you what viewers can see. Two layers, and availability is never a ninth status.',
                   '<div class="ds-panel ds-chips"><p class="ds-rl">Workflow status</p>' + chips + '</div>' + avail)
-            + sec('Only the release date earns a spine.', 'The release date is the only thing the team cannot move, so it is the only thing that raises urgency.', spine)
+            + sec('Only the release date can make a row urgent.', 'The release date is the only thing the team cannot move, so it is the only thing that raises urgency.', spine)
             + sec('Verified means measured. Source means asserted.', 'Only a source value can be wrong, so only a source value can be unlocked.', provs)
             + sec('Permissions change the component, not the page.', '', perms)
             + sec('Every colour stands for one thing.', 'Published has no hue, because most of the library ends up there. Amber and red mean urgency, nothing else.', found)

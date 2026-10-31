@@ -170,7 +170,7 @@ def research():
             + card(a, 'Mistakes come from structure the editor can’t see, like metadata on the wrong level.', 'Every field shows the level it lives on.')
             + card(b, 'Almost every field changes by region, from title to audio.', 'Region comes first. Everything under it shows for that region only.')
             + card(c, 'Every tool lets you comment on a field. None turns a rejection into data.', 'A rejection is a list of reasons, pinned to fields and counted.')
-            + '</div><p class="bl2-strong">Field comments exist. A rejection made of reasons that teach the next check does not.</p></div>')
+            + '</div><p class="bl2-strong">The gap: every tool takes comments, none learns from a rejection.</p></div>')
 
 def roles_viewer():
     e = EMB('13941d11')
