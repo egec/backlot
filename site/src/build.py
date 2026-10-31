@@ -42,7 +42,7 @@ def strip(on):
     return '<div class="bl2-strip">Cuts the loop at ' + '<b>→</b>'.join(
         '<i class="on">%s</i>' % x if x == on else '<i>%s</i>' % x for x in ['Deliver', 'Prepare', 'Review', 'Release']) + '</div>'
 
-NOTE_ARROW = '<svg viewBox="0 0 96 56" aria-hidden="true"><path class="nb" d="M90 20 C 70 6, 34 6, 13 38" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="nh" d="M12 24 L13 39 L25 31" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+NOTE_ARROW = '<svg viewBox="0 0 96 56" aria-hidden="true"><path class="nb" d="M90 22 C 70 44, 34 40, 13 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="nh" d="M26.5 23.8 L13 20 L17.4 33.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 NOTE_DOWN = '<svg viewBox="0 0 60 72" aria-hidden="true"><path class="nb" d="M8 8 C 32 10, 50 30, 44 64" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="nh" d="M34 54 L44 65 L52 52" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 def head(n, f, nav=False, note=''):
     hid = '<span class="cs-num bl2-x">05</span><span class="cs-title bl2-x">Features</span>' if nav else ''
@@ -388,8 +388,9 @@ def bilge():
              'I designed so the interface never offers an action the backend would refuse.') + '</div>')
     role = ('<div class="bl2-t">' + head2(3, 'My role', 'One module of many',
             'I joined after BİLGE’s design system was in place and worked across many modules. KLTS is the one whose designs I still have.')
-            + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, corrections, cancellations, the container history, the declaration comparison and closing a form with an official report.</p>')
-            + split('Design system', '<p>The TM-22 design system was created by Dilmin Doğan and Gizem Turan Yücel. I added to it where these flows needed something it did not have.</p>')
+            + split('Team', '<p>Five designers, a product manager, a systems engineer, and back-end and front-end engineers with their team leads.</p>')
+            + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, corrections, cancellations, the container history, the declaration comparison and closing a form with an official report: 107 screens in KLTS alone.</p>')
+            + split('Design system', '<p>The platform’s design system was created by Dilmin Doğan and Gizem Turan Yücel. I added to it where these flows needed something it did not have.</p>')
             + '</div>')
     V = lambda k: dict(type='video', src=GH + f'bilge/{k}.mp4', poster=GH + f'bilge/{k}.jpg', w=1600, h=900)
     def flow(n, k, h, lead, steps, texts, medias, after=''):
@@ -439,6 +440,7 @@ def bilge():
                        'Editing a form an agent registered warns that the agent’s record will change.'])) + '</div>')
     learned = ('<div class="bl2-t">' + head2(7, 'What I learned', 'In government software the wording is part of the design')
                + split('Wording', '<p>A word like Register carries legal weight, so ministry review shaped the design from the start.</p>')
+               + split('Next time', '<p>Specs from the client were sometimes wrong, and we found out only after the screens were designed, which meant redesigns. Next time I would walk each flow through with the analyst against the regulation before designing it.</p>')
                + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. The real system holds customs data, so I rebuilt the screens in Claude Design from the originals with placeholder data and checked each one against them.</p>')
                + '</div>')
     w1 = (sec('ov', 'Overview', hero) + sec('gl', 'At a glance', glance) + sec('dm', 'Working from specs', specs) + sec('mr', 'My role', role)

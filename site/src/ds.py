@@ -83,6 +83,7 @@ def build():
              + prow('Editable', chip('prog'), cell(field('Age rating', '<span class="ds-strong">12</span>', 'filled'), note('Editable until the editor submits.')), cell(field('Age rating', '12'), note('Visible, not editable. Nothing to review yet.')))
              + prow('Locked once review starts', chip('rev'), cell(lockf(), note('The same row, locked while Maya Okafor reviews.')), review_row)
              + prow('Read-only', chip('appr'), cell(lockf(), note('Approved and locked. No per-field unlock.')), cell(lockf(), note('Approved 3 Feb by Maya Okafor. Locked here too.')))
+             + prow('Edit request', chip('appr'), req, req2)
              + prow('Primary action', '', act1, act2, True)
              + '</div>')
     sw = lambda c, extra='': f'<i class="ds-sw" style="background:{c}{extra}"></i>'
