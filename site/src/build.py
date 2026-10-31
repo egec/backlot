@@ -241,65 +241,59 @@ def head2(n, k, h, lead=''):
 def bilge():
     hero = ('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
             '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Tracking every container through Turkish customs, designed from the system specs</h1>'
-            '<div class="bl2-hg"><p class="lead">BİLGE is built from dozens of modules, and I designed across many of them. This page shows one: KLTS, container and port tracking, where shipping agents register containers, customs officers approve them, and managers sign off what changes after approval. '
-            'I designed every flow from the system specifications and the backend rules behind them, so each screen offers only what the system allows.</p>'
+            '<div class="bl2-hg"><p class="lead">BİLGE is the Ministry of Trade’s customs platform, made of dozens of modules, and I designed across many of them. '
+            'This page shows KLTS, container and port tracking, designed from the system specifications and backend rules so every screen offers only what the system allows.</p>'
             '<div class="bl2-meta"><div><b>Company</b>MilSOFT</div><div><b>Client</b>Turkish Ministry of Trade</div>'
             '<div><b>My role</b>UX/UI Designer</div><div><b>Date</b>2022 to 2023</div></div></div>'
             + ph('Hero screen from Claude Design') + '</div>')
-    glance = ('<div class="bl2-t"><span class="cs-num bl2-x">01</span><p class="k">At a glance</p><h2 class="bl2-h cs-title">One form, up to four people, each against a deadline</h2>'
-              + split('The problem', '<p>A container form passes through up to four people before it is closed: the agent who files it, the officer who approves it, and the deputy manager and manager who sign off what changes after approval. Each sees a different slice of the same form, and each decision runs against a deadline.</p>')
-              + '<div class="bl2-cards c3">'
-              + ''.join(f'<div class="bl2-c"><span class="bl2-tag">Decision {i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate([
-                  ('One form, four roles', 'Every role opens the same form. What changes is what each role can do with it, and the header colour tells them which side they are on.'),
-                  ('No change without a reason', 'Correction, cancellation, update and rejection all ask for a written reason, and the next role reads it before deciding.'),
-                  ('Registering is binding', 'At the ministry’s request the agent’s last button says Register, not Save, and the confirmation shows the registration number and the remaining balance.')], 1))
-              + '</div>'
-              + split('Constraints', '<p>Legal wording on every label, ministry review on changes, and real customs data I can’t show. Every screen on this page is rebuilt from the original designs with placeholder data.</p>')
+    cards = ''.join(f'<div class="bl2-c"><span class="bl2-tag">Decision {i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate([
+        ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. Blue and red headers separate the agent side from customs.'),
+        ('Sources side by side', 'The carrier’s declaration and the port’s records sit next to each other, so a mismatch is visible at a glance.'),
+        ('Registering is binding', 'At the ministry’s request, the agent’s last button says Register. The confirmation shows the registration number and the remaining balance.')], 1))
+    glance = ('<div class="bl2-t"><span class="cs-num bl2-x">01</span><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
+              + split('The problem', '<p>A container entering a Turkish port is described in several places: the carrier’s summary declaration, the port’s own records and transit messages. '
+                      'The container tracking form ties them together, and up to four people work on it, each against a deadline.</p>')
+              + f'<div class="bl2-cards c3">{cards}</div>'
+              + split('Constraints', '<p>Legal wording on every label, ministry review on every change, and customs data I can’t show.</p>')
               + '</div>')
-    domain = ('<div class="bl2-t">' + head2(2, 'Working from specs', 'Designed from the system specifications, not from a brief',
-              'Every screen started from the system specifications: the analysts’ requirement documents, the regulation and the backend rules behind each field and status. '
-              'I read them, worked out what each role may do at each status, and designed the interface so it never offers an action the backend would refuse. '
-              'The specs also defined the domain: the summary declaration a carrier files before arrival, the port’s own records and transit messages. '
-              'Two screens came straight out of them: one that compares the declaration with the port data, and a container history that puts every event on one timeline.') + '</div>'
-              + ph('Container history (page D) and declaration comparison'))
-    role = ('<div class="bl2-t">' + head2(3, 'My role', 'Many modules, one shown here',
-            'I joined the BİLGE team after its design system was already in place and designed across many of its modules, turning specifications and backend rules into flows, screens and states. '
-            'KLTS is one of dozens. It is on this page because it is the one whose designs I still have, and it shows the work well: four roles, one form and an approval chain.')
+    specs = ('<div class="bl2-t">' + head2(2, 'Working from specs', 'Designed from the system specifications',
+             'Every screen started from the specs: the analysts’ requirements, the regulation and the backend rules behind each field and status. '
+             'I designed so the interface never offers an action the backend would refuse.') + '</div>')
+    role = ('<div class="bl2-t">' + head2(3, 'My role', 'One module of many',
+            'I joined after BİLGE’s design system was in place and worked across many modules. KLTS is the one whose designs I still have.')
             + split('Team', '<p>TODO: team size and who was in it, and who you worked with day to day.</p>')
-            + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, correction and cancellation approvals, the container history, the declaration comparison and closing a form with an official report. TODO: number of screens and states.</p>')
-            + split('Design system', '<p>The TM-22 design system was created by Dilmin Doğan and Gizem Turan Yücel. I joined after it existed and added to it: TODO list the components and patterns you added.</p>')
-            + split('Ministry review', '<p>Labels and confirmations went through the ministry. Two changes in these flows came from that review: Register instead of Save on the agent’s form, and a confirmation that shows the remaining balance.</p>')
+            + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, corrections, cancellations, the container history, the declaration comparison and closing a form with an official report. TODO: number of screens and states.</p>')
+            + split('Design system', '<p>TM-22 was created by Dilmin Doğan and Gizem Turan Yücel. I extended it with: TODO.</p>')
             + '</div>')
     def flow(n, k, h, lead, shot, items):
-        return '<div class="bl2-t">' + head2(n, k, h, lead) + '</div>' + ph(shot) + '<div class="bl2-t">' + split('Decisions', rules(items)) + '</div>'
+        return ('<div class="bl2-t">' + head2(n, k, h, lead) + '</div>' + ph(shot)
+                + ('<div class="bl2-t">' + split('Decisions', rules(items)) + '</div>' if items else ''))
     agent = flow(4, 'The agent files', 'General information first, then the containers',
-                 'An agent creates the form in two steps: general information, then the containers. Containers are added one by one or in bulk, each with its parts and equipment. Registering the form sends it to the officer’s queue.',
+                 'The agent fills in general information, then adds containers one by one or in bulk, each with its parts and equipment. Register sends the form to the officer’s queue.',
                  'Page A walkthrough: Add Container, Register', [
-                     'General information first, because every container on the form shares it',
-                     'Parts and equipment sit under their container, so nothing is filed against the wrong one',
-                     'Register, not Save: once sent, the form is binding'])
-    officer = flow(5, 'The officer decides', 'Approve, edit or cancel, and every cancel has a reason',
-                   'Officers work from a queue of forms waiting for approval. From a form they approve, edit or cancel it, and cancelling asks for a reason. An approved form can still change later through a correction, cancellation or update request, each with its own reason.',
-                   'Page B walkthrough: approve selected, reason drawer', [
-                       'The officer can approve the selected containers and reject the rest in one step, and the confirmation says exactly that',
-                       'Reasons open in a side drawer, so the form stays in view while the officer writes',
-                       'Editing a form the agent registered warns that the agent’s record will change'])
-    chain = flow(6, 'Sign-off up the chain', 'Managers decide on the row',
-                 'Some changes need a second signature. Time extensions go from the officer to the manager, corrections to the deputy manager, and cancellations to the manager. Each of them works from a list with the request, the reason and its status, and decides on the row.',
-                 'Page C walkthrough: approve and reject on the row', [
-                     'Approve and reject sit on the row with a confirmation, so a manager can clear a queue without opening every form',
-                     'The result appears as a message on the same list, not on a new page',
-                     'The same three statuses at every level: pending, approved, rejected'])
+                     'General information comes first, because every container on the form shares it.',
+                     'Parts and equipment sit under their container, so nothing is filed against the wrong one.',
+                     'Register, not Save: once sent, the form is binding.'])
+    track = flow(5, 'Tracking a container', 'Every source and every event in one place',
+                 'Two screens came straight from the specs. One compares the carrier’s summary declaration with the port’s records. The other, the container history, puts every event on one timeline.',
+                 'Container lookup (page D) and declaration comparison', [])
+    customs = flow(6, 'Customs decides', 'Officers and managers act from their queue',
+                   'Officers approve, edit or cancel registered forms. Some later changes need a second signature: time extensions and cancellations go to the manager, corrections to the deputy manager.',
+                   'Pages B and C walkthrough', [
+                       'An officer can approve some containers on a form and reject the rest in one step.',
+                       'Written reasons open in a side drawer, so the form stays in view.',
+                       'Managers decide on the row, and the result appears on the same list.',
+                       'Editing a form an agent registered warns that the agent’s record will change.'])
     ba = ('<div class="bl2-t">' + head2(7, 'Before and after', 'Closing a form with an official report',
-          'Closing a form with an official report is one of the screens I redesigned. TODO: what the old screen made hard, what you changed, and why.') + '</div>'
+          'One of the screens I redesigned. TODO: what the old screen made hard, what you changed, and why.') + '</div>'
           + ph('Before and after: old screen and page E'))
     learned = ('<div class="bl2-t">' + head2(8, 'What I learned', 'In government software the wording is part of the design')
-               + split('Wording', '<p>A word like Register carries legal weight, so ministry review became an input to the design, not a last check. TODO: confirm or rewrite in your words.</p>')
+               + split('Wording', '<p>A word like Register carries legal weight, so ministry review shaped the design from the start.</p>')
                + split('Next time', '<p>TODO: one thing that went wrong or that you would do differently, and what you changed because of it.</p>')
-               + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. The real system holds customs data I can’t show, so I rebuilt the screens with Claude Design from the original designs, with placeholder data, and checked every screen against the originals.</p>')
+               + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. The real system holds customs data, so I rebuilt the screens in Claude Design from the originals with placeholder data and checked each one against them.</p>')
                + '</div>')
-    w1 = (sec('ov', 'Overview', hero) + sec('gl', 'At a glance', glance) + sec('dm', 'Working from specs', domain) + sec('mr', 'My role', role)
-          + sec('ag', 'The agent files', agent) + sec('of', 'The officer decides', officer) + sec('ch', 'Sign-off up the chain', chain)
+    w1 = (sec('ov', 'Overview', hero) + sec('gl', 'At a glance', glance) + sec('dm', 'Working from specs', specs) + sec('mr', 'My role', role)
+          + sec('ag', 'The agent files', agent) + sec('tr', 'Tracking a container', track) + sec('cu', 'Customs decides', customs)
           + sec('ba', 'Before and after', ba) + sec('le', 'What I learned', learned))
     nb = (P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'].replace('href="/work"', 'href="/uwaverde"')
           .replace('<span>BİLGE</span>', '<span>UwaVerde</span>')
