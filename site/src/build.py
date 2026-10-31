@@ -249,15 +249,16 @@ def bilge():
     cards = ''.join(f'<div class="bl2-c"><span class="bl2-tag">Decision {i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate([
         ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. Blue and red headers separate the agent side from customs.'),
         ('Sources side by side', 'The carrier’s declaration and the port’s records sit next to each other, so a mismatch is visible at a glance.'),
-        ('Registering is binding', 'At the ministry’s request, the agent’s last button says Register. The confirmation shows the registration number and the remaining balance.')], 1))
+        ('Registering is binding', 'Registering starts the clock on the container’s permitted time in the country, so at the ministry’s request the button says Register. The confirmation shows the registration number and the remaining prepaid balance.')], 1))
     glance = ('<div class="bl2-t"><span class="cs-num bl2-x">01</span><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
-              + split('The problem', '<p>A container entering a Turkish port is described in several places: the carrier’s summary declaration, the port’s own records and transit messages. '
-                      'The container tracking form ties them together, and up to four people work on it, each against a deadline.</p>')
+              + split('The problem', '<p>Every container that enters or leaves a Turkish seaport needs a Container Tracking Form. KLTS moved that form, and the records customs, port operators and agencies used to exchange on paper, into one system.</p>'
+                      '<p>Up to four people work on one form, and from registration the container’s permitted time is running.</p>')
               + f'<div class="bl2-cards c3">{cards}</div>'
               + split('Constraints', '<p>Legal wording on every label, ministry review on every change, and customs data I can’t show.</p>')
               + '</div>')
     specs = ('<div class="bl2-t">' + head2(2, 'Working from specs', 'Designed from the system specifications',
              'Every screen started from the specs: the analysts’ requirements, the regulation and the backend rules behind each field and status. '
+             'An exit can’t be registered without an entry, approval needs enough prepaid balance, and a container can’t leave the port without an approved form. '
              'I designed so the interface never offers an action the backend would refuse.') + '</div>')
     role = ('<div class="bl2-t">' + head2(3, 'My role', 'One module of many',
             'I joined after BİLGE’s design system was in place and worked across many modules. KLTS is the one whose designs I still have.')
@@ -269,7 +270,7 @@ def bilge():
         return ('<div class="bl2-t">' + head2(n, k, h, lead) + '</div>' + ph(shot)
                 + ('<div class="bl2-t">' + split('Decisions', rules(items)) + '</div>' if items else ''))
     agent = flow(4, 'The agent files', 'General information first, then the containers',
-                 'The agent fills in general information, then adds containers one by one or in bulk, each with its parts and equipment. Register sends the form to the officer’s queue.',
+                 'The agent picks the movement (foreign or domestic, entry or exit), fills in general information, then adds containers one by one or in bulk, each with its parts and equipment. Until an officer approves it, the agent can still edit the form.',
                  'Page A walkthrough: Add Container, Register', [
                      'General information comes first, because every container on the form shares it.',
                      'Parts and equipment sit under their container, so nothing is filed against the wrong one.',
@@ -278,7 +279,7 @@ def bilge():
                  'Two screens came straight from the specs. One compares the carrier’s summary declaration with the port’s records. The other, the container history, puts every event on one timeline.',
                  'Container lookup (page D) and declaration comparison', [])
     customs = flow(6, 'Customs decides', 'Officers and managers act from their queue',
-                   'Officers approve, edit or cancel registered forms. Some later changes need a second signature: time extensions and cancellations go to the manager, corrections to the deputy manager.',
+                   'Officers approve, edit or cancel registered forms; after approval, only customs can change them. Some changes need a second signature: time extensions and cancellations go to the manager, corrections to the deputy manager.',
                    'Pages B and C walkthrough', [
                        'An officer can approve some containers on a form and reject the rest in one step.',
                        'Written reasons open in a side drawer, so the form stays in view.',
