@@ -21,7 +21,7 @@
     items.push(it);
     /* long sections list their parts under them while they are being read */
     [].forEach.call(s.querySelectorAll('[data-nav-sub]'),function(el){
-      var b=document.createElement('a');b.href='#'+el.id;b.innerHTML='<span class="bl-label"></span>';b.querySelector('.bl-label').textContent=el.getAttribute('data-nav-sub');
+      var b=document.createElement('a');b.href='#'+el.id;b.innerHTML='<em>'+String(it.subs.length+1).padStart(2,'0')+'</em><span class="bl-label"></span>';b.querySelector('.bl-label').textContent=el.getAttribute('data-nav-sub');
       b.addEventListener('click',function(e){e.preventDefault();var y=flowTop(s)+(el.getBoundingClientRect().top-s.getBoundingClientRect().top);window.scrollTo({top:y-OFFSET,behavior:'smooth'});if(history.replaceState)history.replaceState(null,'','#'+el.id);});
       if(!it.ul){it.ul=document.createElement('ol');it.ul.className='bl-subs';li.classList.add('has-subs');li.appendChild(it.ul);}var sl=document.createElement('li');sl.className='bl-sub';sl.appendChild(b);it.ul.appendChild(sl);it.subs.push({el:el,link:b,li:sl});
     });
