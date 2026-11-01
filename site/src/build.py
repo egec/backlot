@@ -24,7 +24,7 @@ def rem(css):
 LOGO = 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/67a7e87a22185065ca4c8d61_Ege%20Coskun%20(2).png'
 FULL_IC = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>'
 
-def page(title, desc, body, css_files, js_files, font='it'):
+def page(title, desc, body, css_files, js_files, font='it', cur='work'):
     css = ''.join('<link rel="stylesheet" href="../assets/%s">' % c for c in css_files)
     js = ''.join('<script src="../assets/%s" defer></script>' % j for j in js_files)
     fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">' if font else ''
@@ -33,7 +33,7 @@ def page(title, desc, body, css_files, js_files, font='it'):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">{fl}{css}</head><body class="case">
 <header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home"><img src="{LOGO}" alt="Ege Coskun" width="140" height="43"></a>
-<nav class="site-n" aria-label="Main"><a href="/work">Work</a><a href="/about">About</a><a href="#contact">Contact</a></nav></div></header>
+<nav class="site-n" aria-label="Main"><a href="/work"{' aria-current="page"' if cur == 'work' else ''}>Work</a><a href="/about"{' aria-current="page"' if cur == 'about' else ''}>About</a><a href="#contact">Contact</a></nav></div></header>
 {body}
 <footer class="finalfooter" id="contact">{rem(rd('foot.html'))}</footer>{js}</body></html>'''
 
@@ -82,7 +82,7 @@ def fit(s):
     z = max(1, min(ZCAP, 85 / max(x1 - x0, y1 - y0)))
     return dict(s, z=round(z, 2), x=round((x0 + x1) / 2, 1), y=round((y0 + y1) / 2, 1))
 
-def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note=''):
+def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show_hl=True):
     """Steps that move the screen. Each step can switch media (m), seek a video (t), zoom to a point (z, x, y in %)
     and highlight boxes (hl: list of (x, y, w, h) in % of the media). The text and the screen stay pinned while
     scrolling moves through the steps."""
@@ -99,7 +99,7 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note=''):
         else:
             el = f'<video class="zs-m" data-zsrc="{m["src"]}" poster="{m["poster"]}" width="{m["w"]}" height="{m["h"]}" muted playsinline preload="none"></video>'
         hls = ''.join(f'<i class="zs-hl" data-s="{si}" style="left:{x}%;top:{y}%;width:{w}%;height:{h}%"></i>'
-                      for si, s in enumerate(steps) if s.get('m', 0) == i for (x, y, w, h) in s.get('hl', []))
+                      for si, s in enumerate(steps) if show_hl and s.get('m', 0) == i for (x, y, w, h) in s.get('hl', []))
         ms += f'<div class="zs-mw{on}" data-i="{i}">{el}{hls}</div>'
     bars = ''.join(f'<button type="button" aria-label="Step {i+1}"><i></i></button>' for i in range(len(steps)))
     has_video = any(m['type'] == 'video' for m in medias)
@@ -324,11 +324,16 @@ def research():
 
 # ---------- two roles: the screens as steps, dashboards then workspaces ----------
 def roles():
+    def rc(q, needs, who, when, sub, ini):
+        return (f'<div class="bl2-role"><p class="bl2-q"><span class="bl2-qm">“</span>{q}”</p>'
+                + '<ul class="bl2-ck">' + ''.join(f'<li>{x}</li>' for x in needs) + '</ul>'
+                + f'<div class="bl2-rf"><span class="bl2-av" aria-hidden="true">{ini}</span><div><b>{who}</b><span>{when}. {sub}</span></div></div></div>')
     cards = ('<div class="bl2-roles">'
-             '<div class="bl2-role"><div class="bl2-rh"><span>Editor</span><span class="bl2-pill">All day</span></div><p class="bl2-q">“What’s blocking release, and what can I clear today?”</p>'
-             '<p class="bl2-sub">Works region by region, many episodes at once.</p><ul class="bl2-ck"><li>Files that still need an episode</li><li>What each region still needs</li><li>Which field a rejection points at</li></ul></div>'
-             '<div class="bl2-role"><div class="bl2-rh"><span>Publisher</span><span class="bl2-pill">Per review</span></div><p class="bl2-q">“What airs first, and what changed since I last looked?”</p>'
-             '<p class="bl2-sub">Decides before a release date, can’t re-check everything.</p><ul class="bl2-ck"><li>The queue sorted by release date</li><li>Only the fields that came back</li><li>Reasons tied to fields, not a note</li></ul></div></div>')
+             + rc('What’s blocking release, and what can I clear today?', ['Files that still need an episode', 'What each region still needs', 'Which field a rejection points at'],
+                  'Editor', 'All day', 'Works region by region, many episodes at once.', 'E')
+             + rc('What airs first, and what changed since I last looked?', ['The queue sorted by release date', 'Only the fields that came back', 'Reasons tied to fields'],
+                  'Publisher', 'Per review', 'Decides before a release date and can’t re-check everything.', 'P')
+             + '</div>')
     top = ('<div class="bl2-t"><span class="cs-num bl2-x">04</span><p class="k">Two roles</p>'
            '<h2 class="bl2-h cs-title">One episode, two people asking different questions</h2>' + cards + '</div>')
     full = dict(z=1, x=50, y=50)
@@ -364,6 +369,18 @@ def head2(n, k, h, lead=''):
     return (f'<span class="cs-num bl2-x">{n:02d}</span><p class="k">{k}</p><h2 class="bl2-h cs-title">{h}</h2>'
             + (f'<p class="lead">{lead}</p>' if lead else ''))
 
+def specpile():
+    """sheets of spec that pile up to the right as the section scrolls in, a nod to the documents behind every screen"""
+    names = ['Circular 2017/3', 'User guide', 'Requirements', 'Backend rules', 'Form statuses', 'Balance rules', 'Port messages', 'Change requests',
+             'Requirements v2', 'Extension rules', 'Roles and rights', 'Field list', 'Validation', 'Requirements v3']
+    sh = ''
+    for i, n in enumerate(names):
+        rows = ''.join(f'<i style="width:{w}%"></i>' for w in [92, 84, 96, 70, 88, 60, 94, 78][: 5 + i % 4])
+        mark = '<em></em>' if i % 3 == 1 else ''
+        r = (i * 37 % 11) - 5; y = (i * 13 % 7) * 6 - i * 4
+        sh += f'<div class="sp-s" style="--i:{i};--r:{r}deg;--y:{y}px"><b>{n}</b>{rows}{mark}<small>{i + 3}</small></div>'
+    return f'<div class="sp-pile" data-pile aria-hidden="true">{sh}</div>'
+
 def bilge():
     hero = ('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
             '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Container tracking for Turkish customs</h1>'
@@ -373,28 +390,28 @@ def bilge():
             '<div><b>My role</b>UX/UI Designer</div><div><b>Date</b>2022 to 2023</div></div></div>'
             + media_box(f'<img class="bl2-img" src="{GH}shots/bilge/b-detail.webp" width="1920" height="1080" alt="Container tracking form detail as a customs officer sees it: the agent’s details above the containers and their parts">') + '</div>')
     cards = ''.join(f'<div class="bl2-c"><span class="bl2-tag">Decision {i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate([
-        ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. Blue and red headers separate the agent side from customs.'),
+        ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. The header is blue on the agent’s side and red on the customs side, so everyone knows which side of the form they are on.'),
         ('Sources side by side', 'The carrier’s declaration and the port’s records sit next to each other, so a mismatch is visible at a glance.'),
         ('Registering is binding', 'Registering starts the clock on the container’s permitted time in the country, so at the ministry’s request the button says Register. The confirmation shows the registration number and the remaining prepaid balance.')], 1))
-    glance = ('<div class="bl2-t"><span class="cs-num bl2-x">01</span><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
+    glance = ('<div class="bl2-t"><span class="cs-num bl2-x">02</span><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
               + split('The problem', '<p>Every container that enters or leaves a Turkish seaport needs a Container Tracking Form. KLTS moved that form, and the records customs, port operators and agencies used to exchange on paper, into one system.</p>'
                       '<p>Up to four people work on one form, and from registration the container’s permitted time is running.</p>')
               + f'<div class="bl2-cards c3">{cards}</div>'
-              + split('Constraints', '<p>Legal wording on every label, ministry review on every change, and customs data I can’t show.</p>')
+              + split('Constraints', '<p>Legal wording on every label and ministry review on every change. The work is under NDA, so the screens on this page are rebuilt from my designs with placeholder data.</p>')
               + '</div>')
-    specs = ('<div class="bl2-t">' + head2(2, 'Working from specs', 'Designed from the system specifications',
+    specs = ('<div class="bl2-t"><div class="sp-wrap"><div>' + head2(3, 'Working from specs', 'Designed from the system specifications',
              'Every screen started from the specs: the analysts’ requirements, the regulation and the backend rules behind each field and status. '
              'An exit can’t be registered without an entry, approval needs enough prepaid balance, and a container can’t leave the port without an approved form. '
-             'I designed so the interface never offers an action the backend would refuse.') + '</div>')
-    role = ('<div class="bl2-t">' + head2(3, 'My role', 'One module of many',
+             'I designed so the interface never offers an action the backend would refuse.') + '</div>' + specpile() + '</div></div>')
+    role = ('<div class="bl2-t">' + head2(1, 'My role', 'One module of many',
             'I joined after BİLGE’s design system was in place and worked across many modules. KLTS is the one whose designs I still have.')
-            + split('Team', '<p>Five designers, a product manager, a systems engineer, and back-end and front-end engineers with their team leads.</p>')
-            + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, corrections, cancellations, the container history, the declaration comparison and closing a form with an official report: 107 screens in KLTS alone.</p>')
+            + split('Team', '<p>Five designers, a product manager and a large engineering team: about half of MilSOFT worked on BİLGE.</p>')
+            + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, corrections, cancellations, the container history, the declaration comparison and closing a form with an official report: 107 screens and states in KLTS alone.</p>')
             + split('Design system', '<p>The platform’s design system was created by Dilmin Doğan and Gizem Turan Yücel. I added to it where these flows needed something it did not have.</p>')
             + '</div>')
     V = lambda k: dict(type='video', src=GH + f'bilge/{k}.mp4', poster=GH + f'bilge/{k}.jpg', w=1600, h=900)
     def flow(n, k, h, lead, steps, texts, medias, after=''):
-        return zoom(0, dict(r=texts), steps, medias, head_html=head2(n, k, h, lead), after=after)
+        return zoom(0, dict(r=texts), steps, medias, head_html=head2(n, k, h, lead), after=after, show_hl=False)
     POP = (37, 25, 26, 39)
     agent = flow(4, 'The agent files', 'General information first, then the containers',
                  'The agent picks the movement (foreign or domestic, entry or exit), fills in general information, then adds containers one by one or in bulk. Until an officer approves the form, the agent can still edit it.',
@@ -440,10 +457,10 @@ def bilge():
                        'Editing a form an agent registered warns that the agent’s record will change.'])) + '</div>')
     learned = ('<div class="bl2-t">' + head2(7, 'What I learned', 'In government software the wording is part of the design')
                + split('Wording', '<p>A word like Register carries legal weight, so ministry review shaped the design from the start.</p>')
-               + split('Next time', '<p>Specs from the client were sometimes wrong, and we found out only after the screens were designed, which meant redesigns. Next time I would walk each flow through with the analyst against the regulation before designing it.</p>')
-               + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. The real system holds customs data, so I rebuilt the screens in Claude Design from the originals with placeholder data and checked each one against them.</p>')
+               + split('When the spec was wrong', '<p>Sometimes the client described a rule wrongly. It surfaced when we presented the screens and the client brought in the customs officers who would use them: they spotted what did not match their work, and we redesigned. Since then I ask for the people who will use the screens as early as the client allows.</p>')
+               + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. I rebuilt the screens in Claude Design from the originals and checked each one against them.</p>')
                + '</div>')
-    w1 = (sec('ov', 'Overview', hero) + sec('gl', 'At a glance', glance) + sec('dm', 'Working from specs', specs) + sec('mr', 'My role', role)
+    w1 = (sec('ov', 'Overview', hero) + sec('mr', 'My role', role) + sec('gl', 'At a glance', glance) + sec('dm', 'Working from specs', specs)
           + sec('ag', 'The agent files', agent) + sec('tr', 'Tracking a container', track) + sec('cu', 'Customs decides', customs)
           + sec('le', 'What I learned', learned))
     nb = (nbthumb(P['78fe6fd2-fd22-0eb4-d2e4-629e35df69b3'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png').replace('href="/work"', 'href="/uwaverde"')
@@ -453,6 +470,35 @@ def bilge():
     body = f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>{nb}</main>'
     return page('BİLGE container tracking case study | Ege Coskun',
                 'BİLGE KLTS: container and port tracking for Turkish customs. Approval chains across agents, officers and managers, built on an existing design system.',
+                body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
+
+# ---------- Work: two lead cases side by side, the rest as a list ----------
+def work():
+    ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    lead = [
+        ('backlot', '01', 'Backlot', 'From delivery to release, one region at a time',
+         'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
+         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/roles/ed-dashboard.webp', 'Backlot editor dashboard'),
+        ('bilge', '02', 'BİLGE', 'Container tracking for Turkish customs',
+         'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
+         ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail'),
+    ]
+    cards = ''.join(
+        f'<a class="wk-c" href="/{k}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"></span>'
+        f'<span class="wk-h"><em>{num}</em><b>{name}</b></span><span class="wk-t">{t}</span><span class="wk-d">{d}</span>'
+        f'<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + f'</span><span class="wk-go">Read the case study {ARW}</span></a>'
+        for k, num, name, t, d, tags, img, alt in lead)
+    more = [
+        ('uwaverde', '03', 'UwaVerde', 'A website and member portal for an NGO I co-founded', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
+        ('fieldfriends', '04', 'FieldFriends', 'Precision farming app', ['Mobile', 'Master’s project'], WF + '68e29eba1471bde84a36352d_4a1878f8682d2d90e19d98781174e9e5_fieldfriends.png'),
+    ]
+    rows = ''.join(
+        f'<li><a class="wk-r" href="/{k}"><em>{num}</em><b>{name}</b><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
+        + f'</span>{ARW}<span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span></a></li>'
+        for k, num, name, t, tags, img in more)
+    body = (f'<main class="wk"><div class="cs-wrap"><p class="k">Work</p><h1>Tools for teams with complex workflows</h1>'
+            f'<div class="wk-g">{cards}</div><p class="k wk-k">More work</p><ul class="wk-l">{rows}</ul></div></main>')
+    return page('Work | Ege Coskun', 'Case studies by Ege Coskun, product designer in Berlin: Backlot, BİLGE, UwaVerde and FieldFriends.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
 
 # ---------- UwaVerde: same components ----------
@@ -525,4 +571,5 @@ if __name__ == '__main__':
     write('backlot/index.html', html)
     write('bilge/index.html', bilge())
     write('uwaverde/index.html', uwaverde())
+    write('work/index.html', work())
     print('built', len(html))

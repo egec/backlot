@@ -23,3 +23,9 @@ ns.forEach(function(n){io.observe(n)})})();
 function ping(f){try{f.contentWindow.postMessage({blHint:1},'*')}catch(e){}}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var f=e.target;io.unobserve(f);setTimeout(function(){ping(f)},700);setTimeout(function(){ping(f)},2400);f.addEventListener('load',function(){setTimeout(function(){ping(f)},900)},{once:true})})},{threshold:.4});
 fs.forEach(function(f){io.observe(f)})})();
+
+/* BİLGE: spec sheets land one by one as the section scrolls through the viewport */
+(function(){var p=document.querySelector('[data-pile]');if(!p)return;var s=[].slice.call(p.querySelectorAll('.sp-s')),n=s.length;
+if(matchMedia('(prefers-reduced-motion:reduce)').matches){s.forEach(function(x){x.classList.add('on')});return}
+var raf=0;function up(){raf=0;var r=p.getBoundingClientRect(),h=innerHeight,t=(h*.95-r.top)/(h*.75);t=Math.max(0,Math.min(1,t));var k=Math.round(t*n);s.forEach(function(x,i){x.classList.toggle('on',i<k)})}
+addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(up)},{passive:true});addEventListener('resize',up);up()})();
