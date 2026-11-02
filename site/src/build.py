@@ -33,7 +33,7 @@ def page(title, desc, body, css_files, js_files, font='it', cur='work'):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">{fl}{css}</head><body class="case">
 <header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home"><img src="{LOGO}" alt="Ege Coskun" width="140" height="23"></a>
-<nav class="site-n" aria-label="Main"><a href="/work"{' aria-current="page"' if cur == 'work' else ''}>Work</a><a href="/about"{' aria-current="page"' if cur == 'about' else ''}>About</a><a href="#contact">Contact</a></nav></div></header>
+<nav class="site-n" aria-label="Main"><a href="/#work"{' aria-current="page"' if cur == 'work' else ''}>Work</a><a href="/about"{' aria-current="page"' if cur == 'about' else ''}>About</a><a href="#contact">Contact</a></nav></div></header>
 {body}
 <footer class="finalfooter" id="contact">{rem(rd('foot.html'))}</footer>{js}</body></html>'''
 
@@ -142,6 +142,7 @@ def hero():
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
 PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
         ('bilge', 'BİLGE', 'Container tracking for Turkish customs, designed from the system specs.', GH + 'shots/bilge/b-queue-th.webp'),
+        ('data-health', 'Data health', 'Telling marketers which data to trust before they build a segment.', GH + 'shots/dh/o_b_issue.webp?v=2'),
         ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')]
 def nextblock(cur):
     """next project as a sentence with its screen, then every project small, then the footer"""
@@ -526,6 +527,55 @@ def bilge():
                 'BİLGE KLTS: container and port tracking for Turkish customs. Approval chains across agents, officers and managers, built on an existing design system.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
 
+
+# ---------- Data health (product work at Insider One): rebuilt screens, everything outside the components blurred ----------
+def datahealth():
+    def dh_img(name, alt):
+        w, h = (2880, 1800)
+        return f'<img class="bl2-img" src="{GH}shots/dh/{name}.webp?v=2" width="{w}" height="{h}" alt="{alt}" loading="lazy">'
+    def dh_cards(items,c3=False):
+        return f'<div class="bl2-cards{" c3" if c3 else ""}">'+''.join(f'<div class="bl2-c"><span class="bl2-tag">{i:02d}</span><h3>{h}</h3><p>{t}</p></div>' for i,(h,t) in enumerate(items,1))+'</div>'
+    hero=('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
+     '<p class="k">Data health, product work at Insider One</p><h1>Telling marketers which data to trust before they build a segment</h1>'
+     '<div class="bl2-hg"><p class="lead">Insider One is a customer data platform. Marketers build audiences from attributes and events that many sources send in. '
+     'I designed three components, all shipped: a per-source breakdown on the attribute page, and a data health card in the segment builder for attributes and for event parameters.</p>'
+     '<div class="bl2-meta"><div><b>Company</b>Insider One</div><div><b>Category</b>B2B SaaS, customer data platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div></div></div>'
+     + media_box(dh_img('o_b_issue','Segment builder with the attribute menu open and a data health card for Email Opt-in')) + '</div>')
+    prob=('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
+     '<p class="bl2-big" data-big><span class="bl2-line">The segment broke at the last step.</span></p>'
+     + split('The problem','<p>An attribute page showed one number, Total collected, with no way to see which source sent what. '
+       'If an attribute’s data was wrong, the marketer found out only at the last step of building a segment, after setting up everything else.</p>')+'</div>')
+    f1=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">02</span><span class="cs-title bl2-x">Where data comes from</span><p class="k">Feature 01</p>'
+     '<h2 class="bl2-h">The total, split by where the data comes from</h2><p class="lead">Before, the attribute page showed one total. Now the total sits next to a count for every source, so a source that stops sending shows up here first.</p>'
+     + sub('Before','Only Total collected.') + media_box(dh_img('o_a_before','App Version attribute page, before: only the total'))
+     + sub('After','The total, then each group of sources with its own count.') + media_box(dh_img('o_a_after','App Version attribute page, after: counts per source'))
+     + dh_cards([('Grouped by how data arrives','SDK sources, external integrations and API sit in one group beside the total.'),
+              ('Every source named','Mobile, Web, Shopify, Amplitude and API each show their own number.'),
+              ('Help next to the label','Each label has a question mark that explains it on hover.')],True)+'</div>')
+    f2=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Data health in the menu</span><p class="k">Feature 02</p>'
+     '<h2 class="bl2-h">Data health shown inside the attribute menu</h2><p class="lead">The problem now shows while the marketer picks an attribute, not when the segment fails. Hovering an attribute opens a card with its sources, its volume and, if something is wrong, what and where.</p>'
+     + sub('A healthy attribute') + media_box(dh_img('o_b_healthy','Language attribute card: string, four sources, 1.5k ingested in the last 30 days'))
+     + sub('An attribute with a problem') + media_box(dh_img('o_b_issue','Email Opt-in card: incorrect data type from the Email source, with a link to Data Validation'))
+     + dh_cards([('Healthy attributes stay quiet','A blue top line, the sources that send it, how much came in and over what period.'),
+              ('A problem names its source','Email Opt-in gets a warning icon in the list, a yellow top line and a red Email chip. The card says the data type is wrong.'),
+              ('Usable, with a way to fix it','The attribute can still be used. Go to Data Validation opens the place to correct the data point.')],True)
+     + '</div>')
+    f3=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">04</span><span class="cs-title bl2-x">Event parameters</span><p class="k">Feature 03</p>'
+     '<h2 class="bl2-h">The same check for event parameters</h2><p class="lead">A segment can also filter on what users did. Event parameters break the same way attributes do, so the parameter menu shows the same warning and the same card, worded for a parameter.</p>'
+     + media_box(dh_img('o_b_event','Event Source parameter card with an incorrect data type warning'))
+     + '<div class="bl2-t">'+split('One card, many cases',rules(['Seven issue types: Incorrect Data Type, Invalid Value Format, Null Value, Missing Data, Abnormal Volume Change, Volume Threshold Reached, Multiple Issues.',
+         'Five source states: Syncing, Not Used, Paused, Not Receiving Data, and no ingested data.']))+'</div></div>')
+    nxt=('<div class="bl2-t"><span class="cs-num bl2-x">05</span><span class="cs-title bl2-x">What’s next</span><p class="k">What’s next</p>'
+     '<h2 class="bl2-h cs-title">What I would measure</h2>'
+     + split('Measure','<p>I don’t have numbers I can share. I would track how often a segment fails at the last step, and how often marketers open Data Validation from the card.</p>')
+     + split('Confidentiality','<p>The product is under NDA, so these screens are rebuilt with placeholder data (acme-store), and everything outside my components is blurred. Layout, states and wording follow what shipped.</p>')+'</div>')
+    body=('<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>'
+     + sec('ov','Overview',hero)+sec('pr','The problem',prob)+sec('f1','Where data comes from',f1)+sec('f2','Data health in the menu',f2)+sec('f3','Event parameters',f3)+sec('nx','What’s next',nxt)+'</div>' + nextblock('data-health') + '</main>')
+
+    h = page('Data health case study | Ege Coskun', 'Data health in a customer data platform: where data comes from, and a warning in the segment builder.',
+             body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
+    return h.replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow,noarchive">', 1)
+
 # ---------- Work: two lead cases side by side, the rest as a list ----------
 def untangle():
     """a sentence that starts tangled and straightens as it scrolls into place"""
@@ -554,7 +604,8 @@ def work():
         f'<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + '</span></a>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
-        ('uwaverde', '03', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
+        ('data-health', '03', 'Data health', 'Product work at Insider One: where customer data comes from, and a warning in the segment builder.', ['B2B SaaS', 'Customer data', '2026'], GH + 'shots/dh/o_b_issue.webp?v=2'),
+        ('uwaverde', '04', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
     ]
     rows = ''.join(
         (f'<li><a class="wk-r" href="/{k}"><em>{num}</em>' if k else f'<li><div class="wk-r wk-soon"><em>{num}</em>') + f'<b>{name}</b><span class="wk-rd"><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
@@ -567,7 +618,7 @@ def work():
             f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
             f'<p class="wk-lead">A millimetre off in a bus interior part, and the tooling is already paid for. I design B2B data products now, and I still look for the edge case while it is a design problem, before it becomes a bug report.</p></div>'
             + untangle() +
-            f'<div class="wk-sel"><p class="k">Selected work</p></div>'
+            f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
             f'<div class="wk-g">{cards}</div><p class="k wk-k">More work</p><ul class="wk-l">{rows}</ul>{about}</div></main>')
     return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin: B2B tools for teams that review, approve and ship work. Case studies: Backlot, BİLGE, UwaVerde.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
@@ -639,7 +690,8 @@ if __name__ == '__main__':
     write('backlot/index.html', html)
     write('bilge/index.html', bilge())
     write('uwaverde/index.html', uwaverde())
-    write('work/index.html', work())
+    write('data-health/index.html', datahealth())
+    write('work/index.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Work | Ege Coskun</title><link rel="canonical" href="/#work"><meta http-equiv="refresh" content="0;url=/#work"><script>location.replace("/#work")</script></head><body><a href="/#work">Work</a></body></html>')
     write('index.html', work())
     import about
     for k, fn in [('about-a', about.dial), ('about-b', about.drawer), ('about-c', about.tunnel), ('about', about.dial)]:

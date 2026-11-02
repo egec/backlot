@@ -282,3 +282,5 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 34px/1 "Reenie Beanie"
 .ut-s i{display:inline-block;font-style:normal;--t:1;transform:translate(calc(var(--x) * 2.2em * var(--t)),calc(var(--y) * 1.5em * var(--t))) rotate(calc(var(--r) * 160deg * var(--t)));will-change:transform}
 @media (prefers-reduced-motion:reduce){.ut{height:auto;padding:40px 0}.ut-s{position:static}.ut-s i{transform:none}}
 @media(max-width:767px){.nx-d{max-width:none}}
+
+.wk-sel{scroll-margin-top:calc(4.75rem + 24px)}

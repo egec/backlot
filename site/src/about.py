@@ -84,9 +84,10 @@ def dial():
         f'<article class="dl-c" data-i="{i}"><p class="dl-k"><i class="{k}"></i>{KIND[k]}</p><h2>{t}</h2><p class="dl-p">{p}</p>'
         f'<p class="dl-d">{d}</p>' + ''.join(f'<p class="dl-l">{x}</p>' for x in ls) + '</article>'
         for i, (y, k, t, p, d, ls) in enumerate(PATH))
-    return f'''<main class="ab">{top()}
+    lead = ''.join(f'<p class="ab-lead">{x}</p>' for x in AB_LEAD)
+    return f'''<main class="ab ab-dl"><div class="ab-m">{top()}</div>
 <section class="dl" data-dial style="--n:{len(PATH)}" aria-label="My path, from 2016 to now">
-<div class="dl-pin"><div class="dl-wheel" aria-hidden="true"><svg class="dl-arc" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="499" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
+<div class="dl-pin"><div class="ab-in"><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div><div class="dl-wheel" aria-hidden="true"><svg class="dl-arc" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="499" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
 <i class="dl-dot"></i></div><div class="dl-ys">{items}</div><div class="dl-cs">{cards}</div>
 <p class="dl-hint">Scroll to turn</p></div></section>{more()}</main>
 <style>
@@ -119,13 +120,27 @@ def dial():
 @media(max-width:767px){{.dl-pin{{--R:46vw;--X:90px}}.dl-wheel{{left:calc(var(--R) * -1.35 + var(--X));top:34%}}.dl-y{{font-size:24px}}.dl-y.on span{{transform:scale(1.5)}}
 .dl-cs{{left:var(--pad);top:auto;bottom:24px;transform:none;height:46%}}.dl-c{{top:0;transform:translateY(18px)}}.dl-c.on{{transform:none}}.dl-hint{{display:none}}}}
 @media (prefers-reduced-motion:reduce){{.dl-c,.dl-y span{{transition:none}}}}
+.ab-in{{display:none}}
+/* wide screens: the text sits on the left of the pinned dial, the wheel turns beside it */
+@media(min-width:1100px){{
+.ab-m{{display:none}}
+.ab-dl .dl{{margin-top:0}}
+.ab-dl .dl-pin{{--L:max(var(--pad),calc((100% - var(--w)) / 2));--W:min(600px,34vw);--T:calc(var(--L) + var(--W));--R:min(42svh,24vw)}}
+.ab-in{{display:block;position:absolute;left:var(--L);top:50%;transform:translateY(-50%);width:var(--W);z-index:2}}
+.ab-in h1{{font-size:clamp(34px,3.2vw,56px)}}
+.ab-in .ab-lead{{font-size:clamp(15px,1.1vw,18px)}}
+.ab-in .ab-lead+.ab-lead{{font-size:clamp(14px,.98vw,16px)}}
+.ab-dl .dl-wheel{{left:calc(var(--T) - var(--R) * 1.3);clip-path:inset(-20px -20px -20px calc(var(--R) * 1.3 + 28px))}}
+.ab-dl .dl-cs{{left:calc(var(--T) + var(--R) * .7 + 40px + 13vw);right:var(--L);max-width:30em}}
+.ab-dl .dl-y{{font-size:clamp(26px,2.6vw,46px)}}
+}}
 </style>
 <script>
 (function(){{var d=document.querySelector('[data-dial]');if(!d)return;var ys=[].slice.call(d.querySelectorAll('.dl-y')),cs=[].slice.call(d.querySelectorAll('.dl-c')),wh=d.querySelector('.dl-wheel'),n=ys.length,STEP=19,cur=-1,raf=0;
 function prog(){{var r=d.getBoundingClientRect(),run=d.offsetHeight-d.querySelector('.dl-pin').offsetHeight;return Math.max(0,Math.min(1,-r.top/Math.max(1,run)))}}
 function draw(){{raf=0;var f=prog()*(n-1),w=wh.getBoundingClientRect(),pin=d.querySelector('.dl-pin').getBoundingClientRect(),R=w.width/2,cx=w.left-pin.left+R,cy=w.top-pin.top+R;
 d.classList.toggle('moved',f>.15);
-ys.forEach(function(y,i){{var a=(i-f)*STEP*Math.PI/180,x=cx+(R+40)*Math.cos(a),yy=cy+(R+40)*Math.sin(a),vis=Math.abs(i-f)<4.2;
+ys.forEach(function(y,i){{var a=(i-f)*STEP*Math.PI/180,x=cx+(R+40)*Math.cos(a),yy=cy+(R+40)*Math.sin(a),vis=Math.abs(i-f)<(innerWidth>=1100?3.1:4.2);
 y.style.transform='translate('+x+'px,'+yy+'px) translateY(-50%) rotate('+(a*180/Math.PI)+'deg)';y.style.opacity=vis?Math.max(.15,1-Math.abs(i-f)*.22):0;y.tabIndex=vis?0:-1}});
 var k=Math.round(f);if(k!==cur){{cur=k;ys.forEach(function(y,i){{y.classList.toggle('on',i===k)}});cs.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}}}
 function go(i){{var run=d.offsetHeight-d.querySelector('.dl-pin').offsetHeight,top=d.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run*i/(n-1))+(i===0?0:1),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'}})}}
