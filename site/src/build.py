@@ -142,8 +142,7 @@ def hero():
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
 PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp'),
         ('bilge', 'BİLGE', 'Container tracking for Turkish customs, designed from the system specs.', GH + 'shots/bilge/b-queue-th.webp'),
-        ('uwaverde', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
-        ('fieldfriends', 'FieldFriends', 'Precision farming app.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/68e29eba1471bde84a36352d_4a1878f8682d2d90e19d98781174e9e5_fieldfriends.png')]
+        ('uwaverde', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')]
 def nextblock(cur):
     """next project as a sentence with its screen, then every project small, then the footer"""
     i = [p[0] for p in PROJ].index(cur); n = (i + 1) % len(PROJ); k, name, d, img = PROJ[n]
@@ -532,20 +531,25 @@ def work():
     ]
     cards = ''.join(
         f'<a class="wk-c" href="/{k}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"><video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em></span>'
-        f'<span class="wk-h"><em>{num}</em><b>{name}</b></span><span class="wk-t">{t}</span><span class="wk-d">{d}</span>'
-        f'<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + f'</span><span class="wk-go">Read the case study {ARW}</span></a>'
+        f'<span class="wk-n">{name}</span><span class="wk-t">{t} {ARW}</span>'
+        f'<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + '</span></a>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
-        ('uwaverde', '03', 'UwaVerde', 'A website and member portal for an NGO I co-founded', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
-        ('fieldfriends', '04', 'FieldFriends', 'Precision farming app', ['Mobile', 'Master’s project'], WF + '68e29eba1471bde84a36352d_4a1878f8682d2d90e19d98781174e9e5_fieldfriends.png'),
+        ('uwaverde', '03', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
     ]
     rows = ''.join(
-        f'<li><a class="wk-r" href="/{k}"><em>{num}</em><b>{name}</b><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
-        + f'</span>{ARW}<span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span></a></li>'
+        f'<li><a class="wk-r" href="/{k}"><em>{num}</em><b>{name}</b><span class="wk-rd"><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
+        + f'</span></span><span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span></a></li>'
         for k, num, name, t, tags, img in more)
-    body = (f'<main class="wk"><div class="cs-wrap"><p class="k">Work</p><h1>Tools for teams with complex workflows</h1>'
-            f'<div class="wk-g">{cards}</div><p class="k wk-k">More work</p><ul class="wk-l">{rows}</ul></div></main>')
-    return page('Work | Ege Coskun', 'Case studies by Ege Coskun, product designer in Berlin: Backlot, BİLGE, UwaVerde and FieldFriends.',
+    about = ('<section class="wk-ab"><p class="k">About</p><div><p class="wk-ab-h">Approval queues, permissions, bulk actions, error states. I like the screens people use eight hours a day.</p>'
+             '<p class="wk-ab-l">I work end to end, from interviews and flows to prototypes and a design system developers can build from.</p>'
+             '<a class="wk-btn" href="/about">More about me</a></div></section>')
+    body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
+            f'<h1>I design B2B tools for teams that review, approve and ship work.</h1>'
+            f'<p class="wk-lead">Product designer focused on complex workflows, data-heavy screens and approval flows.</p></div>'
+            f'<div class="wk-sel"><p class="k">Selected work</p><p class="k">{len(lead) + len(more)} projects</p></div>'
+            f'<div class="wk-g">{cards}</div><p class="k wk-k">More work</p><ul class="wk-l">{rows}</ul>{about}</div></main>')
+    return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin: B2B tools for teams that review, approve and ship work. Case studies: Backlot, BİLGE, UwaVerde.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
 
 # ---------- UwaVerde: same components ----------
@@ -616,8 +620,9 @@ if __name__ == '__main__':
     write('bilge/index.html', bilge())
     write('uwaverde/index.html', uwaverde())
     write('work/index.html', work())
+    write('index.html', work())
     import about
-    for k, fn in [('about-a', about.dial), ('about-b', about.drawer)]:
+    for k, fn in [('about-a', about.dial), ('about-b', about.drawer), ('about-c', about.tunnel), ('about', about.dial)]:
         write(k + '/index.html', page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
                                        fn(), ['site.css', 'backlot.css'], ['site.js'], cur='about'))
     print('built', len(html))
