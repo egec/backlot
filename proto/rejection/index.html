@@ -36,6 +36,7 @@
   .ibtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .mode{font-size:12px;color:#777;white-space:nowrap}
   .stage{position:relative;overflow:hidden;border-radius:8px;background:#121212}
+  .stage .pf{position:absolute;left:0;top:0;width:1440px;height:900px;transform-origin:0 0}.stage .pf img{position:absolute;inset:0;width:100%;height:100%;display:block}.stage .pf.off{opacity:0;pointer-events:none}.ty{position:absolute;left:270px;top:716px;width:680px;height:58px;padding:7px 9px;box-sizing:border-box;background:#191919;border-radius:7px;font:12px/1.5 Manrope,system-ui,sans-serif;color:#d4d2cf;white-space:pre-wrap}.ty:empty{display:none}.ov.on{pointer-events:auto;cursor:default}
   .stage iframe{position:absolute;left:0;top:0;width:1440px;height:900px;border:0;transform-origin:0 0;transition:opacity .35s ease}
   .stage iframe.off{opacity:0;pointer-events:none}
   .ov{position:absolute;inset:0;pointer-events:none}
@@ -121,9 +122,9 @@
     </div>
   </div>
   <div class="stage" id="stage">
-    <iframe id="pub" src="pub.html" title="Publisher review screen" tabindex="-1"></iframe>
-    <iframe id="ed" src="ed.html" title="Editor episode screen" class="off" tabindex="-1"></iframe>
-    <div class="ov" id="ov">
+    <div class="pf" id="pub" aria-label="Publisher review screen for Lupin Season 4 Episode 2"><img id="pimg" src="rc.webp" alt=""><div class="ty" id="ty"></div></div>
+    <iframe id="ed" src="../dc/ed-rejected.html" title="Editor episode screen" class="off" tabindex="-1" loading="lazy"></iframe>
+    <div class="ov on" id="ov">
       <div class="ring" id="ring"></div>
       <div class="tip" id="tip" role="status" aria-live="polite"></div>
       <div class="cur" id="cur"><svg width="22" height="22" viewBox="0 0 22 22"><path d="M4 2l13 8-6 1.5L8 18z" fill="#f5f3f0" stroke="#121212" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
@@ -137,251 +138,67 @@
 </div>
 <script>
 (function(){
-function inView(el){try{var d=el.ownerDocument,w=d.defaultView,p=el.parentElement;while(p&&p!==d.body&&p!==d.documentElement){var cs=w.getComputedStyle(p);if(/(auto|scroll)/.test(cs.overflowY)&&p.scrollHeight>p.clientHeight){var r=el.getBoundingClientRect(),pr=p.getBoundingClientRect();p.scrollTop+=(r.top-pr.top)-(p.clientHeight-r.height)/2;return}p=p.parentElement}}catch(e){}}
-const W=1440,H=900;
-const $=id=>document.getElementById(id);
-const stage=$('stage'),pubF=$('pub'),edF=$('ed'),ring=$('ring'),tip=$('tip'),cur=$('cur'),banner=$('banner'),endEl=$('end'),mode=$('mode');
+const W=1440,H=900,$=id=>document.getElementById(id);
+const stage=$('stage'),pub=$('pub'),pimg=$('pimg'),ty=$('ty'),ed=$('ed'),ov=$('ov'),ring=$('ring'),tip=$('tip'),cur=$('cur'),banner=$('banner'),endEl=$('end'),mode=$('mode');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let s=1,auto=false,visible=false,step=-1,busy=false,timer=null,run=0;
-const ED='Alex Rivard';
-const R1={n:1,key:'1',field:'Age rating',cat:'Compliance',flag:'No rating for Spain',text:'Spain needs the ICAA rating for this episode. Set it to 16 before resubmitting.'};
-const R2={n:2,key:'2',field:'Synopsis (ES)',cat:'Localization',flag:'Empty, the catalogue falls back to French',text:'The Spanish synopsis is empty, so the Spain catalogue falls back to French. Please write it before resubmitting.'};
+let s=1,step=-1,busy=false,tipOn=false,tipTimer=null,timer=null,run=0;
+const sleep=ms=>new Promise(r=>{timer=setTimeout(r,reduce?Math.min(ms,150):ms)});
+const R1='Spain needs the ICAA rating for this episode. Set it to 16 before resubmitting.';
 const SYN='Assane se acerca a la finca Pellegrini justo cuando empieza la subasta.';
-const sleep=ms=>new Promise(r=>{timer=setTimeout(r,ms)});
-
-function size(){if(window.top!==window)return;const c=document.getElementById('app')||document.body;c.style.maxWidth='';c.style.margin='0 auto';const top=stage.getBoundingClientRect().top+scrollY;const w=Math.min(c.clientWidth,(innerHeight-top-16)*1440/900);c.style.maxWidth=Math.max(320,w)+'px'}
-function fit(){maxH=0;size();s=stage.clientWidth/W;[pubF,edF].forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';place();post()}
-var maxH=0;function post(){var h=document.body.scrollHeight;if(h<maxH)return;maxH=h;try{parent.postMessage({backlotProto:'rejection',height:h},'*')}catch(e){}}
-addEventListener('resize',fit);addEventListener('load',fit);
-
-/* ---------- helpers inside frames ---------- */
-const D=f=>f.contentDocument;
-const T=(d,id,i)=>d.querySelectorAll('[data-dc-tpl="'+id+'"]')[i||0];
-const P=(d,k)=>d.querySelector('[data-p="'+k+'"]');
-function txt(d,id,v){const e=T(d,id);if(e)e.textContent=v}
-function html(d,id,v){const e=T(d,id);if(e)e.innerHTML=v}
-function el(d,h){const t=d.createElement('template');t.innerHTML=h.trim();return t.content.firstElementChild}
-const chip='display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:6px;background:var(--color-neutral-900);font-size:11px;font-weight:500;color:var(--color-neutral-300);white-space:nowrap';
-function CARD(R,right){return '<div data-p="rcard'+R.key+'" style="border-radius:var(--radius-md);background:var(--color-surface-sunken);border:1px solid var(--color-neutral-900);padding:11px 12px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:10.5px;color:var(--color-neutral-600);flex:0 0 auto">'+R.n+'</span><span style="display:flex;align-items:center;gap:6px;padding:4px 9px;border-radius:var(--radius-md);background:var(--color-neutral-900);font-size:11.5px;color:var(--color-text);white-space:nowrap;flex:0 0 auto"><i class="ph ph-link-simple" style="font-size:11px;color:var(--color-neutral-500)"></i>'+R.field+'</span><span style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:var(--radius-md);border:1px solid var(--color-neutral-800);color:var(--color-neutral-300);font-size:12px;font-weight:500;white-space:nowrap;flex:0 0 auto">'+R.cat+'<i class="ph ph-caret-down" style="font-size:11px;color:var(--color-neutral-600)"></i></span><div style="flex:1 1 0%"></div>'+right+'</div><div style="margin-top:9px;min-height:64px;padding:8px 10px;border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-neutral-300);line-height:1.5;text-wrap:pretty">'+R.text+'</div></div>'}
-const X='<i class="ph ph-x" style="font-size:13px;color:var(--color-neutral-600);flex:0 0 auto"></i>';
-function addMo(d){if(!d.getElementById('blmo'))d.head.appendChild(el(d,'<style id="blmo">@keyframes blIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}@keyframes blUp{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}@keyframes blFade{from{opacity:0}to{opacity:1}}</style>'))}
-function statusChip(d,chipEl,label,kind){
-  chipEl.style.background='var(--st-'+kind+'-bg)';chipEl.style.border='1px solid var(--st-'+kind+'-line, transparent)';chipEl.style.color='var(--st-'+kind+'-ink)';
-  chipEl.innerHTML='<i class="ph ph-'+(kind==='rejected'?'x-circle':'clock')+'" style="font-size:13px"></i><span style="display:block;color:var(--st-'+kind+'-ink)">'+label+'</span>';
-}
-function flagRow(d,row,lab,val,act,value,R){
-  T(d,row).style.background='var(--color-surface-sunken)';T(d,lab).style.color='var(--color-neutral-400)';
-  T(d,val).outerHTML='<div style="min-width:0"><div style="font-size:12.5px;color:var(--color-neutral-500)">'+value+'</div><div style="font-size:11px;color:var(--color-warning-ink);margin-top:3px">Flagged · '+R.flag+'</div></div>';
-  html(d,act,'<i class="ph ph-warning-diamond" style="font-size:15px;color:var(--color-warning-ink)"></i><span style="font-size:11px;color:var(--color-neutral-500)">Unflag</span>');
-}
-function pubFooter(d,n){
-  html(d,235,'Goes back to <span style="color:var(--color-text)">'+ED+'</span> · status becomes Rejected');
-  html(d,237,'<span style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:var(--radius-md);border:1px solid var(--color-neutral-800);font-size:12px;font-weight:500;color:var(--color-neutral-300)">Save draft</span>'+
-    '<span data-p="reject" role="button" tabindex="0" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-accent);color:var(--color-bg);font-size:12px;font-weight:500;cursor:pointer"><i class="ph ph-arrow-u-up-left" style="font-size:13px"></i>Reject · '+n+' reason'+(n>1?'s':'')+'</span>');
-}
-
-/* ---------- publisher: Lupin S4-E2, Spain ---------- */
-function setupPub(){
-  const d=D(pubF);
-  txt(d,35,'Lupin');txt(d,37,'Episode 2');txt(d,50,'Episode 2');
-  txt(d,56,'Lupin · Season 4 · 24:31 · Spain (ES) · licensed to 2029');
-  txt(d,60,'2 h ago · '+ED);txt(d,84,ED+' · 2 h ago');txt(d,89,ED+' · 2 h ago');
-  txt(d,63,'17 Feb 2026 (5d)');txt(d,66,'40 complete · 1 flagged');
-  txt(d,83,'Audio came from the vendor as ES 5.1. Spanish subtitles are checked.');
-  txt(d,88,"Spain's rating wasn't in the delivery.");
-  html(d,103,"L'ombre du père <span style=\"font-size:11px;color:var(--color-neutral-500);margin-left:6px\">FR fallback</span>");
-  txt(d,110,"L'ombre du père");txt(d,117,'Crime · Drama');
-  txt(d,132,'Synopsis (ES)');txt(d,133,'—');T(d,133).style.color='var(--color-neutral-500)';
-  txt(d,139,'Synopsis (EN)');txt(d,140,'Assane closes in on the Pellegrini estate as the auction begins.');
-  txt(d,147,'Hugo Gélin');txt(d,163,'ES 5.1 · EN 2.0');txt(d,169,'Subtitles (ES)');txt(d,170,'Delivered · 612 cues');
-  txt(d,191,'ES · FR · DE · UK, 4 regions');txt(d,216,'4 / 4');txt(d,220,'to 2029');
-  flagRow(d,122,123,124,125,'—',R1);
-  txt(d,224,'1');T(d,226).outerHTML=CARD(R1,X);pubFooter(d,1);
-  [...d.querySelectorAll('[style*="background-image"]')].forEach(e=>{if(e.getBoundingClientRect().width>80)e.style.backgroundImage='url(lupin.jpg)'});
-  [...d.querySelectorAll('img')].forEach(e=>{if(e.getBoundingClientRect().width>80)e.src='lupin.jpg'});
-  {const w=d.createTreeWalker(d.body,NodeFilter.SHOW_TEXT);let n;const seen=new Set();while(n=w.nextNode()){if(!/Alex Rivard/.test(n.textContent))continue;let e=n.parentElement;for(let i=0;i<4&&e;i++,e=e.parentElement){e.querySelectorAll('img,[style*="background-image"]').forEach(a=>{const r=a.getBoundingClientRect();if(r.width>0&&r.width<=36&&r.left>60&&!seen.has(a)){seen.add(a);if(a.tagName==='IMG')a.src='../../ds/rivard.png';else a.style.backgroundImage='url(../../ds/rivard.png)'}})}}}
-  d.documentElement.style.scrollBehavior='smooth';
-}
-
-/* ---------- editor: new export (Readiness + AI suggestions) ---------- */
-function setupEd(){
-  const d=D(edF);
-  const ch=T(d,97).parentElement;ch.setAttribute('data-p','chip');
-  [0,1].forEach(i=>{const b=T(d,128,i);b.setAttribute('data-p','res'+(i+1));b.setAttribute('role','button');b.setAttribute('tabindex','0');b.style.cursor='pointer';T(d,121,i).setAttribute('data-p','rc'+(i+1))});
-  T(d,152).setAttribute('data-p','age');T(d,188).setAttribute('data-p','syn');
-  const sb=T(d,107);sb.setAttribute('data-p','submit');sb.style.cursor='pointer';
-  statusChip(d,ch,'Rejected','rejected');
-  addMo(d);
-  d.documentElement.style.scrollBehavior='smooth';
-}
-let left=2,openN=5,passed=2;
-function counts(d){T(d,118).innerHTML='<span>'+left+'</span> to resolve';T(d,140).innerHTML='<span>'+openN+' fields open</span>';T(d,305).innerHTML='<span>'+passed+'</span> of 5 passed'}
-function resolved(d,key,labId,row){
-  const b=P(d,'res'+key);b.removeAttribute('data-p');b.removeAttribute('role');b.style.cursor='default';
-  b.textContent='Resolved';b.style.color='var(--color-neutral-400)';b.style.borderColor='var(--color-neutral-800)';
-  const c=P(d,'rc'+key);if(c)c.style.opacity='.7';
-  const l=T(d,labId);l.textContent='Resolved';l.style.color='var(--color-neutral-400)';
-  const r=T(d,317,row);r.innerHTML='<span>Yes</span>';const ic=r.parentElement.querySelector('i');if(ic){ic.className='ph ph-check';ic.style.color='var(--color-neutral-500)'}
-  left--;openN--;passed++;counts(d);
-  if(!left){const sb=P(d,'submit');sb.removeAttribute('aria-disabled');sb.removeAttribute('data-tip');Object.assign(sb.style,{background:'var(--color-accent)',color:'var(--color-bg)',opacity:'1'})}
-}
-
-/* ---------- actions ---------- */
-async function typeInto(set,text,ms){if(reduce){set(text);return}let v='';for(const ch of text){v+=ch;set(v);await sleep(ms)}}
-const A={
-  async comment(){
-    const d=D(pubF),row=T(d,131);
-    const box=el(d,'<div data-p="cbox" style="padding:0 15px 12px 187px;display:flex;flex-direction:column;gap:8px">'+
-      '<textarea rows="2" style="resize:none;width:100%;box-sizing:border-box;padding:10px 12px;border-radius:var(--radius-md);border:1px solid var(--color-accent-600);background:var(--color-surface);color:var(--color-text);font:12.5px/1.5 var(--font-body);outline:none"></textarea>'+
-      '<div style="display:flex;justify-content:flex-end;gap:8px"><span style="display:inline-flex;align-items:center;height:28px;padding:0 10px;font-size:12px;color:var(--color-neutral-400)">Cancel</span>'+
-      '<span data-p="save" role="button" tabindex="0" style="display:inline-flex;align-items:center;height:28px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-accent);color:var(--color-bg);font-size:12px;font-weight:500;cursor:pointer">Save</span></div></div>');
-    row.after(box);const ta=box.querySelector('textarea');await typeInto(v=>ta.value=v,R2.text,14);
-  },
-  async save(){
-    const d=D(pubF);P(d,'cbox').remove();
-    flagRow(d,131,132,133,134,'—',R2);
-    txt(d,66,'39 complete · 2 flagged');txt(d,224,'2');
-    P(d,'rcard1').after(el(d,CARD(R2,X)));pubFooter(d,2);
-  },
-  async reject(){
-    const d=D(pubF);addMo(d);const pair=R=>'<div style="display:flex;gap:6px"><span style="'+chip+'">'+R.field+'</span><span style="'+chip+'">'+R.cat+'</span></div>';
-    d.body.appendChild(el(d,'<div data-p="modal" style="position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;animation:blFade .2s cubic-bezier(.23,1,.32,1)">'+
-      '<div style="width:380px;padding:18px;border-radius:var(--radius-lg);background:var(--color-surface);border:1px solid var(--color-neutral-800);display:flex;flex-direction:column;gap:12px;animation:blIn .2s cubic-bezier(.23,1,.32,1)">'+
-      '<div style="font-size:14px;font-weight:500;color:var(--color-text)">Reject with 2 reasons?</div>'+
-      '<div style="font-size:12px;color:var(--color-neutral-400);line-height:1.5">'+ED+' gets each reason attached to its field.</div>'+
-      '<div style="display:flex;flex-direction:column;gap:6px">'+pair(R1)+pair(R2)+'</div>'+
-      '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px"><span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;font-size:12px;color:var(--color-neutral-400)">Cancel</span>'+
-      '<span data-p="confirm" role="button" tabindex="0" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-danger-fill);color:var(--color-on-danger);font-size:12px;font-weight:500;cursor:pointer">Reject</span></div></div></div>'));
-  },
-  async confirm(){
-    const d=D(pubF);P(d,'modal').remove();
-    statusChip(d,T(d,51),'Rejected','rejected');
-    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40;white-space:nowrap;animation:blUp .2s cubic-bezier(.23,1,.32,1)"><i class="ph ph-check-circle" style="font-size:14px;color:var(--st-rejected-ink)"></i>Rejected. '+ED+' has 2 reasons to resolve.<span style="color:var(--color-accent-300)">Back to reviews</span></div>'));
-    await sleep(reduce?600:1500);
-    banner.classList.add('show');await sleep(reduce?400:900);
-    pubF.classList.add('off');edF.classList.remove('off');await sleep(reduce?300:900);
-    banner.classList.remove('show');
-  },
-  async res1(){
-    const d=D(edF),f=P(d,'age');inView(f);await sleep(400);f.focus({preventScroll:true});
-  },
-  async pick(){
-    const d=D(edF),f=P(d,'age');f.style.color='var(--color-text)';f.style.borderColor='var(--color-neutral-800)';f.blur();
-    resolved(d,'1',146,0);
-  },
-  async res2(){
-    const d=D(edF),ta=P(d,'syn');inView(ta);await sleep(400);ta.focus({preventScroll:true});
-    await typeInto(t=>{ta.value=t;const c=T(d,190);if(c)c.innerHTML='<span>'+t.length+'</span> / 240'},SYN,24);
-    await sleep(300);ta.blur();ta.style.borderColor='var(--color-neutral-800)';
-    resolved(d,'2',182,2);
-    d.documentElement.scrollTo({top:0});
-  },
-  async submit(){
-    const d=D(edF);
-    d.body.appendChild(el(d,'<div data-p="smodal" style="position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;animation:blFade .2s cubic-bezier(.23,1,.32,1)">'+
-      '<div style="width:380px;padding:18px;border-radius:var(--radius-lg);background:var(--color-surface);border:1px solid var(--color-neutral-800);display:flex;flex-direction:column;gap:12px;animation:blIn .2s cubic-bezier(.23,1,.32,1)">'+
-      '<div style="font-size:14px;font-weight:500;color:var(--color-text)">Submit Episode 2 for review?</div>'+
-      '<div style="font-size:12px;color:var(--color-neutral-400);line-height:1.5">Maya Okafor will re-check the 2 fields you changed for Spain (ES). The rest of the episode stays approved.</div>'+
-      '<div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:6px"><span style="'+chip+'"><i class="ph ph-check" style="font-size:11px"></i>'+R1.field+'</span><span style="'+chip+'">Set to 16</span></div><div style="display:flex;gap:6px"><span style="'+chip+'"><i class="ph ph-check" style="font-size:11px"></i>'+R2.field+'</span><span style="'+chip+'">Written</span></div></div>'+
-      '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px"><span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;font-size:12px;color:var(--color-neutral-400)">Cancel</span>'+
-      '<span data-p="send" role="button" tabindex="0" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-accent);color:var(--color-bg);font-size:12px;font-weight:500;cursor:pointer">Submit for review</span></div></div></div>'));
-  },
-  async send(){
-    const d=D(edF);P(d,'smodal').remove();statusChip(d,P(d,'chip'),'Pending review','pending');
-    const sb=P(d,'submit');sb.textContent='Submitted';Object.assign(sb.style,{background:'transparent',color:'var(--color-neutral-400)',border:'1px solid var(--color-neutral-800)',cursor:'default'});
-    d.body.appendChild(el(d,'<div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius-md);background:var(--color-surface-alt);border:1px solid var(--color-neutral-800);font-size:12px;color:var(--color-text);z-index:40;white-space:nowrap;animation:blUp .2s cubic-bezier(.23,1,.32,1)"><i class="ph ph-check-circle" style="font-size:14px;color:var(--color-accent-300)"></i>Submitted. Maya Okafor re-checks 2 fields.</div>'));
-    {let row=null;d.querySelectorAll('div').forEach(e=>{const t=e.textContent;if(/rejected Lupin/.test(t)&&/1 ?h ago/.test(t)&&(!row||row.contains(e)))row=e});
-     if(row){while(row.parentElement&&!/You submitted Lupin/.test(row.parentElement.textContent))row=row.parentElement;}
-     if(row){const n=row.cloneNode(true);const w=d.createTreeWalker(n,NodeFilter.SHOW_TEXT);let x;while(x=w.nextNode()){x.textContent=x.textContent.replace('Maya Okafor rejected','You resubmitted').replace(/1 ?h ago/,'Just now')}
-       n.querySelectorAll('img,[style*="background-image"]').forEach(a=>{if(a.tagName==='IMG')a.src='../../ds/rivard.png';else a.style.backgroundImage='url(../../ds/rivard.png)'});row.before(n)}}
-    await sleep(reduce?500:1400);endEl.classList.add('show');
-  }
-};
-
-/* ---------- script of steps ---------- */
+['ac','cs','sc','cr'].forEach(k=>{const i=new Image();i.src=k+'.webp'});
+const ED=()=>ed.contentDocument;
+const box=(x,y,w,h)=>()=>({x,y,w,h});
+const inEd=sel=>()=>{try{const e=typeof sel==='function'?sel():ED().querySelector(sel);if(!e)return null;const r=e.getBoundingClientRect();return{x:r.left,y:r.top,w:r.width,h:r.height}}catch(e){return null}};
+const subBtn=()=>[...ED().querySelectorAll('[role=button]')].find(e=>e.textContent.trim()==='Submit for review');
+function setVal(el,v,ev){const pr=el.tagName==='SELECT'?HTMLSelectElement.prototype:HTMLTextAreaElement.prototype;const set=Object.getOwnPropertyDescriptor(ed.contentWindow[pr===HTMLSelectElement.prototype?'HTMLSelectElement':'HTMLTextAreaElement'].prototype,'value').set;set.call(el,v);el.dispatchEvent(new ed.contentWindow.Event(ev,{bubbles:true}))}
 const STEPS=[
-  {s:1,f:'pub',t:()=>T(D(pubF),136),tip:'The age rating is already flagged. The Spanish synopsis is empty too: comment on that row.',a:'comment'},
-  {s:1,f:'pub',t:()=>P(D(pubF),'save'),tip:'Save it. The comment becomes a reason with its field attached.',a:'save'},
-  {s:2,f:'pub',t:()=>P(D(pubF),'reject'),tip:'Reject. The button counts what goes back.',a:'reject'},
-  {s:2,f:'pub',t:()=>P(D(pubF),'confirm'),tip:'Confirm who gets it back.',a:'confirm'},
-  {s:3,f:'ed',t:()=>P(D(edF),'res1'),tip:'Both reasons sit at the top. Resolve takes you to the field.',a:'res1'},
-  {s:3,f:'ed',t:()=>P(D(edF),'age'),tip:'Pick 16, the rating Spain needs.',a:'pick',ev:'change',ok:()=>P(D(edF),'age').value==='16'},
-  {s:3,f:'ed',t:()=>P(D(edF),'res2'),tip:'Now the synopsis.',a:'res2'},
-  {s:4,f:'ed',t:()=>P(D(edF),'submit'),tip:'Submit. Only these two fields go back for review.',a:'submit'},
-  {s:4,f:'ed',t:()=>P(D(edF),'send'),tip:'Confirm. Maya Okafor gets it back.',a:'send'}
+ {s:1,r:box(82,668,882,36),tip:'You are the publisher. Spain has no age rating for this episode. Flag the Age rating row.',a:async()=>{pimg.src='ac.webp'}},
+ {s:1,r:box(268,714,684,64),tip:'Say what needs to change.',a:async()=>{for(let i=1;i<=R1.length;i+=reduce?R1.length:2){ty.textContent=R1.slice(0,i);await sleep(18)}ty.textContent=R1}},
+ {s:1,r:box(871,788,80,32),tip:'Save it. The comment stays attached to the field.',a:async()=>{ty.textContent='';pimg.src='cs.webp';await sleep(1300);tipOn=true;banner.textContent='The empty Spanish synopsis gets a second reason the same way';banner.classList.add('show');await sleep(1900);banner.classList.remove('show');pimg.src='sc.webp';tipOn=false}},
+ {s:2,r:box(1249,511,149,32),tip:'Reject. Each reason goes back with its field.',a:async()=>{pimg.src='cr.webp'}},
+ {s:2,r:box(815,397,96,32),tip:'Confirm the rejection.',a:async()=>{banner.textContent='Now you\u2019re the editor';banner.classList.add('show');await sleep(1300);ed.classList.remove('off');pub.classList.add('off');await sleep(500);banner.classList.remove('show')}},
+ {s:3,r:inEd('#in-age'),tip:'Both reasons land on their fields. Set the age rating.',a:async()=>{setVal(ED().getElementById('in-age'),'16','change')}},
+ {s:3,r:inEd('#in-syn'),tip:'Now write the Spanish synopsis.',a:async()=>{const t=ED().getElementById('in-syn');for(let i=1;i<=SYN.length;i+=reduce?SYN.length:3){setVal(t,SYN.slice(0,i),'input');await sleep(16)}setVal(t,SYN,'input')}},
+ {s:4,r:inEd(subBtn),tip:'Both reasons are resolved. Resubmit.',a:async()=>{await sleep(300);endEl.classList.add('show');mode.textContent='Done.'}}
 ];
-const frame=k=>k==='pub'?pubF:edF;
-
+function size(){if(window.top!==window)return;const c=document.getElementById('app')||document.body;c.style.maxWidth='';c.style.margin='0 auto';const top=stage.getBoundingClientRect().top+scrollY;const w=Math.min(c.clientWidth,(innerHeight-top-16)*1440/900);c.style.maxWidth=Math.max(320,w)+'px'}
+var maxH=0;function post(){var h=document.body.scrollHeight;if(h<maxH)return;maxH=h;try{parent.postMessage({backlotProto:'rejection',height:h},'*')}catch(e){}}
+function fit(){maxH=0;size();s=stage.clientWidth/W;[pub,ed].forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';place();post()}
+addEventListener('resize',fit);addEventListener('load',fit);
 function setSteps(n){document.querySelectorAll('.step').forEach(e=>{const v=+e.dataset.s;e.classList.toggle('on',v===n);e.classList.toggle('done',v<n)})}
-function rectOf(st){const t=st&&st.t();if(!t)return null;const r=t.getBoundingClientRect();return{x:r.left*s,y:r.top*s,w:r.width*s,h:r.height*s}}
-let tipOn=false,tipTimer=null;
-function showTip(){tipOn=true;clearTimeout(tipTimer);place();tipTimer=setTimeout(()=>{tipOn=false;place()},2800)}
-/* the page asks for one hint when the prototype first scrolls into view: it shows where to click first, then fades */
-addEventListener('message',e=>{if(e.data&&e.data.blHint&&step===0&&!busy&&!tipOn){tipOn=true;clearTimeout(tipTimer);place();tipTimer=setTimeout(()=>{tipOn=false;place()},4200)}});
+function rect(st){const r=st&&st.r();return r?{x:r.x*s,y:r.y*s,w:r.w*s,h:r.h*s}:null}
 function place(){
-  const st=STEPS[step];const r=rectOf(st);
-  if(!r||busy){ring.classList.remove('show');tip.classList.remove('show');return}
-  const p=4;Object.assign(ring.style,{left:(r.x-p)+'px',top:(r.y-p)+'px',width:(r.w+2*p)+'px',height:(r.h+2*p)+'px'});
-  if(!tipOn){ring.classList.remove('show');tip.classList.remove('show');return}
-  ring.classList.add('show');
+  const st=STEPS[step];const r=rect(st);
+  if(!r||busy||!tipOn){ring.classList.remove('show');tip.classList.remove('show');return}
+  const p=4;Object.assign(ring.style,{left:(r.x-p)+'px',top:(r.y-p)+'px',width:(r.w+2*p)+'px',height:(r.h+2*p)+'px'});ring.classList.add('show');
   tip.innerHTML='<small>Step '+st.s+' of 4</small>'+st.tip;tip.classList.add('show');
   const tw=tip.offsetWidth,th=tip.offsetHeight,sw=stage.clientWidth,sh=stage.clientHeight;
-  let x=r.x+r.w/2-tw/2,y=r.y+r.h+12;
-  if(y+th>sh-8)y=r.y-th-12;
-  x=Math.max(8,Math.min(sw-tw-8,x));y=Math.max(8,y);
-  tip.style.left=x+'px';tip.style.top=y+'px';
+  let x=r.x+r.w/2-tw/2,y=r.y+r.h+12;if(y+th>sh-8)y=r.y-th-12;
+  x=Math.max(8,Math.min(sw-tw-8,x));y=Math.max(8,y);tip.style.left=x+'px';tip.style.top=y+'px';
 }
-async function go(i){
-  step=i;const st=STEPS[i];if(!st){ring.classList.remove('show');tip.classList.remove('show');return}
-  setSteps(st.s);
-  const t=st.t();if(t){const r=t.getBoundingClientRect();if(r.top<70||r.bottom>H-70){inView(t);await sleep(350)}}
-}
-async function act(){
-  if(busy)return;const st=STEPS[step];busy=true;place();cur.classList.remove('show');
-  await A[st.a]();busy=false;await go(step+1);
-}
-async function autoplay(id){
-  await sleep(1300);if(!auto||id!==run||busy)return;
-  const r=rectOf(STEPS[step]);if(!r)return;
-  cur.classList.add('show');cur.style.transform='translate('+(r.x+r.w/2)+'px,'+(r.y+r.h/2)+'px)';
-  await sleep(900);if(!auto||id!==run)return;
-  cur.classList.add('click');await sleep(160);cur.classList.remove('click');
-  act();
-}
-function takeOver(){}
-function wire(f){
-  const d=D(f);
-  d.addEventListener('scroll',()=>{if(!busy)place()},{passive:true,capture:true});
-  d.addEventListener('click',e=>{
-    if(!e.isTrusted)return;takeOver();
-    const st=STEPS[step];if(!st||busy||frame(st.f)!==f)return;
-    const t=st.t();
-    if(st.ev&&t&&(t===e.target||t.contains(e.target)))return;
-    if(t&&(t===e.target||t.contains(e.target))){act();return}
-    showTip();tip.classList.remove('nudge');void tip.offsetWidth;if(!reduce)tip.classList.add('nudge');
-  },true);
-  d.addEventListener('change',e=>{const st=STEPS[step];if(!st||!st.ev||busy||frame(st.f)!==f)return;const t=st.t();if(!(t&&(t===e.target||t.contains(e.target))))return;if(st.ok())act();else{showTip();tip.classList.remove('nudge');void tip.offsetWidth;if(!reduce)tip.classList.add('nudge')}},true);
-  d.addEventListener('keydown',e=>{
-    if(e.key!=='Enter'&&e.key!==' ')return;const st=STEPS[step];if(!st||st.ev)return;const t=st.t();
-    if(t&&(t===e.target||t.contains(e.target))){e.preventDefault();takeOver();act()}
-  });
-}
+function showTip(ms){tipOn=true;clearTimeout(tipTimer);place();tipTimer=setTimeout(()=>{tipOn=false;place()},ms||2800)}
+function go(i){step=i;const st=STEPS[i];if(st)setSteps(st.s);place()}
+async function act(){const id=run;busy=true;tipOn=false;place();await STEPS[step].a();if(id!==run)return;busy=false;if(step<STEPS.length-1){go(step+1);if(step===5)showTip(3600)}else{step=STEPS.length;setSteps(5)}}
+ov.addEventListener('click',e=>{
+  if(busy||step<0||step>=STEPS.length)return;
+  const r=rect(STEPS[step]),b=stage.getBoundingClientRect(),x=e.clientX-b.left,y=e.clientY-b.top;
+  if(r&&x>=r.x-6&&x<=r.x+r.w+6&&y>=r.y-6&&y<=r.y+r.h+6){mode.textContent='Your turn. Click anywhere for a hint.';act();return}
+  showTip();tip.classList.remove('nudge');void tip.offsetWidth;if(!reduce)tip.classList.add('nudge');
+});
+/* the page asks for one hint when the prototype first scrolls into view */
+addEventListener('message',e=>{if(e.data&&e.data.blHint&&step===0&&!busy&&!tipOn)showTip(4200)});
 async function start(){
-  run++;clearTimeout(timer);busy=false;step=-1;endEl.classList.remove('show');
-  pubF.classList.remove('off');edF.classList.add('off');
-  await Promise.all([pubF,edF].map(f=>new Promise(r=>{f.onload=r;f.contentWindow.location.reload()})));
-  init();
+  run++;clearTimeout(timer);busy=false;tipOn=false;endEl.classList.remove('show');banner.classList.remove('show');ty.textContent='';pimg.src='rc.webp';
+  pub.classList.remove('off');ed.classList.add('off');
+  await new Promise(r=>{ed.onload=r;ed.src='../dc/ed-rejected.html?'+run});
+  fit();go(0);
 }
-function init(){left=2;openN=5;passed=2;setupPub();setupEd();wire(pubF);wire(edF);fit();go(0)}
 $('restart').onclick=()=>start();
-$('again').onclick=()=>$('restart').onclick();
-let loaded=0;[pubF,edF].forEach(f=>f.addEventListener('load',()=>{if(++loaded===2)init()},{once:true}));
-new IntersectionObserver(e=>{const was=visible;visible=e[0].isIntersecting;if(visible&&!was&&auto&&step>=0)autoplay(run)},{threshold:.4}).observe(stage);
+$('again').onclick=()=>start();
+ed.addEventListener('load',()=>{try{const d=ED();d.documentElement.style.overflow='hidden';d.body.style.overflow='hidden'}catch(e){}});
 if(window.top===window){const fl=document.getElementById('full');if(fl)fl.remove();document.body.style.padding='16px'}
-fit();
+fit();go(0);
 })();
-
-[document.getElementById('pub'),document.getElementById('ed')].forEach(function(f){if(!f)return;function L(){try{var d=f.contentDocument;d.documentElement.style.overflow='hidden';d.body.style.overflow='hidden'}catch(e){}}f.addEventListener('load',L);L()});
 </script>
 </body>
 </html>

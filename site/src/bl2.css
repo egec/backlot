@@ -111,4 +111,4 @@ body{background:#F4F2EE}
 [data-bl2root="2"]{position:relative;z-index:1;background:#F4F2EE}
 }
 html.f-archivo body *:not(svg *){font-family:Archivo,sans-serif!important}
-html.f-archivo .bl2-loop text{font-family:Archivo,sans-serif}
+html.f-archivo .bl2-loop text{font-family:Archivo,sans-serif}.bl2-t.bl2-part{margin-top:clamp(96px,10vw,168px)}

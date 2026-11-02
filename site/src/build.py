@@ -45,7 +45,7 @@ def strip(on):
 NOTE_ARROW = '<svg viewBox="0 0 96 56" aria-hidden="true"><path class="nb" d="M90 22 C 70 44, 34 40, 13 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="nh" d="M26.5 23.8 L13 20 L17.4 33.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 NOTE_DOWN = '<svg viewBox="0 0 60 72" aria-hidden="true"><path class="nb" d="M8 8 C 32 10, 50 30, 44 64" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="nh" d="M34 54 L44 65 L52 52" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 def head(n, f, nav=False, note=''):
-    hid = '<span class="cs-num bl2-x">05</span><span class="cs-title bl2-x">Features</span>' if nav else ''
+    hid = '<span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Features</span>' if nav else ''
     h2 = f'<h2 class="bl2-h">{f["t"]}</h2>'
     if note:  # a handwritten aside next to the title, drawn in when it scrolls into view
         h2 = f'<div class="bl2-hn"><h2 class="bl2-h">{f["t"]}</h2><span class="bl2-note" data-note aria-hidden="true">{NOTE_ARROW}<b>{note}</b></span></div>'
@@ -116,11 +116,11 @@ IMG_REJ = dict(type='img', src=GH + 'shots/v2/reject.webp', w=2880, h=1800, alt=
 IMG_UP3 = dict(type='img', src=GH + 'shots/v2/upload-modal.webp', w=2738, h=1712, alt='Upload drop zone open over the assets list')
 IMG_UP15 = dict(type='img', src=GH + 'shots/v2/upload-widget.webp', w=2738, h=1712, alt='Season 4 in Spain with the upload result in the corner and 15 files waiting in the readiness panel')
 IMG_AS = dict(type='img', src=GH + 'shots/v2/assets.webp', w=2738, h=1712, alt='Assets: the delivery batch with a state per file, and the content list with completeness per title')
-VID_UP = dict(type='video', src=GH + 'upload.mp4?v=20', poster=GH + 'posters/upload.jpg?v=20', w=2054, h=1284)
-VID_AS = dict(type='video', src=GH + 'assets-filters.mp4?v=20', poster=GH + 'posters/assets-filters.jpg?v=20', w=2054, h=1284)
+VID_UP = dict(type='video', src=GH + 'upload.mp4?v=21', poster=GH + 'posters/upload.jpg?v=21', w=2054, h=1284)
+VID_AS = dict(type='video', src=GH + 'assets-filters.mp4?v=21', poster=GH + 'posters/assets-filters.jpg?v=21', w=2054, h=1284)
 
 def changed():
-    story = ('<div class="bl2-t"><span class="cs-num bl2-x">06</span><p class="k">What I changed</p>'
+    story = ('<div class="bl2-t"><span class="cs-num bl2-x">04</span><p class="k">What I changed</p>'
              '<h2 class="bl2-h cs-title">Why I moved from a single rejection modal to field-pinned reasons</h2>'
              '<div class="bl2-split bl2-split-first"><p class="k">The first version</p><div><p>The first version allowed one rejection reason per item, and I caught myself labelling rejected items “Multiple Issues”. '
              'That label said something was wrong without saying what, so reasons became a list, each pinned to a field and resolvable on its own.</p></div></div></div>')
@@ -137,10 +137,10 @@ def hero():
     for o, n in rep:
         assert o in h, o[:40]
         h = h.replace(o, n)
-    return h.replace(GH + 'shots/roles/ed-dashboard.webp', GH + 'shots/v2/ed-dashboard.webp')
+    return h.replace(GH + 'shots/roles/ed-dashboard.webp', GH + 'shots/v2/ed-dashboard.webp?v=2')
 
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
-PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp'),
+PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=2'),
         ('bilge', 'BİLGE', 'Container tracking for Turkish customs, designed from the system specs.', GH + 'shots/bilge/b-queue-th.webp'),
         ('uwaverde', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')]
 def nextblock(cur):
@@ -163,9 +163,7 @@ def sec(k, label, inner):
 
 def backlot():
     w1 = (sec('ov', 'Overview', hero())
-          + sec('pr', 'The problem', problem())
-          + sec('ns', 'North star', north_star())
-          + sec('rs', 'Research', research())
+          + sec('pr', 'Problem and research', problem() + north_star() + research())
           + sec('ro', 'Two roles', roles())
           + sec('fe', 'Features', features())
           + sec('ch', 'What I changed', changed()))
@@ -201,10 +199,10 @@ def still(n, f, steps, medias, after='', nav=False, note=''):
 def simple(n, f, media, nav=False, after=''):
     return f'<div class="bl2-t bl2-f{" first" if nav else ""}">{head(n, f, nav=nav)}{media_box(media)}{after}</div>'
 
-IMG_ED_DASH = dict(type='img', src=GH + 'shots/v2/ed-dashboard.webp', w=2880, h=1800, alt='Editor dashboard: unassigned files banner, counts, items in progress, upcoming releases, activity and what is blocking')
-IMG_PUB_DASH = dict(type='img', src=GH + 'shots/v2/pub-dashboard.webp', w=2880, h=1800, alt='Publisher dashboard: what airs this week, review counts, pending review, upcoming releases and deliveries this week')
-IMG_ED_WORK = dict(type='img', src=GH + 'shots/v2/ed-workspace.webp', w=2880, h=1800, alt='Editor workspace: workflow table filtered by status, rejections as cards, uploads panel in the corner')
-IMG_PUB_WORK = dict(type='img', src=GH + 'shots/v2/pub-reviews.webp', w=2880, h=1800, alt='Publisher reviews: review queue by status and review history')
+IMG_ED_DASH = dict(type='img', src=GH + 'shots/v2/ed-dashboard.webp?v=2', w=2880, h=1800, alt='Editor dashboard: unassigned files banner, counts, items in progress, upcoming releases, activity and what is blocking')
+IMG_PUB_DASH = dict(type='img', src=GH + 'shots/v2/pub-dashboard.webp?v=2', w=2880, h=1800, alt='Publisher dashboard: what airs this week, review counts, pending review, upcoming releases and deliveries this week')
+IMG_ED_WORK = dict(type='img', src=GH + 'shots/v2/ed-workspace.webp?v=2', w=2880, h=1800, alt='Editor workspace: workflow table filtered by status, rejections as cards, uploads panel in the corner')
+IMG_PUB_WORK = dict(type='img', src=GH + 'shots/v2/pub-reviews.webp?v=2', w=2880, h=1800, alt='Publisher reviews: review queue by status and review history')
 
 def features():
     """Nine features, most telling first, with an index so a skimmer sees all nine at once."""
@@ -296,7 +294,7 @@ def features():
     F.append(lambda n, nav: simple(n, f_lock, EMB('59ab0c6b'), nav=nav))
     titles = [f_region['t'], f_fill['t'], f_up['t'], f_rej['t'], f_ai['t'], f_art['t'], f_row['t'], f_as['t'], f_lock['t']]
     ix = ''.join(f'<li><a href="#f-{i}"><em>{i:02d}</em><span>{t}</span></a></li>' for i, t in enumerate(titles, 1))
-    index = ('<div class="bl2-t"><span class="cs-num bl2-x">05</span><span class="cs-title bl2-x">Features</span><p class="k">Features</p>'
+    index = ('<div class="bl2-t"><span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Features</span><p class="k">Features</p>'
              '<h2 class="bl2-h">Nine decisions across the workflow</h2>'
              f'<ol class="fx-ix">{ix}</ol></div>')
     short = ['Region scope', 'Missing fields', 'Broken deliveries', 'Rejections', 'AI suggestions', 'Artwork', 'Row actions', 'Files', 'Locking']
@@ -316,7 +314,7 @@ def problem():
             + f'<div class="bl2-cards">{cards}</div></div>')
 
 def north_star():
-    return ('<div class="bl2-t"><span class="cs-num bl2-x">02</span><p class="k">North star</p>'
+    return ('<div class="bl2-t bl2-part"><p class="k">North star</p>'
             '<h2 class="bl2-h cs-title">From delivery to release-ready, in fewer steps</h2>'
             '<p class="lead">Every decision on this page answers one question: does it get an episode release-ready sooner, with less typing and fewer rounds of review?</p>'
             + split('The bet', '<p>My bet: most of the delay is retyping and rework. If the file fills what it can and feedback points at fields, time to release-ready drops. I haven’t tested it with an editor yet.</p>')
@@ -338,7 +336,7 @@ def benchmark():
             'Directus can build an approval flow with custom permissions, but has none built in. Backlot pins comments to metadata fields; frame-accurate comments on video were out of scope for this case.</span></p></div>')
 
 def research():
-    return ('<div class="bl2-t"><span class="cs-num bl2-x">03</span><p class="k">Research</p>'
+    return ('<div class="bl2-t bl2-part"><p class="k">Research</p>'
             '<h2 class="bl2-h cs-title">Eight tools, each solving part of the job</h2>'
             '<p class="lead">Streaming CMSs are built in-house and rarely shown, so I studied the tools that cover pieces of the workflow: headless CMSs, a video platform, '
             'creative review tools, and GitHub’s pull request review, where a reviewer comments on an exact line and the author resolves each comment.</p></div>'
@@ -356,7 +354,7 @@ def roles():
              + rc('What airs first, and what changed since I last looked?', ['The queue sorted by release date', 'Only the fields that came back', 'Reasons tied to fields'],
                   'Publisher', 'Per review', 'Decides before a release date and can’t re-check everything.', 'P')
              + '</div>')
-    top = ('<div class="bl2-t"><span class="cs-num bl2-x">04</span><p class="k">Two roles</p>'
+    top = ('<div class="bl2-t"><span class="cs-num bl2-x">02</span><p class="k">Two roles</p>'
            '<h2 class="bl2-h cs-title">One episode, two people asking different questions</h2>' + cards + '</div>')
     full = dict(z=1, x=50, y=50)
     dash = zoom(0, dict(r=['Blockers, counts and the work the editor left off, on one page.',
@@ -543,7 +541,7 @@ def work():
     lead = [
         ('backlot', '01', 'Backlot, concept project', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
-         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=20'),
+         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=2', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=21'),
         ('bilge', '02', 'BİLGE, client work at MilSOFT', 'Container tracking for Turkish customs',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
          ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/a.mp4'),
@@ -563,7 +561,7 @@ def work():
     about = ('<section class="wk-ab"><p class="k">About</p><div><p class="wk-ab-h">Approval queues, permissions, bulk actions, error states. I like the screens people use eight hours a day.</p>'
              '<p class="wk-ab-l">I work end to end, from interviews and flows to prototypes and a design system developers can build from.</p>'
              '<a class="wk-btn" href="/about">More about me</a></div></section>')
-    body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
+    body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><img class="wk-me" src="{GH}me/me-halftone.webp" width="900" height="877" alt="Ege Coskun, printed as a halftone portrait"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
             f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
             f'<p class="wk-lead">A millimetre off in a bus interior part, and the tooling is already paid for. I design B2B data products now, and I still look for the edge case while it is a design problem, before it becomes a bug report.</p></div>'
             + untangle() +

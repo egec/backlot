@@ -1,5 +1,11 @@
 """About page drafts. Two ways to tell the same path: a dial that turns with the scroll, and a card drawer."""
 
+GH = 'https://egec.github.io/backlot/'
+LI = 'https://www.linkedin.com/feed/update/urn:li:activity:7354498102185058306/'
+PV = ('<span class="ab-pv" aria-hidden="true"><span class="ab-pv-h"><i>HA</i><b>Hochschule Anhalt</b><em>Reposted by Ege Coskun</em></span>'
+      '<span class="ab-pv-t">The Department of Design has honored two students with the DessauDesignAward 2025 for their outstanding theses.</span>'
+      '<span class="ab-pv-f">View the post on LinkedIn</span></span>')
+AWARD = f'<a class="ab-aw" href="{LI}" target="_blank" rel="noopener">Dessau Design Award{PV}</a>'
 PATH = [
     # (year label, kind, title, place, dates, lines)
     ('2016', 'edu', 'Industrial Design, B.Sc', 'Middle East Technical University, Ankara', 'Oct 2016 to Jul 2021',
@@ -11,7 +17,7 @@ PATH = [
      ['BİLGE, the customs platform of the Turkish Ministry of Trade, designed from backend rule documents.',
       'Radar screens for naval systems, signed off before build.']),
     ('2023', 'edu', 'Integrated Design, M.A.', 'Hochschule Anhalt, Dessau', 'Oct 2023 to Jul 2025',
-     ['Ranked first in class.', 'Thesis: a wearable for continuous monitoring in high-risk pregnancies. Dessau Design Award.']),
+     ['Ranked first in class.', 'Thesis: a wearable for continuous monitoring in high-risk pregnancies. ' + AWARD + '.']),
     ('2024', 'work', 'Founding member, Product Designer', 'UwaVerde (NGO), remote', 'Jul 2024 to now',
      ['The organisation’s first design work, with no budget and nothing to inherit: the website and a member portal.']),
 ]
@@ -19,27 +25,29 @@ INTRO = ('I learned design where there’s no Ctrl+Z: a millimetre off in a bus 
          'I design B2B data products now, and the habit came with me.')
 KIND = {'edu': 'Education', 'work': 'Experience'}
 AB_LEAD = ('I design the parts of B2B software where a wrong click costs something: approvals, data that other teams depend on, decisions that are hard to undo.',
-           'At MilSOFT I designed customs declarations and naval radar displays, and at UwaVerde I built the design function from nothing. Each time the domain was new to me, and learning it properly before designing for it is still the part I enjoy most.')
+           'At MilSOFT I designed customs declarations and naval radar displays, and at UwaVerde I built the design function from nothing. Each time the domain was new to me, and learning it properly before designing for it is still the part I enjoy most.',
+           'I studied Industrial Design at METU and finished a Master’s in Integrated Design at Hochschule Anhalt in 2025, first in my class. My thesis, a wearable that continuously monitors maternal and fetal health in high-risk pregnancies, won the ' + AWARD + '. It is still the clearest example of what I like doing: taking complex medical data and turning it into something a person can wear without thinking about it.')
 
 
 HOW = [('Learn the domain first', 'Customs declarations, naval radar displays, data tools, a prenatal monitoring wearable. Each time, I learned how the work is really done, and by whom, before I started designing.'),
        ('Design for the unhappy path', 'Most products work when everything goes right. I spend more of my time on the other cases: the action that fails, the data that is missing, the step someone skips. That is where people decide whether they can trust a tool.'),
        ('A reason for every decision', 'If I cannot say why something sits where it does, it moves or goes. Hierarchy, colour and wording all need a reason I could defend in a review.'),
        ('User needs and business goals', 'A design is done when it works for the person using it and for the business paying for it. I keep both in the room, and when they pull in different directions, I make the trade-off visible instead of hiding it.')]
-TOOLS = [('Figma', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#F24E1E" d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/></svg>'), ('Claude Code', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#D97757" d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg>'), ('Storybook', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF4785" d="M16.71.243l-.12 2.71a.18.18 0 00.29.15l1.06-.8.9.7a.18.18 0 00.28-.14l-.1-2.76 1.33-.1a1.2 1.2 0 011.279 1.2v21.596a1.2 1.2 0 01-1.26 1.2l-16.096-.72a1.2 1.2 0 01-1.15-1.16l-.75-19.797a1.2 1.2 0 011.13-1.27L16.7.222zM13.64 9.3c0 .47 3.16.24 3.59-.08 0-3.2-1.72-4.89-4.859-4.89-3.15 0-4.899 1.72-4.899 4.29 0 4.45 5.999 4.53 5.999 6.959 0 .7-.32 1.1-1.05 1.1-.96 0-1.35-.49-1.3-2.16 0-.36-3.649-.48-3.769 0-.27 4.03 2.23 5.2 5.099 5.2 2.79 0 4.969-1.49 4.969-4.18 0-4.77-6.099-4.64-6.099-6.999 0-.97.72-1.1 1.13-1.1.45 0 1.25.07 1.19 1.87z"/></svg>'), ('Jira', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#0052CC" d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/></svg>'), ('Confluence', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#172B4D" d="M.87 18.257c-.248.382-.53.875-.763 1.245a.764.764 0 0 0 .255 1.04l4.965 3.054a.764.764 0 0 0 1.058-.26c.199-.332.454-.763.733-1.221 1.967-3.247 3.945-2.853 7.508-1.146l4.957 2.337a.764.764 0 0 0 1.028-.382l2.364-5.346a.764.764 0 0 0-.382-1 599.851 599.851 0 0 1-4.965-2.361C10.911 10.97 5.224 11.185.87 18.257zM23.131 5.743c.249-.405.531-.875.764-1.25a.764.764 0 0 0-.256-1.034L18.675.404a.764.764 0 0 0-1.058.26c-.195.335-.451.763-.734 1.225-1.966 3.246-3.945 2.85-7.508 1.146L4.437.694a.764.764 0 0 0-1.027.382L1.046 6.422a.764.764 0 0 0 .382 1c1.039.49 3.105 1.467 4.965 2.361 6.698 3.246 12.392 3.029 16.738-4.04z"/></svg>'), ('Webflow', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#146EF5" d="m24 4.515-7.658 14.97H9.149l3.205-6.204h-.144C9.566 16.713 5.621 18.973 0 19.485v-6.118s3.596-.213 5.71-2.435H0V4.515h6.417v5.278l.144-.001 2.622-5.277h4.854v5.244h.144l2.72-5.244H24Z"/></svg>'), ('Miro', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#050038" d="M17.392 0H13.9L17 4.808 10.444 0H6.949l3.102 6.3L3.494 0H0l3.05 8.131L0 24h3.494L10.05 6.985 6.949 24h3.494L17 5.494 13.899 24h3.493L24 3.672 17.392 0z"/></svg>'), ('Notion', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#000000" d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg>'), ('Illustrator', '<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#300"/><text x="12" y="16.2" text-anchor="middle" font-family="Inter Tight,Arial,sans-serif" font-size="11" font-weight="700" fill="#FF9A00">Ai</text></svg>'), ('Photoshop', '<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#001E36"/><text x="12" y="16.2" text-anchor="middle" font-family="Inter Tight,Arial,sans-serif" font-size="11" font-weight="700" fill="#31A8FF">Ps</text></svg>'), ('InDesign', '<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#49021F"/><text x="12" y="16.2" text-anchor="middle" font-family="Inter Tight,Arial,sans-serif" font-size="11" font-weight="700" fill="#FF3366">Id</text></svg>')]
+TOOLS = [('Figma', 'figma'), ('Claude Design', 'claude-icon'), ('Claude Code', 'claude-code'), ('Storybook', 'storybook-icon'), ('Jira', 'jira'), ('Confluence', 'confluence'),
+         ('Webflow', 'webflow'), ('Miro', 'miro-icon'), ('Notion', 'notion-icon'), ('Illustrator', 'adobe-illustrator'), ('Photoshop', 'adobe-photoshop'), ('InDesign', 'adobe-indesign')]
 
 def more():
     how = ''.join(f'<li><em>{i:02d}</em><h3>{t}</h3><p>{d}</p></li>' for i, (t, d) in enumerate(HOW, 1))
-    tools = ''.join(f'<li>{svg}<span>{t}</span></li>' for t, svg in TOOLS)
-    return (f'<section class="cs-wrap ab-more"><div class="ab-row"><p class="k">Tools</p><ul class="ab-tools">{tools}</ul></div>'
-            f'<div class="ab-row"><p class="k">How I work</p><ol class="ab-how">{how}</ol></div></section>'
+    tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="22" height="22" alt="" loading="lazy"><span>{t}</span></li>' for t, f in TOOLS)
+    return (f'<section class="cs-wrap ab-more"><div class="ab-row"><p class="k">How I work</p><ol class="ab-how">{how}</ol></div>'
+            f'<div class="ab-row"><p class="k">Tools</p><ul class="ab-tools">{tools}</ul></div></section>'
             '''<style>
 .ab-more{padding-bottom:clamp(72px,8vw,140px)}
 .ab-row{display:grid;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;padding-top:24px;margin-top:clamp(48px,5vw,88px);border-top:1px solid var(--line)}
 .ab-tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .ab-tools li{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card2,#FAF9F7);font-size:14px;font-weight:500;transition:transform .3s var(--ease),border-color .2s}
 .ab-tools li:hover{transform:translateY(-2px);border-color:#B9B6AE}
-.ab-tools svg{width:22px;height:22px;flex:none}
+.ab-tools img{width:22px;height:22px;flex:none;object-fit:contain}
 .ab-how{list-style:none;margin:0;padding:0}
 .ab-how li{display:grid;grid-template-columns:48px minmax(0,1fr) minmax(0,1.4fr);gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
 .ab-how li:first-child{padding-top:0}
@@ -133,7 +141,8 @@ def drawer():
         + ''.join(f'<p class="dx-l">{x}</p>' for x in ls) + '</div></div></article>'
         for i, (y, k, t, p, d, ls) in enumerate(PATH))
     lead = ''.join(f'<p class="ab-lead">{x}</p>' for x in AB_LEAD)
-    return f'''<main class="ab"><div class="cs-wrap ab-top"><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div>
+    return f'''<main class="ab"><div class="cs-wrap ab-top ab-hero"><div><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div>
+<figure class="ab-ph"><img src="{GH}me/me-bw.webp" width="1200" height="1256" alt="Ege Coskun, smiling, looking to the side"></figure></div>
 <section class="cs-wrap dx-sec" aria-label="My path, from 2016 to now"><div class="dx" data-dx>
 <div class="dx-back">{back}</div>
 <div class="dx-page"><div class="dx-in">{pages}</div></div>
@@ -146,7 +155,22 @@ def drawer():
 .ab-top{{padding-top:clamp(40px,6vw,96px)}}
 .ab h1{{margin:10px 0 0;font-size:clamp(34px,3.6vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:600}}
 .ab-lead{{margin:18px 0 0;max-width:36em;font-size:clamp(16px,1.2vw,20px);line-height:1.45;color:#3a3936;text-wrap:pretty}}
-.ab-lead+.ab-lead{{margin-top:10px;font-size:clamp(15px,1.05vw,17px);color:var(--mute)}}
+.ab-lead+.ab-lead{{margin-top:12px;font-size:clamp(15px,1.05vw,17px);color:#55524c}}
+.ab-hero{{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);align-items:end}}
+.ab-ph{{margin:0;aspect-ratio:1/1.05;border-radius:14px;overflow:hidden;background:#E9E6E0}}
+.ab-ph img{{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%}}
+.ab-aw{{position:relative;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}
+.ab-aw:hover{{text-decoration-color:var(--ink)}}
+.ab-pv{{position:absolute;left:50%;bottom:calc(100% + 12px);z-index:20;width:300px;display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.16);font-size:13px;line-height:1.45;color:#3a3936;text-align:left;
+  opacity:0;pointer-events:none;transform:translate(-50%,6px) rotate(-1.5deg);transition:opacity .25s,transform .45s var(--ease)}}
+.ab-aw:hover .ab-pv,.ab-aw:focus-visible .ab-pv{{opacity:1;transform:translate(-50%,0) rotate(-1.5deg)}}
+.ab-pv-h{{display:grid;grid-template-columns:32px 1fr;column-gap:10px;align-items:center}}
+.ab-pv-h i{{grid-row:span 2;width:32px;height:32px;border-radius:6px;background:#161616;color:#fff;font:600 11px/32px "Inter Tight",sans-serif;font-style:normal;text-align:center}}
+.ab-pv-h b{{font-size:13px;color:var(--ink);font-weight:600}}.ab-pv-h em{{font-style:normal;font-size:11px;color:var(--mute)}}
+.ab-pv-t{{display:block}}.ab-pv-f{{display:block;font-size:12px;font-weight:600;color:#0A66C2}}
+.ab-pv img{{display:block;width:100%;border-radius:8px}}
+@media(max-width:991px){{.ab-hero{{grid-template-columns:1fr}}.ab-ph{{max-width:420px}}}}
+@media(hover:none){{.ab-pv{{display:none}}}}
 .dx-sec{{padding-top:clamp(40px,5vw,80px)}}
 .dx{{--L:#161616;--W:min(100%,820px);position:relative;width:var(--W);margin:0 auto;padding-bottom:clamp(120px,13vw,170px)}}
 .dx-back{{position:relative;height:calc(4 * 26px + 30px)}}

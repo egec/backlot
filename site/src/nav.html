@@ -121,7 +121,7 @@
       darks.forEach(function(q){if(cy>=q.top&&cy<=q.bottom)d=true;});
       it.link.classList.toggle('is-dark',d);
     });
-    [].forEach.call(document.querySelectorAll('footer,.finalfooter'),function(f){
+    [].forEach.call(document.querySelectorAll('footer,.finalfooter,.nx'),function(f){
       if(!visible(f))return;
       if(f.getBoundingClientRect().top<nr.bottom+24)off=true;
     });
