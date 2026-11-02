@@ -174,7 +174,7 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 34px/1 "Reenie Beanie"
 /* cards answer the pointer, quietly: they are not links, so no cursor change */
 .bl2-c,.bl2-role{transition:background-color .3s,transform .45s cubic-bezier(.23,1,.32,1),box-shadow .45s}
 .bl2-c .bl2-tag{transition:background-color .3s}
-@media (hover:hover){.bl2-c:hover,.bl2-role:hover{background:#EFEEEA;transform:translateY(-3px);box-shadow:0 14px 30px rgba(22,22,22,.06)}.bl2-c:hover .bl2-tag{background:#56652A}}
+@media (hover:hover){.bl2-c:hover,.bl2-role:hover{background:#F2F2F0;transform:translateY(-3px);box-shadow:0 14px 30px rgba(22,22,22,.06)}.bl2-c:hover .bl2-tag{background:#56652A}}
 @media (prefers-reduced-motion:reduce){.bl2-c:hover,.bl2-role:hover{transform:none}}
 
 /* no single word left alone on a line */

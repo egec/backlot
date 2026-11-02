@@ -110,14 +110,14 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show
             f'<div class="zs-stick"><div class="zs-frame"><div class="zs-view" style="aspect-ratio:{medias[0]["w"]}/{medias[0]["h"]}">{ms}</div></div>'
             f'<div class="zs-foot"><div class="zs-bar">{bars}</div>{ctl}</div></div></div></div>{after}</div>')
 
-IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
-IMG_EP2 = dict(type='img', src=GH + 'shots/v2/ep2.webp', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
-IMG_REJ = dict(type='img', src=GH + 'shots/v2/reject.webp', w=2880, h=1800, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
-IMG_UP3 = dict(type='img', src=GH + 'shots/v2/upload-modal.webp', w=2738, h=1712, alt='Upload drop zone open over the assets list')
-IMG_UP15 = dict(type='img', src=GH + 'shots/v2/upload-widget.webp', w=2738, h=1712, alt='Season 4 in Spain with the upload result in the corner and 15 files waiting in the readiness panel')
-IMG_AS = dict(type='img', src=GH + 'shots/v2/assets.webp', w=2738, h=1712, alt='Assets: the delivery batch with a state per file, and the content list with completeness per title')
-VID_UP = dict(type='video', src=GH + 'upload.mp4?v=21', poster=GH + 'posters/upload.jpg?v=21', w=2054, h=1284)
-VID_AS = dict(type='video', src=GH + 'assets-filters.mp4?v=21', poster=GH + 'posters/assets-filters.jpg?v=21', w=2054, h=1284)
+IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp?v=3', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
+IMG_EP2 = dict(type='img', src=GH + 'shots/v2/ep2.webp?v=3', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
+IMG_REJ = dict(type='img', src=GH + 'shots/v2/reject.webp?v=3', w=2880, h=1800, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
+IMG_UP3 = dict(type='img', src=GH + 'shots/v2/upload-modal.webp?v=3', w=2738, h=1712, alt='Upload drop zone open over the assets list')
+IMG_UP15 = dict(type='img', src=GH + 'shots/v2/upload-widget.webp?v=3', w=2738, h=1712, alt='Season 4 in Spain with the upload result in the corner and 15 files waiting in the readiness panel')
+IMG_AS = dict(type='img', src=GH + 'shots/v2/assets.webp?v=3', w=2738, h=1712, alt='Assets: the delivery batch with a state per file, and the content list with completeness per title')
+VID_UP = dict(type='video', src=GH + 'upload.mp4?v=22', poster=GH + 'posters/upload.jpg?v=22', w=2054, h=1284)
+VID_AS = dict(type='video', src=GH + 'assets-filters.mp4?v=22', poster=GH + 'posters/assets-filters.jpg?v=22', w=2054, h=1284)
 
 def changed():
     story = ('<div class="bl2-t"><span class="cs-num bl2-x">04</span><p class="k">What I changed</p>'
@@ -137,12 +137,12 @@ def hero():
     for o, n in rep:
         assert o in h, o[:40]
         h = h.replace(o, n)
-    return h.replace(GH + 'shots/roles/ed-dashboard.webp', GH + 'shots/v2/ed-dashboard.webp?v=2')
+    return h.replace(GH + 'shots/roles/ed-dashboard.webp', GH + 'shots/v2/ed-dashboard.webp?v=3')
 
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
-PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=2'),
+PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=3'),
         ('bilge', 'BİLGE', 'Container tracking for Turkish customs, designed from the system specs.', GH + 'shots/bilge/b-queue-th.webp'),
-        ('uwaverde', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')]
+        ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')]
 def nextblock(cur):
     """next project as a sentence with its screen, then every project small, then the footer"""
     i = [p[0] for p in PROJ].index(cur); n = (i + 1) % len(PROJ); k, name, d, img = PROJ[n]
@@ -163,7 +163,7 @@ def sec(k, label, inner):
 
 def backlot():
     w1 = (sec('ov', 'Overview', hero())
-          + sec('pr', 'Problem and research', problem() + north_star() + research())
+          + sec('pr', 'Why it’s slow', problem() + north_star() + research())
           + sec('ro', 'Two roles', roles())
           + sec('fe', 'Features', features())
           + sec('ch', 'What I changed', changed()))
@@ -199,10 +199,10 @@ def still(n, f, steps, medias, after='', nav=False, note=''):
 def simple(n, f, media, nav=False, after=''):
     return f'<div class="bl2-t bl2-f{" first" if nav else ""}">{head(n, f, nav=nav)}{media_box(media)}{after}</div>'
 
-IMG_ED_DASH = dict(type='img', src=GH + 'shots/v2/ed-dashboard.webp?v=2', w=2880, h=1800, alt='Editor dashboard: unassigned files banner, counts, items in progress, upcoming releases, activity and what is blocking')
-IMG_PUB_DASH = dict(type='img', src=GH + 'shots/v2/pub-dashboard.webp?v=2', w=2880, h=1800, alt='Publisher dashboard: what airs this week, review counts, pending review, upcoming releases and deliveries this week')
-IMG_ED_WORK = dict(type='img', src=GH + 'shots/v2/ed-workspace.webp?v=2', w=2880, h=1800, alt='Editor workspace: workflow table filtered by status, rejections as cards, uploads panel in the corner')
-IMG_PUB_WORK = dict(type='img', src=GH + 'shots/v2/pub-reviews.webp?v=2', w=2880, h=1800, alt='Publisher reviews: review queue by status and review history')
+IMG_ED_DASH = dict(type='img', src=GH + 'shots/v2/ed-dashboard.webp?v=3', w=2880, h=1800, alt='Editor dashboard: unassigned files banner, counts, items in progress, upcoming releases, activity and what is blocking')
+IMG_PUB_DASH = dict(type='img', src=GH + 'shots/v2/pub-dashboard.webp?v=3', w=2880, h=1800, alt='Publisher dashboard: what airs this week, review counts, pending review, upcoming releases and deliveries this week')
+IMG_ED_WORK = dict(type='img', src=GH + 'shots/v2/ed-workspace.webp?v=3', w=2880, h=1800, alt='Editor workspace: workflow table filtered by status, rejections as cards, uploads panel in the corner')
+IMG_PUB_WORK = dict(type='img', src=GH + 'shots/v2/pub-reviews.webp?v=3', w=2880, h=1800, alt='Publisher reviews: review queue by status and review history')
 
 def features():
     """Nine features, most telling first, with an index so a skimmer sees all nine at once."""
@@ -363,25 +363,27 @@ def roles():
                            'The editor’s banner names files that couldn’t be assigned. The publisher’s names the one item that airs within seven days and still needs a decision.',
                            'Missing fields grouped across everything assigned to the editor, so one pass fills the Spanish synopsis for seven items.',
                            'In place of blockers, the publisher sees each region’s deliveries this week and how far along they are.']),
-                [dict(h='Editor dashboard', m=0, **full),
-                 dict(h='Publisher dashboard', m=1, **full),
+                [dict(h='Editor: dashboard', m=0, **full),
+                 dict(h='Publisher: dashboard', m=1, **full),
                  dict(h='Counts that follow the role', m=1, hl=[(19.3, 20.2, 54.4, 13)]),
                  dict(h='A banner for today’s blocker', m=0, hl=[(19.3, 10.2, 54.4, 7)]),
                  dict(h='What is blocking, grouped by field', m=0, hl=[(74.8, 56, 23.4, 41)]),
                  dict(h='Deliveries this week, per region', m=1, hl=[(74.8, 66.2, 23.4, 30.6)])],
                 [IMG_ED_DASH, IMG_PUB_DASH], head_html=sub('Dashboards', 'Where each role starts the day.'))
-    work = zoom(0, dict(r=['The editor’s work, sorted by status, with rejections underneath.',
-                           'The publisher’s queue, with every past decision underneath.',
-                           'Both rails use the same statuses, so editor and publisher talk about the same thing.',
-                           'The publisher’s queue is sorted by release date and shows how long each item has waited. The editor’s table shows blockers in that place.',
-                           'Rejected work sits as cards, so the reason shows before the item opens.',
-                           'Every decision stays on record, with who decided and when.']),
-                [dict(h='Editor workspace', m=0, **full),
-                 dict(h='Publisher reviews', m=1, **full),
-                 dict(h='The same statuses on both sides', m=0, hl=[(19.4, 24.8, 15.4, 30.4)]),
-                 dict(h='Sorted by what airs first', m=1, hl=[(75.4, 24.6, 11.8, 36.4)]),
-                 dict(h='Rejections as cards', m=0, hl=[(19.4, 65.6, 79, 28.4)]),
-                 dict(h='Review history', m=1, hl=[(19.4, 64.4, 79, 33)])],
+    work = zoom(0, dict(r=['The editor’s page is called Workspace: everything they are working on, sorted by status, with rejections underneath.',
+                           'The publisher’s page is called Reviews: only what reaches them, with every past decision underneath.',
+                           'The editor’s list runs through all eight statuses, from To do to Published.',
+                           'To do, In progress and Scheduled are the editor’s business, so the publisher never sees them. Their list starts at Pending review, the first status that needs them.',
+                           'The publisher’s queue is sorted by what airs first and shows how long each item has waited. In the same place, the editor’s table shows Blockers.',
+                           'The editor sees rejected work as cards, so each reason shows before the item opens.',
+                           'The publisher keeps a record of every decision: who decided, when, and when it was released.']),
+                [dict(h='Editor: Workspace', m=0, **full),
+                 dict(h='Publisher: Reviews', m=1, **full),
+                 dict(h='Editor: all eight statuses', m=0, hl=[(19.3, 24.6, 15.4, 37.2)]),
+                 dict(h='Publisher: starts at review', m=1, hl=[(19.3, 24.2, 15.4, 37.2)]),
+                 dict(h='Publisher: what has waited longest', m=1, hl=[(75.4, 24.6, 13.8, 36.4)]),
+                 dict(h='Editor: rejections as cards', m=0, hl=[(19.4, 65.6, 79, 28.4)]),
+                 dict(h='Publisher: review history', m=1, hl=[(19.4, 64.4, 79, 33)])],
                 [IMG_ED_WORK, IMG_PUB_WORK], head_html=sub('Workspaces', 'Where the work itself happens.'))
     return top + dash + work
 
@@ -411,7 +413,7 @@ def specpile():
     sh = ''
     for i, n in enumerate(names):
         W, H = 150, 212
-        g = f'<path d="{rough_rect(W, H)}" fill="#FBFAF6" stroke="none"/>'
+        g = f'<path d="{rough_rect(W, H)}" fill="#FDFDFC" stroke="none"/>'
         g += f'<path class="o" d="{rough_rect(W, H)}"/><path class="o o2" d="{rough_rect(W, H)}"/>'
         g += f'<text x="{j(14, 1)}" y="{j(30, 1)}" class="t">{n}</text>'
         g += f'<path class="u" d="{scribble(14, 36, min(110, 9 * len(n)))}"/>'
@@ -541,7 +543,7 @@ def work():
     lead = [
         ('backlot', '01', 'Backlot, concept project', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
-         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=2', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=21'),
+         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=3', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=22'),
         ('bilge', '02', 'BİLGE, client work at MilSOFT', 'Container tracking for Turkish customs',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
          ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/a.mp4'),
@@ -640,7 +642,7 @@ if __name__ == '__main__':
     write('work/index.html', work())
     write('index.html', work())
     import about
-    for k, fn in [('about-a', about.dial), ('about-b', about.drawer), ('about-c', about.tunnel), ('about', about.drawer)]:
+    for k, fn in [('about-a', about.dial), ('about-b', about.drawer), ('about-c', about.tunnel), ('about', about.dial)]:
         write(k + '/index.html', page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
                                        fn(), ['site.css', 'backlot.css'], ['site.js'], cur='about'))
     print('built', len(html))

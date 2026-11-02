@@ -36,6 +36,11 @@ HOW = [('Learn the domain first', 'Customs declarations, naval radar displays, d
 TOOLS = [('Figma', 'figma'), ('Claude Design', 'claude-icon'), ('Claude Code', 'claude-code'), ('Storybook', 'storybook-icon'), ('Jira', 'jira'), ('Confluence', 'confluence'),
          ('Webflow', 'webflow'), ('Miro', 'miro-icon'), ('Notion', 'notion-icon'), ('Illustrator', 'adobe-illustrator'), ('Photoshop', 'adobe-photoshop'), ('InDesign', 'adobe-indesign')]
 
+def top():
+    lead = ''.join(f'<p class="ab-lead">{x}</p>' for x in AB_LEAD)
+    return (f'<div class="cs-wrap ab-top ab-hero"><div><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div>'
+            f'<figure class="ab-ph"><img src="{GH}me/me-bw.webp" width="1200" height="1256" alt="Ege Coskun, smiling, looking to the side"></figure></div>')
+
 def more():
     how = ''.join(f'<li><em>{i:02d}</em><h3>{t}</h3><p>{d}</p></li>' for i, (t, d) in enumerate(HOW, 1))
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="22" height="22" alt="" loading="lazy"><span>{t}</span></li>' for t, f in TOOLS)
@@ -45,7 +50,7 @@ def more():
 .ab-more{padding-bottom:clamp(72px,8vw,140px)}
 .ab-row{display:grid;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;padding-top:24px;margin-top:clamp(48px,5vw,88px);border-top:1px solid var(--line)}
 .ab-tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.ab-tools li{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card2,#FAF9F7);font-size:14px;font-weight:500;transition:transform .3s var(--ease),border-color .2s}
+.ab-tools li{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card2,#FCFCFB);font-size:14px;font-weight:500;transition:transform .3s var(--ease),border-color .2s}
 .ab-tools li:hover{transform:translateY(-2px);border-color:#B9B6AE}
 .ab-tools img{width:22px;height:22px;flex:none;object-fit:contain}
 .ab-how{list-style:none;margin:0;padding:0}
@@ -54,6 +59,22 @@ def more():
 .ab-how em{font-style:normal;font-size:13px;line-height:26px;color:var(--mute);font-variant-numeric:tabular-nums}
 .ab-how h3{margin:0;font-size:clamp(18px,1.4vw,22px);line-height:1.25;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
 .ab-how p{margin:0;font-size:15px;line-height:1.5;color:#3a3936;text-wrap:pretty}
+.ab-lead+.ab-lead{margin-top:12px;font-size:clamp(15px,1.05vw,17px);color:#55524c}
+.ab-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);align-items:end}
+.ab-ph{margin:0;aspect-ratio:1/1.05;border-radius:14px;overflow:hidden;background:#ECECEA}
+.ab-ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.ab-aw{position:relative;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.ab-aw:hover{text-decoration-color:var(--ink)}
+.ab-pv{position:absolute;left:50%;bottom:calc(100% + 12px);z-index:20;width:300px;display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.16);font-size:13px;line-height:1.45;color:#3a3936;text-align:left;
+  opacity:0;pointer-events:none;transform:translate(-50%,6px) rotate(-1.5deg);transition:opacity .25s,transform .45s var(--ease)}
+.ab-aw:hover .ab-pv,.ab-aw:focus-visible .ab-pv{opacity:1;transform:translate(-50%,0) rotate(-1.5deg)}
+.ab-pv-h{display:grid;grid-template-columns:32px 1fr;column-gap:10px;align-items:center}
+.ab-pv-h i{grid-row:span 2;width:32px;height:32px;border-radius:6px;background:#161616;color:#fff;font:600 11px/32px "Inter Tight",sans-serif;font-style:normal;text-align:center}
+.ab-pv-h b{font-size:13px;color:var(--ink);font-weight:600}.ab-pv-h em{font-style:normal;font-size:11px;color:var(--mute)}
+.ab-pv-t{display:block}.ab-pv-f{display:block;font-size:12px;font-weight:600;color:#0A66C2}
+.ab-pv img{display:block;width:100%;border-radius:8px}
+@media(max-width:991px){.ab-hero{grid-template-columns:1fr}.ab-ph{max-width:420px}}
+@media(hover:none){.ab-pv{display:none}}
 @media(max-width:767px){.ab-row{grid-template-columns:1fr}.ab-how li{grid-template-columns:32px 1fr}.ab-how p{grid-column:2}}
 </style>''')
 
@@ -64,7 +85,7 @@ def dial():
         f'<article class="dl-c" data-i="{i}"><p class="dl-k"><i class="{k}"></i>{KIND[k]}</p><h2>{t}</h2><p class="dl-p">{p}</p>'
         f'<p class="dl-d">{d}</p>' + ''.join(f'<p class="dl-l">{x}</p>' for x in ls) + '</article>'
         for i, (y, k, t, p, d, ls) in enumerate(PATH))
-    return f'''<main class="ab"><div class="cs-wrap ab-top"><p class="k">About</p><h1>Hi, I’m Ege.</h1><p class="ab-lead">{INTRO}</p></div>
+    return f'''<main class="ab">{top()}
 <section class="dl" data-dial style="--n:{len(PATH)}" aria-label="My path, from 2016 to now">
 <div class="dl-pin"><div class="dl-wheel" aria-hidden="true"><svg class="dl-arc" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="499" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
 <i class="dl-dot"></i></div><div class="dl-ys">{items}</div><div class="dl-cs">{cards}</div>
@@ -140,14 +161,12 @@ def drawer():
         f'<div class="dx-cols"><div><p class="dx-lb">{KIND[k]}</p><p class="dx-pl">{p}</p><p class="dx-d">{d}</p></div><div>'
         + ''.join(f'<p class="dx-l">{x}</p>' for x in ls) + '</div></div></article>'
         for i, (y, k, t, p, d, ls) in enumerate(PATH))
-    lead = ''.join(f'<p class="ab-lead">{x}</p>' for x in AB_LEAD)
-    return f'''<main class="ab"><div class="cs-wrap ab-top ab-hero"><div><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div>
-<figure class="ab-ph"><img src="{GH}me/me-bw.webp" width="1200" height="1256" alt="Ege Coskun, smiling, looking to the side"></figure></div>
+    return f'''<main class="ab">{top()}
 <section class="cs-wrap dx-sec" aria-label="My path, from 2016 to now"><div class="dx" data-dx>
 <div class="dx-back">{back}</div>
 <div class="dx-page"><div class="dx-in">{pages}</div></div>
 <div class="dx-front">{front}</div>
-<svg class="dx-box" viewBox="0 0 1000 260" preserveAspectRatio="none" aria-hidden="true"><path d="M30 2 H970 L996 30 V258 H4 V30 Z" fill="#F4F2EE" stroke="#161616" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="M4 30 H996" fill="none" stroke="#161616" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
+<svg class="dx-box" viewBox="0 0 1000 260" preserveAspectRatio="none" aria-hidden="true"><path d="M30 2 H970 L996 30 V258 H4 V30 Z" fill="#F7F7F5" stroke="#161616" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="M4 30 H996" fill="none" stroke="#161616" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
 <span class="dx-hd" aria-hidden="true"><i></i><i></i><i></i></span>
 </div></section>{more()}</main>
 <style>
@@ -155,29 +174,14 @@ def drawer():
 .ab-top{{padding-top:clamp(40px,6vw,96px)}}
 .ab h1{{margin:10px 0 0;font-size:clamp(34px,3.6vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:600}}
 .ab-lead{{margin:18px 0 0;max-width:36em;font-size:clamp(16px,1.2vw,20px);line-height:1.45;color:#3a3936;text-wrap:pretty}}
-.ab-lead+.ab-lead{{margin-top:12px;font-size:clamp(15px,1.05vw,17px);color:#55524c}}
-.ab-hero{{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);align-items:end}}
-.ab-ph{{margin:0;aspect-ratio:1/1.05;border-radius:14px;overflow:hidden;background:#E9E6E0}}
-.ab-ph img{{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%}}
-.ab-aw{{position:relative;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}
-.ab-aw:hover{{text-decoration-color:var(--ink)}}
-.ab-pv{{position:absolute;left:50%;bottom:calc(100% + 12px);z-index:20;width:300px;display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.16);font-size:13px;line-height:1.45;color:#3a3936;text-align:left;
-  opacity:0;pointer-events:none;transform:translate(-50%,6px) rotate(-1.5deg);transition:opacity .25s,transform .45s var(--ease)}}
-.ab-aw:hover .ab-pv,.ab-aw:focus-visible .ab-pv{{opacity:1;transform:translate(-50%,0) rotate(-1.5deg)}}
-.ab-pv-h{{display:grid;grid-template-columns:32px 1fr;column-gap:10px;align-items:center}}
-.ab-pv-h i{{grid-row:span 2;width:32px;height:32px;border-radius:6px;background:#161616;color:#fff;font:600 11px/32px "Inter Tight",sans-serif;font-style:normal;text-align:center}}
-.ab-pv-h b{{font-size:13px;color:var(--ink);font-weight:600}}.ab-pv-h em{{font-style:normal;font-size:11px;color:var(--mute)}}
-.ab-pv-t{{display:block}}.ab-pv-f{{display:block;font-size:12px;font-weight:600;color:#0A66C2}}
-.ab-pv img{{display:block;width:100%;border-radius:8px}}
-@media(max-width:991px){{.ab-hero{{grid-template-columns:1fr}}.ab-ph{{max-width:420px}}}}
-@media(hover:none){{.ab-pv{{display:none}}}}
+
 .dx-sec{{padding-top:clamp(40px,5vw,80px)}}
 .dx{{--L:#161616;--W:min(100%,820px);position:relative;width:var(--W);margin:0 auto;padding-bottom:clamp(120px,13vw,170px)}}
 .dx-back{{position:relative;height:calc(4 * 26px + 30px)}}
-.dx-r{{position:absolute;left:calc(9% - var(--k) * 1.2%);right:calc(9% - var(--k) * 1.2%);top:calc(var(--k) * 26px);height:90px;background:#FBFAF6;border:1.5px solid var(--L);border-radius:10px 10px 0 0}}
+.dx-r{{position:absolute;left:calc(9% - var(--k) * 1.2%);right:calc(9% - var(--k) * 1.2%);top:calc(var(--k) * 26px);height:90px;background:#FDFDFC;border:1.5px solid var(--L);border-radius:10px 10px 0 0}}
 .dx-front{{position:relative;margin-top:calc(-1 * (2 * 30px + 70px));height:calc(2 * 30px + 70px);z-index:4}}
 .dx-r.f{{left:calc(1% - var(--k) * 1.2%);right:calc(1% - var(--k) * 1.2%);top:calc(var(--k) * 30px);height:120px}}
-.dx-t{{position:absolute;top:-25px;height:26px;min-width:30%;padding:0 22px;background:#FBFAF6;border:1.5px solid var(--L);border-bottom:0;border-radius:14px 14px 0 0;display:flex;align-items:center;justify-content:center;
+.dx-t{{position:absolute;top:-25px;height:26px;min-width:30%;padding:0 22px;background:#FDFDFC;border:1.5px solid var(--L);border-bottom:0;border-radius:14px 14px 0 0;display:flex;align-items:center;justify-content:center;
   font:600 12px/1 "Inter Tight",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);cursor:pointer;transition:background .2s,color .2s,transform .3s var(--ease)}}
 .dx-t.l{{left:12%}}.dx-t.r{{right:12%}}
 .dx-t:before{{content:"";position:absolute;left:-1.5px;right:-1.5px;bottom:-3px;height:4px;background:inherit}}
@@ -185,7 +189,7 @@ def drawer():
 button.dx-t:hover,button.dx-t:focus-visible,button.dx-t.on{{background:var(--ink);color:#fff}}
 button.dx-t:hover{{transform:translateY(-3px)}}
 button.dx-t:focus-visible{{outline:2px solid var(--ink);outline-offset:4px}}
-.dx-page{{position:relative;z-index:3;margin:-58px 4% 0;height:clamp(440px,44vw,500px);background:#FBFAF6;border:1.5px solid var(--L);border-radius:6px;padding:16px}}
+.dx-page{{position:relative;z-index:3;margin:-58px 4% 0;height:clamp(440px,44vw,500px);background:#FDFDFC;border:1.5px solid var(--L);border-radius:6px;padding:16px}}
 .dx-in{{position:relative;height:100%;border:1.5px solid var(--L);border-radius:2px;background:#fff;overflow:hidden}}
 .dx-in:before{{content:"";position:absolute;inset:12px;border:1px dashed #B9B6AE;pointer-events:none}}
 .dx-p{{position:absolute;inset:0;padding:clamp(26px,3vw,40px) clamp(26px,3vw,40px) 140px;opacity:0;transition:opacity .25s}}
@@ -200,7 +204,7 @@ button.dx-t:focus-visible{{outline:2px solid var(--ink);outline-offset:4px}}
 .dx-l{{margin:0 0 8px;font-size:15px;line-height:1.45;color:#3a3936;text-wrap:pretty}}
 .dx-box{{position:absolute;left:-2%;right:-2%;bottom:0;width:104%;height:clamp(150px,16vw,200px);z-index:5}}
 .dx-hd{{position:absolute;left:50%;bottom:clamp(50px,5.5vw,70px);transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;gap:3px}}
-.dx-hd i{{display:block;width:120px;height:11px;border:1.5px solid var(--L);border-radius:0 0 14px 14px;background:#FBFAF6}}
+.dx-hd i{{display:block;width:120px;height:11px;border:1.5px solid var(--L);border-radius:0 0 14px 14px;background:#FDFDFC}}
 @media(max-width:767px){{.dx-t{{min-width:0;padding:0 10px;font-size:10px;letter-spacing:.08em}}.dx-t.l{{left:4%}}.dx-t.r{{right:4%}}.dx-page{{height:600px}}.dx-cols{{grid-template-columns:1fr}}.dx-t.me{{font-size:9px}}}}
 @media (prefers-reduced-motion:reduce){{.dx-p,.dx-t{{transition:none}}}}
 </style>
