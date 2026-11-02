@@ -563,7 +563,7 @@ def work():
     about = ('<section class="wk-ab"><p class="k">About</p><div><p class="wk-ab-h">Approval queues, permissions, bulk actions, error states. I like the screens people use eight hours a day.</p>'
              '<p class="wk-ab-l">I work end to end, from interviews and flows to prototypes and a design system developers can build from.</p>'
              '<a class="wk-btn" href="/about">More about me</a></div></section>')
-    body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><img class="wk-me" src="{GH}me/me-halftone.webp" width="900" height="877" alt="Ege Coskun, printed as a halftone portrait"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
+    body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
             f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
             f'<p class="wk-lead">A millimetre off in a bus interior part, and the tooling is already paid for. I design B2B data products now, and I still look for the edge case while it is a design problem, before it becomes a bug report.</p></div>'
             + untangle() +
