@@ -202,7 +202,7 @@ def simple(n, f, media, nav=False, after=''):
 IMG_ED_DASH = dict(type='img', src=GH + 'shots/v2/ed-dashboard.webp?v=4', w=2880, h=1800, alt='Editor dashboard: unassigned files banner, counts, items in progress, upcoming releases, activity and what is blocking')
 IMG_PUB_DASH = dict(type='img', src=GH + 'shots/v2/pub-dashboard.webp?v=4', w=2880, h=1800, alt='Publisher dashboard: what airs this week, review counts, pending review, upcoming releases and deliveries this week')
 IMG_ED_WORK = dict(type='img', src=GH + 'shots/v2/ed-workspace.webp?v=4', w=2880, h=1800, alt='Editor workspace: workflow table filtered by status, rejections as cards, uploads panel in the corner')
-IMG_PUB_WORK = dict(type='img', src=GH + 'shots/v2/pub-reviews.webp?v=4', w=2880, h=1800, alt='Publisher reviews: review queue by status and review history')
+IMG_PUB_WORK = dict(type='img', src=GH + 'shots/v2/pub-reviews.webp?v=5', w=2880, h=1800, alt='Publisher reviews: review queue by status and review history')
 
 def features():
     """Nine features, most telling first, with an index so a skimmer sees all nine at once."""
