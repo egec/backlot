@@ -20,6 +20,30 @@ INTRO = ('I learned design where there’s no Ctrl+Z: a millimetre off in a bus 
 KIND = {'edu': 'Education', 'work': 'Experience'}
 
 
+HOW = [('Read the source first', 'Specs, backend rules, regulation. At MilSOFT I designed from the system documents, so no screen offered an action the backend would refuse.'),
+       ('Look past direct competitors', 'For Backlot I compared CMSs, video review tools and GitHub pull requests. The review loop came from code review, not from another CMS.'),
+       ('Design the unhappy path', 'Broken deliveries, wrong specs, rejected work. The edge case belongs in the design file, not in a support ticket.'),
+       ('Check it against the real thing', 'I prototype in code with Claude to see how a flow behaves with real states before anyone builds it.')]
+TOOLS = ['Figma', 'Claude Code', 'Storybook', 'FullStory', 'Jira', 'Confluence', 'Webflow', 'Miro']
+
+def more():
+    how = ''.join(f'<li><em>{i:02d}</em><div><h3>{t}</h3><p>{d}</p></div></li>' for i, (t, d) in enumerate(HOW, 1))
+    tools = ''.join(f'<li>{t}</li>' for t in TOOLS)
+    return (f'<section class="cs-wrap ab-more"><div class="ab-row"><p class="k">How I work</p><ol class="ab-how">{how}</ol></div>'
+            f'<div class="ab-row"><p class="k">Tools</p><ul class="ab-tools">{tools}</ul></div></section>'
+            '''<style>
+.ab-more{{padding-bottom:clamp(72px,8vw,140px)}}
+.ab-row{{display:grid;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;padding-top:24px;margin-top:clamp(48px,5vw,88px);border-top:1px solid var(--line)}}
+.ab-how{{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}}
+.ab-how li{{display:grid;grid-template-columns:32px 1fr;gap:8px}}
+.ab-how em{{font-style:normal;font-size:13px;line-height:24px;color:var(--mute);font-variant-numeric:tabular-nums}}
+.ab-how h3{{margin:0;font-size:clamp(17px,1.3vw,21px);line-height:1.25;font-weight:600;letter-spacing:-.01em}}
+.ab-how p{{margin:6px 0 0;font-size:15px;line-height:1.45;color:#3a3936;text-wrap:pretty}}
+.ab-tools{{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}}
+.ab-tools li{{padding:9px 14px;border:1px solid var(--line);border-radius:99px;font-size:14px;background:var(--card2,#FAF9F7)}}
+@media(max-width:767px){{.ab-row,.ab-how{{grid-template-columns:1fr}}}}
+</style>''')
+
 def dial():
     items = ''.join(
         f'<button class="dl-y" type="button" data-i="{i}" aria-label="{y}, {t}"><span>{y}</span></button>' for i, (y, k, t, p, d, ls) in enumerate(PATH))
@@ -31,7 +55,7 @@ def dial():
 <section class="dl" data-dial style="--n:{len(PATH)}" aria-label="My path, from 2016 to now">
 <div class="dl-pin"><div class="dl-wheel" aria-hidden="true"><svg class="dl-arc" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="499" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
 <i class="dl-dot"></i></div><div class="dl-ys">{items}</div><div class="dl-cs">{cards}</div>
-<p class="dl-hint">Scroll to turn</p></div></section></main>
+<p class="dl-hint">Scroll to turn</p></div></section>{more()}</main>
 <style>
 .ab .k{{font-size:13px;color:var(--mute);margin:0}}
 .ab-top{{padding-top:clamp(40px,6vw,96px)}}
@@ -104,7 +128,7 @@ def drawer():
 <div class="dx-tabs">{back}</div>
 <div class="dx-page">{pages}</div>
 <div class="dx-front" aria-hidden="true"><i></i><i></i><i></i></div></div>
-<p class="dx-hint">Pick a tab</p></section></main>
+<p class="dx-hint">Pick a tab</p></section>{more()}</main>
 <style>
 .ab .k{{font-size:13px;color:var(--mute);margin:0}}
 .ab-top{{padding-top:clamp(40px,6vw,96px)}}

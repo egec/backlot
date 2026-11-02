@@ -522,10 +522,10 @@ def bilge():
 def work():
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
-        ('backlot', '01', 'Backlot', 'From delivery to release, one region at a time',
+        ('backlot', '01', 'Backlot, concept project', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=20'),
-        ('bilge', '02', 'BİLGE', 'Container tracking for Turkish customs',
+        ('bilge', '02', 'BİLGE, client work at MilSOFT', 'Container tracking for Turkish customs',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
          ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/a.mp4'),
     ]
