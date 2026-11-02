@@ -256,8 +256,8 @@ def features():
                 'Automatic checks pass or fail by rule. The AI sits apart and only raises judgement calls, saying how sure it is.',
                 'A suggestion opens its field or gets dismissed with a reason that stays on record. Nothing is written until the editor accepts.'])
     F.append(lambda n, nav: zoom(n, f_ai, [
-        dict(h='Built on past rejections', hl=[(76.2, 55.4, 21.8, 15.4)], ctx=(76, 50, 22, 1)),
-        dict(h='Rules and AI stay apart', hl=[(77.4, 21, 20.4, 16), (76.2, 55.4, 21.8, 15.4)]),
+        dict(h='Built on past rejections', hl=[(76, 55.6, 22, 9.6)], ctx=(76, 50, 22, 1)),
+        dict(h='Rules and AI stay apart', hl=[(77.4, 21, 20.4, 16), (76, 55.6, 22, 9.6)]),
         dict(h='Nothing written on its own', hl=[(95.2, 55.2, 2.8, 3.8), (76.8, 62.8, 7, 2.4)], ctx=(76, 50, 22, 1))], [IMG_EP2],
         after=sub('Rules and AI, side by side', 'Rule checks pass or fail. AI suggestions name their evidence, and a dismissed flag stays on record.') + media_box(EMB('e76ad60f')), nav=nav))
     # artwork
@@ -525,16 +525,16 @@ def work():
     lead = [
         ('backlot', '01', 'Backlot', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
-         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp', 'Backlot editor dashboard'),
+         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=20'),
         ('bilge', '02', 'BİLGE', 'Container tracking for Turkish customs',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
-         ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail'),
+         ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/a.mp4'),
     ]
     cards = ''.join(
-        f'<a class="wk-c" href="/{k}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"></span>'
+        f'<a class="wk-c" href="/{k}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"><video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em></span>'
         f'<span class="wk-h"><em>{num}</em><b>{name}</b></span><span class="wk-t">{t}</span><span class="wk-d">{d}</span>'
         f'<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + f'</span><span class="wk-go">Read the case study {ARW}</span></a>'
-        for k, num, name, t, d, tags, img, alt in lead)
+        for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
         ('uwaverde', '03', 'UwaVerde', 'A website and member portal for an NGO I co-founded', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
         ('fieldfriends', '04', 'FieldFriends', 'Precision farming app', ['Mobile', 'Master’s project'], WF + '68e29eba1471bde84a36352d_4a1878f8682d2d90e19d98781174e9e5_fieldfriends.png'),
@@ -616,4 +616,8 @@ if __name__ == '__main__':
     write('bilge/index.html', bilge())
     write('uwaverde/index.html', uwaverde())
     write('work/index.html', work())
+    import about
+    for k, fn in [('about-a', about.dial), ('about-b', about.drawer)]:
+        write(k + '/index.html', page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
+                                       fn(), ['site.css', 'backlot.css'], ['site.js'], cur='about'))
     print('built', len(html))

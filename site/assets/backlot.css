@@ -458,7 +458,12 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 2.125rem/1 "Reenie Bea
 .wk .k{font-size:0.8125rem;color:var(--mute);margin:0}
 .wk-g{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,32px);margin-top:clamp(32px,4vw,64px)}
 .wk-c{display:flex;flex-direction:column;text-decoration:none;color:var(--ink)}
-.wk-m{display:block;aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:var(--card)}
+.wk-m{position:relative;display:block;aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:var(--card)}
+.wk-m video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0 0;opacity:0;transition:opacity .4s}
+.wk-c.play .wk-m video{opacity:1}
+.wk-pl{position:absolute;left:14px;bottom:14px;padding:7px 12px;border-radius:99px;background:rgba(22,22,22,.72);color:#fff;font:500 0.75rem/1 "Inter Tight",sans-serif;font-style:normal;backdrop-filter:blur(6px);transition:opacity .3s}
+.wk-c.play .wk-pl{opacity:0}
+@media (hover:none){.wk-pl{display:none}}
 .wk-m img{display:block;width:100%;height:100%;object-fit:cover;object-position:0 0;transition:transform .9s var(--ease)}
 .wk-c:hover .wk-m img{transform:scale(1.04)}
 .wk-h{display:flex;align-items:baseline;gap:12px;margin-top:20px}
