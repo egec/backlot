@@ -110,14 +110,14 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show
             f'<div class="zs-stick"><div class="zs-frame"><div class="zs-view" style="aspect-ratio:{medias[0]["w"]}/{medias[0]["h"]}">{ms}</div></div>'
             f'<div class="zs-foot"><div class="zs-bar">{bars}</div>{ctl}</div></div></div></div>{after}</div>')
 
-IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp?v=3', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
-IMG_EP2 = dict(type='img', src=GH + 'shots/v2/ep2.webp?v=3', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
-IMG_REJ = dict(type='img', src=GH + 'shots/v2/reject.webp?v=3', w=2880, h=1800, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
-IMG_UP3 = dict(type='img', src=GH + 'shots/v2/upload-modal.webp?v=3', w=2738, h=1712, alt='Upload drop zone open over the assets list')
-IMG_UP15 = dict(type='img', src=GH + 'shots/v2/upload-widget.webp?v=3', w=2738, h=1712, alt='Season 4 in Spain with the upload result in the corner and 15 files waiting in the readiness panel')
-IMG_AS = dict(type='img', src=GH + 'shots/v2/assets.webp?v=3', w=2738, h=1712, alt='Assets: the delivery batch with a state per file, and the content list with completeness per title')
-VID_UP = dict(type='video', src=GH + 'upload.mp4?v=22', poster=GH + 'posters/upload.jpg?v=22', w=2054, h=1284)
-VID_AS = dict(type='video', src=GH + 'assets-filters.mp4?v=22', poster=GH + 'posters/assets-filters.jpg?v=22', w=2054, h=1284)
+IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp?v=4', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
+IMG_EP2 = dict(type='img', src=GH + 'shots/v2/ep2.webp?v=4', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
+IMG_REJ = dict(type='img', src=GH + 'shots/v2/reject.webp?v=4', w=2880, h=1800, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
+IMG_UP3 = dict(type='img', src=GH + 'shots/v2/upload-modal.webp?v=4', w=2738, h=1712, alt='Upload drop zone open over the assets list')
+IMG_UP15 = dict(type='img', src=GH + 'shots/v2/upload-widget.webp?v=4', w=2738, h=1712, alt='Season 4 in Spain with the upload result in the corner and 15 files waiting in the readiness panel')
+IMG_AS = dict(type='img', src=GH + 'shots/v2/assets.webp?v=4', w=2738, h=1712, alt='Assets: the delivery batch with a state per file, and the content list with completeness per title')
+VID_UP = dict(type='video', src=GH + 'upload.mp4?v=23', poster=GH + 'posters/upload.jpg?v=23', w=2054, h=1284)
+VID_AS = dict(type='video', src=GH + 'assets-filters.mp4?v=23', poster=GH + 'posters/assets-filters.jpg?v=23', w=2054, h=1284)
 
 def changed():
     story = ('<div class="bl2-t"><span class="cs-num bl2-x">04</span><p class="k">What I changed</p>'
@@ -137,10 +137,10 @@ def hero():
     for o, n in rep:
         assert o in h, o[:40]
         h = h.replace(o, n)
-    return h.replace(GH + 'shots/roles/ed-dashboard.webp', GH + 'shots/v2/ed-dashboard.webp?v=3')
+    return h.replace(GH + 'shots/roles/ed-dashboard.webp', GH + 'shots/v2/ed-dashboard.webp?v=4')
 
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
-PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=3'),
+PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
         ('bilge', 'BİLGE', 'Container tracking for Turkish customs, designed from the system specs.', GH + 'shots/bilge/b-queue-th.webp'),
         ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')]
 def nextblock(cur):
@@ -199,10 +199,10 @@ def still(n, f, steps, medias, after='', nav=False, note=''):
 def simple(n, f, media, nav=False, after=''):
     return f'<div class="bl2-t bl2-f{" first" if nav else ""}">{head(n, f, nav=nav)}{media_box(media)}{after}</div>'
 
-IMG_ED_DASH = dict(type='img', src=GH + 'shots/v2/ed-dashboard.webp?v=3', w=2880, h=1800, alt='Editor dashboard: unassigned files banner, counts, items in progress, upcoming releases, activity and what is blocking')
-IMG_PUB_DASH = dict(type='img', src=GH + 'shots/v2/pub-dashboard.webp?v=3', w=2880, h=1800, alt='Publisher dashboard: what airs this week, review counts, pending review, upcoming releases and deliveries this week')
-IMG_ED_WORK = dict(type='img', src=GH + 'shots/v2/ed-workspace.webp?v=3', w=2880, h=1800, alt='Editor workspace: workflow table filtered by status, rejections as cards, uploads panel in the corner')
-IMG_PUB_WORK = dict(type='img', src=GH + 'shots/v2/pub-reviews.webp?v=3', w=2880, h=1800, alt='Publisher reviews: review queue by status and review history')
+IMG_ED_DASH = dict(type='img', src=GH + 'shots/v2/ed-dashboard.webp?v=4', w=2880, h=1800, alt='Editor dashboard: unassigned files banner, counts, items in progress, upcoming releases, activity and what is blocking')
+IMG_PUB_DASH = dict(type='img', src=GH + 'shots/v2/pub-dashboard.webp?v=4', w=2880, h=1800, alt='Publisher dashboard: what airs this week, review counts, pending review, upcoming releases and deliveries this week')
+IMG_ED_WORK = dict(type='img', src=GH + 'shots/v2/ed-workspace.webp?v=4', w=2880, h=1800, alt='Editor workspace: workflow table filtered by status, rejections as cards, uploads panel in the corner')
+IMG_PUB_WORK = dict(type='img', src=GH + 'shots/v2/pub-reviews.webp?v=4', w=2880, h=1800, alt='Publisher reviews: review queue by status and review history')
 
 def features():
     """Nine features, most telling first, with an index so a skimmer sees all nine at once."""
@@ -373,7 +373,7 @@ def roles():
     work = zoom(0, dict(r=['The editor’s page is called Workspace: everything they are working on, sorted by status, with rejections underneath.',
                            'The publisher’s page is called Reviews: only what reaches them, with every past decision underneath.',
                            'The editor’s list runs through all eight statuses, from To do to Published.',
-                           'To do, In progress and Scheduled are the editor’s business, so the publisher never sees them. Their list starts at Pending review, the first status that needs them.',
+                           'To do and In progress are the editor’s, so the publisher’s list leaves them out and starts at Pending review, the first status that needs them.',
                            'The publisher’s queue is sorted by what airs first and shows how long each item has waited. In the same place, the editor’s table shows Blockers.',
                            'The editor sees rejected work as cards, so each reason shows before the item opens.',
                            'The publisher keeps a record of every decision: who decided, when, and when it was released.']),
@@ -450,13 +450,13 @@ def bilge():
         ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. The header is blue on the agent’s side and red on the customs side, so everyone knows which side of the form they are on.'),
         ('Sources side by side', 'The carrier’s declaration and the port’s records sit next to each other, so a mismatch is visible at a glance.'),
         ('Registering is binding', 'Registering starts the clock on the container’s permitted time in the country, so at the ministry’s request the button says Register. The confirmation shows the registration number and the remaining prepaid balance.')], 1))
-    glance = ('<div class="bl2-t"><span class="cs-num bl2-x">02</span><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
+    glance = ('<div class="bl2-t bl2-part"><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
               + split('The problem', '<p>Every container that enters or leaves a Turkish seaport needs a Container Tracking Form. KLTS moved that form, and the records customs, port operators and agencies used to exchange on paper, into one system.</p>'
                       '<p>Up to four people work on one form, and from registration the container’s permitted time is running.</p>')
               + f'<div class="bl2-cards c3">{cards}</div>'
               + split('Constraints', '<p>Legal wording on every label and ministry review on every change. The work is under NDA, so the screens on this page are rebuilt from my designs with placeholder data.</p>')
               + '</div>')
-    specs = ('<div class="bl2-t"><div class="sp-wrap"><div>' + head2(3, 'Working from specs', 'Designed from the system specifications',
+    specs = ('<div class="bl2-t"><div class="sp-wrap"><div>' + head2(2, 'Working from specs', 'Designed from the system specifications',
              'Every screen started from the specs: the analysts’ requirements, the regulation and the backend rules behind each field and status. '
              'An exit can’t be registered without an entry, approval needs enough prepaid balance, and a container can’t leave the port without an approved form. '
              'I designed so the interface never offers an action the backend would refuse.') + '</div>' + specpile() + '</div></div>')
@@ -470,7 +470,7 @@ def bilge():
     def flow(n, k, h, lead, steps, texts, medias, after=''):
         return zoom(0, dict(r=texts), steps, medias, head_html=head2(n, k, h, lead), after=after, show_hl=False)
     POP = (37, 25, 26, 39)
-    agent = flow(4, 'The agent files', 'General information first, then the containers',
+    agent = flow(3, 'The agent files', 'General information first, then the containers',
                  'The agent picks the movement (foreign or domestic, entry or exit), fills in general information, then adds containers one by one or in bulk. Until an officer approves the form, the agent can still edit it.',
                  [dict(h='General information first', t=4.45, hl=[(33.5, 25.5, 36.5, 50)]),
                   dict(h='Parts sit under their container', t=28.5, hl=[(63.5, 53.5, 35.5, 9)]),
@@ -483,7 +483,7 @@ def bilge():
                   'Register sends the form to an officer’s queue. From then on, only the officer can change it.',
                   'The confirmation gives the registration number, and the form moves to the pending list.'],
                  [V('a')])
-    track = flow(5, 'Tracking a container', 'Every source and every event in one place',
+    track = flow(4, 'Tracking a container', 'Every source and every event in one place',
                  'Two screens came straight from the specs. The container history puts every event on one timeline. The comparison sets the carrier’s summary declaration against the port’s records.',
                  [dict(h='One timeline per container', t=0.6, hl=[(20, 43, 77, 55)]),
                   dict(h='Each event keeps its record', t=2.6, hl=[(20, 70, 77, 22)]),
@@ -494,7 +494,7 @@ def bilge():
                   'Shortfall lists containers the port recorded but the declaration missed. Surplus lists the reverse.',
                   'Selecting a container shows its notice, registration and bill of lading next to the other source.'],
                  [V('d')])
-    customs = flow(6, 'Customs decides', 'Officers and managers act from their queue',
+    customs = flow(5, 'Customs decides', 'Officers and managers act from their queue',
                    'Officers approve, edit or cancel registered forms; after approval, only customs can change them. Some changes need a second signature: time extensions and cancellations go to the manager, corrections to the deputy manager.',
                    [dict(h='The form at a glance', m=0, t=3.2, hl=[(20.5, 17, 77, 16.5)]),
                     dict(h='Approve some, reject the rest', m=0, t=6.0, hl=[(21.5, 49.5, 3, 22), (76.5, 37.5, 12.5, 4)]),
@@ -512,12 +512,12 @@ def bilge():
                    after='<div class="bl2-t">' + split('Also in this flow', rules([
                        'Written reasons open in a side drawer, so the form stays in view.',
                        'Editing a form an agent registered warns that the agent’s record will change.'])) + '</div>')
-    learned = ('<div class="bl2-t">' + head2(7, 'What I learned', 'In government software the wording is part of the design')
+    learned = ('<div class="bl2-t">' + head2(6, 'What I learned', 'In government software the wording is part of the design')
                + split('Wording', '<p>A word like Register carries legal weight, so ministry review shaped the design from the start.</p>')
                + split('When the spec was wrong', '<p>Sometimes the client described a rule wrongly. It surfaced when we presented the screens and the client brought in the customs officers who would use them: they spotted what did not match their work, and we redesigned. Since then I ask for the people who will use the screens as early as the client allows.</p>')
                + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. I rebuilt the screens in Claude Design from the originals and checked each one against them.</p>')
                + '</div>')
-    w1 = (sec('ov', 'Overview', hero) + sec('mr', 'My role', role) + sec('gl', 'At a glance', glance) + sec('dm', 'Working from specs', specs)
+    w1 = (sec('ov', 'Overview', hero) + sec('mr', 'My role', role + glance) + sec('dm', 'Working from specs', specs)
           + sec('ag', 'The agent files', agent) + sec('tr', 'Tracking a container', track) + sec('cu', 'Customs decides', customs)
           + sec('le', 'What I learned', learned))
     nb = nextblock('bilge')
@@ -543,7 +543,7 @@ def work():
     lead = [
         ('backlot', '01', 'Backlot, concept project', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
-         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=3', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=22'),
+         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=23'),
         ('bilge', '02', 'BİLGE, client work at MilSOFT', 'Container tracking for Turkish customs',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
          ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/a.mp4'),
