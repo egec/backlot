@@ -21,7 +21,7 @@ def rem(css):
     css = re.sub(r'(font:\s*\d{3}\s+)(\d*\.?\d+)px', lambda m: m.group(1) + ('%.4g' % (float(m.group(2)) / 16)) + 'rem', css)
     return css
 
-LOGO = 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/67a7e87a22185065ca4c8d61_Ege%20Coskun%20(2).png'
+LOGO = GH + 'logos/ege-coskun.png'
 FULL_IC = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>'
 
 def page(title, desc, body, css_files, js_files, font='it', cur='work'):
@@ -32,7 +32,7 @@ def page(title, desc, body, css_files, js_files, font='it', cur='work'):
 <title>{title}</title><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">{fl}{css}</head><body class="case">
-<header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home"><img src="{LOGO}" alt="Ege Coskun" width="140" height="43"></a>
+<header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home"><img src="{LOGO}" alt="Ege Coskun" width="140" height="23"></a>
 <nav class="site-n" aria-label="Main"><a href="/work"{' aria-current="page"' if cur == 'work' else ''}>Work</a><a href="/about"{' aria-current="page"' if cur == 'about' else ''}>About</a><a href="#contact">Contact</a></nav></div></header>
 {body}
 <footer class="finalfooter" id="contact">{rem(rd('foot.html'))}</footer>{js}</body></html>'''
@@ -536,10 +536,11 @@ def work():
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
         ('uwaverde', '03', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
+        ('', '04', 'Insider One', 'Showing where customer data comes from, and why a segment can’t be built yet.', ['B2B SaaS', 'Customer data platform', '2026', 'Case study soon'], GH + 'shots/insider/data-collection.webp'),
     ]
     rows = ''.join(
-        f'<li><a class="wk-r" href="/{k}"><em>{num}</em><b>{name}</b><span class="wk-rd"><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
-        + f'</span></span><span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span></a></li>'
+        (f'<li><a class="wk-r" href="/{k}"><em>{num}</em>' if k else f'<li><div class="wk-r wk-soon"><em>{num}</em>') + f'<b>{name}</b><span class="wk-rd"><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
+        + f'</span></span><span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span>' + ('</a></li>' if k else '</div></li>')
         for k, num, name, t, tags, img in more)
     about = ('<section class="wk-ab"><p class="k">About</p><div><p class="wk-ab-h">Approval queues, permissions, bulk actions, error states. I like the screens people use eight hours a day.</p>'
              '<p class="wk-ab-l">I work end to end, from interviews and flows to prototypes and a design system developers can build from.</p>'
@@ -622,7 +623,7 @@ if __name__ == '__main__':
     write('work/index.html', work())
     write('index.html', work())
     import about
-    for k, fn in [('about-a', about.dial), ('about-b', about.drawer), ('about-c', about.tunnel), ('about', about.dial)]:
+    for k, fn in [('about-a', about.dial), ('about-b', about.drawer), ('about-c', about.tunnel), ('about', about.drawer)]:
         write(k + '/index.html', page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
                                        fn(), ['site.css', 'backlot.css'], ['site.js'], cur='about'))
     print('built', len(html))

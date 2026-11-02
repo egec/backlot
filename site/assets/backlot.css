@@ -462,7 +462,7 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 2.125rem/1 "Reenie Bea
 .wk-sel{display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .wk-g{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,32px);margin-top:clamp(20px,2vw,32px)}
 .wk-c{display:flex;flex-direction:column;text-decoration:none;color:var(--ink)}
-.wk-m{position:relative;display:block;aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:var(--card)}
+.wk-m{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--card)}
 .wk-m img{display:block;width:100%;height:100%;object-fit:cover;object-position:0 0;transition:transform .9s var(--ease)}
 .wk-c:hover .wk-m img{transform:scale(1.03)}
 .wk-m video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0 0;opacity:0;transition:opacity .4s}
@@ -484,7 +484,7 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 2.125rem/1 "Reenie Bea
 .wk-r b{font-size:clamp(1.5rem,2.2vw,2.25rem);font-weight:600;letter-spacing:-.025em}
 .wk-rd{display:flex;flex-direction:column;gap:2px;font-size:0.9375rem;color:var(--mute)}
 .wk-rd .wk-tags{margin-top:10px}
-.wk-p{position:absolute;right:30%;top:50%;width:clamp(220px,20vw,340px);aspect-ratio:16/10;border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.18);opacity:0;pointer-events:none;transform:translateY(-44%) rotate(-4deg) scale(.92);transition:opacity .3s,transform .6s var(--ease);z-index:2}
+.wk-p{position:absolute;right:30%;top:50%;width:clamp(220px,20vw,340px);aspect-ratio:16/11.6;border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.18);opacity:0;pointer-events:none;transform:translateY(-44%) rotate(-4deg) scale(.92);transition:opacity .3s,transform .6s var(--ease);z-index:2}
 .wk-p img{width:100%;height:100%;object-fit:cover;object-position:0 0;display:block}
 .wk-r:hover .wk-p{opacity:1;transform:translateY(-50%) rotate(-2deg)}
 .wk-c:focus-visible,.wk-r:focus-visible,.wk-btn:focus-visible{outline:2px solid var(--ink);outline-offset:6px;border-radius:8px}
@@ -503,7 +503,7 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 2.125rem/1 "Reenie Bea
 .nx-d{margin:0;max-width:15em;font-size:clamp(1.75rem,3.1vw,3.25rem);line-height:1.08;letter-spacing:-.025em;font-weight:500;text-wrap:balance}
 .nx-go{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:0.875rem;font-weight:600;color:rgba(255,255,255,.88)}
 .nx-go svg{width:18px;height:18px;transition:transform .45s var(--ease)}
-.nx-im{position:absolute;right:clamp(24px,5vw,96px);top:clamp(-40px,-2.4vw,-16px);width:clamp(260px,27vw,460px);aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,.28);transform:rotate(5deg);transition:transform .7s var(--ease)}
+.nx-im{position:absolute;right:clamp(24px,5vw,96px);top:clamp(-40px,-2.4vw,-16px);width:clamp(260px,27vw,460px);aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,.28);transform:rotate(5deg);transition:transform .7s var(--ease)}
 .nx-im img{display:block;width:100%;height:100%;object-fit:cover;object-position:0 0}
 .nx-a:hover .nx-im,.nx-a:focus-visible .nx-im{transform:rotate(2deg) translateY(-6px) scale(1.02)}
 .nx-a:hover .nx-go svg{transform:translateX(6px)}
@@ -512,7 +512,7 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 2.125rem/1 "Reenie Bea
 .nx-l{position:absolute;left:clamp(20px,2.4vw,44px);top:clamp(28px,3vw,44px);margin:0;font-size:0.8125rem;color:var(--mute)}
 .nx-all ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:flex-end;gap:clamp(16px,2vw,32px)}
 .nx-all li a{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--mute);font-size:0.75rem}
-.nx-all li span{display:block;width:clamp(96px,8vw,132px);aspect-ratio:16/10;border-radius:6px;overflow:hidden;background:var(--card);transition:transform .45s var(--ease)}
+.nx-all li span{display:block;width:clamp(96px,8vw,132px);aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);transition:transform .45s var(--ease)}
 .nx-all li img{display:block;width:100%;height:100%;object-fit:cover;object-position:0 0}
 .nx-all li a:hover span{transform:translateY(-4px) rotate(-2deg)}
 .nx-all li a:hover,.nx-all li a[aria-current]{color:var(--ink)}
@@ -522,3 +522,6 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 2.125rem/1 "Reenie Bea
 .nx-top:hover{color:var(--ink)}
 @media(min-width:1200px){body:has(.bl-nav) .nx .cs-wrap{padding-left:max(var(--bl-gutter,var(--gut)),calc((100% - var(--w)) / 2))}}
 @media(max-width:767px){.nx-im{display:none}.nx-k,.nx-l{position:static;padding:0 var(--pad)}.nx-a{padding-top:28px}.nx-in{padding-top:12px}.nx-all{padding-top:20px}.nx-all .cs-wrap{margin-top:12px}.nx-top{position:static;display:inline-block;margin:20px var(--pad) 0}}
+
+.wk-soon{cursor:default}.wk-soon .wk-tags i:last-child{border-color:#728437;color:#56652A}
+.wk-soon:hover .wk-p{opacity:1;transform:translateY(-50%) rotate(-2deg)}
