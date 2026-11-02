@@ -536,7 +536,6 @@ def work():
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
         ('uwaverde', '03', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
-        ('', '04', 'Insider One', 'Showing where customer data comes from, and why a segment can’t be built yet.', ['B2B SaaS', 'Customer data platform', '2026', 'Case study soon'], GH + 'shots/insider/data-collection.webp'),
     ]
     rows = ''.join(
         (f'<li><a class="wk-r" href="/{k}"><em>{num}</em>' if k else f'<li><div class="wk-r wk-soon"><em>{num}</em>') + f'<b>{name}</b><span class="wk-rd"><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
@@ -548,7 +547,7 @@ def work():
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
             f'<h1>I design B2B tools for teams that review, approve and ship work.</h1>'
             f'<p class="wk-lead">Product designer focused on complex workflows, data-heavy screens and approval flows.</p></div>'
-            f'<div class="wk-sel"><p class="k">Selected work</p><p class="k">{len(lead) + len(more)} projects</p></div>'
+            f'<div class="wk-sel"><p class="k">Selected work</p></div>'
             f'<div class="wk-g">{cards}</div><p class="k wk-k">More work</p><ul class="wk-l">{rows}</ul>{about}</div></main>')
     return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin: B2B tools for teams that review, approve and ship work. Case studies: Backlot, BİLGE, UwaVerde.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])

@@ -14,8 +14,6 @@ PATH = [
      ['Ranked first in class.', 'Thesis: a wearable for continuous monitoring in high-risk pregnancies. Dessau Design Award.']),
     ('2024', 'work', 'Founding member, Product Designer', 'UwaVerde (NGO), remote', 'Jul 2024 to now',
      ['The organisation’s first design work, with no budget and nothing to inherit: the website and a member portal.']),
-    ('2026', 'work', 'Product Designer', 'Insider One, remote', '2026',
-     ['The customer data layer of a B2B platform used by more than 2,000 brands.']),
 ]
 INTRO = ('I learned design where there’s no Ctrl+Z: a millimetre off in a bus interior part and the tooling is already paid for. '
          'I design B2B data products now, and the habit came with me.')
