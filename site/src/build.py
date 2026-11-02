@@ -373,7 +373,7 @@ def roles():
     work = zoom(0, dict(r=['The editor’s page is called Workspace: everything they are working on, sorted by status, with rejections underneath.',
                            'The publisher’s page is called Reviews: only what reaches them, with every past decision underneath.',
                            'The editor’s list runs through all eight statuses, from To do to Published.',
-                           'To do and In progress are the editor’s, so the publisher’s list leaves them out and starts at Pending review, the first status that needs them.',
+                           'To do and In progress are the editor’s, so the publisher’s list leaves them out and starts at Pending review. Scheduled stays: the publisher decides what goes live.',
                            'The publisher’s queue is sorted by what airs first and shows how long each item has waited. In the same place, the editor’s table shows Blockers.',
                            'The editor sees rejected work as cards, so each reason shows before the item opens.',
                            'The publisher keeps a record of every decision: who decided, when, and when it was released.']),

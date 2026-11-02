@@ -38,8 +38,7 @@ TOOLS = [('Figma', 'figma'), ('Claude Design', 'claude-icon'), ('Claude Code', '
 
 def top():
     lead = ''.join(f'<p class="ab-lead">{x}</p>' for x in AB_LEAD)
-    return (f'<div class="cs-wrap ab-top ab-hero"><div><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div>'
-            f'<figure class="ab-ph"><img src="{GH}me/me-bw.webp" width="1200" height="1256" alt="Ege Coskun, smiling, looking to the side"></figure></div>')
+    return f'<div class="cs-wrap ab-top"><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div>'
 
 def more():
     how = ''.join(f'<li><em>{i:02d}</em><h3>{t}</h3><p>{d}</p></li>' for i, (t, d) in enumerate(HOW, 1))
