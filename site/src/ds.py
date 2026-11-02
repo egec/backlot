@@ -71,7 +71,7 @@ def build():
                   + ph('check', 'ds-ic ds-dim') + '<span class="ds-addc">' + ph('chat', 'ds-ic ds-sm') + 'Add comment</span></span></div></div>'
                   + note('The review row from the publisher review screen. Add comment appears on hover or keyboard focus.') + '</div>')
     req = ('<div class="ds-cell"><div class="ds-req"><span class="ds-reqn">Season details</span><span class="ds-reqb">' + ph('lock', 'ds-ic ds-sm') + 'Requested</span></div>'
-           + '<span class="ds-reqs">' + ph('clock', 'ds-ic ds-sm') + 'Edit requested, waiting for Maya Okafor</span>' + lockf() + note('One Unlock per section. It sends a request, not an edit.') + '</div>')
+           + '<span class="ds-reqs">' + ph('clock', 'ds-ic ds-sm') + 'Edit requested, waiting for Maya Okafor</span>' + lockf() + note('One Unlock per section. It sends a request to the publisher.') + '</div>')
     req2 = ('<div class="ds-cell"><div class="ds-req ds-ghost"><span class="ds-reqn">Season details</span><span class="ds-reqb">Requested</span></div><span class="ds-reqs ds-ghost">Edit requested</span>'
             + lockf() + note('The request reaches Maya Okafor. The section stays locked until she reopens it.') + '</div>')
     btn = lambda t, ic=None, cls='ds-btn': f'<span class="{cls}">' + (ph(ic) if ic else '') + t + '</span>'
@@ -90,16 +90,16 @@ def build():
     found = ('<div class="ds-panel ds-found"><span class="ds-tag">' + ph('palette') + 'Colour by meaning</span>'
              + '<div class="ds-cell"><span class="ds-k">Status</span><div class="ds-sws">' + ''.join(sw(c) for c in ['#A9B6C6', '#E8A6C4', '#8FC2EF', '#8FD4A6', '#D4B0E8', '#F0A19A', '#A3A196', '#89887D']) + '</div>' + note('One hue per status, except Published, which stays neutral. Never accent, never amber.') + '</div>'
              + '<div class="ds-cell"><span class="ds-k">Provenance</span><div class="ds-sws"><i class="ds-sw" style="border:1px solid #3A3937"></i><i class="ds-sw ds-sw-ai">' + ph('spark', 'ds-ic ds-ai ds-sm') + '</i><i class="ds-sw" style="background:#191919;border:1px solid #5C5954"></i></div>' + note('Measured and asserted share a quiet edge. Suggested gets an accent edge and a sparkle. Manual lifts one step.') + '</div>'
-             + '<div class="ds-cell"><span class="ds-k">AI</span><div class="ds-sws"><i class="ds-sw" style="background:#D2CEFD"></i><i class="ds-sw" style="background:rgba(145,132,217,.12);border:1px solid #423A6A"></i></div>' + note('Accent 300 ink and the 12% tint. A proposal, never a fill.') + '</div>'
+             + '<div class="ds-cell"><span class="ds-k">AI</span><div class="ds-sws"><i class="ds-sw" style="background:#D2CEFD"></i><i class="ds-sw" style="background:rgba(145,132,217,.12);border:1px solid #423A6A"></i></div>' + note('Accent 300 ink and the 12% tint, used only for proposals.') + '</div>'
              + '<div class="ds-cell"><span class="ds-k">Urgency</span><div class="ds-sws"><i class="ds-sw" style="background:#D2983F"></i><i class="ds-sw" style="background:#EC5B57"></i></div>' + note('Amber inside 7 days of release. Red once release has passed.') + '</div></div>')
     sec = lambda t, lead, body: f'<div class="ds-sec"><h3 class="ds-title">{t}</h3>' + (f'<p class="ds-lead">{lead}</p>' if lead else '') + body + '</div>'
     return ('<section class="cs-dsec" data-nav-label="Design system" id="design-system"><div class="ds-in"><div class="ds-head"><span class="cs-num">07</span><h2 class="cs-title">Design system</h2></div><div class="ds-show">'
-            + sec('Eight states, one icon family.', 'Status tells you where the work is. Availability tells you what viewers can see. Two layers, and availability is never a ninth status.',
+            + sec('Eight states, one icon family', 'Status tells you where the work is. Availability tells you what viewers can see. Two layers, and availability is never a ninth status.',
                   '<div class="ds-panel ds-chips"><p class="ds-rl">Workflow status</p>' + chips + '</div>' + avail)
-            + sec('Only the release date can make a row urgent.', 'The release date is the only thing the team cannot move, so it is the only thing that raises urgency.', spine)
-            + sec('Verified means measured. Source means asserted.', 'Only a source value can be wrong, so only a source value can be unlocked.', provs)
-            + sec('Permissions change the component, not the page.', '', perms)
-            + sec('Every colour stands for one thing.', 'Published has no hue, because most of the library ends up there. Amber and red mean urgency, nothing else.', found)
+            + sec('Only the release date can make a row urgent', 'The release date is the only thing the team cannot move, so it is the only thing that raises urgency.', spine)
+            + sec('Verified means measured, source means asserted', 'Only a source value can be wrong, so only a source value can be unlocked.', provs)
+            + sec('Permissions live in the component', 'The page is the same for both roles. Each row knows who is looking and what state the item is in.', perms)
+            + sec('Every colour stands for one thing', 'Published has no hue, because most of the library ends up there. Amber and red mean urgency, nothing else.', found)
             + '</div></div></section>')
 
 CSS = '''

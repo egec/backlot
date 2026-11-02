@@ -123,13 +123,13 @@ def changed():
     story = ('<div class="bl2-t"><span class="cs-num bl2-x">06</span><p class="k">What I changed</p>'
              '<h2 class="bl2-h cs-title">Why I moved from a single rejection modal to field-pinned reasons</h2>'
              '<div class="bl2-split bl2-split-first"><p class="k">The first version</p><div><p>The first version allowed one rejection reason per item, and I caught myself labelling rejected items “Multiple Issues”. '
-             'That label was a symptom, not a reason, so reasons became a list, each pinned to a field and resolvable on its own.</p></div></div></div>')
+             'That label said something was wrong without saying what, so reasons became a list, each pinned to a field and resolvable on its own.</p></div></div></div>')
     return (story + media_box(EMB('8a2ee889'))
             + '<div class="bl2-t">' + sub('What I took out', 'Most of what I added stayed. Four things didn’t.') + '</div>' + P['CARDS'])
 
 def hero():
     h = P['411a7ea2-ad8e-e2d4-3a36-2ddce0bbd66d']
-    rep = [('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>From delivery to release, one region at a time</h1>'),
+    rep = [('<b>Category</b>B2B SaaS, Enterprise CMS', '<b>Category</b>B2B SaaS, Streaming CMS'), ('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>From delivery to release, one region at a time</h1>'),
            ('<p class="lead">Backlot is where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher, so a rejection is a list of reasons pinned to fields, not a vague note.</p>',
             '<p class="lead">Streaming teams use Backlot to take films and series from delivery to release, region by region. I designed the whole workflow for both sides: dashboards, upload and file matching, fields that fill from the file, the publisher’s review and artwork tests.</p>'),
            ('<b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.', '<b>Context</b>The take-home that got me hired for my last role, rebuilt and extended.'),
@@ -190,6 +190,14 @@ def split(k, html):
 def rules(items):
     return '<div class="blr-rs">' + ''.join(f'<p>{t}</p>' for t in items) + '</div>'
 
+def still(n, f, steps, medias, after='', nav=False, note=''):
+    """one screen and the points as numbered cards under it, for features where scrolling through steps adds nothing"""
+    m = medias[0]
+    img = f'<img class="bl2-img" src="{m["src"]}" width="{m["w"]}" height="{m["h"]}" alt="{m["alt"]}" loading="lazy">'
+    cards = ''.join(f'<div class="bl2-c"><span class="bl2-tag">{i:02d}</span><h3>{s["h"]}</h3><p>{t}</p></div>' for i, (s, t) in enumerate(zip(steps, f['r']), 1))
+    cls = ' c3' if len(steps) == 3 else ''
+    return f'<div class="bl2-t bl2-f">{head(n, f, nav=nav, note=note)}{media_box(img)}<div class="bl2-cards{cls}">{cards}</div>{after}</div>'
+
 def simple(n, f, media, nav=False, after=''):
     return f'<div class="bl2-t bl2-f{" first" if nav else ""}">{head(n, f, nav=nav)}{media_box(media)}{after}</div>'
 
@@ -220,12 +228,12 @@ def features():
         dict(h='Gaps come first', m=1, hl=[(5.4, 25, 67.2, 33.4)]),
         dict(h='Locked by its source', m=1, hl=[(5.4, 63.6, 67.2, 30.4)]),
         dict(h='Save is not submit', m=1, hl=[(62.8, 9, 9.8, 4.4), (66.6, 95.5, 5.8, 2.5)]),
-        dict(h='Progress, not pass or fail', m=0, hl=[(76.6, 21, 21.2, 16.6)], ctx=(76, 10.5, 22, 1)),
+        dict(h='Progress you can count', m=0, hl=[(76.6, 21, 21.2, 16.6)], ctx=(76, 10.5, 22, 1)),
         dict(h='Readiness for the season', m=0, hl=[(59.4, 9.2, 38.4, 8)])], [IMG_SEASON, IMG_EP2],
         after=sub('A season keeps its own metadata, apart from its episodes', 'Episodes, season metadata, season assets, deliveries per region and the audit log, with the readiness panel in view on every tab.') + media_box(EMB('137e3b55')), nav=nav))
     # upload, the unhappy path
     f_up = dict(t='Designed for the delivery that arrives broken',
-             l='Deliveries often arrive incomplete or mislabelled. Processing assigns the files it can match, and the rest wait for the editor under Needs assignment.',
+             l='Deliveries often arrive incomplete or mislabelled. The design starts from that case, so a broken delivery never blocks the files that are fine.',
              r=['Processing reads each file’s technical metadata and links it to its episode. Files it can’t place go to Needs assignment.',
                 'The upload folds into a panel in the corner, so the editor can open other pages and come back to it.',
                 'The drop zone stays open, so files can be added while others are still uploading.',
@@ -243,7 +251,7 @@ def features():
              r=['The publisher comments on the metadata row itself. Each comment becomes a reason with its field and a category.',
                 'A flagged row stays marked on the page with the publisher’s note, so the editor fixes it in place.',
                 'Before anything is sent, Reject shows how many reasons there are and who gets the item back.'])
-    F.append(lambda n, nav: zoom(n, f_rej, [
+    F.append(lambda n, nav: still(n, f_rej, [
         dict(h='Comments become reasons', hl=[(70, 15, 27.6, 30)], ctx=(70, 11, 28, 1)),
         dict(h='Fixed in place', hl=[(5.8, 75.6, 61.4, 5.4)]),
         dict(h='Counted before it is sent', hl=[(69.8, 52.6, 27.6, 8)])], [IMG_REJ],
@@ -253,19 +261,19 @@ def features():
              l='The AI points at likely rejections before the publisher sees them and proposes values like keywords. Nothing is written until the editor accepts.',
              r=['Suggestions come from past rejection reasons. Each reason carries a field and a category, so they can be counted per team and per region.',
                 'Automatic checks pass or fail by rule. The AI sits apart and only raises judgement calls, saying how sure it is.',
-                'A suggestion opens its field or gets dismissed with a reason that stays on record. Nothing is written until the editor accepts.'])
-    F.append(lambda n, nav: zoom(n, f_ai, [
+                'Accept writes the value, Dismiss asks for a reason. Either way, the decision stays in the activity log.'])
+    F.append(lambda n, nav: still(n, f_ai, [
         dict(h='Built on past rejections', hl=[(76, 55.6, 22, 9.6)], ctx=(76, 50, 22, 1)),
         dict(h='Rules and AI stay apart', hl=[(77.4, 21, 20.4, 16), (76, 55.6, 22, 9.6)]),
         dict(h='Nothing written on its own', hl=[(95.2, 55.2, 2.8, 3.8), (76.8, 62.8, 7, 2.4)], ctx=(76, 50, 22, 1))], [IMG_EP2],
-        after=sub('Rules and AI, side by side', 'Rule checks pass or fail. AI suggestions name their evidence, and a dismissed flag stays on record.') + media_box(EMB('e76ad60f')), nav=nav))
+        after=sub('Rules and AI, side by side', 'Rule checks pass or fail. AI suggestions name their evidence and how sure they are.') + media_box(EMB('e76ad60f')), nav=nav))
     # artwork
     f_art = dict(t='Artwork is chosen by taste, not by country',
              l='Most viewing starts from a recommendation, so the thumbnail does much of the selling. Taste predicts a click better than age or location, so each season carries one thumbnail per taste cluster.',
              r=['Action, drama, romance and mystery fans each see the scene most likely to make them click.',
                 'Variants are tested against each other in each region, with the time left on the test, so the editor knows when the artwork is final.',
                 'Each variant shows its click-through rate, and the leader is marked.'])
-    F.append(lambda n, nav: zoom(n, f_art, [
+    F.append(lambda n, nav: still(n, f_art, [
         dict(h='One thumbnail per taste', hl=[(6.2, 44.4, 66.4, 19.6)], ctx=(6.2, 41, 1, 1)),
         dict(h='A/B tested per region', hl=[(55.4, 40.6, 17.4, 2.8), (33.4, 60, 5.6, 2.6), (50.2, 60, 5.6, 2.6), (67, 60, 5.6, 2.6)]),
         dict(h='Backed by click-through', hl=[(6.2, 59.6, 15.8, 3.6), (23, 61.4, 4.4, 2.2), (39.8, 61.4, 4.4, 2.2), (56.6, 61.4, 4.4, 2.2)], ctx=(6.2, 41, 1, 1))], [IMG_SEASON], nav=nav))
@@ -278,13 +286,13 @@ def features():
              l='A missing file shows as a gap on its film or episode, before the delivery gets rejected.',
              r=['Each film or episode shows how complete its files are, like 2 of 7.',
                 'Content groups files under their film or episode; Files lists them all for bulk work. Language and type are filters.'])
-    F.append(lambda n, nav: zoom(n, f_as, [
+    F.append(lambda n, nav: still(n, f_as, [
         dict(h='A file count on every row', hl=[(83.6, 72, 12.4, 26.4)]),
         dict(h='Two views, two filters', hl=[(5.4, 67, 93, 4.2)])], [IMG_AS],
         after=sub('Filtering down to one delivery', 'Content narrows the list to Lupin, Files lists every file in it, and the batch filter finds the files from one delivery.') + media_box(EMB('8364b5b0')), nav=nav))
     # locked
     f_lock = dict(t='Once review starts, content is locked',
-             l='After approval, a change needs an edit request. It’s for news from outside, like a new regional age rating. Fixing approved work isn’t what it’s for.')
+             l='While the publisher reviews, every field is read-only. After approval, a change needs an edit request: it is meant for news from outside, like a new regional age rating, and it reopens one section at a time.')
     F.append(lambda n, nav: simple(n, f_lock, EMB('59ab0c6b'), nav=nav))
     titles = [f_region['t'], f_fill['t'], f_up['t'], f_rej['t'], f_ai['t'], f_art['t'], f_row['t'], f_as['t'], f_lock['t']]
     ix = ''.join(f'<li><a href="#f-{i}"><em>{i:02d}</em><span>{t}</span></a></li>' for i, t in enumerate(titles, 1))
@@ -311,7 +319,7 @@ def north_star():
     return ('<div class="bl2-t"><span class="cs-num bl2-x">02</span><p class="k">North star</p>'
             '<h2 class="bl2-h cs-title">From delivery to release-ready, in fewer steps</h2>'
             '<p class="lead">Every decision on this page answers one question: does it get an episode release-ready sooner, with less typing and fewer rounds of review?</p>'
-            + split('The bet', '<p>My bet: most of the delay is retyping and rework, not the work itself. If the file fills what it can and feedback points at fields, time to release-ready drops. I haven’t tested it with an editor yet.</p>')
+            + split('The bet', '<p>My bet: most of the delay is retyping and rework. If the file fills what it can and feedback points at fields, time to release-ready drops. I haven’t tested it with an editor yet.</p>')
             + '</div>')
 
 # ---------- research: how I looked, and the benchmark ----------
@@ -466,13 +474,13 @@ def bilge():
                  'The agent picks the movement (foreign or domestic, entry or exit), fills in general information, then adds containers one by one or in bulk. Until an officer approves the form, the agent can still edit it.',
                  [dict(h='General information first', t=4.45, hl=[(33.5, 25.5, 36.5, 50)]),
                   dict(h='Parts sit under their container', t=28.5, hl=[(63.5, 53.5, 35.5, 9)]),
-                  dict(h='Every container before sending', t=30.5, hl=[(34, 29, 63, 22)]),
+                  dict(h='A last look before sending', t=30.5, hl=[(34, 29, 63, 22)]),
                   dict(h='Register, not Save', t=32.3, hl=[POP]),
                   dict(h='Waiting for an officer', t=36.6, hl=[(42, 9, 31.5, 4.5), (20, 29.5, 72, 3)])],
                  ['Every container on the form shares it, so the agent fills it once. Picking a tax ID fills in the company details.',
                   'Each container carries its own parts and equipment, so nothing is filed against the wrong one.',
                   'The list shows each container’s route, weight and parts before anything is sent.',
-                  'At the ministry’s request the last button says Register: from that moment the form is binding.',
+                  'Register sends the form to an officer’s queue. From then on, only the officer can change it.',
                   'The confirmation gives the registration number, and the form moves to the pending list.'],
                  [V('a')])
     track = flow(5, 'Tracking a container', 'Every source and every event in one place',
@@ -519,6 +527,17 @@ def bilge():
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
 
 # ---------- Work: two lead cases side by side, the rest as a list ----------
+def untangle():
+    """a sentence that starts tangled and straightens as it scrolls into place"""
+    import random
+    rnd = random.Random(11)
+    words = 'I like untangling the parts of a product nobody wants to own.'.split(' ')
+    out = ''
+    for w in words:
+        ch = ''.join(f'<i style="--x:{rnd.uniform(-1, 1):.2f};--y:{rnd.uniform(-1, 1):.2f};--r:{rnd.uniform(-1, 1):.2f}">{c}</i>' for c in w)
+        out += f'<span class="ut-w">{ch}</span> '
+    return (f'<div class="ut" data-ut><p class="ut-s" aria-label="I like untangling the parts of a product nobody wants to own."><span aria-hidden="true">{out.strip()}</span></p></div>')
+
 def work():
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
@@ -545,8 +564,9 @@ def work():
              '<p class="wk-ab-l">I work end to end, from interviews and flows to prototypes and a design system developers can build from.</p>'
              '<a class="wk-btn" href="/about">More about me</a></div></section>')
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
-            f'<h1>I design B2B tools for teams that review, approve and ship work.</h1>'
-            f'<p class="wk-lead">Product designer focused on complex workflows, data-heavy screens and approval flows.</p></div>'
+            f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
+            f'<p class="wk-lead">A millimetre off in a bus interior part, and the tooling is already paid for. I design B2B data products now, and I still look for the edge case while it is a design problem, before it becomes a bug report.</p></div>'
+            + untangle() +
             f'<div class="wk-sel"><p class="k">Selected work</p></div>'
             f'<div class="wk-g">{cards}</div><p class="k wk-k">More work</p><ul class="wk-l">{rows}</ul>{about}</div></main>')
     return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin: B2B tools for teams that review, approve and ship work. Case studies: Backlot, BİLGE, UwaVerde.',

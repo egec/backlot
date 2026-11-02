@@ -18,30 +18,35 @@ PATH = [
 INTRO = ('I learned design where there’s no Ctrl+Z: a millimetre off in a bus interior part and the tooling is already paid for. '
          'I design B2B data products now, and the habit came with me.')
 KIND = {'edu': 'Education', 'work': 'Experience'}
+AB_LEAD = ('I design the parts of B2B software where a wrong click costs something: approvals, data that other teams depend on, decisions that are hard to undo.',
+           'At MilSOFT I designed customs declarations and naval radar displays, and at UwaVerde I built the design function from nothing. Each time the domain was new to me, and learning it properly before designing for it is still the part I enjoy most.')
 
 
-HOW = [('Read the source first', 'Specs, backend rules, regulation. At MilSOFT I designed from the system documents, so no screen offered an action the backend would refuse.'),
-       ('Look past direct competitors', 'For Backlot I compared CMSs, video review tools and GitHub pull requests. The review loop came from code review, not from another CMS.'),
-       ('Design the unhappy path', 'Broken deliveries, wrong specs, rejected work. The edge case belongs in the design file, not in a support ticket.'),
-       ('Check it against the real thing', 'I prototype in code with Claude to see how a flow behaves with real states before anyone builds it.')]
-TOOLS = ['Figma', 'Claude Code', 'Storybook', 'FullStory', 'Jira', 'Confluence', 'Webflow', 'Miro']
+HOW = [('Learn the domain first', 'Customs declarations, naval radar displays, data tools, a prenatal monitoring wearable. Each time, I learned how the work is really done, and by whom, before I started designing.'),
+       ('Design for the unhappy path', 'Most products work when everything goes right. I spend more of my time on the other cases: the action that fails, the data that is missing, the step someone skips. That is where people decide whether they can trust a tool.'),
+       ('A reason for every decision', 'If I cannot say why something sits where it does, it moves or goes. Hierarchy, colour and wording all need a reason I could defend in a review.'),
+       ('User needs and business goals', 'A design is done when it works for the person using it and for the business paying for it. I keep both in the room, and when they pull in different directions, I make the trade-off visible instead of hiding it.')]
+TOOLS = [('Figma', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#F24E1E" d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/></svg>'), ('Claude Code', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#D97757" d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg>'), ('Storybook', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF4785" d="M16.71.243l-.12 2.71a.18.18 0 00.29.15l1.06-.8.9.7a.18.18 0 00.28-.14l-.1-2.76 1.33-.1a1.2 1.2 0 011.279 1.2v21.596a1.2 1.2 0 01-1.26 1.2l-16.096-.72a1.2 1.2 0 01-1.15-1.16l-.75-19.797a1.2 1.2 0 011.13-1.27L16.7.222zM13.64 9.3c0 .47 3.16.24 3.59-.08 0-3.2-1.72-4.89-4.859-4.89-3.15 0-4.899 1.72-4.899 4.29 0 4.45 5.999 4.53 5.999 6.959 0 .7-.32 1.1-1.05 1.1-.96 0-1.35-.49-1.3-2.16 0-.36-3.649-.48-3.769 0-.27 4.03 2.23 5.2 5.099 5.2 2.79 0 4.969-1.49 4.969-4.18 0-4.77-6.099-4.64-6.099-6.999 0-.97.72-1.1 1.13-1.1.45 0 1.25.07 1.19 1.87z"/></svg>'), ('Jira', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#0052CC" d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/></svg>'), ('Confluence', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#172B4D" d="M.87 18.257c-.248.382-.53.875-.763 1.245a.764.764 0 0 0 .255 1.04l4.965 3.054a.764.764 0 0 0 1.058-.26c.199-.332.454-.763.733-1.221 1.967-3.247 3.945-2.853 7.508-1.146l4.957 2.337a.764.764 0 0 0 1.028-.382l2.364-5.346a.764.764 0 0 0-.382-1 599.851 599.851 0 0 1-4.965-2.361C10.911 10.97 5.224 11.185.87 18.257zM23.131 5.743c.249-.405.531-.875.764-1.25a.764.764 0 0 0-.256-1.034L18.675.404a.764.764 0 0 0-1.058.26c-.195.335-.451.763-.734 1.225-1.966 3.246-3.945 2.85-7.508 1.146L4.437.694a.764.764 0 0 0-1.027.382L1.046 6.422a.764.764 0 0 0 .382 1c1.039.49 3.105 1.467 4.965 2.361 6.698 3.246 12.392 3.029 16.738-4.04z"/></svg>'), ('Webflow', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#146EF5" d="m24 4.515-7.658 14.97H9.149l3.205-6.204h-.144C9.566 16.713 5.621 18.973 0 19.485v-6.118s3.596-.213 5.71-2.435H0V4.515h6.417v5.278l.144-.001 2.622-5.277h4.854v5.244h.144l2.72-5.244H24Z"/></svg>'), ('Miro', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#050038" d="M17.392 0H13.9L17 4.808 10.444 0H6.949l3.102 6.3L3.494 0H0l3.05 8.131L0 24h3.494L10.05 6.985 6.949 24h3.494L17 5.494 13.899 24h3.493L24 3.672 17.392 0z"/></svg>'), ('Notion', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#000000" d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg>'), ('Illustrator', '<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#300"/><text x="12" y="16.2" text-anchor="middle" font-family="Inter Tight,Arial,sans-serif" font-size="11" font-weight="700" fill="#FF9A00">Ai</text></svg>'), ('Photoshop', '<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#001E36"/><text x="12" y="16.2" text-anchor="middle" font-family="Inter Tight,Arial,sans-serif" font-size="11" font-weight="700" fill="#31A8FF">Ps</text></svg>'), ('InDesign', '<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#49021F"/><text x="12" y="16.2" text-anchor="middle" font-family="Inter Tight,Arial,sans-serif" font-size="11" font-weight="700" fill="#FF3366">Id</text></svg>')]
 
 def more():
-    how = ''.join(f'<li><em>{i:02d}</em><div><h3>{t}</h3><p>{d}</p></div></li>' for i, (t, d) in enumerate(HOW, 1))
-    tools = ''.join(f'<li>{t}</li>' for t in TOOLS)
-    return (f'<section class="cs-wrap ab-more"><div class="ab-row"><p class="k">How I work</p><ol class="ab-how">{how}</ol></div>'
-            f'<div class="ab-row"><p class="k">Tools</p><ul class="ab-tools">{tools}</ul></div></section>'
+    how = ''.join(f'<li><em>{i:02d}</em><h3>{t}</h3><p>{d}</p></li>' for i, (t, d) in enumerate(HOW, 1))
+    tools = ''.join(f'<li>{svg}<span>{t}</span></li>' for t, svg in TOOLS)
+    return (f'<section class="cs-wrap ab-more"><div class="ab-row"><p class="k">Tools</p><ul class="ab-tools">{tools}</ul></div>'
+            f'<div class="ab-row"><p class="k">How I work</p><ol class="ab-how">{how}</ol></div></section>'
             '''<style>
-.ab-more{{padding-bottom:clamp(72px,8vw,140px)}}
-.ab-row{{display:grid;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;padding-top:24px;margin-top:clamp(48px,5vw,88px);border-top:1px solid var(--line)}}
-.ab-how{{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}}
-.ab-how li{{display:grid;grid-template-columns:32px 1fr;gap:8px}}
-.ab-how em{{font-style:normal;font-size:13px;line-height:24px;color:var(--mute);font-variant-numeric:tabular-nums}}
-.ab-how h3{{margin:0;font-size:clamp(17px,1.3vw,21px);line-height:1.25;font-weight:600;letter-spacing:-.01em}}
-.ab-how p{{margin:6px 0 0;font-size:15px;line-height:1.45;color:#3a3936;text-wrap:pretty}}
-.ab-tools{{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}}
-.ab-tools li{{padding:9px 14px;border:1px solid var(--line);border-radius:99px;font-size:14px;background:var(--card2,#FAF9F7)}}
-@media(max-width:767px){{.ab-row,.ab-how{{grid-template-columns:1fr}}}}
+.ab-more{padding-bottom:clamp(72px,8vw,140px)}
+.ab-row{display:grid;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;padding-top:24px;margin-top:clamp(48px,5vw,88px);border-top:1px solid var(--line)}
+.ab-tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.ab-tools li{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card2,#FAF9F7);font-size:14px;font-weight:500;transition:transform .3s var(--ease),border-color .2s}
+.ab-tools li:hover{transform:translateY(-2px);border-color:#B9B6AE}
+.ab-tools svg{width:22px;height:22px;flex:none}
+.ab-how{list-style:none;margin:0;padding:0}
+.ab-how li{display:grid;grid-template-columns:48px minmax(0,1fr) minmax(0,1.4fr);gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.ab-how li:first-child{padding-top:0}
+.ab-how em{font-style:normal;font-size:13px;line-height:26px;color:var(--mute);font-variant-numeric:tabular-nums}
+.ab-how h3{margin:0;font-size:clamp(18px,1.4vw,22px);line-height:1.25;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+.ab-how p{margin:0;font-size:15px;line-height:1.5;color:#3a3936;text-wrap:pretty}
+@media(max-width:767px){.ab-row{grid-template-columns:1fr}.ab-how li{grid-template-columns:32px 1fr}.ab-how p{grid-column:2}}
 </style>''')
 
 def dial():
@@ -108,64 +113,77 @@ addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},
 
 
 def drawer():
-    """the drawer poster: tabs stand behind and in front of one big page; picking a tab puts its card on that page"""
+    """the drawer poster: index cards behind and in front of one big page; pointing at a tab puts that card on the page"""
     work = [(i, x) for i, x in enumerate(PATH) if x[1] == 'work'][::-1]
     edu = [(i, x) for i, x in enumerate(PATH) if x[1] == 'edu'][::-1]
-    def tab(i, x, side, row):
-        y, k, t, p, d, ls = x
-        short = {'Middle East Technical University': 'METU', 'MilSOFT Software Technologies': 'MilSOFT', 'Hochschule Anhalt': 'Hochschule Anhalt'}
-        nm = p.split(",")[0].split(" (")[0]
-        return f'<button class="dx-t {side}" type="button" data-i="{i}" style="--r:{row}"><span>{short.get(nm, nm)}</span></button>'
-    back = ''.join(tab(i, x, 'l', r) for r, (i, x) in enumerate(work)) + ''.join(tab(i, x, 'r', r) for r, (i, x) in enumerate(edu))
+    short = {'Middle East Technical University': 'METU', 'MilSOFT Software Technologies': 'MilSOFT', 'MAN Truck & Bus': 'MAN Truck & Bus', 'UwaVerde (NGO)': 'UwaVerde'}
+    def nm(p):
+        n = p.split(",")[0]
+        return short.get(n, n)
+    def row(i, x, k, side, front):
+        y, kd, t, p, d, ls = x
+        return (f'<div class="dx-r{" f" if front else ""}" style="--k:{k}"><button class="dx-t {side}" type="button" data-i="{i}" aria-label="{t}, {nm(p)}, {y}">'
+                f'<span>{nm(p)}</span></button></div>')
+    back = '<div class="dx-r" style="--k:0"><span class="dx-t l me">EGE COSKUN / 2016 TO NOW</span></div>' + ''.join(
+        row(i, x, k + 1, 'r' if k % 2 == 0 else 'l', False) for k, (i, x) in enumerate(work))
+    front = ''.join(row(i, x, k, 'r' if k % 2 else 'l', True) for k, (i, x) in enumerate(edu))
     pages = ''.join(
-        f'<article class="dx-p" data-i="{i}"><div class="dx-ph"><span class="dx-bk">{y}</span><span class="dx-kd">{KIND[k]}</span></div>'
-        f'<h2>{t}</h2><p class="dx-pl">{p}</p><div class="dx-row"><span>Dates</span><b>{d}</b></div>'
-        + ''.join(f'<p class="dx-l">{x}</p>' for x in ls) + '</article>'
+        f'<article class="dx-p" data-i="{i}"><div class="dx-ph"><span class="dx-bk">{t}</span><span class="dx-yr">{y}</span></div>'
+        f'<div class="dx-cols"><div><p class="dx-lb">{KIND[k]}</p><p class="dx-pl">{p}</p><p class="dx-d">{d}</p></div><div>'
+        + ''.join(f'<p class="dx-l">{x}</p>' for x in ls) + '</div></div></article>'
         for i, (y, k, t, p, d, ls) in enumerate(PATH))
-    return f'''<main class="ab"><div class="cs-wrap ab-top"><p class="k">About</p><h1>Hi, I’m Ege.</h1><p class="ab-lead">{INTRO}</p></div>
-<section class="cs-wrap dx-sec" aria-label="My path"><div class="dx" data-dx>
-<div class="dx-lab"><span>EXPERIENCE</span><span>EDUCATION</span></div>
-<div class="dx-tabs">{back}</div>
-<div class="dx-page">{pages}</div>
-<div class="dx-front" aria-hidden="true"><i></i><i></i><i></i></div></div>
-<p class="dx-hint">Pick a tab</p></section>{more()}</main>
+    lead = ''.join(f'<p class="ab-lead">{x}</p>' for x in AB_LEAD)
+    return f'''<main class="ab"><div class="cs-wrap ab-top"><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div>
+<section class="cs-wrap dx-sec" aria-label="My path, from 2016 to now"><div class="dx" data-dx>
+<div class="dx-back">{back}</div>
+<div class="dx-page"><div class="dx-in">{pages}</div></div>
+<div class="dx-front">{front}</div>
+<svg class="dx-box" viewBox="0 0 1000 260" preserveAspectRatio="none" aria-hidden="true"><path d="M30 2 H970 L996 30 V258 H4 V30 Z" fill="#F4F2EE" stroke="#161616" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="M4 30 H996" fill="none" stroke="#161616" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
+<span class="dx-hd" aria-hidden="true"><i></i><i></i><i></i></span>
+</div></section>{more()}</main>
 <style>
 .ab .k{{font-size:13px;color:var(--mute);margin:0}}
 .ab-top{{padding-top:clamp(40px,6vw,96px)}}
 .ab h1{{margin:10px 0 0;font-size:clamp(34px,3.6vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:600}}
-.ab-lead{{margin:18px 0 0;max-width:34em;font-size:clamp(16px,1.2vw,20px);line-height:1.45;color:#3a3936;text-wrap:pretty}}
-.dx-sec{{padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px)}}
-.dx{{--L:#161616;position:relative;max-width:860px;margin:0 auto}}
-.dx-lab{{display:flex;justify-content:space-between;padding:0 6%;font:600 11px/1 "Inter Tight",sans-serif;letter-spacing:.16em;color:var(--mute)}}
-.dx-tabs{{position:relative;height:calc(3 * 30px + 26px);margin:22px 4% 0}}
-.dx-t{{position:absolute;bottom:calc(var(--r) * 30px);height:44px;width:46%;padding:0 22px;background:#FBFAF6;border:1.5px solid var(--L);border-bottom:0;border-radius:14px 14px 0 0;
-  font:600 12px/1 "Inter Tight",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);cursor:pointer;display:flex;align-items:flex-start;padding-top:12px;z-index:calc(10 - var(--r));transition:transform .3s var(--ease),background .2s,color .2s}}
-.dx-t.l{{left:calc(var(--r) * 2%)}}.dx-t.r{{right:calc(var(--r) * 2%);justify-content:flex-end}}
-.dx-t:hover{{transform:translateY(-6px)}}
-.dx-t.on{{background:var(--ink);color:#fff;transform:translateY(-8px)}}
-.dx-t:focus-visible{{outline:2px solid var(--ink);outline-offset:3px}}
-.dx-page{{position:relative;margin:-2px 0 0;height:clamp(380px,40vw,460px);background:#FBFAF6;border:1.5px solid var(--L);border-radius:12px;overflow:hidden;z-index:12}}
-.dx-page:before{{content:"";position:absolute;inset:14px;border:1px dashed #C9C6BF;border-radius:6px;pointer-events:none}}
-.dx-p{{position:absolute;inset:0;padding:clamp(28px,4vw,52px);opacity:0;transform:translateY(24px);transition:opacity .3s,transform .45s var(--ease);pointer-events:none}}
-.dx-p.on{{opacity:1;transform:none;pointer-events:auto}}
-.dx-ph{{display:flex;align-items:center;gap:12px}}
-.dx-bk{{padding:8px 14px;background:var(--ink);color:#fff;font:600 clamp(20px,2vw,28px)/1 "Inter Tight",sans-serif;letter-spacing:.04em}}
-.dx-kd{{padding:7px 10px;border:1.5px solid var(--L);font:600 11px/1 "Inter Tight",sans-serif;letter-spacing:.14em;text-transform:uppercase}}
-.dx-p h2{{margin:clamp(20px,2.4vw,32px) 0 0;font-size:clamp(28px,3vw,46px);line-height:1.04;letter-spacing:-.025em;font-weight:600;text-wrap:balance}}
-.dx-pl{{margin:8px 0 0;font-size:16px;color:#3a3936}}
-.dx-row{{display:flex;gap:16px;margin:18px 0 12px;padding:10px 0;border-top:1.5px solid var(--L);border-bottom:1.5px solid var(--L);font-size:13px}}
-.dx-row span{{color:var(--mute);text-transform:uppercase;letter-spacing:.1em;font-size:11px;line-height:19px}}
-.dx-l{{margin:8px 0 0;max-width:38em;font-size:15px;line-height:1.45;color:#3a3936}}
-.dx-front{{position:relative;margin:-30px -3% 0;height:clamp(110px,12vw,150px);background:#F4F2EE;border:1.5px solid var(--L);border-radius:8px;z-index:13;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}}
-.dx-front i{{display:block;width:110px;height:10px;border:1.5px solid var(--L);border-radius:0 0 12px 12px;background:#FBFAF6}}
-.dx-hint{{text-align:center;margin:14px 0 0;font-size:12px;color:var(--mute)}}
-@media(max-width:767px){{.dx-t{{width:48%;padding:10px 10px 0;font-size:10px;letter-spacing:.06em}}.dx-page{{height:520px}}}}
+.ab-lead{{margin:18px 0 0;max-width:36em;font-size:clamp(16px,1.2vw,20px);line-height:1.45;color:#3a3936;text-wrap:pretty}}
+.ab-lead+.ab-lead{{margin-top:10px;font-size:clamp(15px,1.05vw,17px);color:var(--mute)}}
+.dx-sec{{padding-top:clamp(40px,5vw,80px)}}
+.dx{{--L:#161616;--W:min(100%,820px);position:relative;width:var(--W);margin:0 auto;padding-bottom:clamp(120px,13vw,170px)}}
+.dx-back{{position:relative;height:calc(4 * 26px + 30px)}}
+.dx-r{{position:absolute;left:calc(9% - var(--k) * 1.2%);right:calc(9% - var(--k) * 1.2%);top:calc(var(--k) * 26px);height:90px;background:#FBFAF6;border:1.5px solid var(--L);border-radius:10px 10px 0 0}}
+.dx-front{{position:relative;margin-top:calc(-1 * (2 * 30px + 70px));height:calc(2 * 30px + 70px);z-index:4}}
+.dx-r.f{{left:calc(1% - var(--k) * 1.2%);right:calc(1% - var(--k) * 1.2%);top:calc(var(--k) * 30px);height:120px}}
+.dx-t{{position:absolute;top:-25px;height:26px;min-width:30%;padding:0 22px;background:#FBFAF6;border:1.5px solid var(--L);border-bottom:0;border-radius:14px 14px 0 0;display:flex;align-items:center;justify-content:center;
+  font:600 12px/1 "Inter Tight",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);cursor:pointer;transition:background .2s,color .2s,transform .3s var(--ease)}}
+.dx-t.l{{left:12%}}.dx-t.r{{right:12%}}
+.dx-t:before{{content:"";position:absolute;left:-1.5px;right:-1.5px;bottom:-3px;height:4px;background:inherit}}
+.dx-t.me{{background:var(--ink);color:#fff;cursor:default;letter-spacing:.12em}}
+button.dx-t:hover,button.dx-t:focus-visible,button.dx-t.on{{background:var(--ink);color:#fff}}
+button.dx-t:hover{{transform:translateY(-3px)}}
+button.dx-t:focus-visible{{outline:2px solid var(--ink);outline-offset:4px}}
+.dx-page{{position:relative;z-index:3;margin:-58px 4% 0;height:clamp(440px,44vw,500px);background:#FBFAF6;border:1.5px solid var(--L);border-radius:6px;padding:16px}}
+.dx-in{{position:relative;height:100%;border:1.5px solid var(--L);border-radius:2px;background:#fff;overflow:hidden}}
+.dx-in:before{{content:"";position:absolute;inset:12px;border:1px dashed #B9B6AE;pointer-events:none}}
+.dx-p{{position:absolute;inset:0;padding:clamp(26px,3vw,40px) clamp(26px,3vw,40px) 140px;opacity:0;transition:opacity .25s}}
+.dx-p.on{{opacity:1}}
+.dx-ph{{display:flex;align-items:stretch;border:1.5px solid var(--L)}}
+.dx-bk{{flex:1;padding:10px 14px;background:var(--ink);color:#fff;font:600 clamp(18px,2.2vw,30px)/1.1 "Inter Tight",sans-serif;letter-spacing:.06em;text-transform:uppercase}}
+.dx-yr{{display:flex;align-items:center;padding:0 16px;font:600 clamp(18px,2.2vw,30px)/1 "Inter Tight",sans-serif;letter-spacing:.06em;font-variant-numeric:tabular-nums}}
+.dx-cols{{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:20px;margin-top:20px;padding-top:16px;border-top:1.5px dotted var(--L)}}
+.dx-lb{{margin:0;font:600 11px/1 "Inter Tight",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}}
+.dx-pl{{margin:10px 0 0;font-size:16px;font-weight:600;line-height:1.3}}
+.dx-d{{margin:6px 0 0;font-size:13px;color:var(--mute)}}
+.dx-l{{margin:0 0 8px;font-size:15px;line-height:1.45;color:#3a3936;text-wrap:pretty}}
+.dx-box{{position:absolute;left:-2%;right:-2%;bottom:0;width:104%;height:clamp(150px,16vw,200px);z-index:5}}
+.dx-hd{{position:absolute;left:50%;bottom:clamp(50px,5.5vw,70px);transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;gap:3px}}
+.dx-hd i{{display:block;width:120px;height:11px;border:1.5px solid var(--L);border-radius:0 0 14px 14px;background:#FBFAF6}}
+@media(max-width:767px){{.dx-t{{min-width:0;padding:0 10px;font-size:10px;letter-spacing:.08em}}.dx-t.l{{left:4%}}.dx-t.r{{right:4%}}.dx-page{{height:600px}}.dx-cols{{grid-template-columns:1fr}}.dx-t.me{{font-size:9px}}}}
 @media (prefers-reduced-motion:reduce){{.dx-p,.dx-t{{transition:none}}}}
 </style>
 <script>
-(function(){{var w=document.querySelector('[data-dx]');if(!w)return;var ts=[].slice.call(w.querySelectorAll('.dx-t')),ps=[].slice.call(w.querySelectorAll('.dx-p'));
+(function(){{var w=document.querySelector('[data-dx]');if(!w)return;var ts=[].slice.call(w.querySelectorAll('button.dx-t')),ps=[].slice.call(w.querySelectorAll('.dx-p'));
 function pick(i){{ts.forEach(function(t){{var on=t.dataset.i==i;t.classList.toggle('on',on);t.setAttribute('aria-pressed',on)}});ps.forEach(function(p){{p.classList.toggle('on',p.dataset.i==i)}})}}
-ts.forEach(function(t){{t.addEventListener('click',function(){{pick(t.dataset.i)}})}});pick({len(PATH)-1})}})();
+ts.forEach(function(t){{t.addEventListener('mouseenter',function(){{pick(t.dataset.i)}});t.addEventListener('focus',function(){{pick(t.dataset.i)}});t.addEventListener('click',function(){{pick(t.dataset.i)}})}});pick({len(PATH)-1})}})();
 </script>'''
 
 
