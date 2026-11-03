@@ -695,7 +695,7 @@ if __name__ == '__main__':
     write('work/index.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Work | Ege Coskun</title><link rel="canonical" href="/#work"><meta http-equiv="refresh" content="0;url=/#work"><script>location.replace("/#work")</script></head><body><a href="/#work">Work</a></body></html>')
     write('index.html', work())
     import about
-    for k, fn in [('about-a', about.dial), ('about-b', about.drawer), ('about-c', about.tunnel), ('about', about.dial)]:
+    for k, fn in [('about-a', about.dial), ('about-b', about.drawer), ('about-c', about.tunnel), ('about', about.about3)]:
         write(k + '/index.html', page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
                                        fn(), ['site.css', 'backlot.css'], ['site.js'], cur='about'))
     print('built', len(html))

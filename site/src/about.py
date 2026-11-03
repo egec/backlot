@@ -321,3 +321,111 @@ var sc=dz<0?Math.max(.15,1+dz*.85):1+dz*1.6,op=dz<-0.9?0:dz<0?1+dz/0.9:Math.max(
 var k=Math.min(n-1,Math.max(0,Math.round(t)-1));clk.textContent=t<.5?'2026':Y[k]}}
 addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',draw);draw()}})();
 </script>'''
+
+
+QA = [('What’s the hardest workflow you’ve designed?', 'Backlot, the case study that got me my last job: an editor prepares content, a publisher approves it, and the complexity is in the rules between them. The decision I’d defend anywhere: rejection reasons are a fixed list, not free text. You can’t count free-form comments, and if you can’t count them, you can’t tell an editor what they keep getting wrong.'),
+      ('When did a technical constraint change your design?', 'At MilSOFT the customs backend was fixed and there was no product brief. Most of the work was separating fields that were written in sequence but weren’t actually dependent, so the form follows what an officer knows at each point. Where the model did force an order, a blocked field says what has to happen first instead of sitting there greyed out.'),
+      ('What do you do when you have to compromise?', 'Put the trade-off on the table instead of quietly optimising for one side. If the call goes the other way, I ask for it to be written down and design the chosen version as well as I can. Real usage usually settles it later.'),
+      ('How do you use AI?', 'Every day, for real work: exploring, prototyping, and building this site in code. I still make every decision, and I check what the AI makes against how the system actually behaves, because my assumption about the data is usually the thing that’s wrong.'),
+      ('When can you start?', 'As soon as you need me. I’m in Berlin and open to relocation.')]
+
+
+def about3():
+    """two columns: a sticky section index on the left, the content on the right"""
+    secs = [('intro', 'Intro'), ('path', 'Experience'), ('how', 'How I work'), ('ask', 'Questions'), ('tools', 'Tools')]
+    nav = ''.join(f'<li><a href="#ax-{k}"><em>{i:02d}</em>{t}</a></li>' for i, (k, t) in enumerate(secs, 1))
+    lead = ''.join(f'<p>{x}</p>' for x in AB_LEAD)
+    items = PATH[::-1]
+    ticks = ''.join(f'<li class="ax-tk" style="--t:{i / (len(items) - 1):.4f}" data-i="{i}"><span>{y}</span></li>' for i, (y, *_ ) in enumerate(items))
+    cards = ''.join(
+        f'<article class="ax-pc" data-i="{i}"><h3>{t}</h3><div class="ax-pd"><p class="ax-pp">{p}</p><p class="ax-pt">{KIND[k]}, {d}</p>'
+        + ''.join(f'<p>{x.replace(PV, "")}</p>' for x in ls) + '</div></article>'
+        for i, (y, k, t, p, d, ls) in enumerate(items))
+    how = ''.join(f'<article class="ax-hc" style="--i:{i}"><p class="ax-hn">{i + 1:02d}.</p><h3>{t}</h3><p>{d}</p></article>' for i, (t, d) in enumerate(HOW))
+    qa = ''.join(f'<details class="ax-q"><summary><em>{i:02d}</em><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for i, (q, a) in enumerate(QA, 1))
+    tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="20" height="20" alt="" loading="lazy">{t}</li>' for t, f in TOOLS)
+    return f'''<main class="ab abx"><div class="ax">
+<nav class="ax-nav" aria-label="On this page"><ol>{nav}</ol></nav>
+<div class="ax-main">
+<section id="ax-intro" class="ax-s"><h1>Hi, I’m Ege.</h1><div class="ax-tx">{lead}</div></section>
+<section id="ax-path" class="ax-s ax-path" style="--n:{len(items)}" data-axpath><h2>Experience</h2>
+<div class="ax-pin"><ol class="ax-line" aria-hidden="true">{ticks}<li class="ax-mk"></li></ol><div class="ax-pcs">{cards}</div></div></section>
+<section id="ax-how" class="ax-s ax-how" style="--n:{len(HOW)}" data-axhow><h2>How I work</h2><div class="ax-hpin"><div class="ax-hcs">{how}</div></div></section>
+<section id="ax-ask" class="ax-s"><h2>Things you might ask</h2><div class="ax-qs">{qa}</div></section>
+<section id="ax-tools" class="ax-s"><h2>Tools</h2><ul class="ax-tools">{tools}</ul></section>
+</div></div></main>
+<style>
+.abx{{--fs:16px;font-family:"Inter Tight",system-ui,sans-serif}}
+@media(min-width:2200px){{.abx{{--fs:18px}}}}
+.abx *{{font-family:inherit}}
+.ax{{display:grid;grid-template-columns:minmax(180px,1fr) minmax(0,2.4fr);gap:clamp(24px,4vw,80px);padding:clamp(40px,5vw,88px) clamp(20px,2.4vw,44px) clamp(64px,8vw,140px)}}
+.ax-nav{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}
+.ax-nav ol{{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}}
+.ax-nav a{{display:flex;gap:12px;font-size:14px;color:var(--mute);text-decoration:none;transition:color .2s}}
+.ax-nav a em{{font-style:normal;font-variant-numeric:tabular-nums;color:#B4B3AE}}
+.ax-nav a:hover,.ax-nav a.on{{color:var(--ink)}}.ax-nav a.on em{{color:var(--g)}}
+.ax-s{{padding-bottom:clamp(64px,7vw,120px)}}
+.ax-s+.ax-s{{border-top:1px solid var(--line);padding-top:24px}}
+.abx h1{{margin:0 0 24px;font-size:clamp(36px,3.4vw,56px);line-height:1.02;letter-spacing:-.03em;font-weight:600}}
+.abx h2{{margin:0 0 clamp(24px,2.6vw,40px);font-size:clamp(22px,1.7vw,30px);line-height:1.15;letter-spacing:-.02em;font-weight:600}}
+.abx h3{{margin:0;font-size:clamp(18px,1.25vw,22px);line-height:1.25;letter-spacing:-.01em;font-weight:600}}
+.abx p{{font-size:var(--fs);line-height:1.55;color:#2b2a28}}
+.ax-tx{{max-width:40em}}.ax-tx p{{margin:0 0 .9em}}
+/* experience: one line, a marker that travels down it, the role at the marker */
+.ax-path{{height:calc(var(--n) * 55svh + 70svh)}}
+.ax-pin{{position:sticky;top:calc(4.75rem + 32px);height:min(70svh,640px);display:grid;grid-template-columns:120px minmax(0,1fr);gap:clamp(24px,3vw,56px)}}
+.ax-line{{position:relative;list-style:none;margin:0;padding:0;border-left:1px solid #CFCECA;margin-left:56px}}
+.ax-tk{{position:absolute;left:-1px;top:calc(var(--t) * 100%);width:9px;border-top:1px solid #CFCECA;transform:translateX(-4px)}}
+.ax-tk span{{position:absolute;right:calc(100% + 10px);top:-.7em;font-size:13px;font-variant-numeric:tabular-nums;color:#A9A8A3;transition:color .25s}}
+.ax-tk.on span{{color:var(--ink);font-weight:600}}
+.ax-mk{{position:absolute;left:-6px;top:calc(var(--p,0) * 100%);width:11px;height:11px;margin-top:-5px;background:var(--g);transition:top .08s linear}}
+.ax-pcs{{position:relative}}
+.ax-pc{{position:absolute;left:0;right:0;top:calc(var(--y,0) * 1px);opacity:0;transform:translateY(12px);transition:opacity .3s,transform .45s var(--ease);pointer-events:none;max-width:38em}}
+.ax-pc.on{{opacity:1;transform:none;pointer-events:auto}}
+.ax-pc h3{{font-size:clamp(24px,2vw,34px);letter-spacing:-.02em}}
+.ax-pd p{{margin:.4em 0 0}}.ax-pp{{font-weight:500}}.ax-pt{{color:var(--mute)!important;font-size:14px!important}}
+/* how I work: cards land one after another, fanned like a hand */
+.ax-how{{height:calc(var(--n) * 45svh + 80svh)}}
+.ax-hpin{{position:sticky;top:calc(4.75rem + 32px);height:min(72svh,640px)}}
+.ax-hcs{{position:relative;height:100%}}
+.ax-hc{{position:absolute;top:8%;left:calc(var(--i) * (100% - min(300px,40%)) / (var(--n) - 1));width:min(280px,40%);min-height:min(360px,60%);padding:22px 22px 26px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 30px rgba(22,22,22,.06);
+  transform:translateY(calc((1 - var(--e,0)) * 110%)) rotate(calc(((var(--i) - 2) * 2.5deg) * var(--e,0) + (1 - var(--e,0)) * 8deg));opacity:var(--e,0)}}
+.ax-hn{{margin:0 0 18px!important;font-size:clamp(34px,3vw,52px)!important;line-height:1!important;font-weight:700;letter-spacing:-.03em;color:var(--g)!important}}
+.ax-hc h3{{color:var(--ink);text-transform:uppercase;letter-spacing:-.005em}}
+.ax-hc p:last-child{{margin:12px 0 0;font-size:15px}}
+/* questions */
+.ax-q{{border-bottom:1px solid var(--line)}}.ax-q:first-child{{border-top:1px solid var(--line)}}
+.ax-q summary{{display:grid;grid-template-columns:40px minmax(0,1fr) 32px;align-items:center;gap:12px;padding:20px 0;cursor:pointer;list-style:none}}
+.ax-q summary::-webkit-details-marker{{display:none}}
+.ax-q summary em{{font-style:normal;font-size:13px;color:#A9A8A3;font-variant-numeric:tabular-nums}}
+.ax-q summary span{{font-size:clamp(18px,1.4vw,24px);font-weight:600;letter-spacing:-.015em;line-height:1.25}}
+.ax-q summary i{{position:relative;width:32px;height:32px;border-radius:50%;background:var(--card);transition:background .2s,transform .3s var(--ease)}}
+.ax-q summary i:before,.ax-q summary i:after{{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;margin:-.75px 0 0 -6px;background:var(--ink)}}.ax-q summary i:after{{transform:rotate(90deg)}}
+.ax-q[open] summary i{{background:var(--g);transform:rotate(45deg)}}.ax-q[open] summary i:before,.ax-q[open] summary i:after{{background:#fff}}
+.ax-q summary:hover span{{color:var(--g)}}
+.ax-q p{{margin:0 0 22px 52px;max-width:40em}}
+.ax-q[open]{{box-shadow:inset 2px 0 0 var(--g)}}.ax-q[open] summary,.ax-q[open] p{{padding-left:14px}}.ax-q[open] p{{margin-left:52px}}
+/* tools: flat tags in the site's grey */
+.ax-tools{{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}}
+.ax-tools li{{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:99px;background:var(--card);font-size:14px;font-weight:500}}
+.ax-tools img{{width:18px;height:18px;object-fit:contain}}
+@media(max-width:899px){{.ax{{grid-template-columns:1fr}}.ax-nav{{display:none}}
+.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;display:block}}.ax-line{{display:none}}
+.ax-pc{{position:static;opacity:1;transform:none;margin-bottom:28px}}
+.ax-hcs{{height:auto;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;min-height:0;transform:none;opacity:1}}}}
+@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto}}.ax-pc{{position:static;opacity:1;transform:none;margin-bottom:28px}}.ax-line{{display:none}}.ax-hcs{{height:auto;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;min-height:0;transform:none;opacity:1}}}}
+</style>
+<script>
+(function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+var nav=[].slice.call(document.querySelectorAll('.ax-nav a')),ss=nav.map(function(a){{return document.querySelector(a.getAttribute('href'))}});
+var P=document.querySelector('[data-axpath]'),tk=[].slice.call(P.querySelectorAll('.ax-tk')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),mk=P.querySelector('.ax-mk'),line=P.querySelector('.ax-line');
+var H=document.querySelector('[data-axhow]'),hc=[].slice.call(H.querySelectorAll('.ax-hc'));
+function prog(s){{var r=s.getBoundingClientRect(),run=s.offsetHeight-innerHeight*.75;return Math.max(0,Math.min(1,-r.top/Math.max(1,run)))}}
+var cur=-1,raf=0;function draw(){{raf=0;if(innerWidth<900)return;
+  var p=prog(P),n=tk.length,k=Math.round(p*(n-1));line.style.setProperty('--p',p.toFixed(4));
+  if(k!==cur){{cur=k;tk.forEach(function(t,i){{t.classList.toggle('on',i===k)}});pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
+  var lh=line.offsetHeight,ch=pc[k].offsetHeight;pc.forEach(function(c){{c.style.setProperty('--y',Math.max(0,Math.min(lh-ch,p*lh-ch*.3)).toFixed(0))}});
+  var q=prog(H)*(hc.length+1.2)-.2;hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}});
+  var a=0;ss.forEach(function(s,i){{if(s.getBoundingClientRect().top<innerHeight*.4)a=i}});nav.forEach(function(x,i){{x.classList.toggle('on',i===a)}})}}
+addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',draw);draw()}})();
+</script>'''
