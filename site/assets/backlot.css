@@ -113,6 +113,9 @@ body{background:#F7F7F5}
 html.f-archivo body *:not(svg *){font-family:Archivo,sans-serif!important}
 html.f-archivo .bl2-loop text{font-family:Archivo,sans-serif}.bl2-t.bl2-part{margin-top:clamp(96px,10vw,168px)}
 
+.bl2-big[data-tint] span{opacity:1;transform:none;transition:none}.bl2-big[data-tint] .tw{display:inline-block;white-space:nowrap}.bl2-big[data-tint] .tc{display:inline-block;will-change:transform}
+.bl2-big[data-tint]+.k{margin-top:clamp(48px,6vw,96px)}
+
 
 .bl-nav{position:fixed;left:24px;top:50%;transform:translateY(-50%);z-index:60;font-family:Manrope,sans-serif;transition:opacity .2s}
 .bl-nav.is-off{opacity:0;pointer-events:none}
@@ -478,6 +481,9 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 2.125rem/1 "Reenie Bea
 .wk-t{margin-top:6px;font-size:clamp(1.125rem,1.45vw,1.5rem);line-height:1.25;letter-spacing:-.015em;font-weight:600;text-wrap:balance}
 .wk-t svg{width:.8em;height:.8em;vertical-align:-.04em;transition:transform .4s var(--ease)}
 .wk-c:hover .wk-t svg{transform:translateX(5px)}
+.wk-t{text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:2px;text-underline-offset:5px;transition:text-decoration-color .25s}
+.wk-c:hover .wk-t,.wk-c:focus-visible .wk-t,.wk-r:hover b,.wk-r:focus-visible b{text-decoration-color:var(--g)}
+.wk-r b{text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:2px;text-underline-offset:6px;transition:text-decoration-color .25s}
 .wk-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .wk-tags i{font-style:normal;font-size:0.75rem;line-height:1;padding:6px 10px;border:1px solid var(--line);border-radius:99px;color:var(--mute)}
 .wk-k.wk-k{margin-top:clamp(56px,6vw,104px);padding-bottom:12px;border-bottom:1px solid var(--line)}

@@ -112,3 +112,6 @@ body{background:#F7F7F5}
 }
 html.f-archivo body *:not(svg *){font-family:Archivo,sans-serif!important}
 html.f-archivo .bl2-loop text{font-family:Archivo,sans-serif}.bl2-t.bl2-part{margin-top:clamp(96px,10vw,168px)}
+
+.bl2-big[data-tint] span{opacity:1;transform:none;transition:none}.bl2-big[data-tint] .tw{display:inline-block;white-space:nowrap}.bl2-big[data-tint] .tc{display:inline-block;will-change:transform}
+.bl2-big[data-tint]+.k{margin-top:clamp(48px,6vw,96px)}

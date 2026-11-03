@@ -41,12 +41,31 @@ def top():
     return f'<div class="cs-wrap ab-top"><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div>'
 
 def more():
-    how = ''.join(f'<li><em>{i:02d}</em><h3>{t}</h3><p>{d}</p></li>' for i, (t, d) in enumerate(HOW, 1))
+    def chars(t):
+        return ' '.join('<span class="hw-w">' + ''.join(f'<span class="hw-m"><span style="--d:{j}">{c}</span></span>' for j, c in enumerate(w)) + '</span>' for w in t.split(' '))
+    how = ''.join(f'<article class="hw-c" style="--i:{i}"><p class="hw-k">How I work <em>{i + 1:02d}</em></p><div class="hw-b">'
+                  f'<h3 class="hw-h" aria-label="{t}"><span aria-hidden="true">{chars(t)}</span></h3><p class="hw-p">{d}</p></div></article>'
+                  for i, (t, d) in enumerate(HOW))
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="22" height="22" alt="" loading="lazy"><span>{t}</span></li>' for t, f in TOOLS)
-    return (f'<section class="cs-wrap ab-more"><div class="ab-row"><p class="k">How I work</p><ol class="ab-how">{how}</ol></div>'
+    return (f'<section class="cs-wrap hw" aria-label="How I work">{how}</section>'
+            f'<section class="cs-wrap ab-more">'
             f'<div class="ab-row"><p class="k">Tools</p><ul class="ab-tools">{tools}</ul></div></section>'
             '''<style>
 .ab-more{padding-bottom:clamp(72px,8vw,140px)}
+/* how I work: cards stack as you scroll, each keeps its label row in view; the heading's letters rise in when its card arrives */
+.hw{position:relative;padding-top:clamp(56px,6vw,104px);padding-bottom:clamp(40px,10vh,120px)}
+.hw-c{--row:52px;position:sticky;top:calc(4.75rem + var(--i) * var(--row));background:var(--bg);border-top:1px solid var(--line);min-height:min(56svh,520px);padding-bottom:clamp(40px,5vw,72px)}
+.hw-k{display:flex;justify-content:space-between;align-items:center;height:var(--row);margin:0;font-size:13px;color:var(--mute)}
+.hw-k em{font-style:normal;font-variant-numeric:tabular-nums}
+.hw-b{display:flex;justify-content:space-between;align-items:flex-start;gap:clamp(24px,5vw,96px);padding-top:clamp(8px,1.4vw,20px)}
+.hw-h{margin:0;max-width:9.5em;font-size:clamp(34px,4.6vw,78px);line-height:.92;letter-spacing:-.03em;font-weight:700;text-transform:uppercase;color:var(--g)}
+.hw-w{display:inline-block;white-space:nowrap}
+.hw-m{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.04em}
+.hw-m>span{display:inline-block;transform:translateY(105%);transition:transform .7s cubic-bezier(.23,1,.32,1);transition-delay:calc(var(--d) * 22ms)}
+.hw-c.in .hw-m>span{transform:none}
+.hw-p{margin:0;max-width:28em;padding-top:.4em;font-size:clamp(15px,1.15vw,19px);line-height:1.5;color:#3a3936;text-wrap:pretty}
+@media(max-width:767px){.hw-c{--row:44px;min-height:0}.hw-b{flex-direction:column}.hw-h{font-size:clamp(30px,9vw,44px)}}
+@media(prefers-reduced-motion:reduce){.hw-m>span{transform:none;transition:none}}
 .ab-row{display:grid;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;padding-top:24px;margin-top:clamp(48px,5vw,88px);border-top:1px solid var(--line)}
 .ab-tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .ab-tools li{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card2,#FCFCFB);font-size:14px;font-weight:500;transition:transform .3s var(--ease),border-color .2s}
@@ -75,7 +94,9 @@ def more():
 @media(max-width:991px){.ab-hero{grid-template-columns:1fr}.ab-ph{max-width:420px}}
 @media(hover:none){.ab-pv{display:none}}
 @media(max-width:767px){.ab-row{grid-template-columns:1fr}.ab-how li{grid-template-columns:32px 1fr}.ab-how p{grid-column:2}}
-</style>''')
+</style>
+<script>(function(){var cs=document.querySelectorAll('.hw-c');if(!cs.length)return;if(!('IntersectionObserver' in window)){cs.forEach(function(c){c.classList.add('in')});return}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -30% 0px'});cs.forEach(function(c){io.observe(c)})})();</script>''')
 
 def dial():
     items = ''.join(

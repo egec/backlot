@@ -142,7 +142,7 @@ def hero():
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
 PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
         ('bilge', 'BİLGE', 'Container tracking for Turkish customs, designed from the system specs.', GH + 'shots/bilge/b-queue-th.webp'),
-        ('data-health', 'Data health', 'Telling marketers which data to trust before they build a segment.', GH + 'shots/dh/o_b_issue.webp?v=2'),
+        ('data-health', 'Data health', 'Telling marketers which data to trust before they build a segment.', GH + 'shots/dh/thumb.webp'),
         ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')]
 def nextblock(cur):
     """next project as a sentence with its screen, then every project small, then the footer"""
@@ -309,7 +309,7 @@ def problem():
         ('Mistakes hide in the structure', 'Metadata entered on the wrong level, a season instead of an episode, only shows up at review.'),
         ('Feedback doesn’t point at a field', 'Most tools let a reviewer comment, but a rejection is still a note. The editor has to work out which field it means.')])
     return ('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
-            '<p class="bl2-big" data-big><span class="bl2-line">The work is not hard.</span><span class="bl2-line">The loop is.</span></p>'
+            '<p class="bl2-big" data-tint style="--ac:#9184D9"><span class="bl2-line">The work is not hard.</span><span class="bl2-line">The loop is.</span></p>'
             + split('The problem', '<p>Getting one episode ready for one region means matching its files, filling about forty fields and passing a publisher’s review. '
                     'Much of it is typing what the file already says, and mistakes only surface at review, where each one costs a round.</p>')
             + f'<div class="bl2-cards">{cards}</div></div>')
@@ -451,7 +451,7 @@ def bilge():
         ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. The header is blue on the agent’s side and red on the customs side, so everyone knows which side of the form they are on.'),
         ('Sources side by side', 'The carrier’s declaration and the port’s records sit next to each other, so a mismatch is visible at a glance.'),
         ('Registering is binding', 'Registering starts the clock on the container’s permitted time in the country, so at the ministry’s request the button says Register. The confirmation shows the registration number and the remaining prepaid balance.')], 1))
-    glance = ('<div class="bl2-t bl2-part"><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
+    glance = ('<div class="bl2-t bl2-part"><p class="bl2-big" data-tint style="--ac:#A31A28"><span class="bl2-line">One form, four people.</span><span class="bl2-line">The clock is running.</span></p><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
               + split('The problem', '<p>Every container that enters or leaves a Turkish seaport needs a Container Tracking Form. KLTS moved that form, and the records customs, port operators and agencies used to exchange on paper, into one system.</p>'
                       '<p>Up to four people work on one form, and from registration the container’s permitted time is running.</p>')
               + f'<div class="bl2-cards c3">{cards}</div>'
@@ -542,7 +542,7 @@ def datahealth():
      '<div class="bl2-meta"><div><b>Company</b>Insider One</div><div><b>Category</b>B2B SaaS, customer data platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div></div></div>'
      + media_box(dh_img('o_b_issue','Segment builder with the attribute menu open and a data health card for Email Opt-in')) + '</div>')
     prob=('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
-     '<p class="bl2-big" data-big><span class="bl2-line">The segment broke at the last step.</span></p>'
+     '<p class="bl2-big" data-tint style="--ac:#2D2ACF"><span class="bl2-line">The segment broke at the last step.</span></p>'
      + split('The problem','<p>An attribute page showed one number, Total collected, with no way to see which source sent what. '
        'If an attribute’s data was wrong, the marketer found out only at the last step of building a segment, after setting up everything else.</p>')+'</div>')
     f1=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">02</span><span class="cs-title bl2-x">Where data comes from</span><p class="k">Feature 01</p>'
@@ -604,7 +604,7 @@ def work():
         f'<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + '</span></a>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
-        ('data-health', '03', 'Data health', 'Product work at Insider One: where customer data comes from, and a warning in the segment builder.', ['B2B SaaS', 'Customer data', '2026'], GH + 'shots/dh/o_b_issue.webp?v=2'),
+        ('data-health', '03', 'Data health', 'Product work at Insider One: where customer data comes from, and a warning in the segment builder.', ['B2B SaaS', 'Customer data', '2026'], GH + 'shots/dh/thumb.webp'),
         ('uwaverde', '04', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
     ]
     rows = ''.join(
@@ -682,7 +682,7 @@ if __name__ == '__main__':
     write('assets/backlot.css', css)
     write('assets/site.css', rem(rd('site.css')))
     vid_js = re.search(r'<script>(.*?)</script>', EMB('020e6363'), re.S).group(1)
-    write('assets/backlot.js', nav_js + '\n' + rd('bl2.js') + '\n' + vid_js + '\n' + rd('zoom.js') + '\n' + rd('roles.js') + '\n' + rd('pace.js'))
+    write('assets/backlot.js', nav_js + '\n' + rd('bl2.js') + '\n' + rd('tint.js') + '\n' + vid_js + '\n' + rd('zoom.js') + '\n' + rd('roles.js') + '\n' + rd('pace.js'))
     write('assets/site.js', rd('site.js'))
     html = backlot()
     a, b = html.index('<main'), html.index('</main>')
