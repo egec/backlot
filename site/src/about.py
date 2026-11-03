@@ -331,101 +331,105 @@ QA = [('What’s the hardest workflow you’ve designed?', 'Backlot, the case st
 
 
 def about3():
-    """two columns: a sticky section index on the left, the content on the right"""
-    secs = [('intro', 'Intro'), ('path', 'Experience'), ('how', 'How I work'), ('ask', 'Questions'), ('tools', 'Tools')]
-    nav = ''.join(f'<li><a href="#ax-{k}"><em>{i:02d}</em>{t}</a></li>' for i, (k, t) in enumerate(secs, 1))
+    """full width page: intro with a portrait, a one-step-per-scroll experience line, fanned How I work cards, questions, tools"""
     lead = ''.join(f'<p>{x}</p>' for x in AB_LEAD)
     items = PATH[::-1]
-    ticks = ''.join(f'<li class="ax-tk" style="--t:{i / (len(items) - 1):.4f}" data-i="{i}"><span>{y}</span></li>' for i, (y, *_ ) in enumerate(items))
+    n = len(items)
+    ticks = ''.join(f'<li class="ax-tk" style="--t:{i / (n - 1):.4f}"><span>{y}</span></li>' for i, (y, *_ ) in enumerate(items))
     cards = ''.join(
         f'<article class="ax-pc" data-i="{i}"><h3>{t}</h3><div class="ax-pd"><p class="ax-pp">{p}</p><p class="ax-pt">{KIND[k]}, {d}</p>'
         + ''.join(f'<p>{x.replace(PV, "")}</p>' for x in ls) + '</div></article>'
         for i, (y, k, t, p, d, ls) in enumerate(items))
-    how = ''.join(f'<article class="ax-hc" style="--i:{i}"><p class="ax-hn">{i + 1:02d}.</p><h3>{t}</h3><p>{d}</p></article>' for i, (t, d) in enumerate(HOW))
-    qa = ''.join(f'<details class="ax-q"><summary><em>{i:02d}</em><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for i, (q, a) in enumerate(QA, 1))
+    tones = ['#E4EAD6', '#ECECEA', '#F1E9DB', '#E2E8E4', '#EAE4EC']
+    how = ''.join(f'<article class="ax-hc" style="--i:{i};--bg:{tones[i % 5]}"><h3>{t}</h3><p class="ax-hn">{i + 1:02d}.</p><p class="ax-ht">{d}</p></article>' for i, (t, d) in enumerate(HOW))
+    qa = ''.join(f'<details class="ax-q"><summary><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in QA)
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="20" height="20" alt="" loading="lazy">{t}</li>' for t, f in TOOLS)
-    return f'''<main class="ab abx"><div class="ax">
-<nav class="ax-nav" aria-label="On this page"><ol>{nav}</ol></nav>
-<div class="ax-main">
-<section id="ax-intro" class="ax-s"><h1>Hi, I’m Ege.</h1><div class="ax-tx">{lead}</div></section>
-<section id="ax-path" class="ax-s ax-path" style="--n:{len(items)}" data-axpath><h2>Experience</h2>
-<div class="ax-pin"><ol class="ax-line" aria-hidden="true">{ticks}<li class="ax-mk"></li></ol><div class="ax-pcs">{cards}</div></div></section>
-<section id="ax-how" class="ax-s ax-how" style="--n:{len(HOW)}" data-axhow><h2>How I work</h2><div class="ax-hpin"><div class="ax-hcs">{how}</div></div></section>
-<section id="ax-ask" class="ax-s"><h2>Things you might ask</h2><div class="ax-qs">{qa}</div></section>
-<section id="ax-tools" class="ax-s"><h2>Tools</h2><ul class="ax-tools">{tools}</ul></section>
-</div></div></main>
+    return f'''<main class="ab abx">
+<section class="ax-w ax-intro"><div><h1>Hi, I’m Ege.</h1><div class="ax-tx">{lead}</div></div>
+<figure class="ax-me"><img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy"></figure></section>
+<section class="ax-w ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2>Experience</h2><div class="ax-pg"><ol class="ax-line" aria-hidden="true"><li class="ax-fill"></li>{ticks}<li class="ax-mk"></li></ol><div class="ax-pcs">{cards}</div></div></div></section>
+<section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
+<section class="ax-w ax-ask"><h2>Things you might ask</h2><div class="ax-qs">{qa}</div></section>
+<section class="ax-w ax-tl"><h2>Tools</h2><ul class="ax-tools">{tools}</ul></section>
+</main>
 <style>
-.abx{{--fs:16px;font-family:"Inter Tight",system-ui,sans-serif}}
+.abx{{--fs:16px;--px:clamp(20px,2.4vw,44px);font-family:"Inter Tight",system-ui,sans-serif}}
 @media(min-width:2200px){{.abx{{--fs:18px}}}}
 .abx *{{font-family:inherit}}
-.ax{{display:grid;grid-template-columns:minmax(180px,1fr) minmax(0,2.4fr);gap:clamp(24px,4vw,80px);padding:clamp(40px,5vw,88px) clamp(20px,2.4vw,44px) clamp(64px,8vw,140px)}}
-.ax-nav{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}
-.ax-nav ol{{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}}
-.ax-nav a{{display:flex;gap:12px;font-size:14px;color:var(--mute);text-decoration:none;transition:color .2s}}
-.ax-nav a em{{font-style:normal;font-variant-numeric:tabular-nums;color:#B4B3AE}}
-.ax-nav a:hover,.ax-nav a.on{{color:var(--ink)}}.ax-nav a.on em{{color:var(--g)}}
-.ax-s{{padding-bottom:clamp(64px,7vw,120px)}}
-.ax-s+.ax-s{{border-top:1px solid var(--line);padding-top:24px}}
-.abx h1{{margin:0 0 24px;font-size:clamp(36px,3.4vw,56px);line-height:1.02;letter-spacing:-.03em;font-weight:600}}
-.abx h2{{margin:0 0 clamp(24px,2.6vw,40px);font-size:clamp(22px,1.7vw,30px);line-height:1.15;letter-spacing:-.02em;font-weight:600}}
-.abx h3{{margin:0;font-size:clamp(18px,1.25vw,22px);line-height:1.25;letter-spacing:-.01em;font-weight:600}}
+.ax-w{{padding-left:var(--px);padding-right:var(--px)}}
+.abx h1{{margin:0 0 24px;font-size:clamp(40px,4vw,68px);line-height:1;letter-spacing:-.035em;font-weight:600}}
+.abx h2{{margin:0;font-size:clamp(28px,2.6vw,46px);line-height:1.05;letter-spacing:-.03em;font-weight:600}}
 .abx p{{font-size:var(--fs);line-height:1.55;color:#2b2a28}}
+.ax-intro{{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);align-items:center;padding-top:clamp(40px,5vw,88px);padding-bottom:clamp(64px,7vw,120px)}}
 .ax-tx{{max-width:40em}}.ax-tx p{{margin:0 0 .9em}}
-/* experience: one line, a marker that travels down it, the role at the marker */
-.ax-path{{height:calc(var(--n) * 55svh + 70svh)}}
-.ax-pin{{position:sticky;top:calc(4.75rem + 32px);height:min(70svh,640px);display:grid;grid-template-columns:120px minmax(0,1fr);gap:clamp(24px,3vw,56px)}}
-.ax-line{{position:relative;list-style:none;margin:0;padding:0;border-left:1px solid #CFCECA;margin-left:56px}}
-.ax-tk{{position:absolute;left:-1px;top:calc(var(--t) * 100%);width:9px;border-top:1px solid #CFCECA;transform:translateX(-4px)}}
-.ax-tk span{{position:absolute;right:calc(100% + 10px);top:-.7em;font-size:13px;font-variant-numeric:tabular-nums;color:#A9A8A3;transition:color .25s}}
-.ax-tk.on span{{color:var(--ink);font-weight:600}}
-.ax-mk{{position:absolute;left:-6px;top:calc(var(--p,0) * 100%);width:11px;height:11px;margin-top:-5px;background:var(--g);transition:top .08s linear}}
+.ax-me{{position:relative;margin:0;justify-self:end;width:min(100%,520px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#F1E4CC}}
+.ax-me img{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s var(--ease),transform .7s var(--ease)}}
+.ax-p{{opacity:0;transform:scale(1.04)}}
+.ax-me:hover .ax-p{{opacity:1;transform:none}}.ax-me:hover .ax-d{{transform:scale(.98)}}
+/* experience: one gesture moves one role; the line fills green as you go */
+.ax-path{{height:calc(var(--n) * 100svh)}}
+.ax-pin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);display:flex;flex-direction:column;padding-top:clamp(16px,2vw,32px);border-top:1px solid var(--line);box-sizing:border-box}}
+.ax-pg{{flex:1;display:grid;grid-template-columns:110px minmax(0,1fr);gap:clamp(24px,4vw,80px);padding:clamp(24px,4svh,48px) 0 clamp(32px,6svh,64px)}}
+.ax-line{{position:relative;list-style:none;margin:0 0 0 64px;padding:0;border-left:1px solid #D3D2CE}}
+.ax-fill{{position:absolute;left:-1px;top:0;width:2px;height:calc(var(--p,0) * 100%);background:var(--g);transition:height .5s var(--ease)}}
+.ax-tk{{position:absolute;left:-1px;top:calc(var(--t) * 100%);width:9px;border-top:1px solid #D3D2CE;transform:translateX(-4px)}}
+.ax-tk span{{position:absolute;right:calc(100% + 12px);top:-.7em;font-size:13px;font-variant-numeric:tabular-nums;color:#A9A8A3;transition:color .25s}}
+.ax-tk.on span,.ax-tk.done span{{color:var(--ink)}}.ax-tk.on span{{font-weight:600}}
+.ax-mk{{position:absolute;left:-6px;top:calc(var(--p,0) * 100%);width:11px;height:11px;margin-top:-5px;background:var(--g);transition:top .5s var(--ease)}}
 .ax-pcs{{position:relative}}
-.ax-pc{{position:absolute;left:0;right:0;top:calc(var(--y,0) * 1px);opacity:0;transform:translateY(12px);transition:opacity .3s,transform .45s var(--ease);pointer-events:none;max-width:38em}}
-.ax-pc.on{{opacity:1;transform:none;pointer-events:auto}}
-.ax-pc h3{{font-size:clamp(24px,2vw,34px);letter-spacing:-.02em}}
-.ax-pd p{{margin:.4em 0 0}}.ax-pp{{font-weight:500}}.ax-pt{{color:var(--mute)!important;font-size:14px!important}}
-/* how I work: cards land one after another, fanned like a hand */
-.ax-how{{height:calc(var(--n) * 45svh + 80svh)}}
-.ax-hpin{{position:sticky;top:calc(4.75rem + 32px);height:min(72svh,640px)}}
-.ax-hcs{{position:relative;height:100%}}
-.ax-hc{{position:absolute;top:8%;left:calc(var(--i) * (100% - min(300px,40%)) / (var(--n) - 1));width:min(280px,40%);min-height:min(360px,60%);padding:22px 22px 26px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 30px rgba(22,22,22,.06);
-  transform:translateY(calc((1 - var(--e,0)) * 110%)) rotate(calc(((var(--i) - 2) * 2.5deg) * var(--e,0) + (1 - var(--e,0)) * 8deg));opacity:var(--e,0)}}
-.ax-hn{{margin:0 0 18px!important;font-size:clamp(34px,3vw,52px)!important;line-height:1!important;font-weight:700;letter-spacing:-.03em;color:var(--g)!important}}
-.ax-hc h3{{color:var(--ink);text-transform:uppercase;letter-spacing:-.005em}}
-.ax-hc p:last-child{{margin:12px 0 0;font-size:15px}}
-/* questions */
-.ax-q{{border-bottom:1px solid var(--line)}}.ax-q:first-child{{border-top:1px solid var(--line)}}
-.ax-q summary{{display:grid;grid-template-columns:40px minmax(0,1fr) 32px;align-items:center;gap:12px;padding:20px 0;cursor:pointer;list-style:none}}
+.ax-pc{{position:absolute;left:0;right:0;top:50%;max-width:40em;opacity:0;transform:translateY(calc(-50% + 16px));transition:opacity .35s,transform .5s var(--ease);pointer-events:none}}
+.ax-pc.on{{opacity:1;transform:translateY(-50%);pointer-events:auto}}
+.ax-pc h3{{margin:0;font-size:clamp(30px,3vw,52px);line-height:1.02;letter-spacing:-.03em;font-weight:600}}
+.ax-pd p{{margin:.45em 0 0}}.ax-pp{{font-weight:500;margin-top:.8em!important}}.ax-pt{{color:var(--mute)!important;font-size:14px!important}}
+/* how I work: the title stays, cards land one by one and fan out across the page */
+.ax-how{{height:calc(var(--n) * 55svh + 100svh)}}
+.ax-hpin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);overflow:hidden;border-top:1px solid var(--line);padding-top:clamp(16px,2vw,32px);box-sizing:border-box}}
+.ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(90px,14svh,150px);bottom:clamp(20px,4svh,48px)}}
+.ax-hc{{--w:min(25vw,400px);position:absolute;top:0;left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(100%,560px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:var(--bg);border-radius:18px;box-shadow:0 18px 40px rgba(22,22,22,.10),0 1px 0 rgba(22,22,22,.04);
+  transform:translateY(calc((1 - var(--e,0)) * 115%)) rotate(calc((var(--i) - 2) * 3deg + (1 - var(--e,0)) * 10deg));opacity:calc(.3 + var(--e,0) * .7)}}
+.ax-hc h3{{margin:0;font-size:clamp(28px,2.6vw,48px);line-height:.95;letter-spacing:-.035em;font-weight:800;text-transform:uppercase;color:#3F4A1D;text-wrap:balance}}
+.ax-hn{{margin:auto 0 0!important;font-size:clamp(56px,5.6vw,104px)!important;line-height:.9!important;font-weight:800;letter-spacing:-.05em;color:var(--g)!important}}
+.ax-ht{{margin:14px 0 0;font-size:15px!important;line-height:1.45!important}}
+/* questions: the title holds the left column */
+.ax-ask{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px);border-top:1px solid var(--line)}}
+.ax-ask h2{{position:sticky;top:calc(4.75rem + 24px);align-self:start;font-size:clamp(44px,5.2vw,96px);line-height:.95;letter-spacing:-.045em;max-width:6em}}
+.ax-q{{border-bottom:1px solid var(--line);transition:background .3s}}.ax-q:first-child{{border-top:1px solid var(--line)}}
+.ax-q summary{{display:grid;grid-template-columns:minmax(0,1fr) 36px;align-items:center;gap:16px;padding:22px 0;cursor:pointer;list-style:none}}
 .ax-q summary::-webkit-details-marker{{display:none}}
-.ax-q summary em{{font-style:normal;font-size:13px;color:#A9A8A3;font-variant-numeric:tabular-nums}}
-.ax-q summary span{{font-size:clamp(18px,1.4vw,24px);font-weight:600;letter-spacing:-.015em;line-height:1.25}}
-.ax-q summary i{{position:relative;width:32px;height:32px;border-radius:50%;background:var(--card);transition:background .2s,transform .3s var(--ease)}}
-.ax-q summary i:before,.ax-q summary i:after{{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;margin:-.75px 0 0 -6px;background:var(--ink)}}.ax-q summary i:after{{transform:rotate(90deg)}}
+.ax-q summary span{{font-size:clamp(20px,1.6vw,28px);font-weight:600;letter-spacing:-.02em;line-height:1.2;transition:color .2s,transform .35s var(--ease)}}
+.ax-q summary:hover span{{color:var(--g);transform:translateX(6px)}}
+.ax-q summary i{{position:relative;width:36px;height:36px;border-radius:50%;background:var(--card);transition:background .2s,transform .35s var(--ease)}}
+.ax-q summary i:before,.ax-q summary i:after{{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;margin:-.75px 0 0 -6.5px;background:var(--ink)}}.ax-q summary i:after{{transform:rotate(90deg)}}
 .ax-q[open] summary i{{background:var(--g);transform:rotate(45deg)}}.ax-q[open] summary i:before,.ax-q[open] summary i:after{{background:#fff}}
-.ax-q summary:hover span{{color:var(--g)}}
-.ax-q p{{margin:0 0 22px 52px;max-width:40em}}
-.ax-q[open]{{box-shadow:inset 2px 0 0 var(--g)}}.ax-q[open] summary,.ax-q[open] p{{padding-left:14px}}.ax-q[open] p{{margin-left:52px}}
-/* tools: flat tags in the site's grey */
-.ax-tools{{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}}
+.ax-q[open] summary span{{color:var(--g)}}
+.ax-q p{{margin:0 0 24px;max-width:40em}}
+.ax-tl{{border-top:1px solid var(--line);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px)}}
+.ax-tools{{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-content:start}}
 .ax-tools li{{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:99px;background:var(--card);font-size:14px;font-weight:500}}
 .ax-tools img{{width:18px;height:18px;object-fit:contain}}
-@media(max-width:899px){{.ax{{grid-template-columns:1fr}}.ax-nav{{display:none}}
-.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;display:block}}.ax-line{{display:none}}
+@media(max-width:899px){{.ax-intro,.ax-ask,.ax-tl{{grid-template-columns:1fr}}.ax-me{{justify-self:start;width:min(70vw,320px)}}.ax-ask h2{{position:static}}
+.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-pg{{display:block}}.ax-line{{display:none}}
 .ax-pc{{position:static;opacity:1;transform:none;margin-bottom:28px}}
-.ax-hcs{{height:auto;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;min-height:0;transform:none;opacity:1}}}}
-@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto}}.ax-pc{{position:static;opacity:1;transform:none;margin-bottom:28px}}.ax-line{{display:none}}.ax-hcs{{height:auto;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;min-height:0;transform:none;opacity:1}}}}
+.ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hn{{margin-top:18px!important}}}}
+@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-pg{{display:block}}.ax-line{{display:none}}.ax-pc{{position:static;opacity:1;transform:none;margin-bottom:28px}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
 </style>
 <script>
 (function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-var nav=[].slice.call(document.querySelectorAll('.ax-nav a')),ss=nav.map(function(a){{return document.querySelector(a.getAttribute('href'))}});
-var P=document.querySelector('[data-axpath]'),tk=[].slice.call(P.querySelectorAll('.ax-tk')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),mk=P.querySelector('.ax-mk'),line=P.querySelector('.ax-line');
+var P=document.querySelector('[data-axpath]'),tk=[].slice.call(P.querySelectorAll('.ax-tk')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),line=P.querySelector('.ax-line'),n=pc.length;
 var H=document.querySelector('[data-axhow]'),hc=[].slice.call(H.querySelectorAll('.ax-hc'));
-function prog(s){{var r=s.getBoundingClientRect(),run=s.offsetHeight-innerHeight*.75;return Math.max(0,Math.min(1,-r.top/Math.max(1,run)))}}
-var cur=-1,raf=0;function draw(){{raf=0;if(innerWidth<900)return;
-  var p=prog(P),n=tk.length,k=Math.round(p*(n-1));line.style.setProperty('--p',p.toFixed(4));
-  if(k!==cur){{cur=k;tk.forEach(function(t,i){{t.classList.toggle('on',i===k)}});pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
-  var lh=line.offsetHeight,ch=pc[k].offsetHeight;pc.forEach(function(c){{c.style.setProperty('--y',Math.max(0,Math.min(lh-ch,p*lh-ch*.3)).toFixed(0))}});
-  var q=prog(H)*(hc.length+1.2)-.2;hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}});
-  var a=0;ss.forEach(function(s,i){{if(s.getBoundingClientRect().top<innerHeight*.4)a=i}});nav.forEach(function(x,i){{x.classList.toggle('on',i===a)}})}}
+function run(s){{return s.offsetHeight-s.querySelector('.ax-pin,.ax-hpin').offsetHeight}}
+function prog(s){{var r=s.getBoundingClientRect();return Math.max(0,Math.min(1,-r.top/Math.max(1,run(s))))}}
+var cur=-1,raf=0;
+function draw(){{raf=0;if(innerWidth<900)return;
+  var k=Math.round(prog(P)*(n-1));if(k!==cur){{cur=k;line.style.setProperty('--p',(k/(n-1)).toFixed(4));
+    tk.forEach(function(t,i){{t.classList.toggle('on',i===k);t.classList.toggle('done',i<k)}});pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
+  var q=prog(H)*(hc.length+.6)-.2;hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
+/* inside the experience line, one wheel gesture or swipe moves exactly one role; at either end the page scrolls on */
+function go(i){{var top=P.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run(P)*i/(n-1))+(i?1:0),behavior:'smooth'}})}}
+var lock=0;function step(d){{var k=Math.round(prog(P)*(n-1)),t=k+d;if(t<0||t>n-1)return false;if(Date.now()<lock)return true;lock=Date.now()+750;go(t);return true}}
+function inside(){{var r=P.getBoundingClientRect();return r.top<=2&&r.bottom>=innerHeight-2}}
+addEventListener('wheel',function(e){{if(innerWidth<900||!inside()||Math.abs(e.deltaY)<4)return;if(step(e.deltaY>0?1:-1))e.preventDefault()}},{{passive:false}});
+var ty=null;addEventListener('touchstart',function(e){{ty=e.touches[0].clientY}},{{passive:true}});
+addEventListener('touchmove',function(e){{if(innerWidth<900||ty==null||!inside())return;var dy=ty-e.touches[0].clientY;if(Math.abs(dy)<30)return;if(step(dy>0?1:-1)){{e.preventDefault();ty=null}}}},{{passive:false}});
 addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',draw);draw()}})();
 </script>'''
