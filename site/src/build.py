@@ -110,7 +110,7 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show
             f'<div class="zs-stick"><div class="zs-frame"><div class="zs-view" style="aspect-ratio:{medias[0]["w"]}/{medias[0]["h"]}">{ms}</div></div>'
             f'<div class="zs-foot"><div class="zs-bar">{bars}</div>{ctl}</div></div></div></div>{after}</div>')
 
-IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp?v=4', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
+IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp?v=5', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
 IMG_EP2 = dict(type='img', src=GH + 'shots/v2/ep2.webp?v=4', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
 IMG_REJ = dict(type='img', src=GH + 'shots/v2/reject.webp?v=4', w=2880, h=1800, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
 IMG_UP3 = dict(type='img', src=GH + 'shots/v2/upload-modal.webp?v=4', w=2738, h=1712, alt='Upload drop zone open over the assets list')
@@ -269,7 +269,7 @@ def features():
         after=sub('Rules and AI, side by side', 'Rule checks pass or fail. AI suggestions name their evidence and how sure they are.') + media_box(EMB('e76ad60f')), nav=nav))
     # artwork
     f_art = dict(t='Artwork is chosen by taste, not by country',
-             l='Most viewing starts from a recommendation, so the thumbnail does much of the selling. Taste predicts a click better than age or location, so each season carries one thumbnail per taste cluster.',
+             l='Most viewing starts from a recommendation, so the thumbnail does much of the selling. Taste predicts a click better than age or location, so each season carries one thumbnail per taste cluster. <span class="bl2-src">Sources: <a href="https://fortune.com/2016/03/27/netflix-predicts-taste/" target="_blank" rel="noopener">Netflix on taste clusters, Fortune</a>, <a href="https://www.dezeen.com/2017/12/20/netflix-targets-film-artwork-depending-users-viewing-habits-design-technology/" target="_blank" rel="noopener">Netflix on personalised artwork, Dezeen</a>.</span>',
              r=['Action, drama, romance and mystery fans each see the scene most likely to make them click.',
                 'Variants are tested against each other in each region, with the time left on the test, so the editor knows when the artwork is final.',
                 'Each variant shows its click-through rate, and the leader is marked.'])
@@ -319,7 +319,7 @@ def north_star():
     return ('<div class="bl2-t bl2-part"><p class="k">North star</p>'
             '<h2 class="bl2-h cs-title">Release-ready sooner, with less typing</h2>'
             '<p class="lead">Every decision on this page answers one question: does it get an episode release-ready sooner, with less typing and fewer rounds of review?</p>'
-            + split('The bet', '<p>My bet: most of the delay is retyping and rework. If the file fills what it can and feedback points at fields, time to release-ready drops. I haven’t tested it with an editor yet.</p>')
+            + split('The bet', '<p>My bet: most of the delay is retyping and rework. In my design of Episode 2, the editor types 5 of its 41 fields; the file, the delivery and the season fill the rest. If feedback also points at fields, time to release-ready drops. I haven’t tested it with an editor yet.</p>')
             + '</div>')
 
 # ---------- research: how I looked, and the benchmark ----------
@@ -539,7 +539,7 @@ def datahealth():
     hero=('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
      '<p class="k">Data health, product work at Insider One</p><h1>Telling marketers which data to trust before they build a segment</h1>'
      '<div class="bl2-hg"><p class="lead">Insider One is a customer data platform. Marketers build audiences from attributes and events that many sources send in. '
-     'I designed three components: a per-source breakdown on the attribute page, and a data health card in the segment builder for attributes and for event parameters. The event parameter card shipped while I was there.</p>'
+     'Requests reached me from customers through the PM. I designed three pieces: a per-source count on the attribute page, and a data health card in the segment builder, for attributes and for event parameters.</p>'
      '<div class="bl2-meta"><div><b>Company</b>Insider One</div><div><b>Category</b>B2B SaaS, customer data platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div></div></div>'
      + media_box(dh_img('o_b_issue','Segment builder with the attribute menu open and a data health card for Email Opt-in')) + '</div>')
     prob=('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
@@ -594,10 +594,10 @@ def work():
     lead = [
         ('backlot', '01', 'Backlot, concept project', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
-         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=23'),
+         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=24'),
         ('bilge', '02', 'BİLGE, client work at MilSOFT', 'Container tracking for Turkish customs',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
-         ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/a.mp4'),
+         ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
     ]
     cards = ''.join(
         f'<a class="wk-c" href="/{k}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"><video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em></span>'

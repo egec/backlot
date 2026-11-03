@@ -7,7 +7,7 @@
 <style id="blnosb">html,body{scrollbar-width:none}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}</style><script id="nosb3">(function(){var css='*{scrollbar-width:none!important}*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}.nosb-mid{display:none!important}';
 function add(){if(document.getElementById('nosb'))return;var s=document.createElement('style');s.id='nosb';s.textContent=css;(document.head||document.documentElement).appendChild(s)}
 /* main-column scroll thumbs go; tables and side panels keep theirs */
-function mark(){add();var t=document.querySelectorAll('[style*="--scrollbar-thumb"]:not(.nosb-mid):not(.nosb-ok)');for(var i=0;i<t.length;i++){var p=t[i].parentElement;if(!p)continue;var r=p.getBoundingClientRect();if(!r.width)continue;t[i].classList.add(r.width>=600&&r.height>=480?'nosb-mid':'nosb-ok')}}
+function mark(){add();var t=document.querySelectorAll('[style*="var(--scrollbar-thumb)"]:not(.nosb-mid):not(.nosb-ok)');for(var i=0;i<t.length;i++){var own=t[i].getBoundingClientRect();if(!own.width||own.width>12)continue;var p=t[i].parentElement;if(!p)continue;var r=p.getBoundingClientRect();if(!r.width)continue;t[i].classList.add(r.width>=600&&r.height>=480?'nosb-mid':'nosb-ok')}}
 document.addEventListener('DOMContentLoaded',mark);new MutationObserver(mark).observe(document,{childList:true,subtree:true});setInterval(mark,400);})();
 </script></head>
 <body>

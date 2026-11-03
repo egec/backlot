@@ -115,3 +115,5 @@ html.f-archivo .bl2-loop text{font-family:Archivo,sans-serif}.bl2-t.bl2-part{mar
 
 .bl2-big[data-tint] span{opacity:1;transform:none;transition:none}.bl2-big[data-tint] .tw{display:inline-block;white-space:nowrap}.bl2-big[data-tint] .tc{display:inline-block;will-change:transform}
 .bl2-big[data-tint]+.k{margin-top:clamp(48px,6vw,96px)}
+
+.bl2-src{display:block;margin-top:10px;font-size:13px;color:var(--mute)}.bl2-src a{color:inherit;text-underline-offset:3px}.bl2-src a:hover{color:var(--ink)}
