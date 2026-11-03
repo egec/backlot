@@ -462,12 +462,13 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 2.125rem/1 "Reenie Bea
 .wk{padding:0 0 clamp(72px,8vw,140px)}
 .wk .k{font-size:0.8125rem;color:var(--mute);margin:0}
 .wk-hero{position:relative;padding:clamp(56px,8vw,140px) 0 clamp(56px,7vw,120px);--me:clamp(240px,27vw,460px)}
-.wk-hero>:not(.wk-me){position:relative;z-index:1;max-width:min(var(--mx,100%),calc(100% - var(--me) - 3vw))}
+/* the lead never runs wider than the headline above it */
+.wk-hero{width:fit-content;max-width:100%}.wk-lead{contain:inline-size}
 .wk-me{position:absolute;right:0;bottom:clamp(24px,3vw,56px);width:var(--me);height:auto;pointer-events:none;user-select:none;-webkit-mask-image:linear-gradient(#000 72%,transparent 98%);mask-image:linear-gradient(#000 72%,transparent 98%)}
 @media(max-width:767px){.wk-hero>:not(.wk-me){max-width:none}.wk-me{position:static;display:block;width:200px;margin:0 0 20px -8px}}
 .wk-open{display:flex;align-items:center;gap:8px;margin:0;font-size:0.8125rem;color:var(--mute)}.wk-open i{width:7px;height:7px;border-radius:50%;background:#728437}
 .wk h1{margin:18px 0 0;max-width:17em;font-size:clamp(2.125rem,4.2vw,4.5rem);line-height:1.02;letter-spacing:-.035em;font-weight:600;text-wrap:balance}
-.wk-lead{margin:18px 0 0;max-width:30em;font-size:clamp(1rem,1.15vw,1.188rem);line-height:1.45;color:var(--mute)}
+.wk-lead{margin:18px 0 0;max-width:42em;font-size:clamp(1rem,1.15vw,1.188rem);line-height:1.45;color:var(--mute)}
 .wk-sel{display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .wk-g{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,32px);margin-top:clamp(20px,2vw,32px)}
 .wk-c{display:flex;flex-direction:column;text-decoration:none;color:var(--ink)}
