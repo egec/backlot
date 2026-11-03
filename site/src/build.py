@@ -451,7 +451,7 @@ def bilge():
         ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. The header is blue on the agent’s side and red on the customs side, so everyone knows which side of the form they are on.'),
         ('Sources side by side', 'The carrier’s declaration and the port’s records sit next to each other, so a mismatch is visible at a glance.'),
         ('Registering is binding', 'Registering starts the clock on the container’s permitted time in the country, so at the ministry’s request the button says Register. The confirmation shows the registration number and the remaining prepaid balance.')], 1))
-    glance = ('<div class="bl2-t bl2-part"><p class="bl2-big" data-tint style="--ac:#A31A28"><span class="bl2-line">One form, four people.</span><span class="bl2-line">The clock is running.</span></p><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
+    glance = ('<div class="bl2-t bl2-part"><p class="bl2-big" data-tint style="--ac:#A31A28;font-size:clamp(36px,5.4vw,100px)"><span class="bl2-line">One form, four people.</span><span class="bl2-line">The clock is running.</span></p><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
               + split('The problem', '<p>Every container that enters or leaves a Turkish seaport needs a Container Tracking Form. KLTS moved that form, and the records customs, port operators and agencies used to exchange on paper, into one system.</p>'
                       '<p>Up to four people work on one form, and from registration the container’s permitted time is running.</p>')
               + f'<div class="bl2-cards c3">{cards}</div>'
