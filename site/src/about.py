@@ -331,15 +331,13 @@ QA = [('What’s the hardest workflow you’ve designed?', 'Backlot, the case st
 
 
 
-EVENTS = [(2016.8, 'Oct 2016', 'Industrial Design, B.Sc.', 'Middle East Technical University, Ankara', 'Five years of making things that have to be built: sketches, foam and clay models, prototypes.'),
-          (2021.95, 'Dec 2021', 'Industrial Designer', 'MAN Truck & Bus, Ankara', 'Bus interior parts, designed within tooling cost, lead time and the production schedule.'),
-          (2022.7, 'Sep 2022', 'UX/UI Designer', 'MilSOFT Software Technologies, Ankara', 'BİLGE, the customs platform of the Turkish Ministry of Trade, and radar screens for naval systems.'),
-          (2023.8, 'Oct 2023', 'Integrated Design, M.A.', 'Hochschule Anhalt, Dessau', 'Started my master’s in Dessau.'),
-          (2024.5, 'Jul 2024', 'Founding member, Product Designer', 'UwaVerde (NGO), remote', 'The organisation’s first design work: the website and a member portal.'),
-          (2025.55, 'Jul 2025', 'M.A. finished, first in class', 'Hochschule Anhalt, Dessau', 'Thesis: a wearable for continuous monitoring in high-risk pregnancies. ' + AWARD + '.'),
-          (2026.35, 'May 2026', 'Product Designer', 'Insider One, remote from Berlin', 'Data health in a customer data platform.'),
-          (2026.85, 'Now', 'Looking for my next team', 'Berlin, or wherever the work is', 'Open to product design roles on B2B products. If the domain is new to me, even better.')]
-BARS = [(2016.8, 2021.55, 0), (2021.95, 2022.45, 0), (2022.7, 2023.8, 0), (2023.8, 2025.55, 0), (2026.35, 2026.7, 0), (2024.5, 2026.9, 1)]
+EVENTS = [(2016.8, 2021.55, '2016 to 2021', 'Industrial Design, B.Sc.', 'Middle East Technical University, Ankara', 'Five years of making things that have to be built: sketches, foam and clay models, prototypes.', ''),
+          (2021.95, 2022.45, '2021 to 2022', 'Industrial Designer', 'MAN Truck & Bus, Ankara', 'Bus interior parts, designed within tooling cost, lead time and the production schedule.', ''),
+          (2022.7, 2023.8, '2022 to 2023', 'UX/UI Designer', 'MilSOFT Software Technologies, Ankara', 'BİLGE, the customs platform of the Turkish Ministry of Trade, and radar screens for naval systems.', ''),
+          (2023.8, 2025.55, '2023 to 2025', 'Integrated Design, M.A.', 'Hochschule Anhalt, Dessau', 'First in class. Thesis: a wearable for continuous monitoring in high-risk pregnancies. ' + AWARD + '.',
+           '<div class="ax-side"><p class="ax-sk">From 2024, alongside</p><p class="ax-sh">Founding member, Product Designer</p><p>UwaVerde (NGO): the organisation’s first design work, a website and a member portal. Still going.</p></div>'),
+          (2026.35, 2026.7, '2026', 'Product Designer', 'Insider One, remote from Berlin', 'Data health in a customer data platform.', ''),
+          (2026.85, 2026.95, 'Now', 'Looking for my next team', 'Berlin, or wherever the work is', 'Open to product design roles on B2B products. If the domain is new to me, even better.', '')]
 
 def about3():
     """intro with a portrait; experience on a moving crosshair that turns the page dark; then How I work, questions and tools on dark"""
@@ -348,8 +346,8 @@ def about3():
     Y0 = 2016
     ticks = ''.join(f'<i class="ax-tq{" y" if q % 4 == 0 else ""}" style="--o:{q / 4}"></i>' for q in range(0, 11 * 4 + 1))
     bars = ''
-    cards = ''.join(f'<article class="ax-pc" data-t="{t - Y0}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p></div></div></article>'
-                    for t, w, ti, pl, tx in EVENTS)
+    cards = ''.join(f'<article class="ax-pc" data-t="{t - Y0}" data-e="{e - Y0}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
+                    for t, e, w, ti, pl, tx, x in EVENTS)
     how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = ''.join(f'<details class="ax-q"><summary><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in QA)
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="20" height="20" alt="" loading="lazy">{t}</li>' for t, f in TOOLS)
@@ -357,15 +355,15 @@ def about3():
 <section class="ax-w ax-intro"><div><h1>Hi, I’m Ege.</h1><div class="ax-tx">{lead}</div></div>
 <figure class="ax-me"><div class="ax-fl"><img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy"></div></figure></section>
 <section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
-<div class="ax-st"><div class="ax-win" aria-hidden="true"><div class="ax-rl">{ticks}</div></div><i class="ax-now" aria-hidden="true"></i><div class="ax-pcs">{cards}</div></div></div></section>
+<div class="ax-st"><div class="ax-win" aria-hidden="true"><div class="ax-rl">{ticks}<i class="ax-rg"></i></div></div><i class="ax-now" aria-hidden="true"></i><div class="ax-pcs">{cards}</div></div></div></section>
 <div class="ax-dark">
 <section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
 <section class="ax-w ax-ask"><h2>Things you might ask</h2><div class="ax-qs">{qa}</div></section>
 <section class="ax-w ax-tl"><h2>Tools</h2><ul class="ax-tools">{tools}</ul></section>
 </div></main>
 <style>
-/* type scale for the site: h1 56, h2 36, h3 24, body 16 (18 on very large screens) */
-.abx{{--fs:16px;--h1:clamp(40px,3.4vw,56px);--h2:clamp(28px,1.9vw,36px);--h3:clamp(20px,1.3vw,24px);--px:clamp(20px,2.4vw,44px);--dk:#161616;font-family:"Inter Tight",system-ui,sans-serif}}
+/* type scale: h1 56, section titles 26, item titles 36, h3 24, body 16 (18 on very large screens) */
+.abx{{--fs:16px;--h1:clamp(40px,3.4vw,56px);--h2:clamp(20px,1.3vw,26px);--h2b:clamp(26px,1.9vw,36px);--h3:clamp(20px,1.3vw,24px);--px:clamp(20px,2.4vw,44px);--dk:#161616;font-family:"Inter Tight",system-ui,sans-serif}}
 @media(min-width:2200px){{.abx{{--fs:18px}}}}
 .abx *{{font-family:inherit}}
 .ax-w{{padding-left:var(--px);padding-right:var(--px)}}
@@ -387,6 +385,8 @@ def about3():
 .ax-rl{{position:absolute;left:0;top:50%;width:60px;transition:transform .7s var(--ease)}}
 .ax-tq{{position:absolute;left:20px;top:calc(var(--o) * var(--yh));width:14px;border-top:1px solid #C9C8C3}}
 .ax-tq.y{{left:8px;width:26px;border-color:#8E8D88}}
+.ax-rg{{position:absolute;left:38px;width:4px;border-radius:2px;background:var(--g);top:calc(var(--ra,0) * var(--yh));height:calc(var(--rl,0) * var(--yh));transition:top .7s var(--ease),height .7s var(--ease)}}
+.ax-side{{margin-top:18px;padding:14px 16px;border-left:3px solid var(--g);background:#EEEEEB;border-radius:0 10px 10px 0}}.ax-side p{{margin:0 0 .3em}}.ax-sk{{font-size:13px!important;color:var(--g)!important;font-weight:600}}.ax-sh{{font-weight:600}}
 .ax-now{{position:absolute;left:0;right:0;top:34%;height:1px;background:var(--g)}}
 .ax-now:before{{content:"";position:absolute;left:calc(var(--px) - 2px);top:-5px;border:5px solid transparent;border-left:7px solid var(--g)}}
 .ax-pcs{{position:absolute;left:calc(var(--px) + 120px);right:var(--px);top:34%}}
@@ -395,7 +395,7 @@ def about3():
 .ax-when{{position:absolute;bottom:calc(100% + 10px);left:0;margin:0;font-size:14px!important;font-weight:600;color:var(--g)!important;font-variant-numeric:tabular-nums}}
 .ax-pg2{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,80px);padding-top:24px;transform:translateY(12px);transition:transform .5s var(--ease)}}
 .ax-pc.on .ax-pg2{{transform:none}}
-.ax-pc h3{{font-size:var(--h2);letter-spacing:-.025em}}
+.ax-pc h3{{font-size:var(--h2b);letter-spacing:-.025em}}
 .ax-pd{{max-width:30em}}.ax-pd p{{margin:0 0 .4em;color:#2b2a28}}.ax-pp{{font-weight:600}}
 .ab-aw{{position:relative;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}
 .ab-aw:hover{{text-decoration-color:var(--ink)}}
@@ -413,7 +413,7 @@ def about3():
 .ax-dark p{{color:#CFCECA}}
 .ax-how{{height:calc(var(--n) * 45svh + 60svh)}}
 .ax-hpin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);overflow:hidden;padding-top:clamp(20px,2.4vw,40px);box-sizing:border-box}}
-.ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(64px,9svh,96px);bottom:clamp(16px,3svh,40px)}}
+.ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(100px,14svh,150px);bottom:clamp(16px,3svh,40px)}}
 .ax-hc{{--w:min(25vw,400px);position:absolute;top:0;left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(100%,540px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:#F7F7F5;color:var(--ink);border-radius:18px;box-shadow:0 24px 50px rgba(0,0,0,.35);
   top:var(--dy,0px);transform:translateY(calc((1 - var(--e,0)) * 130%)) rotate(calc(var(--r) + (1 - var(--e,0)) * var(--r2)));opacity:min(1,calc(var(--e,0) * 4))}}
 .ax-hc h3{{font-size:clamp(24px,2vw,36px);line-height:.98;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;text-wrap:balance}}
@@ -453,10 +453,10 @@ function prog(s){{var r=s.getBoundingClientRect();return Math.max(0,Math.min(1,-
 var cur=-1,raf=0;
 function draw(){{raf=0;if(innerWidth<900)return;
   var k=Math.min(n-1,Math.round(prog(P)*(n-1)));
-  if(k!==cur){{cur=k;var t=+pc[k].dataset.t,yh=innerHeight*.12;rl.style.transform='translateY('+(-t*yh).toFixed(1)+'px)';
+  if(k!==cur){{cur=k;var t=+pc[k].dataset.t,e=+pc[k].dataset.e,yh=innerHeight*.12;rl.style.transform='translateY('+(-t*yh).toFixed(1)+'px)';rl.style.setProperty('--ra',t);rl.style.setProperty('--rl',Math.max(.15,e-t));
     bars.forEach(function(b){{var a=+b.dataset.a,e=+b.dataset.b;b.style.setProperty('--f',Math.max(0,Math.min(1,(t-a)/(e-a))).toFixed(3))}});
     pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
-  var q=1+prog(H)*(hc.length-.4);hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
+  var hr=H.getBoundingClientRect(),hv=innerHeight*.5,q=Math.max(0,(hv-hr.top)/(hv+run(H)))*(hc.length+.3);hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
 /* one wheel gesture or swipe moves exactly one step along the line; at either end the page scrolls on */
 function go(i){{var top=P.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run(P)*i/(n-1))+(i?1:0),behavior:'smooth'}})}}
 var lock=0;function step(dir){{var k=Math.round(prog(P)*(n-1)),t=k+dir;if(t<0||t>n-1)return false;if(Date.now()<lock)return true;lock=Date.now()+750;go(t);return true}}
