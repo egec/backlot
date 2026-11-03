@@ -29,13 +29,14 @@ KIND = {'edu': 'Education', 'work': 'Experience'}
 AB_LEAD = ('Every job so far began in a domain I didn’t know: customs regulation, naval radar, customer data, maternal and fetal health. That first stretch is my favourite part. Before I draw anything, I want to know how the work is really done, who pays when it goes wrong, and which rule the backend will never bend.',
            'Most of what I need is already written down by someone who isn’t a designer. So I read the specs, sit with the system engineers, and take a PM’s request apart until I find the customer problem underneath it. When a decision costs one side something, I say so in the room instead of hiding it in the layout. When the call goes the other way, I want it written down, so we can come back to it once real usage shows who was right.',
            'The fastest way to settle those conversations is usually to show something. AI is part of how I work every day: I explore and prototype with Claude, and I built and shipped this site in code with Claude Code, live prototypes included. Often the first thing a PM sees from me is something they can click.',
-           'I’m based in Berlin and open to relocation. I’d love a team that gets as excited about an edge case as I do, and still ships on Friday.')
+           'I’m based in Berlin and open to relocation. If your team argues about empty states over lunch, I’m in.')
 
 
-HOW = [('Learn the domain first', 'Customs declarations, naval radar displays, data tools, a prenatal monitoring wearable. Each time, I learned how the work is really done, and by whom, before I started designing.'),
+HOW = [('Learn the domain first', 'Customs declarations, naval radar displays, customer data, a prenatal monitoring wearable. Each time, I learned how the work is really done, and by whom, before I started designing.'),
        ('Design for the unhappy path', 'Most products work when everything goes right. I spend more of my time on the other cases: the action that fails, the data that is missing, the step someone skips. That is where people decide whether they can trust a tool.'),
        ('A reason for every decision', 'If I cannot say why something sits where it does, it moves or goes. Hierarchy, colour and wording all need a reason I could defend in a review.'),
-       ('User needs and business goals', 'A design is done when it works for the person using it and for the business paying for it. I keep both in the room, and when they pull in different directions, I make the trade-off visible instead of hiding it.')]
+       ('Say the trade-off out loud', 'Most decisions cost one side something: more control is more surface to maintain, a faster flow means fewer confirmations. I put the trade-off on the table with the PM and the engineers, and when the call goes the other way, I make sure it is written down.'),
+       ('The fortieth time, not the first', 'I look for how people work when they are tired, in a hurry and doing it for the fortieth time today. Support tickets, session replays and watching someone work without stepping in tell me more than the brief.')]
 TOOLS = [('Figma', 'figma'), ('Claude Design', 'claude-icon'), ('Claude Code', 'claude-code'), ('Storybook', 'storybook-icon'), ('Jira', 'jira'), ('Confluence', 'confluence'),
          ('Webflow', 'webflow'), ('Miro', 'miro-icon'), ('Notion', 'notion-icon'), ('Illustrator', 'adobe-illustrator'), ('Photoshop', 'adobe-photoshop'), ('InDesign', 'adobe-indesign')]
 
