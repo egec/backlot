@@ -55,7 +55,8 @@ def more():
             '''<style>
 .ab-more{padding-bottom:clamp(72px,8vw,140px)}
 /* how I work: cards stack as you scroll, each keeps its label row in view; the heading's letters rise in when its card arrives */
-.hw{position:relative;padding-top:clamp(56px,6vw,104px);padding-bottom:clamp(40px,10vh,120px)}
+.hw{position:relative;padding-top:clamp(56px,6vw,104px);padding-bottom:0}.hw-c:last-child{min-height:0}
+.hw+.ab-more .ab-row:first-child{margin-top:clamp(24px,3vw,48px)}
 .hw-t{margin:0 0 clamp(24px,3vw,48px);font-size:clamp(28px,2.6vw,44px);line-height:1.05;letter-spacing:-.025em;font-weight:600}
 .hw-c{--row:52px;position:sticky;top:calc(4.75rem + var(--i) * var(--row));background:var(--bg);border-top:1px solid #D3D3CF;min-height:min(56svh,520px);padding-bottom:clamp(40px,5vw,72px)}
 .hw-ln{position:absolute;left:0;top:-1px;height:2px;width:calc(var(--p,0) * 100%);background:var(--g)}

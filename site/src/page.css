@@ -244,7 +244,7 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 34px/1 "Reenie Beanie"
 .wk-ab-h{margin:0;max-width:18em;font-size:clamp(28px,3.2vw,54px);line-height:1.06;letter-spacing:-.03em;font-weight:600;text-wrap:balance}
 .wk-ab-l{margin:20px 0 0;max-width:32em;font-size:clamp(16px,1.15vw,19px);line-height:1.45;color:var(--mute)}
 .wk-btn{display:inline-flex;align-items:center;height:48px;margin-top:28px;padding:0 24px;border:1px solid var(--ink);border-radius:99px;color:var(--ink);text-decoration:none;font-size:16px;transition:background .2s,color .2s}
-.wk-btn:hover{background:var(--ink);color:#fff}
+.ec-btn.ink{color:var(--ink)!important;border:1px solid var(--ink);background:transparent;font:inherit;font-size:16px}.ec-btn.ink .ec-fl{background:var(--ink)}.ec-btn.ink.on{color:#fff!important;border-color:var(--ink)}
 @media(max-width:767px){.wk-g{grid-template-columns:1fr}.wk-r{grid-template-columns:36px 1fr}.wk-rd{grid-column:2}.wk-p{display:none}.wk-ab{grid-template-columns:1fr}}
 
 /* next project: the sentence is the hero, the name stays small; every project below, then the footer */
@@ -290,3 +290,5 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 34px/1 "Reenie Beanie"
 
 /* home and about line up with the header, case pages keep their reading gutter */
 body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);padding-right:clamp(20px,2.4vw,44px)}
+
+.wk-ab-h[data-tint] .bl2-line{display:inline}

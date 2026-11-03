@@ -594,7 +594,7 @@ def work():
     lead = [
         ('backlot', '01', 'Backlot, concept project', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
-         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour.mp4?v=24'),
+         ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
         ('bilge', '02', 'BİLGE, client work at MilSOFT', 'Container tracking for Turkish customs',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
          ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
@@ -612,9 +612,9 @@ def work():
         (f'<li><a class="wk-r" href="/{k}"><em>{num}</em>' if k else f'<li><div class="wk-r wk-soon"><em>{num}</em>') + f'<b>{name}</b><span class="wk-rd"><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
         + f'</span></span><span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span>' + ('</a></li>' if k else '</div></li>')
         for k, num, name, t, tags, img in more)
-    about = ('<section class="wk-ab"><p class="k">About</p><div><p class="wk-ab-h">Approval queues, permissions, bulk actions, error states. I like the screens people use eight hours a day.</p>'
+    about = ('<section class="wk-ab"><p class="k">About</p><div><p class="wk-ab-h" data-tint style="--ac:#728437"><span class="bl2-line">Approval queues, permissions, bulk actions, error states.</span> <span class="bl2-line">I like the screens people use eight hours a day.</span></p>'
              '<p class="wk-ab-l">I work end to end, from interviews and flows to prototypes and a design system developers can build from.</p>'
-             '<a class="wk-btn" href="/about">More about me</a></div></section>')
+             '<a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></div></section>')
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
             f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
             f'<p class="wk-lead">A millimetre off in a bus interior part, and the tooling is already paid for. I design B2B data products now, and I still look for the edge case while it is a design problem, before it becomes a bug report.</p></div>'
