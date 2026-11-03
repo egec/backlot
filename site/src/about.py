@@ -330,24 +330,33 @@ QA = [('What’s the hardest workflow you’ve designed?', 'Backlot, the case st
       ('When can you start?', 'As soon as you need me. I’m in Berlin and open to relocation.')]
 
 
+
+EVENTS = [(2016.8, 'Oct 2016', 'Industrial Design, B.Sc.', 'Middle East Technical University, Ankara', 'Five years of making things that have to be built: sketches, foam and clay models, prototypes.'),
+          (2021.95, 'Dec 2021', 'Industrial Designer', 'MAN Truck & Bus, Ankara', 'Bus interior parts, designed within tooling cost, lead time and the production schedule.'),
+          (2022.7, 'Sep 2022', 'UX/UI Designer', 'MilSOFT Software Technologies, Ankara', 'BİLGE, the customs platform of the Turkish Ministry of Trade, and radar screens for naval systems.'),
+          (2023.8, 'Oct 2023', 'Integrated Design, M.A.', 'Hochschule Anhalt, Dessau', 'Started my master’s in Dessau.'),
+          (2024.5, 'Jul 2024', 'Founding member, Product Designer', 'UwaVerde (NGO), remote', 'The organisation’s first design work: the website and a member portal.'),
+          (2025.55, 'Jul 2025', 'M.A. finished, first in class', 'Hochschule Anhalt, Dessau', 'Thesis: a wearable for continuous monitoring in high-risk pregnancies. ' + AWARD.replace(PV, '') + '.'),
+          (2026.35, 'May 2026', 'Product Designer', 'Insider One, remote from Berlin', 'Data health in a customer data platform.')]
+BARS = [(2016.8, 2021.55, 0), (2021.95, 2022.45, 0), (2022.7, 2023.8, 0), (2023.8, 2025.55, 0), (2026.35, 2026.7, 0), (2024.5, 2026.9, 1)]
+
 def about3():
     """intro with a portrait; experience on a moving crosshair that turns the page dark; then How I work, questions and tools on dark"""
     lead = ''.join(f'<p>{x}</p>' for x in AB_LEAD)
-    items = PATH[::-1]
-    n = len(items)
-    years = ''.join(f'<span data-i="{i}">{y}</span>' for i, (y, *_ ) in enumerate(items))
-    cards = ''.join(
-        f'<article class="ax-pc" data-i="{i}"><h3>{t}</h3><div class="ax-pd"><p class="ax-pp">{p}</p><p class="ax-pt">{KIND[k]}, {d}</p>'
-        + ''.join(f'<p>{x.replace(PV, "")}</p>' for x in ls) + '</div></article>'
-        for i, (y, k, t, p, d, ls) in enumerate(items))
-    how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i}"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
+    n = len(EVENTS)
+    Y0 = 2016
+    ticks = ''.join(f'<i class="ax-tq{" y" if q % 4 == 0 else ""}" style="--o:{q / 4}">' + (f'<b>{Y0 + q // 4}</b>' if q % 4 == 0 else '') + '</i>' for q in range(0, 11 * 4 + 1))
+    bars = ''.join(f'<i class="ax-bar" data-a="{s0 - Y0}" data-b="{s1 - Y0}" style="--a:{s0 - Y0};--l:{s1 - s0};--ln:{ln}"></i>' for s0, s1, ln in BARS)
+    cards = ''.join(f'<article class="ax-pc" data-t="{t - Y0}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p></div></div></article>'
+                    for t, w, ti, pl, tx in EVENTS)
+    how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = ''.join(f'<details class="ax-q"><summary><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in QA)
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="20" height="20" alt="" loading="lazy">{t}</li>' for t, f in TOOLS)
     return f"""<main class="ab abx">
 <section class="ax-w ax-intro"><div><h1>Hi, I’m Ege.</h1><div class="ax-tx">{lead}</div></div>
-<figure class="ax-me"><img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy"></figure></section>
+<figure class="ax-me"><div class="ax-fl"><img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy"></div></figure></section>
 <section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
-<div class="ax-st"><i class="ax-v" aria-hidden="true"></i><i class="ax-h" aria-hidden="true"></i><p class="ax-yr" aria-hidden="true">{years}</p><div class="ax-pcs">{cards}</div><i class="ax-dk" aria-hidden="true"></i></div></div></section>
+<div class="ax-st"><div class="ax-rl" aria-hidden="true">{ticks}{bars}</div><i class="ax-now" aria-hidden="true"></i><div class="ax-pcs">{cards}</div></div></div></section>
 <div class="ax-dark">
 <section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
 <section class="ax-w ax-ask"><h2>Things you might ask</h2><div class="ax-qs">{qa}</div></section>
@@ -365,33 +374,38 @@ def about3():
 .abx p{{font-size:var(--fs);line-height:1.55}}
 .ax-intro{{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);align-items:center;padding-top:clamp(40px,5vw,88px);padding-bottom:clamp(64px,7vw,120px)}}
 .ax-tx{{max-width:40em}}.ax-tx p{{margin:0 0 .9em;color:#2b2a28}}
-.ax-me{{position:relative;margin:0;justify-self:end;width:min(100%,480px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#F1E4CC}}
-.ax-me img{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s var(--ease),transform .7s var(--ease)}}
-.ax-p{{opacity:0;transform:scale(1.04)}}.ax-me:hover .ax-p{{opacity:1;transform:none}}.ax-me:hover .ax-d{{transform:scale(.98)}}
-/* experience: a crosshair moves down one role per scroll; at the end the page turns dark from the horizontal line */
-.ax-path{{height:calc(var(--n) * 80svh + 100svh)}}
+.ax-me{{position:relative;margin:0;justify-self:end;width:min(100%,480px);aspect-ratio:1;perspective:1400px}}
+.ax-fl{{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s var(--ease)}}.ax-me:hover .ax-fl{{transform:rotateY(180deg)}}
+.ax-me img{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#F1E4CC}}
+.ax-p{{transform:rotateY(180deg)}}
+/* experience: a ruler of years slides under a fixed line, past to present; overlapping roles keep their own bar */
+.ax-path{{height:calc(var(--n) * 70svh + 100svh)}}
 .ax-pin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);display:flex;flex-direction:column;padding-top:clamp(16px,2vw,32px);border-top:1px solid var(--line);box-sizing:border-box;overflow:hidden}}
-.ax-st{{--y:.3;--d:0;position:relative;flex:1;margin-top:16px}}
-.ax-v{{position:absolute;left:var(--px);top:0;bottom:0;width:1px;background:#D3D2CE}}
-.ax-v:after{{content:"";position:absolute;left:0;top:0;width:2px;height:calc(var(--y) * 100%);background:var(--g);transition:height .6s var(--ease)}}
-.ax-h{{position:absolute;left:0;right:0;top:calc(var(--y) * 100%);height:1px;background:var(--ink);transition:top .6s var(--ease)}}
-.ax-yr{{position:absolute;left:calc(var(--px) + 28px);bottom:calc((1 - var(--y)) * 100% + 6px);margin:0;height:1em;font-size:clamp(64px,7vw,128px)!important;line-height:1!important;font-weight:600;letter-spacing:-.05em;transition:bottom .6s var(--ease)}}
-.ax-yr span{{position:absolute;left:0;bottom:0;opacity:0;transform:translateY(30%);transition:opacity .35s,transform .5s var(--ease);font-variant-numeric:tabular-nums}}
-.ax-yr span.on{{opacity:1;transform:none}}
-.ax-pcs{{position:absolute;left:calc(var(--px) + 28px);right:var(--px);top:calc(var(--y) * 100% + clamp(20px,3svh,36px));transition:top .6s var(--ease)}}
-.ax-pc{{position:absolute;left:0;right:0;top:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,80px);opacity:0;transform:translateY(14px);transition:opacity .35s,transform .5s var(--ease);pointer-events:none}}
-.ax-pc.on{{opacity:1;transform:none;pointer-events:auto}}
-.ax-pc h3{{font-size:var(--h2);letter-spacing:-.025em;white-space:nowrap}}
-.ax-pd p{{margin:0 0 .45em;color:#2b2a28}}.ax-pp{{font-weight:600}}.ax-pt{{color:var(--mute)!important;font-size:14px!important}}
-.ax-dk{{position:absolute;left:0;right:0;bottom:0;top:calc(var(--y) * 100% + (1 - var(--d)) * (100% - var(--y) * 100%));background:var(--dk)}}
+.ax-st{{--yh:15svh;position:relative;flex:1}}
+.ax-rl{{position:absolute;left:var(--px);top:50%;width:110px;transition:transform .7s var(--ease)}}
+.ax-tq{{position:absolute;left:44px;top:calc(var(--o) * var(--yh));width:14px;border-top:1px solid #D3D2CE}}
+.ax-tq.y{{width:26px;border-color:#A9A8A3}}
+.ax-tq b{{position:absolute;right:calc(100% + 8px);top:-.65em;font-size:12px;font-weight:500;color:#A9A8A3;font-variant-numeric:tabular-nums}}
+.ax-bar{{position:absolute;left:calc(78px + var(--ln) * 12px);top:calc(var(--a) * var(--yh));height:calc(var(--l) * var(--yh));width:5px;border-radius:3px;background:#DAD9D5;overflow:hidden}}
+.ax-bar:after{{content:"";position:absolute;left:0;top:0;width:100%;height:calc(var(--f,0) * 100%);background:var(--g);transition:height .7s var(--ease)}}
+.ax-now{{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--g)}}
+.ax-now:before{{content:"";position:absolute;left:calc(var(--px) - 14px);top:-5px;border:5px solid transparent;border-left:7px solid var(--g)}}
+.ax-pcs{{position:absolute;left:calc(var(--px) + 180px);right:var(--px);top:50%}}
+.ax-pc{{position:absolute;left:0;right:0;top:0;opacity:0;transition:opacity .35s;pointer-events:none}}
+.ax-pc.on{{opacity:1;pointer-events:auto}}
+.ax-when{{position:absolute;bottom:calc(100% + 10px);left:0;margin:0;font-size:14px!important;color:var(--mute)!important;font-variant-numeric:tabular-nums}}
+.ax-pg2{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,80px);padding-top:24px;transform:translateY(12px);transition:transform .5s var(--ease)}}
+.ax-pc.on .ax-pg2{{transform:none}}
+.ax-pc h3{{font-size:var(--h2);letter-spacing:-.025em}}
+.ax-pd{{max-width:30em}}.ax-pd p{{margin:0 0 .4em;color:#2b2a28}}.ax-pp{{font-weight:600}}
 /* dark from here on */
 .ax-dark{{background:var(--dk);color:#F2F2EF}}
 .ax-dark p{{color:#CFCECA}}
 .ax-how{{height:calc(var(--n) * 55svh + 100svh)}}
-.ax-hpin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);overflow:hidden;padding-top:clamp(24px,3vw,48px);box-sizing:border-box}}
-.ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(100px,15svh,160px);bottom:clamp(20px,4svh,48px)}}
+.ax-hpin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);overflow:hidden;padding-top:clamp(20px,2.4vw,40px);box-sizing:border-box}}
+.ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(80px,12svh,130px);bottom:clamp(20px,4svh,48px)}}
 .ax-hc{{--w:min(25vw,400px);position:absolute;top:0;left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(100%,540px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:#F7F7F5;color:var(--ink);border-radius:18px;box-shadow:0 24px 50px rgba(0,0,0,.35);
-  transform:translateY(calc((1 - var(--e,0)) * 115%)) rotate(calc((var(--i) - 2) * 3deg + (1 - var(--e,0)) * 10deg));opacity:calc(.3 + var(--e,0) * .7)}}
+  top:var(--dy,0px);transform:translateY(calc((1 - var(--e,0)) * 130%)) rotate(calc(var(--r) + (1 - var(--e,0)) * var(--r2)));opacity:min(1,calc(var(--e,0) * 4))}}
 .ax-hc h3{{font-size:clamp(24px,2vw,36px);line-height:.98;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;text-wrap:balance}}
 .ax-hc .ax-ht{{margin:16px 0 0;font-size:15px!important;line-height:1.45!important;color:#3a3936}}
 .ax-hc .ax-hn{{margin:auto 0 0!important;font-size:clamp(56px,5.4vw,100px)!important;line-height:.9!important;font-weight:800;letter-spacing:-.05em;color:var(--g)}}
@@ -409,35 +423,36 @@ def about3():
 .ax-q summary i:before,.ax-q summary i:after{{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;margin:-.75px 0 0 -6.5px;background:#fff}}.ax-q summary i:after{{transform:rotate(90deg)}}
 .ax-q summary:hover i{{background:#fff}}.ax-q summary:hover i:before,.ax-q summary:hover i:after{{background:var(--g)}}
 .ax-q[open] summary i{{transform:rotate(45deg)}}
-.ax-q p{{margin:0;padding:20px 18px 26px;max-width:40em}}
+.ax-q p{{margin:0;padding:4px 18px 26px;max-width:none;color:#fff!important}}.ax-q[open]{{background:var(--g)}}.ax-q p{{max-width:44em}}
 .ax-tl{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px);border-top:1px solid rgba(255,255,255,.14)}}
 .ax-tools{{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-content:start}}
 .ax-tools li{{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:99px;background:#262624;font-size:14px;font-weight:500}}
 .ax-tools img{{width:18px;height:18px;object-fit:contain}}
 @media(max-width:899px){{.ax-intro,.ax-ask,.ax-tl{{grid-template-columns:1fr}}.ax-me{{justify-self:start;width:min(70vw,320px)}}.ax-ask h2{{position:static}}
-.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-v,.ax-h,.ax-yr,.ax-dk{{display:none}}
-.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;display:block;opacity:1;transform:none;margin-bottom:32px}}.ax-pc h3{{white-space:normal;margin-bottom:10px}}
+.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-rl,.ax-now{{display:none}}
+.ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
-@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-v,.ax-h,.ax-yr,.ax-dk{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;transform:none;margin-bottom:32px}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
+@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-rl,.ax-now{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
 </style>
 <script>
 (function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-var P=document.querySelector('[data-axpath]'),st=P.querySelector('.ax-st'),yr=[].slice.call(P.querySelectorAll('.ax-yr span')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length;
+var P=document.querySelector('[data-axpath]'),rl=P.querySelector('.ax-rl'),bars=[].slice.call(P.querySelectorAll('.ax-bar')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length;
 var H=document.querySelector('[data-axhow]'),hc=[].slice.call(H.querySelectorAll('.ax-hc'));
 function run(s){{return s.offsetHeight-s.querySelector('.ax-pin,.ax-hpin').offsetHeight}}
 function prog(s){{var r=s.getBoundingClientRect();return Math.max(0,Math.min(1,-r.top/Math.max(1,run(s))))}}
 var cur=-1,raf=0;
 function draw(){{raf=0;if(innerWidth<900)return;
-  var p=prog(P),k=Math.min(n-1,Math.round(p*n)),d=Math.max(0,Math.min(1,(p*n-(n-1))));
-  st.style.setProperty('--d',d.toFixed(3));
-  if(k!==cur){{cur=k;st.style.setProperty('--y',(.3+.22*k/(n-1)).toFixed(4));yr.forEach(function(s,i){{s.classList.toggle('on',i===k)}});pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
+  var k=Math.min(n-1,Math.round(prog(P)*(n-1)));
+  if(k!==cur){{cur=k;var t=+pc[k].dataset.t,yh=innerHeight*.15;rl.style.transform='translateY('+(-t*yh).toFixed(1)+'px)';
+    bars.forEach(function(b){{var a=+b.dataset.a,e=+b.dataset.b;b.style.setProperty('--f',Math.max(0,Math.min(1,(t-a)/(e-a))).toFixed(3))}});
+    pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
   var q=prog(H)*(hc.length+.6)-.2;hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
-/* one wheel gesture or swipe moves exactly one role, the last one turns the page dark; past that the page scrolls on */
-function go(i){{var top=P.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run(P)*i/n)+(i?1:0),behavior:'smooth'}})}}
-var lock=0;function step(dir){{var k=Math.round(prog(P)*n),t=k+dir;if(t<0||t>n)return false;if(Date.now()<lock)return true;lock=Date.now()+750;go(t);return true}}
+/* one wheel gesture or swipe moves exactly one step along the line; at either end the page scrolls on */
+function go(i){{var top=P.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run(P)*i/(n-1))+(i?1:0),behavior:'smooth'}})}}
+var lock=0;function step(dir){{var k=Math.round(prog(P)*(n-1)),t=k+dir;if(t<0||t>n-1)return false;if(Date.now()<lock)return true;lock=Date.now()+750;go(t);return true}}
 function inside(){{var r=P.getBoundingClientRect();return r.top<=2&&r.bottom>=innerHeight-2}}
 addEventListener('wheel',function(e){{if(innerWidth<900||!inside()||Math.abs(e.deltaY)<4)return;if(step(e.deltaY>0?1:-1))e.preventDefault()}},{{passive:false}});
 var ty=null;addEventListener('touchstart',function(e){{ty=e.touches[0].clientY}},{{passive:true}});
 addEventListener('touchmove',function(e){{if(innerWidth<900||ty==null||!inside())return;var dy=ty-e.touches[0].clientY;if(Math.abs(dy)<30)return;if(step(dy>0?1:-1)){{e.preventDefault();ty=null}}}},{{passive:false}});
-addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',draw);draw()}})();
+addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',function(){{cur=-1;draw()}});draw()}})();
 </script>"""
