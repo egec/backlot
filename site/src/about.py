@@ -331,105 +331,113 @@ QA = [('What’s the hardest workflow you’ve designed?', 'Backlot, the case st
 
 
 def about3():
-    """full width page: intro with a portrait, a one-step-per-scroll experience line, fanned How I work cards, questions, tools"""
+    """intro with a portrait; experience on a moving crosshair that turns the page dark; then How I work, questions and tools on dark"""
     lead = ''.join(f'<p>{x}</p>' for x in AB_LEAD)
     items = PATH[::-1]
     n = len(items)
-    ticks = ''.join(f'<li class="ax-tk" style="--t:{i / (n - 1):.4f}"><span>{y}</span></li>' for i, (y, *_ ) in enumerate(items))
+    years = ''.join(f'<span data-i="{i}">{y}</span>' for i, (y, *_ ) in enumerate(items))
     cards = ''.join(
         f'<article class="ax-pc" data-i="{i}"><h3>{t}</h3><div class="ax-pd"><p class="ax-pp">{p}</p><p class="ax-pt">{KIND[k]}, {d}</p>'
         + ''.join(f'<p>{x.replace(PV, "")}</p>' for x in ls) + '</div></article>'
         for i, (y, k, t, p, d, ls) in enumerate(items))
-    tones = ['#E4EAD6', '#ECECEA', '#F1E9DB', '#E2E8E4', '#EAE4EC']
-    how = ''.join(f'<article class="ax-hc" style="--i:{i};--bg:{tones[i % 5]}"><h3>{t}</h3><p class="ax-hn">{i + 1:02d}.</p><p class="ax-ht">{d}</p></article>' for i, (t, d) in enumerate(HOW))
+    how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i}"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = ''.join(f'<details class="ax-q"><summary><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in QA)
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="20" height="20" alt="" loading="lazy">{t}</li>' for t, f in TOOLS)
-    return f'''<main class="ab abx">
+    return f"""<main class="ab abx">
 <section class="ax-w ax-intro"><div><h1>Hi, I’m Ege.</h1><div class="ax-tx">{lead}</div></div>
 <figure class="ax-me"><img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy"></figure></section>
-<section class="ax-w ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2>Experience</h2><div class="ax-pg"><ol class="ax-line" aria-hidden="true"><li class="ax-fill"></li>{ticks}<li class="ax-mk"></li></ol><div class="ax-pcs">{cards}</div></div></div></section>
+<section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
+<div class="ax-st"><i class="ax-v" aria-hidden="true"></i><i class="ax-h" aria-hidden="true"></i><p class="ax-yr" aria-hidden="true">{years}</p><div class="ax-pcs">{cards}</div><i class="ax-dk" aria-hidden="true"></i></div></div></section>
+<div class="ax-dark">
 <section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
 <section class="ax-w ax-ask"><h2>Things you might ask</h2><div class="ax-qs">{qa}</div></section>
 <section class="ax-w ax-tl"><h2>Tools</h2><ul class="ax-tools">{tools}</ul></section>
-</main>
+</div></main>
 <style>
-.abx{{--fs:16px;--px:clamp(20px,2.4vw,44px);font-family:"Inter Tight",system-ui,sans-serif}}
+/* type scale for the site: h1 56, h2 36, h3 24, body 16 (18 on very large screens) */
+.abx{{--fs:16px;--h1:clamp(40px,3.4vw,56px);--h2:clamp(28px,1.9vw,36px);--h3:clamp(20px,1.3vw,24px);--px:clamp(20px,2.4vw,44px);--dk:#161616;font-family:"Inter Tight",system-ui,sans-serif}}
 @media(min-width:2200px){{.abx{{--fs:18px}}}}
 .abx *{{font-family:inherit}}
 .ax-w{{padding-left:var(--px);padding-right:var(--px)}}
-.abx h1{{margin:0 0 24px;font-size:clamp(40px,4vw,68px);line-height:1;letter-spacing:-.035em;font-weight:600}}
-.abx h2{{margin:0;font-size:clamp(28px,2.6vw,46px);line-height:1.05;letter-spacing:-.03em;font-weight:600}}
-.abx p{{font-size:var(--fs);line-height:1.55;color:#2b2a28}}
+.abx h1{{margin:0 0 24px;font-size:var(--h1);line-height:1;letter-spacing:-.035em;font-weight:600}}
+.abx h2{{margin:0;font-size:var(--h2);line-height:1.1;letter-spacing:-.025em;font-weight:600}}
+.abx h3{{margin:0;font-size:var(--h3);line-height:1.2;letter-spacing:-.015em;font-weight:600}}
+.abx p{{font-size:var(--fs);line-height:1.55}}
 .ax-intro{{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);align-items:center;padding-top:clamp(40px,5vw,88px);padding-bottom:clamp(64px,7vw,120px)}}
-.ax-tx{{max-width:40em}}.ax-tx p{{margin:0 0 .9em}}
-.ax-me{{position:relative;margin:0;justify-self:end;width:min(100%,520px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#F1E4CC}}
+.ax-tx{{max-width:40em}}.ax-tx p{{margin:0 0 .9em;color:#2b2a28}}
+.ax-me{{position:relative;margin:0;justify-self:end;width:min(100%,480px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#F1E4CC}}
 .ax-me img{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s var(--ease),transform .7s var(--ease)}}
-.ax-p{{opacity:0;transform:scale(1.04)}}
-.ax-me:hover .ax-p{{opacity:1;transform:none}}.ax-me:hover .ax-d{{transform:scale(.98)}}
-/* experience: one gesture moves one role; the line fills green as you go */
-.ax-path{{height:calc(var(--n) * 100svh)}}
-.ax-pin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);display:flex;flex-direction:column;padding-top:clamp(16px,2vw,32px);border-top:1px solid var(--line);box-sizing:border-box}}
-.ax-pg{{flex:1;display:grid;grid-template-columns:110px minmax(0,1fr);gap:clamp(24px,4vw,80px);padding:clamp(24px,4svh,48px) 0 clamp(32px,6svh,64px)}}
-.ax-line{{position:relative;list-style:none;margin:0 0 0 64px;padding:0;border-left:1px solid #D3D2CE}}
-.ax-fill{{position:absolute;left:-1px;top:0;width:2px;height:calc(var(--p,0) * 100%);background:var(--g);transition:height .5s var(--ease)}}
-.ax-tk{{position:absolute;left:-1px;top:calc(var(--t) * 100%);width:9px;border-top:1px solid #D3D2CE;transform:translateX(-4px)}}
-.ax-tk span{{position:absolute;right:calc(100% + 12px);top:-.7em;font-size:13px;font-variant-numeric:tabular-nums;color:#A9A8A3;transition:color .25s}}
-.ax-tk.on span,.ax-tk.done span{{color:var(--ink)}}.ax-tk.on span{{font-weight:600}}
-.ax-mk{{position:absolute;left:-6px;top:calc(var(--p,0) * 100%);width:11px;height:11px;margin-top:-5px;background:var(--g);transition:top .5s var(--ease)}}
-.ax-pcs{{position:relative}}
-.ax-pc{{position:absolute;left:0;right:0;top:50%;max-width:40em;opacity:0;transform:translateY(calc(-50% + 16px));transition:opacity .35s,transform .5s var(--ease);pointer-events:none}}
-.ax-pc.on{{opacity:1;transform:translateY(-50%);pointer-events:auto}}
-.ax-pc h3{{margin:0;font-size:clamp(30px,3vw,52px);line-height:1.02;letter-spacing:-.03em;font-weight:600}}
-.ax-pd p{{margin:.45em 0 0}}.ax-pp{{font-weight:500;margin-top:.8em!important}}.ax-pt{{color:var(--mute)!important;font-size:14px!important}}
-/* how I work: the title stays, cards land one by one and fan out across the page */
+.ax-p{{opacity:0;transform:scale(1.04)}}.ax-me:hover .ax-p{{opacity:1;transform:none}}.ax-me:hover .ax-d{{transform:scale(.98)}}
+/* experience: a crosshair moves down one role per scroll; at the end the page turns dark from the horizontal line */
+.ax-path{{height:calc(var(--n) * 80svh + 100svh)}}
+.ax-pin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);display:flex;flex-direction:column;padding-top:clamp(16px,2vw,32px);border-top:1px solid var(--line);box-sizing:border-box;overflow:hidden}}
+.ax-st{{--y:.3;--d:0;position:relative;flex:1;margin-top:16px}}
+.ax-v{{position:absolute;left:var(--px);top:0;bottom:0;width:1px;background:#D3D2CE}}
+.ax-v:after{{content:"";position:absolute;left:0;top:0;width:2px;height:calc(var(--y) * 100%);background:var(--g);transition:height .6s var(--ease)}}
+.ax-h{{position:absolute;left:0;right:0;top:calc(var(--y) * 100%);height:1px;background:var(--ink);transition:top .6s var(--ease)}}
+.ax-yr{{position:absolute;left:calc(var(--px) + 28px);bottom:calc((1 - var(--y)) * 100% + 6px);margin:0;height:1em;font-size:clamp(64px,7vw,128px)!important;line-height:1!important;font-weight:600;letter-spacing:-.05em;transition:bottom .6s var(--ease)}}
+.ax-yr span{{position:absolute;left:0;bottom:0;opacity:0;transform:translateY(30%);transition:opacity .35s,transform .5s var(--ease);font-variant-numeric:tabular-nums}}
+.ax-yr span.on{{opacity:1;transform:none}}
+.ax-pcs{{position:absolute;left:calc(var(--px) + 28px);right:var(--px);top:calc(var(--y) * 100% + clamp(20px,3svh,36px));transition:top .6s var(--ease)}}
+.ax-pc{{position:absolute;left:0;right:0;top:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,80px);opacity:0;transform:translateY(14px);transition:opacity .35s,transform .5s var(--ease);pointer-events:none}}
+.ax-pc.on{{opacity:1;transform:none;pointer-events:auto}}
+.ax-pc h3{{font-size:var(--h2);letter-spacing:-.025em;white-space:nowrap}}
+.ax-pd p{{margin:0 0 .45em;color:#2b2a28}}.ax-pp{{font-weight:600}}.ax-pt{{color:var(--mute)!important;font-size:14px!important}}
+.ax-dk{{position:absolute;left:0;right:0;bottom:0;top:calc(var(--y) * 100% + (1 - var(--d)) * (100% - var(--y) * 100%));background:var(--dk)}}
+/* dark from here on */
+.ax-dark{{background:var(--dk);color:#F2F2EF}}
+.ax-dark p{{color:#CFCECA}}
 .ax-how{{height:calc(var(--n) * 55svh + 100svh)}}
-.ax-hpin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);overflow:hidden;border-top:1px solid var(--line);padding-top:clamp(16px,2vw,32px);box-sizing:border-box}}
-.ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(90px,14svh,150px);bottom:clamp(20px,4svh,48px)}}
-.ax-hc{{--w:min(25vw,400px);position:absolute;top:0;left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(100%,560px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:var(--bg);border-radius:18px;box-shadow:0 18px 40px rgba(22,22,22,.10),0 1px 0 rgba(22,22,22,.04);
+.ax-hpin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);overflow:hidden;padding-top:clamp(24px,3vw,48px);box-sizing:border-box}}
+.ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(100px,15svh,160px);bottom:clamp(20px,4svh,48px)}}
+.ax-hc{{--w:min(25vw,400px);position:absolute;top:0;left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(100%,540px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:#F7F7F5;color:var(--ink);border-radius:18px;box-shadow:0 24px 50px rgba(0,0,0,.35);
   transform:translateY(calc((1 - var(--e,0)) * 115%)) rotate(calc((var(--i) - 2) * 3deg + (1 - var(--e,0)) * 10deg));opacity:calc(.3 + var(--e,0) * .7)}}
-.ax-hc h3{{margin:0;font-size:clamp(28px,2.6vw,48px);line-height:.95;letter-spacing:-.035em;font-weight:800;text-transform:uppercase;color:#3F4A1D;text-wrap:balance}}
-.ax-hn{{margin:auto 0 0!important;font-size:clamp(56px,5.6vw,104px)!important;line-height:.9!important;font-weight:800;letter-spacing:-.05em;color:var(--g)!important}}
-.ax-ht{{margin:14px 0 0;font-size:15px!important;line-height:1.45!important}}
-/* questions: the title holds the left column */
-.ax-ask{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px);border-top:1px solid var(--line)}}
-.ax-ask h2{{position:sticky;top:calc(4.75rem + 24px);align-self:start;font-size:clamp(44px,5.2vw,96px);line-height:.95;letter-spacing:-.045em;max-width:6em}}
-.ax-q{{border-bottom:1px solid var(--line);transition:background .3s}}.ax-q:first-child{{border-top:1px solid var(--line)}}
-.ax-q summary{{display:grid;grid-template-columns:minmax(0,1fr) 36px;align-items:center;gap:16px;padding:22px 0;cursor:pointer;list-style:none}}
+.ax-hc h3{{font-size:clamp(24px,2vw,36px);line-height:.98;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;text-wrap:balance}}
+.ax-hc .ax-ht{{margin:16px 0 0;font-size:15px!important;line-height:1.45!important;color:#3a3936}}
+.ax-hc .ax-hn{{margin:auto 0 0!important;font-size:clamp(56px,5.4vw,100px)!important;line-height:.9!important;font-weight:800;letter-spacing:-.05em;color:var(--g)}}
+.ax-hc.g{{background:var(--g);color:#fff}}.ax-hc.g .ax-ht{{color:rgba(255,255,255,.9)}}.ax-hc.g .ax-hn{{color:#fff}}
+.ax-ask{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(48px,6vw,96px);padding-bottom:clamp(64px,7vw,120px)}}
+.ax-ask h2{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}
+.ax-q{{border-bottom:1px solid rgba(255,255,255,.14)}}.ax-q:first-child{{border-top:1px solid rgba(255,255,255,.14)}}
+.ax-q summary{{display:grid;grid-template-columns:minmax(0,1fr) 36px;align-items:center;gap:16px;padding:22px 18px;cursor:pointer;list-style:none;
+  background:linear-gradient(var(--g),var(--g)) 0 100%/100% 0 no-repeat;transition:background-size .45s var(--ease)}}
 .ax-q summary::-webkit-details-marker{{display:none}}
-.ax-q summary span{{font-size:clamp(20px,1.6vw,28px);font-weight:600;letter-spacing:-.02em;line-height:1.2;transition:color .2s,transform .35s var(--ease)}}
-.ax-q summary:hover span{{color:var(--g);transform:translateX(6px)}}
-.ax-q summary i{{position:relative;width:36px;height:36px;border-radius:50%;background:var(--card);transition:background .2s,transform .35s var(--ease)}}
-.ax-q summary i:before,.ax-q summary i:after{{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;margin:-.75px 0 0 -6.5px;background:var(--ink)}}.ax-q summary i:after{{transform:rotate(90deg)}}
-.ax-q[open] summary i{{background:var(--g);transform:rotate(45deg)}}.ax-q[open] summary i:before,.ax-q[open] summary i:after{{background:#fff}}
-.ax-q[open] summary span{{color:var(--g)}}
-.ax-q p{{margin:0 0 24px;max-width:40em}}
-.ax-tl{{border-top:1px solid var(--line);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px)}}
+.ax-q summary span{{font-size:var(--h3);font-weight:600;letter-spacing:-.015em;line-height:1.25;transition:transform .45s var(--ease)}}
+.ax-q summary:hover,.ax-q[open] summary{{background-size:100% 100%}}
+.ax-q summary:hover span{{transform:translateX(10px)}}
+.ax-q summary i{{position:relative;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.35);transition:transform .45s var(--ease),background .2s}}
+.ax-q summary i:before,.ax-q summary i:after{{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;margin:-.75px 0 0 -6.5px;background:#fff}}.ax-q summary i:after{{transform:rotate(90deg)}}
+.ax-q summary:hover i{{background:#fff}}.ax-q summary:hover i:before,.ax-q summary:hover i:after{{background:var(--g)}}
+.ax-q[open] summary i{{transform:rotate(45deg)}}
+.ax-q p{{margin:0;padding:20px 18px 26px;max-width:40em}}
+.ax-tl{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px);border-top:1px solid rgba(255,255,255,.14)}}
 .ax-tools{{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-content:start}}
-.ax-tools li{{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:99px;background:var(--card);font-size:14px;font-weight:500}}
+.ax-tools li{{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:99px;background:#262624;font-size:14px;font-weight:500}}
 .ax-tools img{{width:18px;height:18px;object-fit:contain}}
 @media(max-width:899px){{.ax-intro,.ax-ask,.ax-tl{{grid-template-columns:1fr}}.ax-me{{justify-self:start;width:min(70vw,320px)}}.ax-ask h2{{position:static}}
-.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-pg{{display:block}}.ax-line{{display:none}}
-.ax-pc{{position:static;opacity:1;transform:none;margin-bottom:28px}}
-.ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hn{{margin-top:18px!important}}}}
-@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-pg{{display:block}}.ax-line{{display:none}}.ax-pc{{position:static;opacity:1;transform:none;margin-bottom:28px}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
+.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-v,.ax-h,.ax-yr,.ax-dk{{display:none}}
+.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;display:block;opacity:1;transform:none;margin-bottom:32px}}.ax-pc h3{{white-space:normal;margin-bottom:10px}}
+.ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
+@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-v,.ax-h,.ax-yr,.ax-dk{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;transform:none;margin-bottom:32px}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
 </style>
 <script>
 (function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-var P=document.querySelector('[data-axpath]'),tk=[].slice.call(P.querySelectorAll('.ax-tk')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),line=P.querySelector('.ax-line'),n=pc.length;
+var P=document.querySelector('[data-axpath]'),st=P.querySelector('.ax-st'),yr=[].slice.call(P.querySelectorAll('.ax-yr span')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length;
 var H=document.querySelector('[data-axhow]'),hc=[].slice.call(H.querySelectorAll('.ax-hc'));
 function run(s){{return s.offsetHeight-s.querySelector('.ax-pin,.ax-hpin').offsetHeight}}
 function prog(s){{var r=s.getBoundingClientRect();return Math.max(0,Math.min(1,-r.top/Math.max(1,run(s))))}}
 var cur=-1,raf=0;
 function draw(){{raf=0;if(innerWidth<900)return;
-  var k=Math.round(prog(P)*(n-1));if(k!==cur){{cur=k;line.style.setProperty('--p',(k/(n-1)).toFixed(4));
-    tk.forEach(function(t,i){{t.classList.toggle('on',i===k);t.classList.toggle('done',i<k)}});pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
+  var p=prog(P),k=Math.min(n-1,Math.round(p*n)),d=Math.max(0,Math.min(1,(p*n-(n-1))));
+  st.style.setProperty('--d',d.toFixed(3));
+  if(k!==cur){{cur=k;st.style.setProperty('--y',(.3+.22*k/(n-1)).toFixed(4));yr.forEach(function(s,i){{s.classList.toggle('on',i===k)}});pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
   var q=prog(H)*(hc.length+.6)-.2;hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
-/* inside the experience line, one wheel gesture or swipe moves exactly one role; at either end the page scrolls on */
-function go(i){{var top=P.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run(P)*i/(n-1))+(i?1:0),behavior:'smooth'}})}}
-var lock=0;function step(d){{var k=Math.round(prog(P)*(n-1)),t=k+d;if(t<0||t>n-1)return false;if(Date.now()<lock)return true;lock=Date.now()+750;go(t);return true}}
+/* one wheel gesture or swipe moves exactly one role, the last one turns the page dark; past that the page scrolls on */
+function go(i){{var top=P.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run(P)*i/n)+(i?1:0),behavior:'smooth'}})}}
+var lock=0;function step(dir){{var k=Math.round(prog(P)*n),t=k+dir;if(t<0||t>n)return false;if(Date.now()<lock)return true;lock=Date.now()+750;go(t);return true}}
 function inside(){{var r=P.getBoundingClientRect();return r.top<=2&&r.bottom>=innerHeight-2}}
 addEventListener('wheel',function(e){{if(innerWidth<900||!inside()||Math.abs(e.deltaY)<4)return;if(step(e.deltaY>0?1:-1))e.preventDefault()}},{{passive:false}});
 var ty=null;addEventListener('touchstart',function(e){{ty=e.touches[0].clientY}},{{passive:true}});
 addEventListener('touchmove',function(e){{if(innerWidth<900||ty==null||!inside())return;var dy=ty-e.touches[0].clientY;if(Math.abs(dy)<30)return;if(step(dy>0?1:-1)){{e.preventDefault();ty=null}}}},{{passive:false}});
 addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',draw);draw()}})();
-</script>'''
+</script>"""
