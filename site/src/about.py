@@ -26,9 +26,10 @@ PATH = [
 INTRO = ('I learned design where there’s no Ctrl+Z: a millimetre off in a bus interior part and the tooling is already paid for. '
          'I design B2B data products now, and the habit came with me.')
 KIND = {'edu': 'Education', 'work': 'Experience'}
-AB_LEAD = ('I design the parts of B2B software where a wrong click costs something: approvals, data that other teams depend on, decisions that are hard to undo.',
-           'At MilSOFT I designed customs declarations and naval radar displays, and at UwaVerde I built the design function from nothing. Each time the domain was new to me, and learning it properly before designing for it is still the part I enjoy most.',
-           'I studied Industrial Design at METU and finished a Master’s in Integrated Design at Hochschule Anhalt in 2025, first in my class. My thesis, a wearable that continuously monitors maternal and fetal health in high-risk pregnancies, won the ' + AWARD + '. It is still the clearest example of what I like doing: taking complex medical data and turning it into something a person can wear without thinking about it.')
+AB_LEAD = ('Every job so far began in a domain I didn’t know: customs regulation, naval radar, customer data, maternal and fetal health. That first stretch is my favourite part. Before I draw anything, I want to know how the work is really done, who pays when it goes wrong, and which rule the backend will never bend.',
+           'Most of what I need is already written down by someone who isn’t a designer. So I read the specs, sit with the system engineers, and take a PM’s request apart until I find the customer problem underneath it. When a decision costs one side something, I say so in the room instead of hiding it in the layout. When the call goes the other way, I want it written down, so we can come back to it once real usage shows who was right.',
+           'The fastest way to settle those conversations is usually to show something. AI is part of how I work every day: I explore and prototype with Claude, and I built and shipped this site in code with Claude Code, live prototypes included. Often the first thing a PM sees from me is something they can click.',
+           'I’m based in Berlin and open to relocation. I’d love a team that gets as excited about an edge case as I do, and still ships on Friday.')
 
 
 HOW = [('Learn the domain first', 'Customs declarations, naval radar displays, data tools, a prenatal monitoring wearable. Each time, I learned how the work is really done, and by whom, before I started designing.'),
