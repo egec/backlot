@@ -12,9 +12,13 @@ a{color:inherit}
 .site-logo img{display:block;width:7rem;height:auto}
 /* the menu stacks at the right edge of the site; an arrow slides in on hover only */
 .site-n{display:flex;flex-direction:row;align-items:center;gap:28px;font-size:0.75rem;line-height:15px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.site-n a{position:relative;display:block;text-decoration:none;color:var(--mute);transition:color .2s,transform .3s var(--ease)}.site-n a:before{content:"→";position:absolute;left:-1.2em;opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .3s var(--ease)}
-.site-n a[aria-current]{color:var(--ink)}.site-n a:hover{color:var(--ink)}.site-n a:hover:before{opacity:1;transform:none}
+.site-n a{position:relative;display:block;text-decoration:none;color:var(--mute);transition:color .2s}
+.site-n a[aria-current]{color:var(--ink)}.site-n a:hover{color:var(--g)}
 .finalfooter{position:relative;z-index:2;background:#000}
 .finalfooter .ec-foot{padding-left:max(var(--pad),calc((100% - var(--w)) / 2));padding-right:max(var(--pad),calc((100% - var(--w)) / 2))}
 @media(min-width:1200px){body:has(.bl-nav) .finalfooter .ec-foot{padding-left:max(var(--bl-gutter,var(--gut)),calc((100% - var(--w)) / 2))}}
 
+
+/* logo: green paints only where the pointer is */
+.site-logo{position:relative;display:block}
+.site-lm{position:absolute;inset:0;pointer-events:none;-webkit-mask:var(--lg) center/contain no-repeat;mask:var(--lg) center/contain no-repeat;background:radial-gradient(circle var(--rr,0px) at var(--mx,50%) var(--my,50%),var(--g) 98%,transparent);transition:--rr .3s}
