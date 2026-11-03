@@ -133,7 +133,7 @@ def hero():
            ('<p class="lead">Backlot is where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher, so a rejection is a list of reasons pinned to fields, not a vague note.</p>',
             '<p class="lead">Streaming teams use Backlot to take films and series from delivery to release, region by region. I designed the whole workflow for both sides: dashboards, upload and file matching, fields that fill from the file, the publisher’s review and artwork tests.</p>'),
            ('<b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.', '<b>Context</b>The take-home that got me hired for my last role, rebuilt and extended.'),
-           ('<b>Date</b>2026', '<b>Timeline</b>2026, 3 weeks')]
+           ('<b>Date</b>2026', '<b>Date</b>2026, 3 weeks')]
     for o, n in rep:
         assert o in h, o[:40]
         h = h.replace(o, n)
@@ -143,7 +143,8 @@ MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
 PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
         ('bilge', 'BİLGE', 'Container tracking for Turkish customs, designed from the system specs.', GH + 'shots/bilge/b-queue-th.webp'),
         ('data-health', 'Data health', 'Telling marketers which data to trust before they build a segment.', GH + 'shots/dh/thumb.webp'),
-        ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')]
+        # ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')
+        ]
 def nextblock(cur):
     """next project as a sentence with its screen, then every project small, then the footer"""
     i = [p[0] for p in PROJ].index(cur); n = (i + 1) % len(PROJ); k, name, d, img = PROJ[n]
@@ -278,7 +279,7 @@ def features():
         dict(h='Backed by click-through', hl=[(6.2, 59.6, 15.8, 3.6), (23, 61.4, 4.4, 2.2), (39.8, 61.4, 4.4, 2.2), (56.6, 61.4, 4.4, 2.2)], ctx=(6.2, 41, 1, 1))], [IMG_SEASON], nav=nav))
     # row actions
     f_row = dict(t='Each row offers only its next step',
-             l='Review while an episode waits, Publish once it’s approved. Checks only prove the fields are filled; judgement on ratings, artwork and sync stays with the publisher.')
+             l='Review while an episode waits, Publish once it’s approved: each row shows only the action its status allows.')
     F.append(lambda n, nav: simple(n, f_row, EMB('1ee3cd39'), nav=nav))
     # assets
     f_as = dict(t='Every file sits under the content it belongs to',
@@ -316,7 +317,7 @@ def problem():
 
 def north_star():
     return ('<div class="bl2-t bl2-part"><p class="k">North star</p>'
-            '<h2 class="bl2-h cs-title">From delivery to release-ready, in fewer steps</h2>'
+            '<h2 class="bl2-h cs-title">Release-ready sooner, with less typing</h2>'
             '<p class="lead">Every decision on this page answers one question: does it get an episode release-ready sooner, with less typing and fewer rounds of review?</p>'
             + split('The bet', '<p>My bet: most of the delay is retyping and rework. If the file fills what it can and feedback points at fields, time to release-ready drops. I haven’t tested it with an editor yet.</p>')
             + '</div>')
@@ -360,7 +361,7 @@ def roles():
     full = dict(z=1, x=50, y=50)
     dash = zoom(0, dict(r=['Blockers, counts and the work the editor left off, on one page.',
                            'What airs soon, what waits for review, and what each region has received.',
-                           'The editor’s counts start with Rejected, the publisher’s with Pending review: each role sees first what needs them.',
+                           'The editor’s counts start with Rejected, because that is the work that came back to them. The publisher’s start with Pending review: each role sees first what needs them.',
                            'The editor’s banner names files that couldn’t be assigned. The publisher’s names the one item that airs within seven days and still needs a decision.',
                            'Missing fields grouped across everything assigned to the editor, so one pass fills the Spanish synopsis for seven items.',
                            'In place of blockers, the publisher sees each region’s deliveries this week and how far along they are.']),
@@ -451,7 +452,7 @@ def bilge():
         ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. The header is blue on the agent’s side and red on the customs side, so everyone knows which side of the form they are on.'),
         ('Sources side by side', 'The carrier’s declaration and the port’s records sit next to each other, so a mismatch is visible at a glance.'),
         ('Registering is binding', 'Registering starts the clock on the container’s permitted time in the country, so at the ministry’s request the button says Register. The confirmation shows the registration number and the remaining prepaid balance.')], 1))
-    glance = ('<div class="bl2-t bl2-part"><p class="bl2-big" data-tint style="--ac:#A31A28;font-size:clamp(36px,5.4vw,100px)"><span class="bl2-line">One form, four people.</span><span class="bl2-line">The clock is running.</span></p><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
+    glance = ('<div class="bl2-t bl2-part"><p class="bl2-big" data-tint style="--ac:#A31A28;font-size:clamp(36px,5.4vw,100px)"><span class="bl2-line">Four parties, one container.</span><span class="bl2-line">No shared record.</span></p><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
               + split('The problem', '<p>Every container that enters or leaves a Turkish seaport needs a Container Tracking Form. KLTS moved that form, and the records customs, port operators and agencies used to exchange on paper, into one system.</p>'
                       '<p>Up to four people work on one form, and from registration the container’s permitted time is running.</p>')
               + f'<div class="bl2-cards c3">{cards}</div>'
@@ -538,7 +539,7 @@ def datahealth():
     hero=('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
      '<p class="k">Data health, product work at Insider One</p><h1>Telling marketers which data to trust before they build a segment</h1>'
      '<div class="bl2-hg"><p class="lead">Insider One is a customer data platform. Marketers build audiences from attributes and events that many sources send in. '
-     'I designed three components, all shipped: a per-source breakdown on the attribute page, and a data health card in the segment builder for attributes and for event parameters.</p>'
+     'I designed three components: a per-source breakdown on the attribute page, and a data health card in the segment builder for attributes and for event parameters. The event parameter card shipped while I was there.</p>'
      '<div class="bl2-meta"><div><b>Company</b>Insider One</div><div><b>Category</b>B2B SaaS, customer data platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div></div></div>'
      + media_box(dh_img('o_b_issue','Segment builder with the attribute menu open and a data health card for Email Opt-in')) + '</div>')
     prob=('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
@@ -546,7 +547,7 @@ def datahealth():
      + split('The problem','<p>An attribute page showed one number, Total collected, with no way to see which source sent what. '
        'If an attribute’s data was wrong, the marketer found out only at the last step of building a segment, after setting up everything else.</p>')+'</div>')
     f1=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">02</span><span class="cs-title bl2-x">Where data comes from</span><p class="k">Feature 01</p>'
-     '<h2 class="bl2-h">The total, split by where the data comes from</h2><p class="lead">Before, the attribute page showed one total. Now the total sits next to a count for every source, so a source that stops sending shows up here first.</p>'
+     '<h2 class="bl2-h">The total, split by where the data comes from</h2><p class="lead">The total now sits next to a count for every source, so a source that stops sending shows up here first.</p>'
      + sub('Before','Only Total collected.') + media_box(dh_img('o_a_before','App Version attribute page, before: only the total'))
      + sub('After','The total, then each group of sources with its own count.') + media_box(dh_img('o_a_after','App Version attribute page, after: counts per source'))
      + dh_cards([('Grouped by how data arrives','SDK sources, external integrations and API sit in one group beside the total.'),
@@ -605,7 +606,7 @@ def work():
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
         ('data-health', '03', 'Data health', 'Product work at Insider One: where customer data comes from, and a warning in the segment builder.', ['B2B SaaS', 'Customer data', '2026'], GH + 'shots/dh/thumb.webp'),
-        ('uwaverde', '04', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
+        # ('uwaverde', '04', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
     ]
     rows = ''.join(
         (f'<li><a class="wk-r" href="/{k}"><em>{num}</em>' if k else f'<li><div class="wk-r wk-soon"><em>{num}</em>') + f'<b>{name}</b><span class="wk-rd"><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
@@ -653,7 +654,7 @@ def uwaverde():
               + media_box(wimg('691dfe75ee34d04039507ee4_Group%20626307-p-1600.png', 'UwaVerde member portal screens'))
               + media_box(wimg('691dfecd6d12c81895dc188c_e8fc713202a389eda936347e9cee1835_Pro-Display-XDR--p-1600.png', 'UwaVerde member portal on a desktop display')))
     w1 = sec('ov', 'Overview', hero) + sec('go', 'Goals', goals) + sec('we', 'The website', web) + sec('po', 'Member portal', portal)
-    nb = nextblock('uwaverde')
+    nb = ''
     body = f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>{nb}</main>'
     return page('UwaVerde case study | Ege Coskun',
                 'UwaVerde: a website and member portal for a sustainability NGO, from tone of voice to responsive landing, about and project pages.',
@@ -689,7 +690,7 @@ if __name__ == '__main__':
     html = html[:a] + re.sub(r'<style>.*?</style>', '', html[a:b], flags=re.S) + html[b:]
     write('backlot/index.html', html)
     write('bilge/index.html', bilge())
-    write('uwaverde/index.html', uwaverde())
+    write('uwaverde/index.html', uwaverde().replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1))
     write('data-health/index.html', datahealth())
     write('work/index.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Work | Ege Coskun</title><link rel="canonical" href="/#work"><meta http-equiv="refresh" content="0;url=/#work"><script>location.replace("/#work")</script></head><body><a href="/#work">Work</a></body></html>')
     write('index.html', work())

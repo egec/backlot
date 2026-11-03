@@ -287,3 +287,6 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 34px/1 "Reenie Beanie"
 @media(max-width:767px){.nx-d{max-width:none}}
 
 .wk-sel{scroll-margin-top:calc(4.75rem + 24px)}
+
+/* home and about line up with the header, case pages keep their reading gutter */
+body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);padding-right:clamp(20px,2.4vw,44px)}

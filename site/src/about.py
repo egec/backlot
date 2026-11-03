@@ -8,7 +8,7 @@ PV = ('<span class="ab-pv" aria-hidden="true"><span class="ab-pv-h"><i>HA</i><b>
 AWARD = f'<a class="ab-aw" href="{LI}" target="_blank" rel="noopener">Dessau Design Award{PV}</a>'
 PATH = [
     # (year label, kind, title, place, dates, lines)
-    ('2016', 'edu', 'Industrial Design, B.Sc', 'Middle East Technical University, Ankara', 'Oct 2016 to Jul 2021',
+    ('2016', 'edu', 'Industrial Design, B.Sc.', 'Middle East Technical University, Ankara', 'Oct 2016 to Jul 2021',
      ['Five years of making things that have to be built: sketches, foam and clay models, prototypes.']),
     ('2021', 'work', 'Industrial Designer', 'MAN Truck & Bus, Ankara', 'Dec 2021 to Jun 2022',
      ['Bus interior parts, designed within tooling cost, lead time and the production schedule.',
@@ -20,6 +20,8 @@ PATH = [
      ['Ranked first in class.', 'Thesis: a wearable for continuous monitoring in high-risk pregnancies. ' + AWARD + '.']),
     ('2024', 'work', 'Founding member, Product Designer', 'UwaVerde (NGO), remote', 'Jul 2024 to now',
      ['The organisation’s first design work, with no budget and nothing to inherit: the website and a member portal.']),
+    ('2026', 'work', 'Product Designer', 'Insider One, remote from Berlin', 'May 2026 to Sep 2026',
+     ['Data health for a customer data platform: where each attribute’s data comes from, and a warning in the segment builder before a segment breaks.']),
 ]
 INTRO = ('I learned design where there’s no Ctrl+Z: a millimetre off in a bus interior part and the tooling is already paid for. '
          'I design B2B data products now, and the habit came with me.')
@@ -43,19 +45,21 @@ def top():
 def more():
     def chars(t):
         return ' '.join('<span class="hw-w">' + ''.join(f'<span class="hw-m"><span style="--d:{j}">{c}</span></span>' for j, c in enumerate(w)) + '</span>' for w in t.split(' '))
-    how = ''.join(f'<article class="hw-c" style="--i:{i}"><p class="hw-k">How I work <em>{i + 1:02d}</em></p><div class="hw-b">'
+    how = ''.join(f'<article class="hw-c" style="--i:{i}"><i class="hw-ln" aria-hidden="true"></i><p class="hw-k">{i + 1:02d}</p><div class="hw-b">'
                   f'<h3 class="hw-h" aria-label="{t}"><span aria-hidden="true">{chars(t)}</span></h3><p class="hw-p">{d}</p></div></article>'
                   for i, (t, d) in enumerate(HOW))
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="22" height="22" alt="" loading="lazy"><span>{t}</span></li>' for t, f in TOOLS)
-    return (f'<section class="cs-wrap hw" aria-label="How I work">{how}</section>'
+    return (f'<section class="cs-wrap hw" aria-labelledby="hw-t"><h2 class="hw-t" id="hw-t">How I work</h2>{how}</section>'
             f'<section class="cs-wrap ab-more">'
             f'<div class="ab-row"><p class="k">Tools</p><ul class="ab-tools">{tools}</ul></div></section>'
             '''<style>
 .ab-more{padding-bottom:clamp(72px,8vw,140px)}
 /* how I work: cards stack as you scroll, each keeps its label row in view; the heading's letters rise in when its card arrives */
 .hw{position:relative;padding-top:clamp(56px,6vw,104px);padding-bottom:clamp(40px,10vh,120px)}
-.hw-c{--row:52px;position:sticky;top:calc(4.75rem + var(--i) * var(--row));background:var(--bg);border-top:1px solid var(--line);min-height:min(56svh,520px);padding-bottom:clamp(40px,5vw,72px)}
-.hw-k{display:flex;justify-content:space-between;align-items:center;height:var(--row);margin:0;font-size:13px;color:var(--mute)}
+.hw-t{margin:0 0 clamp(24px,3vw,48px);font-size:clamp(28px,2.6vw,44px);line-height:1.05;letter-spacing:-.025em;font-weight:600}
+.hw-c{--row:52px;position:sticky;top:calc(4.75rem + var(--i) * var(--row));background:var(--bg);border-top:1px solid #D3D3CF;min-height:min(56svh,520px);padding-bottom:clamp(40px,5vw,72px)}
+.hw-ln{position:absolute;left:0;top:-1px;height:2px;width:calc(var(--p,0) * 100%);background:var(--g)}
+.hw-k{display:flex;justify-content:space-between;align-items:center;font-variant-numeric:tabular-nums;height:var(--row);margin:0;font-size:13px;color:var(--mute)}
 .hw-k em{font-style:normal;font-variant-numeric:tabular-nums}
 .hw-b{display:flex;justify-content:space-between;align-items:flex-start;gap:clamp(24px,5vw,96px);padding-top:clamp(8px,1.4vw,20px)}
 .hw-h{margin:0;max-width:9.5em;font-size:clamp(34px,4.6vw,78px);line-height:.92;letter-spacing:-.03em;font-weight:700;text-transform:uppercase;color:var(--g)}
@@ -96,7 +100,10 @@ def more():
 @media(max-width:767px){.ab-row{grid-template-columns:1fr}.ab-how li{grid-template-columns:32px 1fr}.ab-how p{grid-column:2}}
 </style>
 <script>(function(){var cs=document.querySelectorAll('.hw-c');if(!cs.length)return;if(!('IntersectionObserver' in window)){cs.forEach(function(c){c.classList.add('in')});return}
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -30% 0px'});cs.forEach(function(c){io.observe(c)})})();</script>''')
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -30% 0px'});cs.forEach(function(c){io.observe(c)});
+/* each card's line fills as the card travels up to its resting place */
+var raf=0;function ln(){raf=0;var vh=innerHeight;cs.forEach(function(c){var r=c.getBoundingClientRect(),stop=parseFloat(getComputedStyle(c).top)||0;c.style.setProperty('--p',Math.max(0,Math.min(1,(vh-r.top)/Math.max(1,vh-stop))).toFixed(3))})}
+addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(ln)},{passive:true});addEventListener('resize',ln);ln()})();</script>''')
 
 def dial():
     items = ''.join(
@@ -146,7 +153,7 @@ def dial():
 @media(min-width:1100px){{
 .ab-m{{display:none}}
 .ab-dl .dl{{margin-top:0}}
-.ab-dl .dl-pin{{--L:max(var(--pad),calc((100% - var(--w)) / 2));--W:min(600px,34vw);--T:calc(var(--L) + var(--W));--R:min(42svh,24vw)}}
+.ab-dl .dl-pin{{--L:clamp(20px,2.4vw,44px);--W:min(600px,34vw);--T:calc(var(--L) + var(--W));--R:min(42svh,24vw)}}
 .ab-in{{display:block;position:absolute;left:var(--L);top:50%;transform:translateY(-50%);width:var(--W);z-index:2}}
 .ab-in h1{{font-size:clamp(34px,3.2vw,56px)}}
 .ab-in .ab-lead{{font-size:clamp(15px,1.1vw,18px)}}
