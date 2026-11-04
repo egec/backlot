@@ -595,9 +595,9 @@ def work():
         ('backlot', '01', 'Backlot, concept project', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
-        ('bilge', '02', 'BİLGE, client work at MilSOFT', 'Container tracking for Turkish customs',
+        ('bilge', '02', 'BİLGE, MilSOFT', 'Container tracking for Turkish customs',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
-         ['GovTech', 'Workflows', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
+         ['GovTech', 'Customs platform', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
     ]
     cards = ''.join(
         f'<a class="wk-c" href="/{k}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"><video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em></span>'
@@ -605,7 +605,7 @@ def work():
         f'<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + '</span></a>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
-        ('data-health', '03', 'Data health', 'Product work at Insider One: where customer data comes from, and a warning in the segment builder.', ['B2B SaaS', 'Customer data', '2026'], GH + 'shots/dh/thumb.webp'),
+        ('data-health', '03', 'Data health, Insider One', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp'),
         # ('uwaverde', '04', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
     ]
     rows = ''.join(
@@ -687,11 +687,14 @@ if __name__ == '__main__':
     write('assets/backlot.css', css)
     write('assets/site.css', rem(rd('site.css')))
     vid_js = re.search(r'<script>(.*?)</script>', EMB('020e6363'), re.S).group(1)
-    write('assets/backlot.js', nav_js + '\n' + rd('bl2.js') + '\n' + rd('tint.js') + '\n' + vid_js + '\n' + rd('zoom.js') + '\n' + rd('roles.js') + '\n' + rd('pace.js'))
+    write('assets/backlot.js', nav_js + '\n' + rd('bl2.js') + '\n' + rd('tint.js') + '\n' + vid_js.replace("rootMargin:'600px 0px'", "rootMargin:'1400px 0px'") + '\n' + rd('zoom.js') + '\n' + rd('roles.js') + '\n' + rd('pace.js'))
     write('assets/site.js', rd('site.js'))
     html = backlot()
     a, b = html.index('<main'), html.index('</main>')
     html = html[:a] + re.sub(r'<style>.*?</style>', '', html[a:b], flags=re.S) + html[b:]
+    # prototypes load about two screens ahead instead of all at page load
+    html = re.sub(r'<iframe data-blx src="([^"]+)"', r'<iframe data-blx data-lsrc="\1"', html)
+    html = html.replace('</body>', '<script>(function(){var f=document.querySelectorAll("iframe[data-lsrc]");function go(e){e.src=e.dataset.lsrc;e.removeAttribute("data-lsrc")}if(!("IntersectionObserver" in window)){[].forEach.call(f,go);return}var o=new IntersectionObserver(function(x){x.forEach(function(e){if(e.isIntersecting){go(e.target);o.unobserve(e.target)}})},{rootMargin:"1600px 0px"});[].forEach.call(f,function(e){o.observe(e)})})();</script></body>', 1)
     write('backlot/index.html', html)
     write('bilge/index.html', bilge())
     write('uwaverde/index.html', uwaverde().replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1))

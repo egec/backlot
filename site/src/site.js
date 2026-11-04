@@ -2,6 +2,8 @@
 
 /* Work: a case card plays its recording while the pointer is on it */
 (function(){if(!matchMedia('(hover:hover)').matches)return;[].forEach.call(document.querySelectorAll('.wk-c'),function(c){var v=c.querySelector('video');if(!v)return;
+/* fetch the preview while the card scrolls in, so the first hover plays at once */
+if('IntersectionObserver' in window)new IntersectionObserver(function(x,o){if(x[0].isIntersecting){if(!v.src){v.preload='auto';v.src=v.dataset.src}o.disconnect()}},{rootMargin:'800px 0px'}).observe(c);
 c.addEventListener('mouseenter',function(){if(!v.src)v.src=v.dataset.src;c.classList.add('play');var p=v.play();if(p&&p.catch)p.catch(function(){})});
 c.addEventListener('mouseleave',function(){c.classList.remove('play');v.pause()})})})();
 
