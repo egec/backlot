@@ -375,7 +375,7 @@ SWING_CSS = """.ax-c.sw{overflow:hidden;min-height:600px}
  70%{transform:none;animation-timing-function:ease-in-out}82%{transform:rotate(5deg);animation-timing-function:ease-in-out}100%{transform:none}}
 .ax-rope{position:absolute;left:0;top:0;width:270px;height:320px;overflow:visible}
 .ax-rope path{fill:none;stroke:#1c1c1c;stroke-width:1.3}
-.ax-card{position:absolute;left:0;top:310px;width:260px;height:340px;border-radius:18px;background:rgba(214,214,211,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.ax-card{position:absolute;left:0;top:310px;width:260px;height:340px;border-radius:18px;overflow:hidden;background:rgba(214,214,211,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
 .ax-slot{position:absolute;left:34px;right:62px;top:22px;height:12px;border-radius:8px;background:#fff}
 .ax-cp{position:absolute;left:32px;top:54px;width:172px;height:172px;border-radius:50%;overflow:hidden;background:#ddd}
 .ax-cp img{width:100%;height:100%;object-fit:cover;display:block}
