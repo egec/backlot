@@ -369,7 +369,7 @@ CENTER_CSS = """.ax-c{position:relative;display:block;text-align:center;min-heig
 """
 SIGN = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap">'
 SWING_CSS = """.ax-c.sw{overflow:hidden;min-height:600px}
-.ax-hang{position:absolute;left:-22px;top:-70px;width:270px;height:650px;z-index:2;pointer-events:none}
+.ax-hang{position:absolute;left:-4px;top:-70px;width:270px;height:650px;z-index:2;pointer-events:none}
 .ax-sw{position:absolute;inset:0;transform-origin:50% 50%;animation:axsw 1.6s .25s both}
 @keyframes axsw{0%{transform:translate(-179px,-243px) rotate(45deg);animation-timing-function:cubic-bezier(.3,.6,.3,1)}
  70%{transform:none;animation-timing-function:ease-in-out}82%{transform:rotate(5deg);animation-timing-function:ease-in-out}100%{transform:none}}
@@ -380,8 +380,8 @@ SWING_CSS = """.ax-c.sw{overflow:hidden;min-height:600px}
 .ax-cp{position:absolute;left:32px;top:54px;width:172px;height:172px;border-radius:50%;overflow:hidden;background:#ddd}
 .ax-cp img{width:100%;height:100%;object-fit:cover;display:block}
 .ax-card .ax-sg{position:absolute;font-family:"Mrs Saint Delafield",cursive!important;color:#262626;font-weight:400;line-height:1;white-space:nowrap}
-.ax-cr{left:28px;top:236px;font-size:28px;padding:0 26px 4px 2px;border-bottom:1px solid #262626;transform:rotate(-4deg);transform-origin:0 100%}
-.ax-cn{left:20px;bottom:-14px;font-size:132px;color:#A9A9A6!important;letter-spacing:-.02em}
+.ax-cr{left:30px;top:234px;font-size:36px;-webkit-text-stroke:.4px #262626;padding:0 26px 4px 2px;border-bottom:1px solid #262626;transform:rotate(-4deg);transform-origin:0 100%}
+.ax-cn{left:22px;bottom:-18px;font-size:150px;color:#B3B3B0!important;-webkit-text-stroke:2.5px #B3B3B0;letter-spacing:-.02em}
 @media(max-width:899px){.ax-c.sw{min-height:0}.ax-hang{position:relative;left:calc(-1 * var(--px) / .72 - 10px);top:auto;zoom:.72;margin:-120px 0 40px}}
 @media (prefers-reduced-motion:reduce){.ax-sw{animation:none}}
 """
