@@ -555,6 +555,6 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .wk-ab-h[data-tint] .bl2-line{display:inline}
 
 /* More work rows fill green from the bottom, like the questions on About */
-.wk-r{padding:26px 18px;margin:0 -18px;background:linear-gradient(var(--g),var(--g)) 0 100%/100% 0 no-repeat;transition:background-size .45s var(--ease),color .3s}
+.wk-r{padding:26px 18px;margin:0 -18px;background:linear-gradient(var(--gd),var(--gd)) 0 100%/100% 0 no-repeat;transition:background-size .45s var(--ease),color .3s}
 .wk-r b,.wk-r .wk-rd>span:first-child{transition:transform .45s var(--ease),color .3s}
 .wk-r:hover{background-size:100% 100%;color:#fff}.wk-r:hover b{transform:translateX(10px);text-decoration-color:transparent}.wk-r:hover em,.wk-r:hover .wk-rd{color:rgba(255,255,255,.85)}.wk-r:hover .wk-tags i{border-color:rgba(255,255,255,.5);color:#fff}

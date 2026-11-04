@@ -612,9 +612,13 @@ def work():
         (f'<li><a class="wk-r" href="/{k}"><em>{num}</em>' if k else f'<li><div class="wk-r wk-soon"><em>{num}</em>') + f'<b>{name}</b><span class="wk-rd"><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
         + f'</span></span><span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span>' + ('</a></li>' if k else '</div></li>')
         for k, num, name, t, tags, img in more)
-    about = ('<section class="wk-ab"><p class="k">About</p><div><p class="wk-ab-h" data-tint style="--ac:#728437"><span class="bl2-line">Approval queues, permissions, bulk actions, error states.</span> <span class="bl2-line">I like the screens people use eight hours a day.</span></p>'
-             '<p class="wk-ab-l">I work end to end, from interviews and flows to prototypes and a design system developers can build from.</p>'
-             '<a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></div></section>')
+    import about as _ab
+    qa = ''.join(f'<details class="ax-q"><summary><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in _ab.QA)
+    about = (f'<section class="ax-ask lt wk-qa"><p class="k">Things you might ask</p><div><div class="ax-qs">{qa}</div>'
+             '<a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></div></section>'
+             '<style>' + _ab.QCSS + '.wk-qa{margin-top:clamp(96px,10vw,180px);padding:0;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;--h3:clamp(18px,1.3vw,24px)}'
+             '.wk-qa .k{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa .wk-btn{margin-top:32px}'
+             '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qa .k{position:static}}</style>')
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
             f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
             f'<p class="wk-lead">A millimetre off in a bus interior part, and the tooling is already paid for. I design B2B data products now, and I still look for the edge case while it is a design problem, before it becomes a bug report.</p></div>'
@@ -695,7 +699,10 @@ if __name__ == '__main__':
     write('work/index.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Work | Ege Coskun</title><link rel="canonical" href="/#work"><meta http-equiv="refresh" content="0;url=/#work"><script>location.replace("/#work")</script></head><body><a href="/#work">Work</a></body></html>')
     write('index.html', work())
     import about
-    for k, fn in [('about-a', about.dial), ('about-b', about.drawer), ('about-c', about.tunnel), ('about', about.about3)]:
-        write(k + '/index.html', page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
-                                       fn(), ['site.css', 'backlot.css'], ['site.js'], cur='about'))
+    for k, iv in [('about-a', 'swing'), ('about-b', 'dock'), ('about', 'flip')]:
+        h = page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
+                 about.about3(iv), ['site.css', 'backlot.css'], ['site.js'], cur='about')
+        if k != 'about':
+            h = h.replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1)
+        write(k + '/index.html', h)
     print('built', len(html))

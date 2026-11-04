@@ -339,7 +339,67 @@ EVENTS = [(2016.8, 2021.55, '2016 to 2021', 'Industrial Design, B.Sc.', 'Middle 
           (2026.35, 2026.7, '2026', 'Product Designer', 'Insider One, remote from Berlin', 'Data health in a customer data platform.', ''),
           (2026.85, 2026.95, 'Now', 'Looking for my next team', 'Berlin, or wherever the work is', 'Open to product design roles on B2B products. If the domain is new to me, even better.', '')]
 
-def about3():
+QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px)}
+.ax-ask h2{position:sticky;top:calc(4.75rem + 24px);align-self:start}
+.ax-q{border-bottom:1px solid var(--qb,rgba(255,255,255,.14))}.ax-q:first-child{border-top:1px solid var(--qb,rgba(255,255,255,.14))}
+.ax-q summary{display:grid;grid-template-columns:minmax(0,1fr) 36px;align-items:center;gap:16px;padding:22px 18px;cursor:pointer;list-style:none;
+  background:linear-gradient(var(--gd),var(--gd)) 0 100%/100% 0 no-repeat;transition:background-size .45s var(--ease)}
+.ax-q summary::-webkit-details-marker{display:none}
+.ax-q summary span{font-size:var(--h3);font-weight:600;letter-spacing:-.015em;line-height:1.25;transition:transform .45s var(--ease)}
+.ax-q summary:hover,.ax-q[open] summary{color:#fff;background-size:100% 100%}
+.ax-q summary:hover span{transform:translateX(10px)}
+.ax-q summary i{position:relative;width:36px;height:36px;border-radius:50%;border:1px solid var(--qi,rgba(255,255,255,.35));transition:transform .45s var(--ease),background .2s}
+.ax-q summary i:before,.ax-q summary i:after{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;margin:-.75px 0 0 -6.5px;background:currentColor}.ax-q summary i:after{transform:rotate(90deg)}
+.ax-q summary:hover i{background:#fff}.ax-q summary:hover i:before,.ax-q summary:hover i:after{background:var(--gd)}
+.ax-q[open] summary i{transform:rotate(45deg)}
+.ax-q p{margin:0;padding:4px 18px 26px;max-width:none;color:#fff!important}.ax-q[open]{background:var(--gd)}.ax-q p{max-width:44em}
+/* light version for the home page */
+.ax-ask.lt{--qb:var(--line);--qi:rgba(22,22,22,.3);color:var(--ink)}
+.ax-ask.lt .ax-q summary{color:var(--ink)}.ax-ask.lt .ax-q[open] summary i,.ax-ask.lt .ax-q summary:hover i{border-color:rgba(255,255,255,.6)}.ax-ask.lt .ax-q summary:hover,.ax-ask.lt .ax-q[open] summary{color:#fff}
+@media(max-width:899px){.ax-ask{grid-template-columns:1fr}.ax-ask h2{position:static}}
+"""
+
+
+CENTER_CSS = """.ax-c{position:relative;display:block;text-align:center;min-height:clamp(380px,34vw,500px);box-sizing:border-box}
+.ax-ct{margin:0 auto;max-width:min(36em,calc(100% - 2 * var(--bw) - 48px))}.ax-c .ax-tx{max-width:none}
+.abx{--bw:clamp(150px,13vw,200px)}
+.ax-bp img,.ax-dp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+.ax-bp .ax-p,.ax-dp .ax-p{opacity:0;transition:opacity .4s}.ax-sw:hover .ax-p,.ax-dock:hover .ax-p{opacity:1}
+@media(max-width:899px){.ax-ct{max-width:36em}.ax-c{min-height:0}}
+"""
+SWING_CSS = """.ax-hang{position:absolute;left:var(--px);top:0;width:var(--bw);z-index:2}
+.ax-sw{transform-origin:50% 0;transform:rotate(var(--a,0deg));will-change:transform;touch-action:none;cursor:grab}.ax-sw.drag{cursor:grabbing}
+.ax-strap{display:block;margin:0 auto;width:16px;height:clamp(56px,7vw,110px);background:var(--gd);background-image:linear-gradient(90deg,transparent 2px,rgba(255,255,255,.35) 2px 3px,transparent 3px 13px,rgba(255,255,255,.35) 13px 14px,transparent 14px)}
+.ax-badge{position:relative;margin-top:-4px;padding:12px 12px 16px;background:#fff;border-radius:16px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 20px 44px rgba(0,0,0,.14);user-select:none;-webkit-user-select:none}
+.ax-clip{position:absolute;left:50%;top:-10px;width:30px;height:16px;margin-left:-15px;border-radius:5px;background:#C9C8C3;box-shadow:inset 0 -2px 0 rgba(0,0,0,.12)}
+.ax-bp{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#F1E4CC;margin-bottom:12px}
+.ax-badge b{display:block;font-size:15px;letter-spacing:-.01em}.ax-badge span{display:block;font-size:12px;color:var(--mute);margin-top:2px}
+@media(max-width:899px){.ax-hang{position:relative;left:auto;margin:-40px auto 28px;width:150px}}
+"""
+SWING_JS = """<script>(function(){var w=document.querySelector('[data-axsw]');if(!w)return;
+var red=matchMedia('(prefers-reduced-motion:reduce)').matches,a=red?0:14,v=0,drag=0,raf=0,ly=pageYOffset;
+function set(){w.style.setProperty('--a',a.toFixed(2)+'deg')}
+function tick(){raf=0;if(!drag){v+=-a*.012;v*=.965;a+=v;}set();if(drag||Math.abs(a)>.05||Math.abs(v)>.05)raf=requestAnimationFrame(tick)}
+function kick(x){if(red)return;v+=x;v=Math.max(-6,Math.min(6,v));if(!raf)raf=requestAnimationFrame(tick)}
+addEventListener('scroll',function(){var y=pageYOffset;kick((y-ly)*.04);ly=y},{passive:true});
+w.addEventListener('pointerenter',function(e){kick((e.movementX||2)*.15)});
+w.addEventListener('pointerdown',function(e){drag=1;w.classList.add('drag');w.setPointerCapture(e.pointerId);if(!raf)raf=requestAnimationFrame(tick)});
+w.addEventListener('pointermove',function(e){if(!drag)return;var r=w.parentNode.getBoundingClientRect(),px=r.left+r.width/2,py=r.top;var n=Math.atan2(px-e.clientX,e.clientY-py)*-57.3;n=Math.max(-70,Math.min(70,n));v=n-a;a=n});
+function up(){if(!drag)return;drag=0;w.classList.remove('drag');v=Math.max(-6,Math.min(6,v));if(!raf)raf=requestAnimationFrame(tick)}
+w.addEventListener('pointerup',up);w.addEventListener('pointercancel',up);
+set();if(!red)raf=requestAnimationFrame(tick)})();</script>"""
+DOCK_CSS = """.ax-dock{position:fixed;left:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:12px;padding:7px 20px 7px 7px;border-radius:99px;background:#fff;color:var(--ink);text-decoration:none;box-shadow:0 1px 0 rgba(0,0,0,.04),0 14px 36px rgba(0,0,0,.16);transition:transform .45s var(--ease),opacity .3s}
+.ax-dock.off{transform:translateY(140%);opacity:0;pointer-events:none}
+.ax-dp{position:relative;flex:none;width:56px;height:56px;border-radius:50%;overflow:hidden;background:#F1E4CC}
+.ax-dt{display:grid;line-height:1.25;text-align:left}.ax-dt b{font-size:14px}.ax-dt>span{grid-area:2/1;font-size:12px;color:var(--mute);transition:opacity .25s,transform .25s}
+.ax-dt .ax-dm{color:var(--gd);font-weight:600;opacity:0;transform:translateY(6px)}
+.ax-dock:hover .ax-dt>span{opacity:0;transform:translateY(-6px)}.ax-dock:hover .ax-dt .ax-dm{opacity:1;transform:none}
+@media(max-width:899px){.ax-dock{left:12px;bottom:12px;padding:5px}.ax-dt{display:none}.ax-dp{width:44px;height:44px}}
+"""
+DOCK_JS = """<script>(function(){var d=document.querySelector('.ax-dock'),f=document.querySelector('.ec-foot');if(!d||!f||!window.IntersectionObserver)return;
+new IntersectionObserver(function(e){d.classList.toggle('off',e[0].isIntersecting)}).observe(f)})();</script>"""
+
+def about3(intro="flip"):
     """intro with a portrait; experience on a moving crosshair that turns the page dark; then How I work, questions and tools on dark"""
     lead = ''.join(f'<p>{x}</p>' for x in AB_LEAD)
     n = len(EVENTS)
@@ -351,16 +411,25 @@ def about3():
     how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = ''.join(f'<details class="ax-q"><summary><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in QA)
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="20" height="20" alt="" loading="lazy">{t}</li>' for t, f in TOOLS)
+    me = f'<img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy">'
+    txt = f'<h1>Hi, I’m Ege.</h1><div class="ax-tx">{lead}</div>'
+    if intro == 'swing':
+        intro_html = f'<section class="ax-w ax-intro ax-c"><div class="ax-hang" aria-hidden="true"><div class="ax-sw" data-axsw><i class="ax-strap"></i><div class="ax-badge"><i class="ax-clip"></i><div class="ax-bp">{me}</div><b>Ege Coskun</b><span>Product designer, Berlin</span></div></div></div><div class="ax-ct">{txt}</div></section>'
+    elif intro == 'dock':
+        intro_html = f'<section class="ax-w ax-intro ax-c"><div class="ax-ct">{txt}</div></section><a class="ax-dock" href="mailto:a.egecoskun@gmail.com"><span class="ax-dp">{me}</span><span class="ax-dt"><b>Ege Coskun</b><span>Product designer, Berlin</span><span class="ax-dm">Say hello</span></span></a>'
+    else:
+        intro_html = f'<section class="ax-w ax-intro"><div>{txt}</div><figure class="ax-me"><div class="ax-fl">{me}</div></figure></section>'
+    xcss = {'swing': CENTER_CSS + SWING_CSS, 'dock': CENTER_CSS + DOCK_CSS}.get(intro, '')
+    xjs = {'swing': SWING_JS, 'dock': DOCK_JS}.get(intro, '')
     return f"""<main class="ab abx">
-<section class="ax-w ax-intro"><div><h1>Hi, I’m Ege.</h1><div class="ax-tx">{lead}</div></div>
-<figure class="ax-me"><div class="ax-fl"><img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy"></div></figure></section>
-<section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
-<div class="ax-st"><div class="ax-win" aria-hidden="true"><div class="ax-rl">{ticks}<i class="ax-rg"></i></div></div><i class="ax-now" aria-hidden="true"></i><div class="ax-pcs">{cards}</div></div></div></section>
+{intro_html}
 <div class="ax-dark">
-<section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
 <section class="ax-w ax-ask"><h2>Things you might ask</h2><div class="ax-qs">{qa}</div></section>
+<section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
 <section class="ax-w ax-tl"><h2>Tools</h2><ul class="ax-tools">{tools}</ul></section>
-</div></main>
+</div>
+<section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
+<div class="ax-st"><div class="ax-win" aria-hidden="true"><div class="ax-rl">{ticks}</div></div><i class="ax-now" aria-hidden="true"></i><i class="ax-end" aria-hidden="true"></i><div class="ax-pcs">{cards}</div></div></div></section></main>
 <style>
 /* type scale: h1 56, section titles 26, item titles 36, h3 24, body 16 (18 on very large screens) */
 .abx{{--fs:16px;--h1:clamp(40px,3.4vw,56px);--h2:clamp(20px,1.3vw,26px);--h2b:clamp(26px,1.9vw,36px);--h3:clamp(20px,1.3vw,24px);--px:clamp(20px,2.4vw,44px);--dk:#161616;font-family:"Inter Tight",system-ui,sans-serif}}
@@ -378,18 +447,17 @@ def about3():
 .ax-me img{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#F1E4CC}}
 .ax-p{{transform:rotateY(180deg)}}
 /* experience: a short ruler slides under a fixed line, past to present; only the date beside the line changes */
-.ax-path{{height:calc(var(--n) * 60svh + 100svh)}}
-.ax-pin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);display:flex;flex-direction:column;padding-top:clamp(16px,2vw,32px);border-top:1px solid var(--line);box-sizing:border-box;overflow:hidden}}
+.ax-path{{--ph:min(calc(100svh - 4.75rem),500px);--tl:84px;height:calc(var(--n) * 45svh + var(--ph));border-top:1px solid var(--line)}}
+.ax-pin{{position:sticky;top:max(4.75rem,calc(50svh - var(--ph) / 2 + 2.4rem));height:var(--ph);display:flex;flex-direction:column;padding-top:clamp(28px,3vw,48px);box-sizing:border-box;overflow:hidden}}
 .ax-st{{--yh:12svh;position:relative;flex:1}}
-.ax-win{{position:absolute;left:var(--px);top:calc(34% - 20svh);height:40svh;width:60px;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 25%,#000 75%,transparent);mask-image:linear-gradient(transparent,#000 25%,#000 75%,transparent)}}
-.ax-rl{{position:absolute;left:0;top:50%;width:60px;transition:transform .7s var(--ease)}}
+.ax-win{{position:absolute;left:var(--px);top:0;bottom:0;width:60px;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 25%,#000 75%,transparent);mask-image:linear-gradient(transparent,#000 25%,#000 75%,transparent)}}
+.ax-rl{{position:absolute;left:0;top:var(--tl);width:60px;transition:transform .7s var(--ease)}}
 .ax-tq{{position:absolute;left:20px;top:calc(var(--o) * var(--yh));width:14px;border-top:1px solid #C9C8C3}}
 .ax-tq.y{{left:8px;width:26px;border-color:#8E8D88}}
-.ax-rg{{position:absolute;left:38px;width:4px;border-radius:2px;background:var(--g);top:calc(var(--ra,0) * var(--yh));height:calc(var(--rl,0) * var(--yh));transition:top .7s var(--ease),height .7s var(--ease)}}
 .ax-side{{margin-top:18px;padding:14px 16px;border-left:3px solid var(--g);background:#EEEEEB;border-radius:0 10px 10px 0}}.ax-side p{{margin:0 0 .3em}}.ax-sk{{font-size:13px!important;color:var(--g)!important;font-weight:600}}.ax-sh{{font-weight:600}}
-.ax-now{{position:absolute;left:0;right:0;top:34%;height:1px;background:var(--g)}}
+.ax-now,.ax-end{{position:absolute;left:0;right:0;top:var(--tl);height:1px;background:var(--g)}}.ax-end{{top:calc(var(--tl) + var(--ch,220px) + 28px);background:var(--ink);opacity:.25;transition:top .5s var(--ease)}}
 .ax-now:before{{content:"";position:absolute;left:calc(var(--px) - 2px);top:-5px;border:5px solid transparent;border-left:7px solid var(--g)}}
-.ax-pcs{{position:absolute;left:calc(var(--px) + 120px);right:var(--px);top:34%}}
+.ax-pcs{{position:absolute;left:calc(var(--px) + 120px);right:var(--px);top:var(--tl)}}
 .ax-pc{{position:absolute;left:0;right:0;top:0;opacity:0;transition:opacity .35s;pointer-events:none}}
 .ax-pc.on{{opacity:1;pointer-events:auto}}
 .ax-when{{position:absolute;bottom:calc(100% + 10px);left:0;margin:0;font-size:14px!important;font-weight:600;color:var(--g)!important;font-variant-numeric:tabular-nums}}
@@ -419,31 +487,17 @@ def about3():
 .ax-hc h3{{font-size:clamp(24px,2vw,36px);line-height:.98;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;text-wrap:balance}}
 .ax-hc .ax-ht{{margin:16px 0 0;font-size:15px!important;line-height:1.45!important;color:#3a3936}}
 .ax-hc .ax-hn{{margin:auto 0 0!important;font-size:clamp(56px,5.4vw,100px)!important;line-height:.9!important;font-weight:800;letter-spacing:-.05em;color:var(--g)}}
-.ax-hc.g{{background:var(--g);color:#fff}}.ax-hc.g .ax-ht{{color:rgba(255,255,255,.9)}}.ax-hc.g .ax-hn{{color:#fff}}
-.ax-ask{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px)}}
-.ax-ask h2{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}
-.ax-q{{border-bottom:1px solid rgba(255,255,255,.14)}}.ax-q:first-child{{border-top:1px solid rgba(255,255,255,.14)}}
-.ax-q summary{{display:grid;grid-template-columns:minmax(0,1fr) 36px;align-items:center;gap:16px;padding:22px 18px;cursor:pointer;list-style:none;
-  background:linear-gradient(var(--g),var(--g)) 0 100%/100% 0 no-repeat;transition:background-size .45s var(--ease)}}
-.ax-q summary::-webkit-details-marker{{display:none}}
-.ax-q summary span{{font-size:var(--h3);font-weight:600;letter-spacing:-.015em;line-height:1.25;transition:transform .45s var(--ease)}}
-.ax-q summary:hover,.ax-q[open] summary{{background-size:100% 100%}}
-.ax-q summary:hover span{{transform:translateX(10px)}}
-.ax-q summary i{{position:relative;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.35);transition:transform .45s var(--ease),background .2s}}
-.ax-q summary i:before,.ax-q summary i:after{{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;margin:-.75px 0 0 -6.5px;background:#fff}}.ax-q summary i:after{{transform:rotate(90deg)}}
-.ax-q summary:hover i{{background:#fff}}.ax-q summary:hover i:before,.ax-q summary:hover i:after{{background:var(--g)}}
-.ax-q[open] summary i{{transform:rotate(45deg)}}
-.ax-q p{{margin:0;padding:4px 18px 26px;max-width:none;color:#fff!important}}.ax-q[open]{{background:var(--g)}}.ax-q p{{max-width:44em}}
+.ax-hc.g{{background:var(--gd);color:#fff}}.ax-hc.g .ax-ht{{color:rgba(255,255,255,.9)}}.ax-hc.g .ax-hn{{color:#fff}}
 .ax-tl{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px);border-top:1px solid rgba(255,255,255,.14)}}
 .ax-tools{{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-content:start}}
 .ax-tools li{{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:99px;background:#262624;font-size:14px;font-weight:500}}
 .ax-tools img{{width:18px;height:18px;object-fit:contain}}
 @media(max-width:899px){{.ax-intro,.ax-ask,.ax-tl{{grid-template-columns:1fr}}.ax-me{{justify-self:start;width:min(70vw,320px)}}.ax-ask h2{{position:static}}
-.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now{{display:none}}
+.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end{{display:none}}
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
-@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
-</style>
+@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
+{QCSS}{xcss}</style>
 <script>
 (function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
 var P=document.querySelector('[data-axpath]'),rl=P.querySelector('.ax-rl'),bars=[].slice.call(P.querySelectorAll('.ax-bar')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length;
@@ -453,7 +507,7 @@ function prog(s){{var r=s.getBoundingClientRect();return Math.max(0,Math.min(1,-
 var cur=-1,raf=0;
 function draw(){{raf=0;if(innerWidth<900)return;
   var k=Math.min(n-1,Math.round(prog(P)*(n-1)));
-  if(k!==cur){{cur=k;var t=+pc[k].dataset.t,e=+pc[k].dataset.e,yh=innerHeight*.12;rl.style.transform='translateY('+(-t*yh).toFixed(1)+'px)';rl.style.setProperty('--ra',t);rl.style.setProperty('--rl',Math.max(.15,e-t));
+  if(k!==cur){{cur=k;var t=+pc[k].dataset.t,yh=innerHeight*.12;rl.style.transform='translateY('+(-t*yh).toFixed(1)+'px)';P.style.setProperty('--ch',pc[k].offsetHeight+'px');
     bars.forEach(function(b){{var a=+b.dataset.a,e=+b.dataset.b;b.style.setProperty('--f',Math.max(0,Math.min(1,(t-a)/(e-a))).toFixed(3))}});
     pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
   var hr=H.getBoundingClientRect(),hv=innerHeight*.5,q=Math.max(0,(hv-hr.top)/(hv+run(H)))*(hc.length+.3);hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
@@ -465,4 +519,4 @@ addEventListener('wheel',function(e){{if(innerWidth<900||!inside()||Math.abs(e.d
 var ty=null;addEventListener('touchstart',function(e){{ty=e.touches[0].clientY}},{{passive:true}});
 addEventListener('touchmove',function(e){{if(innerWidth<900||ty==null||!inside())return;var dy=ty-e.touches[0].clientY;if(Math.abs(dy)<30)return;if(step(dy>0?1:-1)){{e.preventDefault();ty=null}}}},{{passive:false}});
 addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',function(){{cur=-1;draw()}});draw()}})();
-</script>"""
+</script>{xjs}"""
