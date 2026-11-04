@@ -367,37 +367,31 @@ CENTER_CSS = """.ax-c{position:relative;display:block;text-align:center;min-heig
 .ax-bp .ax-p,.ax-dp .ax-p{opacity:0;transition:opacity .4s}.ax-sw:hover .ax-p,.ax-dock:hover .ax-p{opacity:1}
 @media(max-width:899px){.ax-ct{max-width:36em}.ax-c{min-height:0}}
 """
-SWING_CSS = """.ax-hang{position:absolute;left:var(--px);top:0;width:var(--bw);z-index:2}
-.ax-sw{transform-origin:50% 0;transform:rotate(var(--a,0deg));will-change:transform;touch-action:none;cursor:grab}.ax-sw.drag{cursor:grabbing}
-.ax-strap{display:block;margin:0 auto;width:16px;height:clamp(56px,7vw,110px);background:var(--gd);background-image:linear-gradient(90deg,transparent 2px,rgba(255,255,255,.35) 2px 3px,transparent 3px 13px,rgba(255,255,255,.35) 13px 14px,transparent 14px)}
-.ax-badge{position:relative;margin-top:-4px;padding:12px 12px 16px;background:#fff;border-radius:16px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 20px 44px rgba(0,0,0,.14);user-select:none;-webkit-user-select:none}
-.ax-clip{position:absolute;left:50%;top:-10px;width:30px;height:16px;margin-left:-15px;border-radius:5px;background:#C9C8C3;box-shadow:inset 0 -2px 0 rgba(0,0,0,.12)}
-.ax-bp{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#F1E4CC;margin-bottom:12px}
-.ax-badge b{display:block;font-size:15px;letter-spacing:-.01em}.ax-badge span{display:block;font-size:12px;color:var(--mute);margin-top:2px}
-@media(max-width:899px){.ax-hang{position:relative;left:auto;margin:-40px auto 28px;width:150px}}
+SIGN = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap">'
+SWING_CSS = """.ax-c.sw{overflow:hidden;min-height:600px}
+.ax-hang{position:absolute;left:-22px;top:-70px;width:270px;height:650px;z-index:2;pointer-events:none}
+.ax-sw{position:absolute;inset:0;transform-origin:50% 50%;animation:axsw 1.6s .25s both}
+@keyframes axsw{0%{transform:translate(-179px,-243px) rotate(45deg);animation-timing-function:cubic-bezier(.3,.6,.3,1)}
+ 70%{transform:none;animation-timing-function:ease-in-out}82%{transform:rotate(5deg);animation-timing-function:ease-in-out}100%{transform:none}}
+.ax-rope{position:absolute;left:0;top:0;width:270px;height:320px;overflow:visible}
+.ax-rope path{fill:none;stroke:#1c1c1c;stroke-width:1.3}
+.ax-card{position:absolute;left:0;top:310px;width:260px;height:340px;border-radius:18px;background:rgba(214,214,211,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.ax-slot{position:absolute;left:34px;right:62px;top:22px;height:12px;border-radius:8px;background:#fff}
+.ax-cp{position:absolute;left:32px;top:54px;width:172px;height:172px;border-radius:50%;overflow:hidden;background:#ddd}
+.ax-cp img{width:100%;height:100%;object-fit:cover;display:block}
+.ax-card .ax-sg{position:absolute;font-family:"Mrs Saint Delafield",cursive!important;color:#262626;font-weight:400;line-height:1;white-space:nowrap}
+.ax-cr{left:28px;top:236px;font-size:28px;padding:0 26px 4px 2px;border-bottom:1px solid #262626;transform:rotate(-4deg);transform-origin:0 100%}
+.ax-cn{left:20px;bottom:-14px;font-size:132px;color:#A9A9A6!important;letter-spacing:-.02em}
+@media(max-width:899px){.ax-c.sw{min-height:0}.ax-hang{position:relative;left:calc(-1 * var(--px) / .72 - 10px);top:auto;zoom:.72;margin:-120px 0 40px}}
+@media (prefers-reduced-motion:reduce){.ax-sw{animation:none}}
 """
-SWING_JS = """<script>(function(){var w=document.querySelector('[data-axsw]');if(!w)return;
-var red=matchMedia('(prefers-reduced-motion:reduce)').matches,a=red?0:14,v=0,drag=0,raf=0,ly=pageYOffset;
-function set(){w.style.setProperty('--a',a.toFixed(2)+'deg')}
-function tick(){raf=0;if(!drag){v+=-a*.012;v*=.965;a+=v;}set();if(drag||Math.abs(a)>.05||Math.abs(v)>.05)raf=requestAnimationFrame(tick)}
-function kick(x){if(red)return;v+=x;v=Math.max(-6,Math.min(6,v));if(!raf)raf=requestAnimationFrame(tick)}
-addEventListener('scroll',function(){var y=pageYOffset;kick((y-ly)*.04);ly=y},{passive:true});
-w.addEventListener('pointerenter',function(e){kick((e.movementX||2)*.15)});
-w.addEventListener('pointerdown',function(e){drag=1;w.classList.add('drag');w.setPointerCapture(e.pointerId);if(!raf)raf=requestAnimationFrame(tick)});
-w.addEventListener('pointermove',function(e){if(!drag)return;var r=w.parentNode.getBoundingClientRect(),px=r.left+r.width/2,py=r.top;var n=Math.atan2(px-e.clientX,e.clientY-py)*-57.3;n=Math.max(-70,Math.min(70,n));v=n-a;a=n});
-function up(){if(!drag)return;drag=0;w.classList.remove('drag');v=Math.max(-6,Math.min(6,v));if(!raf)raf=requestAnimationFrame(tick)}
-w.addEventListener('pointerup',up);w.addEventListener('pointercancel',up);
-set();if(!red)raf=requestAnimationFrame(tick)})();</script>"""
-DOCK_CSS = """.ax-dock{position:fixed;left:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:12px;padding:7px 20px 7px 7px;border-radius:99px;background:#fff;color:var(--ink);text-decoration:none;box-shadow:0 1px 0 rgba(0,0,0,.04),0 14px 36px rgba(0,0,0,.16);transition:transform .45s var(--ease),opacity .3s}
-.ax-dock.off{transform:translateY(140%);opacity:0;pointer-events:none}
-.ax-dp{position:relative;flex:none;width:56px;height:56px;border-radius:50%;overflow:hidden;background:#F1E4CC}
-.ax-dt{display:grid;line-height:1.25;text-align:left}.ax-dt b{font-size:14px}.ax-dt>span{grid-area:2/1;font-size:12px;color:var(--mute);transition:opacity .25s,transform .25s}
-.ax-dt .ax-dm{color:var(--gd);font-weight:600;opacity:0;transform:translateY(6px)}
-.ax-dock:hover .ax-dt>span{opacity:0;transform:translateY(-6px)}.ax-dock:hover .ax-dt .ax-dm{opacity:1;transform:none}
-@media(max-width:899px){.ax-dock{left:12px;bottom:12px;padding:5px}.ax-dt{display:none}.ax-dp{width:44px;height:44px}}
+DOCK_CSS = """.ax-print{position:absolute;left:var(--px);bottom:clamp(24px,3vw,48px);width:var(--bw);margin:0;padding:10px 10px 50px;background:#fff;border:4px solid #1c1c1c;border-radius:3px;box-shadow:0 12px 30px rgba(0,0,0,.12)}
+.ax-print img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.ax-rv{position:absolute;width:6px;height:6px;border-radius:50%;background:#d6d6d3;box-shadow:inset 0 -1px 1px rgba(0,0,0,.35)}
+.ax-rv:nth-child(1){left:-5px;top:-5px}.ax-rv:nth-child(2){right:-5px;top:-5px}.ax-rv:nth-child(3){left:-5px;bottom:-5px}.ax-rv:nth-child(4){right:-5px;bottom:-5px}
+.ax-print .ax-sg{position:absolute;left:22px;bottom:6px;font-family:"Mrs Saint Delafield",cursive!important;font-size:clamp(30px,2.6vw,40px);line-height:1;color:#1c1c1c;transform:rotate(-4deg);white-space:nowrap}
+@media(max-width:899px){.ax-print{position:relative;left:auto;bottom:auto;width:180px;margin:32px 0 8px}}
 """
-DOCK_JS = """<script>(function(){var d=document.querySelector('.ax-dock'),f=document.querySelector('.ec-foot');if(!d||!f||!window.IntersectionObserver)return;
-new IntersectionObserver(function(e){d.classList.toggle('off',e[0].isIntersecting)}).observe(f)})();</script>"""
 
 def about3(intro="flip"):
     """intro with a portrait; experience on a moving crosshair that turns the page dark; then How I work, questions and tools on dark"""
@@ -414,18 +408,23 @@ def about3(intro="flip"):
     me = f'<img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy">'
     txt = f'<h1>Hi, I’m Ege.</h1><div class="ax-tx">{lead}</div>'
     if intro == 'swing':
-        intro_html = f'<section class="ax-w ax-intro ax-c"><div class="ax-hang" aria-hidden="true"><div class="ax-sw" data-axsw><i class="ax-strap"></i><div class="ax-badge"><i class="ax-clip"></i><div class="ax-bp">{me}</div><b>Ege Coskun</b><span>Product designer, Berlin</span></div></div></div><div class="ax-ct">{txt}</div></section>'
+        rope = ('<svg class="ax-rope" viewBox="0 0 270 320" aria-hidden="true"><path d="M232 -10C222 60 150 92 96 104C40 116 24 170 40 226C52 268 64 296 72 318"/>'
+                '<path d="M250 -10C236 70 170 104 118 98C58 90 30 140 34 200C38 256 58 292 66 318"/><path d="M98 300c-6 4-6 14 0 20" style="stroke-width:2.2"/></svg>')
+        intro_html = (f'{SIGN}<section class="ax-w ax-intro ax-c sw"><div class="ax-hang" aria-hidden="true"><div class="ax-sw">{rope}'
+                      f'<div class="ax-card"><i class="ax-slot"></i><div class="ax-cp"><img src="{GH}me/ege-badge.webp" width="480" height="480" alt=""></div>'
+                      f'<span class="ax-sg ax-cr">Product designer</span><span class="ax-sg ax-cn">Ege</span></div></div></div><div class="ax-ct">{txt}</div></section>')
     elif intro == 'dock':
-        intro_html = f'<section class="ax-w ax-intro ax-c"><div class="ax-ct">{txt}</div></section><a class="ax-dock" href="mailto:a.egecoskun@gmail.com"><span class="ax-dp">{me}</span><span class="ax-dt"><b>Ege Coskun</b><span>Product designer, Berlin</span><span class="ax-dm">Say hello</span></span></a>'
+        intro_html = (f'{SIGN}<section class="ax-w ax-intro ax-c"><div class="ax-ct">{txt}</div>'
+                      f'<figure class="ax-print"><i class="ax-rv"></i><i class="ax-rv"></i><i class="ax-rv"></i><i class="ax-rv"></i><img src="{GH}me/ege-print.webp" width="480" height="600" alt="Ege Coskun"><span class="ax-sg" aria-hidden="true">Ege Coskun</span></figure></section>')
     else:
         intro_html = f'<section class="ax-w ax-intro"><div>{txt}</div><figure class="ax-me"><div class="ax-fl">{me}</div></figure></section>'
     xcss = {'swing': CENTER_CSS + SWING_CSS, 'dock': CENTER_CSS + DOCK_CSS}.get(intro, '')
-    xjs = {'swing': SWING_JS, 'dock': DOCK_JS}.get(intro, '')
+    xjs = ''
     return f"""<main class="ab abx">
 {intro_html}
 <div class="ax-dark">
-<section class="ax-w ax-ask"><h2>Things you might ask</h2><div class="ax-qs">{qa}</div></section>
 <section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
+<section class="ax-w ax-ask"><h2>Things you might ask</h2><div class="ax-qs">{qa}</div></section>
 <section class="ax-w ax-tl"><h2>Tools</h2><ul class="ax-tools">{tools}</ul></section>
 </div>
 <section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
