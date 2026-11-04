@@ -381,7 +381,7 @@ SWING_CSS = """.ax-c.sw{overflow:hidden;min-height:600px}
 .ax-cp img{width:100%;height:100%;object-fit:cover;display:block}
 .ax-card .ax-sg{position:absolute;font-family:"Mrs Saint Delafield",cursive!important;color:#262626;font-weight:400;line-height:1;white-space:nowrap}
 .ax-cr{left:30px;top:234px;font-size:36px;-webkit-text-stroke:.4px #262626;padding:0 26px 4px 2px;border-bottom:1px solid #262626;transform:rotate(-4deg);transform-origin:0 100%}
-.ax-cn{left:22px;bottom:-18px;font-size:150px;color:#B3B3B0!important;-webkit-text-stroke:2.5px #B3B3B0;letter-spacing:-.02em}
+.ax-cn{left:34px;bottom:-34px;font-size:150px;color:#B3B3B0!important;-webkit-text-stroke:2.5px #B3B3B0;letter-spacing:-.02em}
 @media(max-width:899px){.ax-c.sw{min-height:0}.ax-hang{position:relative;left:calc(-1 * var(--px) / .72 - 10px);top:auto;zoom:.72;margin:-120px 0 40px}}
 @media (prefers-reduced-motion:reduce){.ax-sw{animation:none}}
 """
@@ -412,7 +412,7 @@ def about3(intro="flip"):
                 '<path d="M250 -10C236 70 170 104 118 98C58 90 30 140 34 200C38 256 58 292 66 318"/><path d="M98 300c-6 4-6 14 0 20" style="stroke-width:2.2"/></svg>')
         intro_html = (f'{SIGN}<section class="ax-w ax-intro ax-c sw"><div class="ax-hang" aria-hidden="true"><div class="ax-sw">{rope}'
                       f'<div class="ax-card"><i class="ax-slot"></i><div class="ax-cp"><img src="{GH}me/ege-badge.webp" width="480" height="480" alt=""></div>'
-                      f'<span class="ax-sg ax-cr">Product designer</span><span class="ax-sg ax-cn">Ege</span></div></div></div><div class="ax-ct">{txt}</div></section>')
+                      f'<span class="ax-sg ax-cr">Product designer</span><span class="ax-sg ax-cn">ege</span></div></div></div><div class="ax-ct">{txt}</div></section>')
     elif intro == 'dock':
         intro_html = (f'{SIGN}<section class="ax-w ax-intro ax-c"><div class="ax-ct">{txt}</div>'
                       f'<figure class="ax-print"><i class="ax-rv"></i><i class="ax-rv"></i><i class="ax-rv"></i><i class="ax-rv"></i><img src="{GH}me/ege-print.webp" width="480" height="600" alt="Ege Coskun"><span class="ax-sg" aria-hidden="true">Ege Coskun</span></figure></section>')
