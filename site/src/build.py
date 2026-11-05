@@ -601,7 +601,7 @@ def work():
         return '<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + CO.get(k, '') + '</span>'
     # the title link stretches over the whole card, so the company chip can be its own link
     cards = ''.join(
-        f'<div class="wk-c"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
+        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
         + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a><span class="wk-n">{name}</span></div>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
@@ -614,11 +614,11 @@ def work():
         for k, num, name, t, tags, img in more)
     import about as _ab
     qa = _ab.qa_html()
-    about = (f'<section class="ax-ask lt wk-qa"><div class="k">Things you might ask<p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
+    about = (f'<section class="ax-ask lt wk-qa"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
              '<a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></div></section>'
              '<style>' + _ab.QCSS + '.wk-qa{margin-top:clamp(96px,10vw,180px);padding:0;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;--h3:clamp(18px,1.3vw,24px)}'
-             '.wk-qa .k{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa .wk-btn{margin-top:32px}'
-             '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qa .k{position:static}}</style>' + _ab.QJS)
+             '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
+             '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
             f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
             f'<p class="wk-lead">Mistakes have always been expensive where I worked. I design B2B data products now, and I still go looking for the edge case before a customer finds it.</p></div>'
@@ -701,7 +701,7 @@ if __name__ == '__main__':
     write('work/index.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Work | Ege Coskun</title><link rel="canonical" href="/#work"><meta http-equiv="refresh" content="0;url=/#work"><script>location.replace("/#work")</script></head><body><a href="/#work">Work</a></body></html>')
     write('index.html', work())
     import about
-    for k, iv in [('about-a', 'swing'), ('about-b', 'dock'), ('about', 'flip')]:
+    for k, iv in [('about-a', 'a'), ('about-b', 'b'), ('about', 'flip')]:
         h = page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
                  about.about3(iv), ['site.css', 'backlot.css'], ['site.js'], cur='about')
         if k != 'about':

@@ -341,29 +341,30 @@ EVENTS = [(2016.8, 2021.55, '2016 to 2021', 'Industrial Design, B.Sc.', 'Middle 
 
 QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px)}
 .ax-ask h2{position:sticky;top:calc(4.75rem + 24px);align-self:start}
-.ax-qs{display:flex;flex-direction:column;gap:10px;--qbg:#262624;--qbd:rgba(255,255,255,.18);--qtx:#F2F2EF}
-.ax-ask.lt .ax-qs{--qbg:#ECECEA;--qbd:#D6D6D2;--qtx:var(--ink)}
+.ax-qs{display:flex;flex-direction:column;gap:10px;--qbg:#262624;--qbd:rgba(255,255,255,.18);--qtx:#F2F2EF;--abg:#30302d}
+.ax-ask.lt .ax-qs{--qbg:#ECECEA;--qbd:#D6D6D2;--qtx:var(--ink);--abg:#fff}
 .ax-q summary{display:inline-flex;align-items:center;max-width:100%;box-sizing:border-box;padding:16px 24px;border-radius:22px;background:var(--qbg);border:1px solid transparent;color:var(--qtx);cursor:pointer;list-style:none;font-size:var(--h3);font-weight:500;letter-spacing:-.01em;line-height:1.3;transition:border-color .3s,background .3s}
 .ax-q summary::-webkit-details-marker{display:none}
 .ax-q summary:hover{border-color:var(--qbd)}
-.ax-q[open] summary{background:transparent;border-color:var(--g)}
+.ax-q[open]:not(.cl) summary{background:transparent;border-color:var(--g)}
 .ax-q summary:focus-visible{outline:2px solid var(--g);outline-offset:3px}
-.ax-a{overflow:hidden;display:flex;align-items:flex-end;justify-content:flex-end;gap:12px;padding:10px 0 4px}
-.ax-a p{margin:0!important;max-width:36em;padding:18px 24px;border:1px solid var(--qbd);border-radius:22px 22px 4px 22px;color:var(--qtx)!important;font-size:var(--fs,16px);line-height:1.5}
-.ax-av{flex:none;width:44px;height:44px;border-radius:50%;background:var(--gd);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:700;letter-spacing:-.02em}
+.ax-a{overflow:hidden}
+.ax-ai{display:flex;justify-content:flex-end;padding:10px 12px 6px 0}
+.ax-a p{position:relative;margin:0!important;max-width:36em;padding:18px 24px;background:var(--abg);border-radius:22px 22px 6px 22px;color:var(--qtx)!important;font-size:var(--fs,16px);line-height:1.5}
+.ax-a p:after{content:"";position:absolute;right:-9px;bottom:0;width:18px;height:20px;background:var(--abg);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 20'%3E%3Cpath d='M0 0v20h18c-6-1-10-6-11-11L7 0z'/%3E%3C/svg%3E") 0 0/100% 100%;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 20'%3E%3Cpath d='M0 0v20h18c-6-1-10-6-11-11L7 0z'/%3E%3C/svg%3E") 0 0/100% 100%}
 .ax-ask.lt{color:var(--ink)}
 .ax-qc{margin:20px 0 0;font-size:14px;line-height:1.6;color:var(--mute)}.ax-qc a{color:var(--ink);text-underline-offset:3px}
-@media(max-width:899px){.ax-ask{grid-template-columns:1fr}.ax-ask h2,.wk-qa .k{position:static}.ax-av{width:36px;height:36px;font-size:12px}}
+@media(max-width:899px){.ax-ask{grid-template-columns:1fr}.ax-ask h2,.wk-qa .k{position:static}}
 @media (prefers-reduced-motion:reduce){.ax-q summary{transition:none}}
 """
 NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:var(--ink);color:#fff;font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
 QJS = """<script>(function(){var R=matchMedia('(prefers-reduced-motion:reduce)').matches;
 function op(d){d.open=true;if(R)return;var a=d.querySelector('.ax-a');a.animate([{height:'0px',opacity:0,transform:'translateY(10px)'},{height:a.scrollHeight+'px',opacity:1,transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}
-function cl(d){if(R){d.open=false;return}var a=d.querySelector('.ax-a');var x=a.animate([{height:a.offsetHeight+'px',opacity:1},{height:'0px',opacity:0}],{duration:320,easing:'cubic-bezier(.4,0,.2,1)'});x.onfinish=function(){d.open=false}}
+function cl(d){if(R){d.open=false;return}var a=d.querySelector('.ax-a');if(d._x)return;d.classList.add('cl');var x=a.animate([{height:a.offsetHeight+'px',opacity:1},{height:'0px',opacity:0}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});d._x=x;x.onfinish=function(){d.open=false;d.classList.remove('cl');x.cancel();d._x=null}}
 [].forEach.call(document.querySelectorAll('.ax-qs'),function(g){[].forEach.call(g.querySelectorAll('.ax-q'),function(d){d.querySelector('summary').addEventListener('click',function(e){e.preventDefault();if(d.open){cl(d);return}[].forEach.call(g.querySelectorAll('.ax-q[open]'),cl);op(d)})})})})();</script>"""
 
 def qa_html():
-    return ''.join(f'<details class="ax-q"><summary>{q}</summary><div class="ax-a"><p>{a}</p><span class="ax-av" aria-hidden="true">EC</span></div></details>' for q, a in QA)
+    return ''.join(f'<details class="ax-q"><summary>{q}</summary><div class="ax-a"><div class="ax-ai"><p>{a}</p></div></div></details>' for q, a in QA)
 
 
 
@@ -400,6 +401,20 @@ DOCK_CSS = """.ax-print{position:absolute;left:var(--px);bottom:clamp(24px,3vw,4
 @media(max-width:899px){.ax-print{position:relative;left:auto;bottom:auto;width:180px;margin:32px 0 8px}}
 """
 
+ROWS = [('What I do', 'Product design for B2B tools where a wrong click costs something: approvals, permissions, data other teams depend on. Research, flows, prototypes and the design system developers build from.'), ('Where I excel', 'Learning an unfamiliar domain fast, designing from specs and backend rules, and seeing how one change lands on every connected screen before it ships.'), ('Why I check twice', 'A millimetre off at MAN was tooling already paid for. In customs software, Register starts a legal clock. Mistakes have always been expensive where I worked.'), ('How I work now', 'A year ago I designed in Figma. Now I explore in Claude Design and build in Claude Code: this site is code, and Backlot has prototypes you can try.'), ('Consider me for', 'Mid-senior product design roles on B2B and data products. Based in Berlin, open to relocation.'), ('What I’m looking for', 'A team with high standards and bad jokes.')]
+DARK_CSS = """body:has(.abx.dk),body:has(.abx.dk) .site-h{background:#161616}body:has(.abx.dk) .site-h{color:#F2F2EF}body:has(.abx.dk) .site-h a{color:#F2F2EF}body:has(.abx.dk) .site-h img{filter:invert(1)}
+.abx.dk{--ink:#F2F2EF;--line:rgba(255,255,255,.14);--mute:#9B9A96;background:#161616;color:#F2F2EF}.abx.dk .ax-tx p,.abx.dk .ax-pd p{color:#CFCECA}.abx.dk .ax-tq{border-color:#3a3a37}.abx.dk .ax-tq.y{border-color:#6a6a66}.abx.dk .ax-side{background:#222220}.abx.dk .ax-end{background:#F2F2EF}
+.ax-ia{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);min-height:calc(100svh - 4.75rem);box-sizing:border-box;padding-top:clamp(40px,6vh,96px);padding-bottom:clamp(40px,6vh,96px)}
+.abx .ax-big{margin:0;font-size:clamp(34px,3.8vw,68px)!important;line-height:1!important;letter-spacing:-.03em;font-weight:600;text-transform:uppercase;color:#55554F}
+.ax-ia .ax-r{max-width:34em}.ax-ia .ax-r h1{font-size:var(--h2b)}
+.ax-ph{position:absolute;left:var(--px);bottom:clamp(24px,4vh,48px);width:clamp(120px,11vw,180px);aspect-ratio:1;border-radius:50%;overflow:hidden;margin:0}.ax-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ax-ib{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,5vw,88px);padding-bottom:clamp(56px,6vw,104px)}
+.ax-ib .ax-lead{font-size:clamp(18px,1.3vw,22px);line-height:1.45;color:#CFCECA;margin:0 0 28px;max-width:34em}
+.ax-rows{margin:0;border-top:1px solid var(--line)}.ax-rows>div{display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1fr);gap:24px;padding:18px 0;border-bottom:1px solid var(--line)}
+.ax-rows dt{font-size:14px;color:var(--mute)}.ax-rows dd{margin:0;font-size:clamp(16px,1.1vw,19px);line-height:1.5}
+.ax-ib .ax-ph{position:static;width:100%;max-width:300px;aspect-ratio:4/5;border-radius:14px;align-self:start;justify-self:end}
+@media(max-width:899px){.ax-ia,.ax-ib{grid-template-columns:1fr;min-height:0}.ax-ph{position:static;margin-top:8px}.ax-ib .ax-ph{justify-self:start;max-width:220px}.ax-rows>div{grid-template-columns:1fr;gap:4px}}
+"""
 def about3(intro="flip"):
     """intro with a portrait; experience on a moving crosshair that turns the page dark; then How I work, questions and tools on dark"""
     lead = ''.join(f'<p>{x}</p>' for x in AB_LEAD)
@@ -414,7 +429,15 @@ def about3(intro="flip"):
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="20" height="20" alt="" loading="lazy">{t}</li>' for t, f in TOOLS)
     me = f'<img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy">'
     txt = f'<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1><div class="ax-tx">{lead}</div>'
-    if intro == 'swing':
+    nm = '<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>'
+    if intro == 'a':
+        intro_html = (f'<section class="ax-w ax-ia"><p class="ax-big" aria-hidden="true">Ege Coskun designs B2B tools where a wrong click costs something.</p>'
+                      f'<div class="ax-r">{nm}<div class="ax-tx">{lead}</div></div><figure class="ax-ph"><img src="{GH}me/ege-badge.webp" width="480" height="480" alt="Ege Coskun"></figure></section>')
+    elif intro == 'b':
+        rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS)
+        intro_html = (f'<section class="ax-w ax-ib"><div>{nm}<p class="ax-lead">I’ve spent every role designing for people who know their domain far better than I do: customs officers, marketers, streaming editors.</p><dl class="ax-rows">{rows}</dl></div>'
+                      f'<figure class="ax-ph"><img src="{GH}me/ege-print.webp" width="480" height="600" alt="Ege Coskun"></figure></section>')
+    elif intro == 'swing':
         rope = ('<svg class="ax-rope" viewBox="0 0 270 320" aria-hidden="true"><path d="M232 -10C222 60 150 92 96 104C40 116 24 170 40 226C52 268 64 296 72 318"/>'
                 '<path d="M250 -10C236 70 170 104 118 98C58 90 30 140 34 200C38 256 58 292 66 318"/><path d="M98 300c-6 4-6 14 0 20" style="stroke-width:2.2"/></svg>')
         intro_html = (f'{SIGN}<section class="ax-w ax-intro ax-c sw"><div class="ax-hang" aria-hidden="true"><div class="ax-sw">{rope}'
@@ -425,9 +448,10 @@ def about3(intro="flip"):
                       f'<figure class="ax-print"><i class="ax-rv"></i><i class="ax-rv"></i><i class="ax-rv"></i><i class="ax-rv"></i><img src="{GH}me/ege-print.webp" width="480" height="600" alt="Ege Coskun"><span class="ax-sg" aria-hidden="true">Ege Coskun</span></figure></section>')
     else:
         intro_html = f'<section class="ax-w ax-intro"><div>{txt}</div><figure class="ax-me"><div class="ax-fl">{me}</div></figure></section>'
-    xcss = {'swing': CENTER_CSS + SWING_CSS, 'dock': CENTER_CSS + DOCK_CSS}.get(intro, '')
+    xcss = {'swing': CENTER_CSS + SWING_CSS, 'dock': CENTER_CSS + DOCK_CSS, 'a': DARK_CSS, 'b': DARK_CSS}.get(intro, '')
     xjs = ''
-    return f"""<main class="ab abx">
+    dk = ' dk' if intro in ('a', 'b') else ''
+    return f"""<main class="ab abx{dk}">
 {intro_html}
 <div class="ax-dark">
 <section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
