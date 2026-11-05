@@ -582,7 +582,7 @@ def untangle():
         out += f'<span class="ut-w">{ch}</span> '
     return (f'<div class="ut" data-ut><p class="ut-s" aria-label="I like untangling the parts of a product nobody wants to own."><span aria-hidden="true">{out.strip()}</span></p></div>')
 
-def work():
+def work(v=''):
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
         ('backlot', '01', 'Backlot, the take-home that got me hired', 'From delivery to release, one region at a time',
@@ -623,7 +623,7 @@ def work():
             f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
             f'<p class="wk-lead">Mistakes have always been expensive where I worked. I design B2B data products now, and I still go looking for the edge case before a customer finds it.</p></div>'
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
-            f'<div class="wk-g">{cards}</div>{about}</div></main>')
+            f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div>{about}</div></main>')
     return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin: B2B tools for teams that review, approve and ship work. Case studies: Backlot, BİLGE, UwaVerde.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
 
@@ -700,6 +700,8 @@ if __name__ == '__main__':
     write('data-health/index.html', datahealth())
     write('work/index.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Work | Ege Coskun</title><link rel="canonical" href="/#work"><meta http-equiv="refresh" content="0;url=/#work"><script>location.replace("/#work")</script></head><body><a href="/#work">Work</a></body></html>')
     write('index.html', work())
+    for v in ('a', 'b'):
+        write(f'home-{v}/index.html', work(v).replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1))
     import about
     for k, iv in [('about-a', 'a'), ('about-b', 'b'), ('about', 'flip')]:
         h = page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
