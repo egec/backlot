@@ -400,12 +400,12 @@ DOCK_CSS = """.ax-print{position:absolute;left:var(--px);bottom:clamp(24px,3vw,4
 @media(max-width:899px){.ax-print{position:relative;left:auto;bottom:auto;width:180px;margin:32px 0 8px}}
 """
 
-ROWS = [('What I like to own', 'The whole arc of a feature: the first interview, the flows, the prototype, and the review of what developers built against the design.'), ('Working with clients', 'Clients rarely approve a screen they have only heard about. At the Ministry of Trade I brought two versions to each review: the one I recommended and the one I knew they would ask for. Seeing both, they usually chose mine within minutes, and asked for me in every design meeting after that.')]
+ROWS = [('What I like to own', 'The whole arc of a feature: the first interview, the flows, the prototype, and the review of what developers built against the design.'), ('Working with clients', 'I bring options to a review instead of arguing for one: the version I recommend, next to the one I expect them to ask for. The client feels heard, the decision comes faster, and I get back to the work with what I need.')]
 DARK_CSS = """body:has(.abx.dk),body:has(.abx.dk) .site-h{background:#161616}body:has(.abx.dk) .site-h{color:#F2F2EF}body:has(.abx.dk) .site-h a{color:#F2F2EF}body:has(.abx.dk) .site-h img{filter:invert(1)}
 .abx.dk{--ink:#F2F2EF;--line:rgba(255,255,255,.14);--mute:#9B9A96;background:#161616;color:#F2F2EF}.abx.dk .ax-tx p,.abx.dk .ax-pd p{color:#CFCECA}.abx.dk .ax-tq{border-color:#3a3a37}.abx.dk .ax-tq.y{border-color:#6a6a66}.abx.dk .ax-side{background:#222220}.abx.dk .ax-end{background:#F2F2EF}
 .ax-ia{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,6vh,96px);padding-bottom:clamp(56px,7vh,112px)}.ax-l{display:flex;flex-direction:column;justify-content:space-between;gap:40px}
 .abx .ax-big{margin:0;max-width:16em;font-size:clamp(22px,1.9vw,34px)!important;line-height:1.15!important;letter-spacing:-.02em;font-weight:500;color:#6E6D68!important}
-.ax-ia .ax-r{max-width:36em}.ax-ia .ax-rows{grid-column:2;max-width:36em;margin-top:8px}.ax-ia .ax-tx p:last-child{margin-bottom:0}.ax-ia .ax-rows dd{font-size:var(--fs)}@media(max-width:899px){.ax-ia .ax-rows{grid-column:1}}.abx .ax-l h1{margin:0;font-size:clamp(40px,4.4vw,80px);color:#6E6D68}.abx .ax-l .ax-nm{text-decoration-color:#3a3a37}.abx .ax-role{margin:0;font-size:clamp(18px,1.4vw,24px)!important;color:#8E8D88!important}
+.ax-ia .ax-r{max-width:36em}.ax-ia .ax-rows{grid-column:2;max-width:36em;margin-top:8px}.ax-ia .ax-tx p:last-child{margin-bottom:0}.ax-ia .ax-rows dd{font-size:var(--fs)}@media(max-width:899px){.ax-ia .ax-rows{grid-column:1}}.abx .ax-l h1{margin:0;font-size:clamp(30px,2.6vw,46px);color:#6E6D68}.abx .ax-l .ax-nm{text-decoration-color:#3a3a37}.abx .ax-role{margin:0;font-size:clamp(18px,1.4vw,24px)!important;color:#8E8D88!important}
 .ax-ph{width:clamp(120px,11vw,180px);aspect-ratio:1;border-radius:50%;overflow:hidden;margin:0}.ax-ph img{width:100%;height:100%;object-fit:cover;display:block}
 .ax-ib{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,5vw,88px);padding-bottom:clamp(56px,6vw,104px)}
 .ax-ib .ax-lead{font-size:clamp(18px,1.3vw,22px);line-height:1.45;color:#CFCECA;margin:0 0 28px;max-width:34em}
@@ -455,7 +455,7 @@ def about3(intro="flip"):
 {intro_html}
 <div class="ax-dark">
 <section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
-<section class="ax-w ax-ask"><h2>Things you might ask</h2><div class="ax-qs">{qa}</div></section>
+<section class="ax-w ax-ask"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div class="ax-qs">{qa}</div></section>
 <section class="ax-w ax-tl"><h2>Tools</h2><ul class="ax-tools">{tools}</ul></section>
 </div>
 <section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
@@ -526,7 +526,7 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
 @media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
-{QCSS}{xcss}{NMCSS}.finalfooter{{background:#4A5724!important}}.finalfooter .ec-k{{color:#fff!important}}</style>
+{QCSS}{xcss}{NMCSS}.finalfooter{{background:#4A5724!important}}.finalfooter .ec-k{{color:#fff!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}html:has(.abx){{scroll-snap-type:y proximity}}.ax-ask{{scroll-snap-align:start;scroll-margin-top:4.75rem}}.ax-when{{bottom:auto!important;top:-.62em;left:calc(-120px + 14px)!important;padding:0 8px;background:#161616;line-height:1.2}}</style>
 <script>
 (function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
 var P=document.querySelector('[data-axpath]'),rl=P.querySelector('.ax-rl'),bars=[].slice.call(P.querySelectorAll('.ax-bar')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length;

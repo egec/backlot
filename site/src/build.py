@@ -141,7 +141,7 @@ def hero():
 
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
 PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
-        ('bilge', 'BİLGE', 'Customs software where ‘Register’ starts a legal clock.', GH + 'shots/bilge/b-queue-th.webp'),
+        ('bilge', 'BİLGE', 'Customs software where&nbsp;‘Register’ starts a legal clock.', GH + 'shots/bilge/b-queue-th.webp'),
         ('data-health', 'Data health', 'Telling marketers which data to trust before they build a segment.', GH + 'shots/dh/thumb.webp'),
         # ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')
         ]
@@ -436,7 +436,7 @@ def specpile():
 
 def bilge():
     hero = ('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
-            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Customs software where ‘Register’ starts a legal clock</h1>'
+            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Customs software where&nbsp;‘Register’ starts a legal clock</h1>'
             '<div class="bl2-hg"><p class="lead">BİLGE is the Ministry of Trade’s customs platform, and I designed across many of its modules. '
             'This page shows KLTS, which replaced paperwork passed between customs, port operators and agencies with one shared record: 107 screens, designed from the system specs.</p>'
             '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://www.milsoft.com.tr/index.php/home/" target="_blank" rel="noopener">MilSOFT <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Client</b>Turkish Ministry of Trade</div>'
@@ -588,21 +588,21 @@ def work(v='b'):
         ('backlot', '01', 'Backlot, the take-home that got me hired', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
-        ('data-health', '02', 'Data health', 'Making broken customer data visible where marketers build their audiences',
-         '', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp', 'Data health card in the segment builder', None),
-        ('bilge', '03', 'BİLGE', 'Customs software where ‘Register’ starts a legal clock',
+        ('bilge', '02', 'BİLGE', 'Customs software where&nbsp;‘Register’ starts a legal clock',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
          ['GovTech', 'Customs platform', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
+        ('data-health', '03', '', 'Making broken customer data visible where marketers build their audiences',
+         '', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp', 'Data health card in the segment builder', None),
     ]
     def cc(n, u):
-        return f'<a class="wk-cc" href="{u}" target="_blank" rel="noopener" aria-label="{n}, company website, opens in a new tab">{n} <span aria-hidden="true">↗</span></a>'
+        return f'<a class="wk-cc ec-btn ink" href="{u}" target="_blank" rel="noopener" aria-label="{n}, company website, opens in a new tab"><span>{n}</span><span aria-hidden="true">↗</span></a>'
     CO = {'bilge': cc('MilSOFT', 'https://www.milsoft.com.tr/index.php/home/'), 'data-health': cc('Insider One', 'https://insiderone.com/')}
     def chips(k, tags):
         return '<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + CO.get(k, '') + '</span>'
     # the title link stretches over the whole card, so the company chip can be its own link
     cards = ''.join(
         f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
-        + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a><span class="wk-n">{name}</span></div>'
+        + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + (f'<span class="wk-n">{name}</span>' if name else '') + '</div>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
         ('data-health', '03', 'Data health', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp'),
