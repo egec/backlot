@@ -445,7 +445,7 @@ def bilge():
             '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Container tracking for Turkish customs</h1>'
             '<div class="bl2-hg"><p class="lead">BİLGE is the Ministry of Trade’s customs platform, made of dozens of modules, and I designed across many of them. '
             'This page shows KLTS, container and port tracking, designed from the system specifications and backend rules so every screen offers only what the system allows.</p>'
-            '<div class="bl2-meta"><div><b>Company</b>MilSOFT</div><div><b>Client</b>Turkish Ministry of Trade</div>'
+            '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://www.milsoft.com.tr/index.php/home/" target="_blank" rel="noopener">MilSOFT <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Client</b>Turkish Ministry of Trade</div>'
             '<div><b>My role</b>UX/UI Designer</div><div><b>Date</b>2022 to 2023</div></div></div>'
             + media_box(f'<img class="bl2-img" src="{GH}shots/bilge/b-detail.webp" width="1920" height="1080" alt="Container tracking form detail as a customs officer sees it: the agent’s details above the containers and their parts">') + '</div>')
     cards = ''.join(f'<div class="bl2-c"><span class="bl2-tag">Decision {i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate([
@@ -540,7 +540,7 @@ def datahealth():
      '<p class="k">Data health, product work at Insider One</p><h1>Telling marketers which data to trust before they build a segment</h1>'
      '<div class="bl2-hg"><p class="lead">Insider One is a customer data platform. Marketers build audiences from attributes and events that many sources send in. '
      'Requests reached me from customers through the PM. I designed three pieces: a per-source count on the attribute page, and a data health card in the segment builder, for attributes and for event parameters.</p>'
-     '<div class="bl2-meta"><div><b>Company</b>Insider One</div><div><b>Category</b>B2B SaaS, customer data platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div></div></div>'
+     '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://insiderone.com/" target="_blank" rel="noopener">Insider One <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Category</b>B2B SaaS, customer data platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div></div></div>'
      + media_box(dh_img('o_b_issue','Segment builder with the attribute menu open and a data health card for Email Opt-in')) + '</div>')
     prob=('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
      '<p class="bl2-big" data-tint style="--ac:#2D2ACF"><span class="bl2-line">The segment broke at the last step.</span></p>'
@@ -595,22 +595,23 @@ def work():
         ('backlot', '01', 'Backlot, concept project', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
-        ('bilge', '02', 'BİLGE, MilSOFT', 'Container tracking for Turkish customs',
+        ('bilge', '02', 'BİLGE', 'Container tracking for Turkish customs',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
          ['GovTech', 'Customs platform', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
     ]
+    CO = {'bilge': '<p class="wk-co">Company <a href="https://www.milsoft.com.tr/index.php/home/" target="_blank" rel="noopener">MilSOFT <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p>', 'data-health': '<p class="wk-co">Company <a href="https://insiderone.com/" target="_blank" rel="noopener">Insider One <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p>'}
     cards = ''.join(
-        f'<a class="wk-c" href="/{k}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"><video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em></span>'
+        '<div class="wk-cw">' + f'<a class="wk-c" href="/{k}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"><video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em></span>'
         f'<span class="wk-n">{name}</span><span class="wk-t">{t} {ARW}</span>'
-        f'<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + '</span></a>'
+        f'<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + '</span></a>' + CO.get(k, '') + '</div>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
-        ('data-health', '03', 'Data health, Insider One', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp'),
+        ('data-health', '03', 'Data health', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp'),
         # ('uwaverde', '04', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
     ]
     rows = ''.join(
         (f'<li><a class="wk-r" href="/{k}"><em>{num}</em>' if k else f'<li><div class="wk-r wk-soon"><em>{num}</em>') + f'<b>{name}</b><span class="wk-rd"><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
-        + f'</span></span><span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span>' + ('</a></li>' if k else '</div></li>')
+        + f'</span></span><span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span>' + ('</a>' + CO.get(k, '') + '</li>' if k else '</div></li>')
         for k, num, name, t, tags, img in more)
     import about as _ab
     qa = ''.join(f'<details class="ax-q"><summary><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in _ab.QA)

@@ -558,3 +558,9 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .wk-r{padding:26px 18px;margin:0 -18px;background:linear-gradient(var(--gd),var(--gd)) 0 100%/100% 0 no-repeat;transition:background-size .45s var(--ease),color .3s}
 .wk-r b,.wk-r .wk-rd>span:first-child{transition:transform .45s var(--ease),color .3s}
 .wk-r:hover{background-size:100% 100%;color:#fff}.wk-r:hover b{transform:translateX(10px);text-decoration-color:transparent}.wk-r:hover em,.wk-r:hover .wk-rd{color:rgba(255,255,255,.85)}.wk-r:hover .wk-tags i{border-color:rgba(255,255,255,.5);color:#fff}
+
+.wk-cw{display:flex;flex-direction:column;min-width:0}.wk-co{margin:10px 0 0;font-size:0.8125rem;color:var(--mute)}.wk-co a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;transition:text-decoration-color .2s}.wk-co a:hover{text-decoration-color:var(--g)}.wk-co a span{font-size:.85em}
+.wk-l li{position:relative}.wk-l li .wk-co{position:absolute;left:calc(33.33% + 0px);top:calc(50% + 20px);margin:0;z-index:1}.wk-l li:hover .wk-co,.wk-l li:hover .wk-co a{color:#fff}
+@media(max-width:767px){.wk-l li .wk-co{position:static;margin:-14px 0 18px 52px}}
+.bl2-co{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(0,0,0,.25)}.bl2-co:hover{text-decoration-color:currentColor}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
