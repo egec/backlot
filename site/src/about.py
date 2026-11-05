@@ -28,7 +28,7 @@ INTRO = ('I learned design where there’s no Ctrl+Z: a millimetre off in a bus 
 KIND = {'edu': 'Education', 'work': 'Experience'}
 AB_LEAD = ('Every job so far began in a domain I didn’t know: customs regulation, naval radar, customer data, maternal and fetal health. That first stretch is my favourite part. Before I draw anything, I want to know how the work is really done, who pays when it goes wrong, and which rule the backend will never bend.',
            'Most of what I need is already written down by someone who isn’t a designer. So I read the specs, sit with the system engineers, and take a PM’s request apart until I find the customer problem underneath it. When a decision costs one side something, I say so in the room instead of hiding it in the layout. When the call goes the other way, I want it written down, so we can come back to it once real usage shows who was right.',
-           'The fastest way to settle those conversations is usually to show something. AI is part of how I work every day: I explore and prototype with Claude, and I built and shipped this site in code with Claude Code, live prototypes included. Often the first thing a PM sees from me is something they can click.',
+           'The fastest way to settle those conversations is usually to show something. AI is part of how I work every day: I explore and prototype with Claude, and I built and shipped this site in code with Claude Code, live prototypes included. Often the first thing a PM sees from me is something they can try.',
            'I’m based in Berlin and open to relocation. I’m looking for a team with high standards and bad jokes.')
 
 
@@ -400,12 +400,12 @@ DOCK_CSS = """.ax-print{position:absolute;left:var(--px);bottom:clamp(24px,3vw,4
 @media(max-width:899px){.ax-print{position:relative;left:auto;bottom:auto;width:180px;margin:32px 0 8px}}
 """
 
-ROWS = [('What I do', 'Product design for B2B tools where a wrong click costs something: approvals, permissions, data other teams depend on. Research, flows, prototypes and the design system developers build from.'), ('Where I excel', 'Learning an unfamiliar domain fast, designing from specs and backend rules, and seeing how one change lands on every connected screen before it ships.'), ('Why I check twice', 'A millimetre off at MAN was tooling already paid for. In customs software, Register starts a legal clock. Mistakes have always been expensive where I worked.'), ('How I work now', 'A year ago I designed in Figma. Now I explore in Claude Design and build in Claude Code: this site is code, and Backlot has prototypes you can try.'), ('Consider me for', 'Mid-senior product design roles on B2B and data products. Based in Berlin, open to relocation.'), ('What I’m looking for', 'A team with high standards and bad jokes.')]
+ROWS = [('What I like to own', 'The whole arc of a feature: the first interview, the flows, the prototype, and the review of what developers built against the design.'), ('Working with clients', 'Clients rarely approve a screen they have only heard about. At the Ministry of Trade I brought two versions to each review: the one I recommended and the one I knew they would ask for. Seeing both, they usually chose mine within minutes, and asked for me in every design meeting after that.')]
 DARK_CSS = """body:has(.abx.dk),body:has(.abx.dk) .site-h{background:#161616}body:has(.abx.dk) .site-h{color:#F2F2EF}body:has(.abx.dk) .site-h a{color:#F2F2EF}body:has(.abx.dk) .site-h img{filter:invert(1)}
 .abx.dk{--ink:#F2F2EF;--line:rgba(255,255,255,.14);--mute:#9B9A96;background:#161616;color:#F2F2EF}.abx.dk .ax-tx p,.abx.dk .ax-pd p{color:#CFCECA}.abx.dk .ax-tq{border-color:#3a3a37}.abx.dk .ax-tq.y{border-color:#6a6a66}.abx.dk .ax-side{background:#222220}.abx.dk .ax-end{background:#F2F2EF}
 .ax-ia{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,6vh,96px);padding-bottom:clamp(56px,7vh,112px)}.ax-l{display:flex;flex-direction:column;justify-content:space-between;gap:40px}
 .abx .ax-big{margin:0;max-width:16em;font-size:clamp(22px,1.9vw,34px)!important;line-height:1.15!important;letter-spacing:-.02em;font-weight:500;color:#6E6D68!important}
-.ax-ia .ax-r{max-width:36em}.ax-ia .ax-rows{grid-column:2;max-width:36em;margin-top:8px}.ax-ia .ax-tx p:last-child{margin-bottom:0}.ax-ia .ax-rows dd{font-size:var(--fs)}@media(max-width:899px){.ax-ia .ax-rows{grid-column:1}}.abx .ax-l h1{margin:0 0 10px}.abx .ax-role{margin:0;font-size:clamp(18px,1.4vw,24px)!important;color:#8E8D88!important}
+.ax-ia .ax-r{max-width:36em}.ax-ia .ax-rows{grid-column:2;max-width:36em;margin-top:8px}.ax-ia .ax-tx p:last-child{margin-bottom:0}.ax-ia .ax-rows dd{font-size:var(--fs)}@media(max-width:899px){.ax-ia .ax-rows{grid-column:1}}.abx .ax-l h1{margin:0;font-size:clamp(40px,4.4vw,80px);color:#6E6D68}.abx .ax-l .ax-nm{text-decoration-color:#3a3a37}.abx .ax-role{margin:0;font-size:clamp(18px,1.4vw,24px)!important;color:#8E8D88!important}
 .ax-ph{width:clamp(120px,11vw,180px);aspect-ratio:1;border-radius:50%;overflow:hidden;margin:0}.ax-ph img{width:100%;height:100%;object-fit:cover;display:block}
 .ax-ib{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,5vw,88px);padding-bottom:clamp(56px,6vw,104px)}
 .ax-ib .ax-lead{font-size:clamp(18px,1.3vw,22px);line-height:1.45;color:#CFCECA;margin:0 0 28px;max-width:34em}
@@ -430,8 +430,8 @@ def about3(intro="flip"):
     txt = f'<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1><div class="ax-tx">{lead}</div>'
     nm = '<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>'
     if intro == 'a':
-        rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS if t in ('Where I excel', 'Why I check twice'))
-        intro_html = (f'<section class="ax-w ax-ia"><div class="ax-l"><div>{nm}<p class="ax-role">Product designer, Berlin</p></div><figure class="ax-ph"><img src="{GH}me/ege-badge.webp" width="480" height="480" alt="Ege Coskun"></figure></div>'
+        rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS if True)
+        intro_html = (f'<section class="ax-w ax-ia"><div class="ax-l"><div>{nm}</div><figure class="ax-ph"><img src="{GH}me/ege-badge.webp" width="480" height="480" alt="Ege Coskun"></figure></div>'
                       f'<div class="ax-r"><div class="ax-tx">{lead}</div></div><dl class="ax-rows">{rows}</dl></section>')
     elif intro == 'b':
         rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS)
@@ -509,15 +509,14 @@ def about3(intro="flip"):
 /* dark from here on */
 .ax-dark{{background:var(--dk);color:#F2F2EF}}
 .ax-dark p{{color:#CFCECA}}
-.ax-how{{height:calc(var(--n) * 55svh + 100svh)}}
+.ax-how{{height:calc(var(--n) * 45svh + 60svh)}}
 .ax-hpin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);overflow:hidden;padding-top:clamp(20px,2.4vw,40px);box-sizing:border-box}}
-.ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(80px,11svh,130px);bottom:clamp(24px,4svh,48px);display:grid;place-items:center}}
-.ax-hc{{grid-area:1/1;position:relative;width:min(780px,84vw);min-height:min(340px,44svh);box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px;padding:clamp(24px,2.6vw,44px);background:#F7F7F5;color:#161616;border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.4);transform:translateY(120svh) rotate(var(--r2));transition:transform .75s cubic-bezier(.2,.8,.2,1)}}
-.ax-hc.in{{transform:translateY(calc(var(--dy) / 2)) rotate(var(--r))}}.ax-hc.top{{transform:none}}
-.ax-hc h3{{grid-column:1;align-self:start;margin:0;font-size:clamp(26px,2.4vw,42px);line-height:.98;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;text-wrap:balance}}
-.ax-hc .ax-ht{{grid-column:1;margin:16px 0 0;max-width:34em;font-size:16px!important;line-height:1.5!important;color:#3a3936}}
-.ax-hc .ax-hn{{grid-column:2;grid-row:1/3;margin:0!important;font-size:clamp(64px,6vw,112px)!important;line-height:.85!important;font-weight:800;letter-spacing:-.05em;color:var(--g)}}
-.ax-hc.g{{background:var(--gd);color:#fff}}.ax-hc.g .ax-ht{{color:rgba(255,255,255,.9)}}.ax-hc.g .ax-hn{{color:#fff}}
+.ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(100px,14svh,150px);bottom:clamp(16px,3svh,40px)}}
+.ax-hc{{--w:min(25vw,400px);position:absolute;top:var(--dy,0px);left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(100%,520px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:#161616;color:#F2F2EF;border:1.5px solid var(--g);border-radius:18px;
+  transform:translateY(calc((1 - var(--e,0)) * 130%)) rotate(calc(var(--r) + (1 - var(--e,0)) * var(--r2)));opacity:min(1,calc(var(--e,0) * 4))}}
+.ax-hc h3{{font-size:clamp(24px,2vw,36px);line-height:.98;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;text-wrap:balance}}
+.ax-hc .ax-ht{{margin:16px 0 0;font-size:15px!important;line-height:1.5!important;color:#CFCECA!important}}
+.ax-hc .ax-hn{{margin:auto 0 0!important;font-size:clamp(48px,4.4vw,80px)!important;line-height:.9!important;font-weight:800;letter-spacing:-.05em;color:rgba(255,255,255,.14)!important}}
 .ax-tl{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px);border-top:1px solid rgba(255,255,255,.14)}}
 .ax-tools{{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-content:start}}
 .ax-tools li{{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:99px;background:#262624;font-size:14px;font-weight:500}}
@@ -527,7 +526,7 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
 @media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
-{QCSS}{xcss}{NMCSS}.finalfooter{{background:#4A5724!important}}</style>
+{QCSS}{xcss}{NMCSS}.finalfooter{{background:#4A5724!important}}.finalfooter .ec-k{{color:#fff!important}}</style>
 <script>
 (function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
 var P=document.querySelector('[data-axpath]'),rl=P.querySelector('.ax-rl'),bars=[].slice.call(P.querySelectorAll('.ax-bar')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length;
@@ -540,7 +539,7 @@ function draw(){{raf=0;if(innerWidth<900)return;
   if(k!==cur){{cur=k;var t=+pc[k].dataset.t,yh=innerHeight*.12;rl.style.transform='translateY('+(-t*yh).toFixed(1)+'px)';P.style.setProperty('--ch',pc[k].offsetHeight+'px');
     bars.forEach(function(b){{var a=+b.dataset.a,e=+b.dataset.b;b.style.setProperty('--f',Math.max(0,Math.min(1,(t-a)/(e-a))).toFixed(3))}});
     pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
-  var k=Math.min(hc.length,Math.floor(prog(H)*hc.length*1.02)+(H.getBoundingClientRect().top<innerHeight*.35?1:0));hc.forEach(function(c,i){{c.classList.toggle('in',i<k);c.classList.toggle('top',i===k-1);c.style.zIndex=i}})}}
+  var hr=H.getBoundingClientRect(),hv=innerHeight*.5,q=Math.max(0,(hv-hr.top)/(hv+run(H)))*(hc.length+.3);hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
 /* one wheel gesture or swipe moves exactly one step along the line; at either end the page scrolls on */
 function go(i){{var top=P.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run(P)*i/(n-1))+(i?1:0),behavior:'smooth'}})}}
 var lock=0;function step(dir){{var k=Math.round(prog(P)*(n-1)),t=k+dir;if(t<0||t>n-1)return false;if(Date.now()<lock)return true;lock=Date.now()+750;go(t);return true}}

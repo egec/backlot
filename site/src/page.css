@@ -329,3 +329,7 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .wk-g.vb>.wk-c{border-top:0}.wk-g.vb>.wk-c:before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(var(--gd),var(--gd)) 0 0/calc(var(--p,0) * 100%) 100% no-repeat,var(--line)}
 .wk-g.vb>.wk-c>*{transition:opacity .7s var(--ease),transform .7s var(--ease)}.wk-g.vb>.wk-c:not(.on)>*{opacity:0;transform:translateY(24px)}
 @media (prefers-reduced-motion:reduce){.wk-g.vb>.wk-c>*{opacity:1!important;transform:none!important}}
+
+.wk-sel:has(+.wk-g.vb){border-bottom:0;padding-bottom:0}
+.wk-g.vb{gap:0}.wk-g.vb>.wk-c{position:sticky;top:4.75rem;background:var(--bg)}.wk-g.vb>.wk-c:last-child:after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line)}
+@media(max-width:899px){.wk-g.vb>.wk-c{position:relative;top:auto}}
