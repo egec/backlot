@@ -568,6 +568,6 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .bl2-co{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(0,0,0,.25)}.bl2-co:hover{text-decoration-color:currentColor}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-.wk-g>.wk-c:first-child{grid-column:1/-1}.wk-g>.wk-c:first-child .wk-m{aspect-ratio:2.2/1}
-@media(max-width:767px){.wk-g>.wk-c:first-child .wk-m{aspect-ratio:16/9}}
+@media(min-width:900px){.wk-g{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.wk-c>.wk-tags{order:0;margin:14px 0 10px}.wk-c .wk-n{margin-top:8px;color:var(--mute)}
 @media(hover:none){.wk-pl{display:none}}

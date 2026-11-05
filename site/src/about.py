@@ -42,7 +42,7 @@ TOOLS = [('Figma', 'figma'), ('Claude Design', 'claude-icon'), ('Claude Code', '
 
 def top():
     lead = ''.join(f'<p class="ab-lead">{x}</p>' for x in AB_LEAD)
-    return f'<div class="cs-wrap ab-top"><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div>'
+    return f'<div class="cs-wrap ab-top"><p class="k">About</p><h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>{lead}</div>'
 
 def more():
     def chars(t):
@@ -118,7 +118,7 @@ def dial():
     lead = ''.join(f'<p class="ab-lead">{x}</p>' for x in AB_LEAD)
     return f'''<main class="ab ab-dl"><div class="ab-m">{top()}</div>
 <section class="dl" data-dial style="--n:{len(PATH)}" aria-label="My path, from 2016 to now">
-<div class="dl-pin"><div class="ab-in"><p class="k">About</p><h1>Hi, I’m Ege.</h1>{lead}</div><div class="dl-wheel" aria-hidden="true"><svg class="dl-arc" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="499" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
+<div class="dl-pin"><div class="ab-in"><p class="k">About</p><h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>{lead}</div><div class="dl-wheel" aria-hidden="true"><svg class="dl-arc" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="499" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
 <i class="dl-dot"></i></div><div class="dl-ys">{items}</div><div class="dl-cs">{cards}</div>
 <p class="dl-hint">Scroll to turn</p></div></section>{more()}</main>
 <style>
@@ -280,7 +280,7 @@ def tunnel():
         for i, (y, k, t, p, d, ls) in enumerate(items))
     return f'''<main class="ab tn-main"><section class="tn" data-tunnel style="--n:{len(items)}" aria-label="My path, from now back to 2016">
 <div class="tn-pin"><svg class="tn-svg" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">{rings}</svg>
-<div class="tn-now"><p class="k">About</p><h1>Hi, I’m Ege.</h1><p class="ab-lead">{INTRO}</p><p class="tn-go">Scroll to go back in time</p></div>
+<div class="tn-now"><p class="k">About</p><h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1><p class="ab-lead">{INTRO}</p><p class="tn-go">Scroll to go back in time</p></div>
 <div class="tn-ss">{stops}</div><p class="tn-clock" aria-hidden="true"><span>2026</span></p></div></section></main>
 <style>
 .tn-main .k{{font-size:13px;color:var(--mute);margin:0}}
@@ -341,23 +341,30 @@ EVENTS = [(2016.8, 2021.55, '2016 to 2021', 'Industrial Design, B.Sc.', 'Middle 
 
 QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px)}
 .ax-ask h2{position:sticky;top:calc(4.75rem + 24px);align-self:start}
-.ax-q{border-bottom:1px solid var(--qb,rgba(255,255,255,.14))}.ax-q:first-child{border-top:1px solid var(--qb,rgba(255,255,255,.14))}
-.ax-q summary{display:grid;grid-template-columns:minmax(0,1fr) 36px;align-items:center;gap:16px;padding:22px 18px;cursor:pointer;list-style:none;
-  background:linear-gradient(var(--gd),var(--gd)) 0 100%/100% 0 no-repeat;transition:background-size .45s var(--ease)}
+.ax-qs{display:flex;flex-direction:column;gap:10px;--qbg:#262624;--qbd:rgba(255,255,255,.18);--qtx:#F2F2EF}
+.ax-ask.lt .ax-qs{--qbg:#ECECEA;--qbd:#D6D6D2;--qtx:var(--ink)}
+.ax-q summary{display:inline-flex;align-items:center;max-width:100%;box-sizing:border-box;padding:16px 24px;border-radius:22px;background:var(--qbg);border:1px solid transparent;color:var(--qtx);cursor:pointer;list-style:none;font-size:var(--h3);font-weight:500;letter-spacing:-.01em;line-height:1.3;transition:border-color .3s,background .3s}
 .ax-q summary::-webkit-details-marker{display:none}
-.ax-q summary span{font-size:var(--h3);font-weight:600;letter-spacing:-.015em;line-height:1.25;transition:transform .45s var(--ease)}
-.ax-q summary:hover,.ax-q[open] summary{color:#fff;background-size:100% 100%}
-.ax-q summary:hover span{transform:translateX(10px)}
-.ax-q summary i{position:relative;width:36px;height:36px;border-radius:50%;border:1px solid var(--qi,rgba(255,255,255,.35));transition:transform .45s var(--ease),background .2s}
-.ax-q summary i:before,.ax-q summary i:after{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;margin:-.75px 0 0 -6.5px;background:currentColor}.ax-q summary i:after{transform:rotate(90deg)}
-.ax-q summary:hover i{background:#fff}.ax-q summary:hover i:before,.ax-q summary:hover i:after{background:var(--gd)}
-.ax-q[open] summary i{transform:rotate(45deg)}
-.ax-q p{margin:0;padding:4px 18px 26px;max-width:none;color:#fff!important}.ax-q[open]{background:var(--gd)}.ax-q p{max-width:44em}
-/* light version for the home page */
-.ax-ask.lt{--qb:var(--line);--qi:rgba(22,22,22,.3);color:var(--ink)}
-.ax-ask.lt .ax-q summary{color:var(--ink)}.ax-ask.lt .ax-q[open] summary i,.ax-ask.lt .ax-q summary:hover i{border-color:rgba(255,255,255,.6)}.ax-ask.lt .ax-q summary:hover,.ax-ask.lt .ax-q[open] summary{color:#fff}
-@media(max-width:899px){.ax-ask{grid-template-columns:1fr}.ax-ask h2{position:static}}
+.ax-q summary:hover{border-color:var(--qbd)}
+.ax-q[open] summary{background:transparent;border-color:var(--g)}
+.ax-q summary:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+.ax-a{overflow:hidden;display:flex;align-items:flex-end;justify-content:flex-end;gap:12px;padding:10px 0 4px}
+.ax-a p{margin:0!important;max-width:36em;padding:18px 24px;border:1px solid var(--qbd);border-radius:22px 22px 4px 22px;color:var(--qtx)!important;font-size:var(--fs,16px);line-height:1.5}
+.ax-av{flex:none;width:44px;height:44px;border-radius:50%;background:var(--gd);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:700;letter-spacing:-.02em}
+.ax-ask.lt{color:var(--ink)}
+.ax-qc{margin:20px 0 0;font-size:14px;line-height:1.6;color:var(--mute)}.ax-qc a{color:var(--ink);text-underline-offset:3px}
+@media(max-width:899px){.ax-ask{grid-template-columns:1fr}.ax-ask h2,.wk-qa .k{position:static}.ax-av{width:36px;height:36px;font-size:12px}}
+@media (prefers-reduced-motion:reduce){.ax-q summary{transition:none}}
 """
+NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:var(--ink);color:#fff;font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
+QJS = """<script>(function(){var R=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function op(d){d.open=true;if(R)return;var a=d.querySelector('.ax-a');a.animate([{height:'0px',opacity:0,transform:'translateY(10px)'},{height:a.scrollHeight+'px',opacity:1,transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}
+function cl(d){if(R){d.open=false;return}var a=d.querySelector('.ax-a');var x=a.animate([{height:a.offsetHeight+'px',opacity:1},{height:'0px',opacity:0}],{duration:320,easing:'cubic-bezier(.4,0,.2,1)'});x.onfinish=function(){d.open=false}}
+[].forEach.call(document.querySelectorAll('.ax-qs'),function(g){[].forEach.call(g.querySelectorAll('.ax-q'),function(d){d.querySelector('summary').addEventListener('click',function(e){e.preventDefault();if(d.open){cl(d);return}[].forEach.call(g.querySelectorAll('.ax-q[open]'),cl);op(d)})})})})();</script>"""
+
+def qa_html():
+    return ''.join(f'<details class="ax-q"><summary>{q}</summary><div class="ax-a"><p>{a}</p><span class="ax-av" aria-hidden="true">EC</span></div></details>' for q, a in QA)
+
 
 
 CENTER_CSS = """.ax-c{position:relative;display:block;text-align:center;min-height:clamp(380px,34vw,500px);box-sizing:border-box}
@@ -403,10 +410,10 @@ def about3(intro="flip"):
     cards = ''.join(f'<article class="ax-pc" data-t="{t - Y0}" data-e="{e - Y0}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
                     for t, e, w, ti, pl, tx, x in EVENTS)
     how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
-    qa = ''.join(f'<details class="ax-q"><summary><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in QA)
+    qa = qa_html()
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="20" height="20" alt="" loading="lazy">{t}</li>' for t, f in TOOLS)
     me = f'<img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy">'
-    txt = f'<h1>Hi, I’m Ege.</h1><div class="ax-tx">{lead}</div>'
+    txt = f'<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1><div class="ax-tx">{lead}</div>'
     if intro == 'swing':
         rope = ('<svg class="ax-rope" viewBox="0 0 270 320" aria-hidden="true"><path d="M232 -10C222 60 150 92 96 104C40 116 24 170 40 226C52 268 64 296 72 318"/>'
                 '<path d="M250 -10C236 70 170 104 118 98C58 90 30 140 34 200C38 256 58 292 66 318"/><path d="M98 300c-6 4-6 14 0 20" style="stroke-width:2.2"/></svg>')
@@ -496,7 +503,7 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
 @media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
-{QCSS}{xcss}</style>
+{QCSS}{xcss}{NMCSS}</style>
 <script>
 (function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
 var P=document.querySelector('[data-axpath]'),rl=P.querySelector('.ax-rl'),bars=[].slice.call(P.querySelectorAll('.ax-bar')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length;
@@ -518,4 +525,4 @@ addEventListener('wheel',function(e){{if(innerWidth<900||!inside()||Math.abs(e.d
 var ty=null;addEventListener('touchstart',function(e){{ty=e.touches[0].clientY}},{{passive:true}});
 addEventListener('touchmove',function(e){{if(innerWidth<900||ty==null||!inside())return;var dy=ty-e.touches[0].clientY;if(Math.abs(dy)<30)return;if(step(dy>0?1:-1)){{e.preventDefault();ty=null}}}},{{passive:false}});
 addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',function(){{cur=-1;draw()}});draw()}})();
-</script>{xjs}"""
+</script>{xjs}{QJS}"""

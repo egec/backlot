@@ -283,23 +283,14 @@ def features():
     f_row = dict(t='Each row offers only its next step',
              l='Review while an episode waits, Publish once it’s approved: each row shows only the action its status allows.')
     F.append(lambda n, nav: simple(n, f_row, EMB('1ee3cd39'), nav=nav))
-    # assets
-    f_as = dict(t='Every file sits under the content it belongs to',
-             l='A missing file shows as a gap on its film or episode, before the delivery gets rejected.',
-             r=['Each film or episode shows how complete its files are, like 2 of 7.',
-                'Content groups files under their film or episode; Files lists them all for bulk work. Language and type are filters.'])
-    F.append(lambda n, nav: still(n, f_as, [
-        dict(h='A file count on every row', hl=[(83.6, 72, 12.4, 26.4)]),
-        dict(h='Two views, two filters', hl=[(5.4, 67, 93, 4.2)])], [IMG_AS],
-        after=sub('Filtering down to one delivery', 'Content narrows the list to Lupin, Files lists every file in it, and the batch filter finds the files from one delivery.') + media_box(EMB('8364b5b0')), nav=nav))
     # locked
     f_lock = dict(t='Once review starts, content is locked',
              l='While the publisher reviews, every field is read-only. After approval, a change needs an edit request: it is meant for news from outside, like a new regional age rating, and it reopens one section at a time.')
     F.append(lambda n, nav: simple(n, f_lock, EMB('59ab0c6b'), nav=nav))
-    titles = [f_region['t'], f_fill['t'], f_up['t'], f_rej['t'], f_ai['t'], f_art['t'], f_row['t'], f_as['t'], f_lock['t']]
+    titles = [f_region['t'], f_fill['t'], f_up['t'], f_rej['t'], f_ai['t'], f_art['t'], f_row['t'], f_lock['t']]
     ix = ''.join(f'<li><a href="#f-{i}"><em>{i:02d}</em><span>{t}</span></a></li>' for i, t in enumerate(titles, 1))
     index = ('<div class="bl2-t"><span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Features</span><p class="k">Features</p>'
-             '<h2 class="bl2-h">Nine decisions across the workflow</h2>'
+             '<h2 class="bl2-h">Eight decisions across the workflow</h2>'
              f'<ol class="fx-ix">{ix}</ol></div>')
     short = ['Region scope', 'Missing fields', 'Broken deliveries', 'Rejections', 'AI suggestions', 'Artwork', 'Row actions', 'Files', 'Locking']
     return index + ''.join(f'<div id="f-{i}" class="fx-a" data-nav-sub="{short[i-1]}">' + mk(i, False) + '</div>' for i, mk in enumerate(F, 1))
@@ -540,23 +531,22 @@ def datahealth():
     def dh_cards(items,c3=False):
         return f'<div class="bl2-cards{" c3" if c3 else ""}">'+''.join(f'<div class="bl2-c"><span class="bl2-tag">{i:02d}</span><h3>{h}</h3><p>{t}</p></div>' for i,(h,t) in enumerate(items,1))+'</div>'
     hero=('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
-     '<p class="k">Data health, product work at Insider One</p><h1>Telling marketers which data to trust before they build a segment</h1>'
-     '<div class="bl2-hg"><p class="lead">Insider One is a customer data platform. Marketers build audiences from attributes and events that many sources send in. '
-     'Requests reached me from customers through the PM. I designed three pieces: a per-source count on the attribute page, and a data health card in the segment builder, for attributes and for event parameters.</p>'
+     '<p class="k">Data health, product work at Insider One</p><h1>Making broken customer data visible where marketers build their audiences</h1>'
+     '<div class="bl2-hg"><p class="lead">On Insider One’s system team, a question reached me through the PM: why do segments come back with fewer users than expected? I traced it to data that broke without a sign, and designed one health check for every attribute and event a segment can use.</p>'
      '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://insiderone.com/" target="_blank" rel="noopener">Insider One <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Category</b>B2B SaaS, customer data platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div></div></div>'
      + media_box(dh_img('o_b_issue','Segment builder with the attribute menu open and a data health card for Email Opt-in')) + '</div>')
     prob=('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
      '<p class="bl2-big" data-tint style="--ac:#2D2ACF"><span class="bl2-line">The segment broke at the last step.</span></p>'
-     + split('The problem','<p>An attribute page showed one number, Total collected, with no way to see which source sent what. '
-       'If an attribute’s data was wrong, the marketer found out only at the last step of building a segment, after setting up everything else.</p>')+'</div>')
-    f1=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">02</span><span class="cs-title bl2-x">Where data comes from</span><p class="k">Feature 01</p>'
+     + split('The problem','<p>Data breaks in many ways: a source stops sending, a value arrives in the wrong type or format, volume drops or spikes. Nothing in the segment builder said so, and marketers found out from an audience far smaller than expected, after every other choice was made.</p>'
+       '<p><b>Elsewhere:</b> Braze and MoEngage explain data type mismatches in their help docs. I wanted the marketer to see the problem and keep going in the same flow, with no doc to look up and nothing that reads as an error.</p>')+'</div>')
+    f1=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">04</span><span class="cs-title bl2-x">Where data comes from</span><p class="k">Feature 03</p>'
      '<h2 class="bl2-h">The total, split by where the data comes from</h2><p class="lead">The total now sits next to a count for every source, so a source that stops sending shows up here first.</p>'
      + sub('Before','Only Total collected.') + media_box(dh_img('o_a_before','App Version attribute page, before: only the total'))
      + sub('After','The total, then each group of sources with its own count.') + media_box(dh_img('o_a_after','App Version attribute page, after: counts per source'))
      + dh_cards([('Grouped by how data arrives','SDK sources, external integrations and API sit in one group beside the total.'),
               ('Every source named','Mobile, Web, Shopify, Amplitude and API each show their own number.'),
               ('Help next to the label','Each label has a question mark that explains it on hover.')],True)+'</div>')
-    f2=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Data health in the menu</span><p class="k">Feature 02</p>'
+    f2=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">02</span><span class="cs-title bl2-x">Data health in the menu</span><p class="k">Feature 01</p>'
      '<h2 class="bl2-h">Data health shown inside the attribute menu</h2><p class="lead">The problem now shows while the marketer picks an attribute, not when the segment fails. Hovering an attribute opens a card with its sources, its volume and, if something is wrong, what and where.</p>'
      + sub('A healthy attribute') + media_box(dh_img('o_b_healthy','Language attribute card: string, four sources, 1.5k ingested in the last 30 days'))
      + sub('An attribute with a problem') + media_box(dh_img('o_b_issue','Email Opt-in card: incorrect data type from the Email source, with a link to Data Validation'))
@@ -564,7 +554,7 @@ def datahealth():
               ('A problem names its source','Email Opt-in gets a warning icon in the list, a yellow top line and a red Email chip. The card says the data type is wrong.'),
               ('Usable, with a way to fix it','The attribute can still be used. Go to Data Validation opens the place to correct the data point.')],True)
      + '</div>')
-    f3=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">04</span><span class="cs-title bl2-x">Event parameters</span><p class="k">Feature 03</p>'
+    f3=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Event parameters</span><p class="k">Feature 02</p>'
      '<h2 class="bl2-h">The same check for event parameters</h2><p class="lead">A segment can also filter on what users did. Event parameters break the same way attributes do, so the parameter menu shows the same warning and the same card, worded for a parameter.</p>'
      + media_box(dh_img('o_b_event','Event Source parameter card with an incorrect data type warning'))
      + '<div class="bl2-t">'+split('One card, many cases',rules(['Seven issue types: Incorrect Data Type, Invalid Value Format, Null Value, Missing Data, Abnormal Volume Change, Volume Threshold Reached, Multiple Issues.',
@@ -574,7 +564,7 @@ def datahealth():
      + split('Measure','<p>I don’t have numbers I can share. I would track how often a segment fails at the last step, and how often marketers open Data Validation from the card.</p>')
      + split('Confidentiality','<p>The product is under NDA, so these screens are rebuilt with placeholder data (acme-store), and everything outside my components is blurred. Layout, states and wording follow what shipped.</p>')+'</div>')
     body=('<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>'
-     + sec('ov','Overview',hero)+sec('pr','The problem',prob)+sec('f1','Where data comes from',f1)+sec('f2','Data health in the menu',f2)+sec('f3','Event parameters',f3)+sec('nx','What’s next',nxt)+'</div>' + nextblock('data-health') + '</main>')
+     + sec('ov','Overview',hero)+sec('pr','The problem',prob)+sec('f2','Data health in the menu',f2)+sec('f3','Event parameters',f3)+sec('f1','Where data comes from',f1)+sec('nx','What’s next',nxt)+'</div>' + nextblock('data-health') + '</main>')
 
     h = page('Data health case study | Ege Coskun', 'Data health in a customer data platform: where data comes from, and a warning in the segment builder.',
              body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
@@ -595,10 +585,10 @@ def untangle():
 def work():
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
-        ('backlot', '01', 'Backlot, concept project', 'From delivery to release, one region at a time',
+        ('backlot', '01', 'Backlot, the take-home that got me hired', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
-        ('data-health', '02', 'Data health', 'Telling marketers which data to trust before they build a segment',
+        ('data-health', '02', 'Data health', 'Making broken customer data visible where marketers build their audiences',
          '', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp', 'Data health card in the segment builder', None),
         ('bilge', '03', 'BİLGE', 'Customs software where ‘Register’ starts a legal clock',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
@@ -612,7 +602,7 @@ def work():
     # the title link stretches over the whole card, so the company chip can be its own link
     cards = ''.join(
         f'<div class="wk-c"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
-        f'<span class="wk-n">{name}</span><a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + chips(k, tags) + '</div>'
+        + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a><span class="wk-n">{name}</span></div>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
         ('data-health', '03', 'Data health', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp'),
@@ -623,12 +613,12 @@ def work():
         + f'</span><span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span></div></li>'
         for k, num, name, t, tags, img in more)
     import about as _ab
-    qa = ''.join(f'<details class="ax-q"><summary><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in _ab.QA)
-    about = (f'<section class="ax-ask lt wk-qa"><p class="k">Things you might ask</p><div><div class="ax-qs">{qa}</div>'
+    qa = _ab.qa_html()
+    about = (f'<section class="ax-ask lt wk-qa"><div class="k">Things you might ask<p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
              '<a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></div></section>'
              '<style>' + _ab.QCSS + '.wk-qa{margin-top:clamp(96px,10vw,180px);padding:0;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;--h3:clamp(18px,1.3vw,24px)}'
              '.wk-qa .k{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa .wk-btn{margin-top:32px}'
-             '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qa .k{position:static}}</style>')
+             '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qa .k{position:static}}</style>' + _ab.QJS)
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
             f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
             f'<p class="wk-lead">Mistakes have always been expensive where I worked. I design B2B data products now, and I still go looking for the edge case before a customer finds it.</p></div>'
