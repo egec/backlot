@@ -133,7 +133,7 @@ def hero():
            ('<p class="lead">Backlot is where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher, so a rejection is a list of reasons pinned to fields, not a vague note.</p>',
             '<p class="lead">Streaming teams use Backlot to take films and series from delivery to release, region by region. I designed the whole workflow for both sides: dashboards, upload and file matching, fields that fill from the file, the publisher’s review and artwork tests.</p>'),
            ('<b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.', '<b>Context</b>The take-home that got me hired for my last role, rebuilt and extended.'),
-           ('<b>Date</b>2026', '<b>Date</b>2026, 3 weeks')]
+           ('<b>Date</b>2026', '<b>Date</b>2026, 3 weeks</div><div><b>Team</b>Just me</div><div><b>Status</b>Concept, not shipped')]
     for o, n in rep:
         assert o in h, o[:40]
         h = h.replace(o, n)
@@ -440,7 +440,7 @@ def bilge():
             '<div class="bl2-hg"><p class="lead">BİLGE is the Ministry of Trade’s customs platform, and I designed across many of its modules. '
             'This page shows KLTS, which replaced paperwork passed between customs, port operators and agencies with one shared record: 107 screens, designed from the system specs.</p>'
             '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://www.milsoft.com.tr/index.php/home/" target="_blank" rel="noopener">MilSOFT <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Client</b>Turkish Ministry of Trade</div>'
-            '<div><b>My role</b>UX/UI Designer</div><div><b>Date</b>2022 to 2023</div></div></div>'
+            '<div><b>My role</b>UX/UI Designer</div><div><b>Date</b>2022 to 2023</div><div><b>Team</b>Five designers, a PM, engineering</div><div><b>Status</b>Shipped</div></div></div>'
             + media_box(f'<img class="bl2-img" src="{GH}shots/bilge/b-detail.webp" width="1920" height="1080" alt="Container tracking form detail as a customs officer sees it: the agent’s details above the containers and their parts">') + '</div>')
     cards = ''.join(f'<div class="bl2-c"><span class="bl2-tag">Decision {i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate([
         ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. The header is blue on the agent’s side and red on the customs side, so everyone knows which side of the form they are on.'),
@@ -508,14 +508,17 @@ def bilge():
                    after='<div class="bl2-t">' + split('Also in this flow', rules([
                        'Written reasons open in a side drawer, so the form stays in view.',
                        'Editing a form an agent registered warns that the agent’s record will change.'])) + '</div>')
-    learned = ('<div class="bl2-t">' + head2(6, 'What I learned', 'In government software the wording is part of the design')
+    spec = ('<div class="bl2-t">' + head2(6, 'When the spec was wrong', 'Twice, the rule I was given was not the rule the work followed')
+            + split('Two days to rebuild', '<p>A backend rule for one of my complex flows arrived incomplete and partly wrong, two days before I had to present the flow. The people who could confirm it were away. I sat down with the system engineer, mapped the corrected logic and rebuilt the flow in time.</p>')
+            + split('The users knew better', '<p>Another time the client described a rule wrongly. It surfaced when the customs officers who would use the screens saw them and spotted what did not match their work, and we redesigned. Since then I ask for the people who will use the screens as early as the client allows.</p>')
+            + '</div>')
+    learned = ('<div class="bl2-t">' + head2(7, 'What I learned', 'In government software the wording is part of the design')
                + split('Wording', '<p>A word like Register carries legal weight, so ministry review shaped the design from the start.</p>')
-               + split('When the spec was wrong', '<p>Sometimes the client described a rule wrongly. It surfaced when we presented the screens and the client brought in the customs officers who would use them: they spotted what did not match their work, and we redesigned. Since then I ask for the people who will use the screens as early as the client allows.</p>')
                + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. I rebuilt the screens in Claude Design from the originals and checked each one against them.</p>')
                + '</div>')
     w1 = (sec('ov', 'Overview', hero) + sec('mr', 'My role', role + glance) + sec('dm', 'Working from specs', specs)
           + sec('ag', 'The agent files', agent) + sec('tr', 'Tracking a container', track) + sec('cu', 'Customs decides', customs)
-          + sec('le', 'What I learned', learned))
+          + sec('sw', 'When the spec was wrong', spec) + sec('le', 'What I learned', learned))
     nb = nextblock('bilge')
     body = f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>{nb}</main>'
     return page('BİLGE container tracking case study | Ege Coskun',
@@ -533,7 +536,7 @@ def datahealth():
     hero=('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
      '<p class="k">Data health, product work at Insider One</p><h1>Making broken customer data visible where marketers build their audiences</h1>'
      '<div class="bl2-hg"><p class="lead">On Insider One’s system team, a question reached me through the PM: why do segments come back with fewer users than expected? I traced it to data that broke without a sign, and designed one health check for every attribute and event a segment can use.</p>'
-     '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://insiderone.com/" target="_blank" rel="noopener">Insider One <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Category</b>B2B SaaS, customer data platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div></div></div>'
+     '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://insiderone.com/" target="_blank" rel="noopener">Insider One <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Category</b>B2B SaaS, customer data platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div><div><b>Team</b>Two designers, four engineers, a PM</div><div><b>Status</b>Shipped</div></div></div>'
      + media_box(dh_img('o_b_issue','Segment builder with the attribute menu open and a data health card for Email Opt-in')) + '</div>')
     prob=('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
      '<p class="bl2-big" data-tint style="--ac:#2D2ACF"><span class="bl2-line">The segment broke at the last step.</span></p>'
@@ -553,6 +556,8 @@ def datahealth():
      + dh_cards([('Healthy attributes stay quiet','A blue top line, the sources that send it, how much came in and over what period.'),
               ('A problem names its source','Email Opt-in gets a warning icon in the list, a yellow top line and a red Email chip. The card says the data type is wrong.'),
               ('Usable, with a way to fix it','The attribute can still be used. Go to Data Validation opens the place to correct the data point.')],True)
+     + split('Warn, don’t block','<p>Blocking the attribute was the safer option for the data, and I chose against it. A block would throw away every choice the marketer had made, the same last-step failure we were fixing. Most issues are partial or temporary: one source fails while the rest is fine, an API stops for an hour and recovers, a volume spike comes from a real campaign. And the marketer can’t fix the data; the data team can.</p>'
+             '<p>So the card warns, keeps the attribute usable and links to Data Validation. The marketer knows why the audience looks smaller before the estimate surprises them.</p>')
      + '</div>')
     f3=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Event parameters</span><p class="k">Feature 02</p>'
      '<h2 class="bl2-h">The same check for event parameters</h2><p class="lead">A segment can also filter on what users did. Event parameters break the same way attributes do, so the parameter menu shows the same warning and the same card, worded for a parameter.</p>'
@@ -582,7 +587,7 @@ def untangle():
         out += f'<span class="ut-w">{ch}</span> '
     return (f'<div class="ut" data-ut><p class="ut-s" aria-label="I like untangling the parts of a product nobody wants to own."><span aria-hidden="true">{out.strip()}</span></p></div>')
 
-def work(v='b'):
+def work(v='b', hero=''):
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
         ('backlot', '01', 'Backlot, the take-home that got me hired', 'From delivery to release, one region at a time',
@@ -620,7 +625,7 @@ def work(v='b'):
              '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
-            f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
+            + (f'<h1 class="wk-kh" aria-label="I learned design where there’s no Ctrl+Z."><span aria-hidden="true"><i>I</i> <i>learned</i> <i>design</i> <i>where</i> <i>there’s</i> <i>no</i> <i class="wk-keys"><kbd>Ctrl</kbd><kbd class="z">Z</kbd></i></span></h1>' if hero else f'<h1>I learned design where there’s no Ctrl+Z.</h1>') +
             f'<p class="wk-lead">I’m a product designer for B2B data products. Mistakes have always been expensive where I worked, so I still go looking for the edge case before a customer finds it.</p></div>'
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
             f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div>{about}</div></main>'
@@ -701,6 +706,7 @@ if __name__ == '__main__':
     write('data-health/index.html', datahealth())
     write('work/index.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Work | Ege Coskun</title><link rel="canonical" href="/#work"><meta http-equiv="refresh" content="0;url=/#work"><script>location.replace("/#work")</script></head><body><a href="/#work">Work</a></body></html>')
     write('index.html', work())
+    write('home-a/index.html', work('b', 'keys').replace('</body>', '<script>(function(){var h=document.querySelector(".wk-kh"),k=h&&h.querySelector(".wk-keys");if(!k)return;k.addEventListener("mouseenter",function(){h.classList.remove("no");void h.offsetWidth;h.classList.add("no")})})();</script></body>', 1).replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1))
     import about
     for k, iv in [('about', 'a')]:
         h = page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
