@@ -299,8 +299,11 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .wk-r b,.wk-r .wk-rd>span:first-child{transition:transform .45s var(--ease),color .3s}
 .wk-r:hover{background-size:100% 100%;color:#fff}.wk-r:hover b{transform:translateX(10px);text-decoration-color:transparent}.wk-r:hover em,.wk-r:hover .wk-rd{color:rgba(255,255,255,.85)}.wk-r:hover .wk-tags i{border-color:rgba(255,255,255,.5);color:#fff}
 
-.wk-cw{display:flex;flex-direction:column;min-width:0}.wk-co{margin:10px 0 0;font-size:13px;color:var(--mute)}.wk-co a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;transition:text-decoration-color .2s}.wk-co a:hover{text-decoration-color:var(--g)}.wk-co a span{font-size:.85em}
-.wk-l li{position:relative}.wk-l li .wk-co{position:absolute;left:calc(33.33% + 0px);top:calc(50% + 20px);margin:0;z-index:1}.wk-l li:hover .wk-co,.wk-l li:hover .wk-co a{color:#fff}
-@media(max-width:767px){.wk-l li .wk-co{position:static;margin:-14px 0 18px 52px}}
+.wk-c,.wk-r{position:relative}.wk-sl{color:inherit;text-decoration:none}.wk-sl:after{content:"";position:absolute;inset:0;z-index:1}
+.wk-c:has(.wk-sl:focus-visible),.wk-r:has(.wk-sl:focus-visible){outline:2px solid var(--ink);outline-offset:6px;border-radius:8px}.wk-sl:focus-visible{outline:none}
+.wk-cc{position:relative;z-index:2;margin-left:clamp(0px,(100vw - 767px) * 1000,8px);font-size:12px;line-height:1;padding:6px 10px;border:1px solid var(--ink);border-radius:99px;color:var(--ink);text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.wk-cc span{display:inline-block;transition:transform .2s}.wk-cc:hover{background:var(--gd);border-color:var(--gd);color:#fff}.wk-cc:hover span{transform:translate(2px,-2px)}
+.wk-cc:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.wk-r:hover .wk-cc{border-color:#fff;color:#fff}.wk-r:hover .wk-cc:hover{background:#fff;color:var(--gd)}
 .bl2-co{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(0,0,0,.25)}.bl2-co:hover{text-decoration-color:currentColor}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

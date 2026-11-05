@@ -599,19 +599,23 @@ def work():
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
          ['GovTech', 'Customs platform', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
     ]
-    CO = {'bilge': '<p class="wk-co">Company <a href="https://www.milsoft.com.tr/index.php/home/" target="_blank" rel="noopener">MilSOFT <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p>', 'data-health': '<p class="wk-co">Company <a href="https://insiderone.com/" target="_blank" rel="noopener">Insider One <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p>'}
+    def cc(n, u):
+        return f'<a class="wk-cc" href="{u}" target="_blank" rel="noopener" aria-label="{n}, company website, opens in a new tab">{n} <span aria-hidden="true">↗</span></a>'
+    CO = {'bilge': cc('MilSOFT', 'https://www.milsoft.com.tr/index.php/home/'), 'data-health': cc('Insider One', 'https://insiderone.com/')}
+    def chips(k, tags):
+        return '<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + CO.get(k, '') + '</span>'
+    # the title link stretches over the whole card, so the company chip can be its own link
     cards = ''.join(
-        '<div class="wk-cw">' + f'<a class="wk-c" href="/{k}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"><video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em></span>'
-        f'<span class="wk-n">{name}</span><span class="wk-t">{t} {ARW}</span>'
-        f'<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + '</span></a>' + CO.get(k, '') + '</div>'
+        f'<div class="wk-c"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"><video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em></span>'
+        f'<span class="wk-n">{name}</span><a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + chips(k, tags) + '</div>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
         ('data-health', '03', 'Data health', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp'),
         # ('uwaverde', '04', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
     ]
     rows = ''.join(
-        (f'<li><a class="wk-r" href="/{k}"><em>{num}</em>' if k else f'<li><div class="wk-r wk-soon"><em>{num}</em>') + f'<b>{name}</b><span class="wk-rd"><span>{t}</span><span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags)
-        + f'</span></span><span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span>' + ('</a>' + CO.get(k, '') + '</li>' if k else '</div></li>')
+        f'<li><div class="wk-r"><em>{num}</em><b><a class="wk-sl" href="/{k}">{name}</a></b><span class="wk-rd"><span>{t}</span>' + chips(k, tags)
+        + f'</span><span class="wk-p" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span></div></li>'
         for k, num, name, t, tags, img in more)
     import about as _ab
     qa = ''.join(f'<details class="ax-q"><summary><span>{q}</span><i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in _ab.QA)
@@ -623,7 +627,6 @@ def work():
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
             f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
             f'<p class="wk-lead">A millimetre off in a bus interior part, and the tooling is already paid for. I design B2B data products now, and I still look for the edge case while it is a design problem, before it becomes a bug report.</p></div>'
-            + untangle() +
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
             f'<div class="wk-g">{cards}</div><p class="k wk-k">More work</p><ul class="wk-l">{rows}</ul>{about}</div></main>')
     return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin: B2B tools for teams that review, approve and ship work. Case studies: Backlot, BİLGE, UwaVerde.',
