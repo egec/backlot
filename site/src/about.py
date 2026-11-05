@@ -42,7 +42,7 @@ TOOLS = [('Figma', 'figma'), ('Claude Design', 'claude-icon'), ('Claude Code', '
 
 def top():
     lead = ''.join(f'<p class="ab-lead">{x}</p>' for x in AB_LEAD)
-    return f'<div class="cs-wrap ab-top"><p class="k">About</p><h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>{lead}</div>'
+    return f'<div class="cs-wrap ab-top"><p class="k">About</p><h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>, a product designer.</h1>{lead}</div>'
 
 def more():
     def chars(t):
@@ -118,7 +118,7 @@ def dial():
     lead = ''.join(f'<p class="ab-lead">{x}</p>' for x in AB_LEAD)
     return f'''<main class="ab ab-dl"><div class="ab-m">{top()}</div>
 <section class="dl" data-dial style="--n:{len(PATH)}" aria-label="My path, from 2016 to now">
-<div class="dl-pin"><div class="ab-in"><p class="k">About</p><h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>{lead}</div><div class="dl-wheel" aria-hidden="true"><svg class="dl-arc" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="499" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
+<div class="dl-pin"><div class="ab-in"><p class="k">About</p><h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>, a product designer.</h1>{lead}</div><div class="dl-wheel" aria-hidden="true"><svg class="dl-arc" viewBox="0 0 1000 1000"><circle cx="500" cy="500" r="499" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
 <i class="dl-dot"></i></div><div class="dl-ys">{items}</div><div class="dl-cs">{cards}</div>
 <p class="dl-hint">Scroll to turn</p></div></section>{more()}</main>
 <style>
@@ -280,7 +280,7 @@ def tunnel():
         for i, (y, k, t, p, d, ls) in enumerate(items))
     return f'''<main class="ab tn-main"><section class="tn" data-tunnel style="--n:{len(items)}" aria-label="My path, from now back to 2016">
 <div class="tn-pin"><svg class="tn-svg" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">{rings}</svg>
-<div class="tn-now"><p class="k">About</p><h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1><p class="ab-lead">{INTRO}</p><p class="tn-go">Scroll to go back in time</p></div>
+<div class="tn-now"><p class="k">About</p><h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>, a product designer.</h1><p class="ab-lead">{INTRO}</p><p class="tn-go">Scroll to go back in time</p></div>
 <div class="tn-ss">{stops}</div><p class="tn-clock" aria-hidden="true"><span>2026</span></p></div></section></main>
 <style>
 .tn-main .k{{font-size:13px;color:var(--mute);margin:0}}
@@ -427,8 +427,8 @@ def about3(intro="flip"):
     qa = qa_html()
     tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="20" height="20" alt="" loading="lazy">{t}</li>' for t, f in TOOLS)
     me = f'<img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy">'
-    txt = f'<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1><div class="ax-tx">{lead}</div>'
-    nm = '<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>'
+    txt = f'<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>, a product designer.</h1><div class="ax-tx">{lead}</div>'
+    nm = '<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>, a product designer.</h1>'
     if intro == 'a':
         rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS if True)
         intro_html = (f'<section class="ax-w ax-ia"><div class="ax-l"><div>{nm}</div><figure class="ax-ph"><img src="{GH}me/ege-badge.webp" width="480" height="480" alt="Ege Coskun"></figure></div>'

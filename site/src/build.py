@@ -129,7 +129,7 @@ def changed():
 
 def hero():
     h = P['411a7ea2-ad8e-e2d4-3a36-2ddce0bbd66d']
-    rep = [('<b>Category</b>B2B SaaS, Enterprise CMS', '<b>Category</b>B2B SaaS, Streaming CMS'), ('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>From delivery to release, one region at a time</h1>'),
+    rep = [('<b>Category</b>B2B SaaS, Enterprise CMS', '<b>Category</b>B2B SaaS, Streaming CMS'), ('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>Fewer review rounds from delivery to release, in a CMS for streaming teams</h1>'),
            ('<p class="lead">Backlot is where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher, so a rejection is a list of reasons pinned to fields, not a vague note.</p>',
             '<p class="lead">Streaming teams use Backlot to take films and series from delivery to release, region by region. I designed the whole workflow for both sides: dashboards, upload and file matching, fields that fill from the file, the publisher’s review and artwork tests.</p>'),
            ('<b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.', '<b>Context</b>The take-home that got me hired for my last role, rebuilt and extended.'),
@@ -140,7 +140,7 @@ def hero():
     return h.replace(GH + 'shots/roles/ed-dashboard.webp', GH + 'shots/v2/ed-dashboard.webp?v=4')
 
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
-PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
+PROJ = [('backlot', 'Backlot', 'Fewer review rounds from delivery to release, in a CMS for streaming teams.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
         ('bilge', 'BİLGE', 'Customs software where&nbsp;‘Register’ starts a legal clock.', GH + 'shots/bilge/b-queue-th.webp'),
         ('data-health', 'Data health', 'Telling marketers which data to trust before they build a segment.', GH + 'shots/dh/thumb.webp'),
         # ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')
@@ -556,6 +556,7 @@ def datahealth():
      + dh_cards([('Healthy attributes stay quiet','A blue top line, the sources that send it, how much came in and over what period.'),
               ('A problem names its source','Email Opt-in gets a warning icon in the list, a yellow top line and a red Email chip. The card says the data type is wrong.'),
               ('Usable, with a way to fix it','The attribute can still be used. Go to Data Validation opens the place to correct the data point.')],True)
+     + split('What changed in review','<p>My first card showed data only when something was wrong. The PM asked for the ingested volume on every card, healthy or not. A number that is always there is one marketers learn to read, and a warning stands out against it.</p>')
      + split('Warn, don’t block','<p>Blocking the attribute was the safer option for the data, and I chose against it. A block would throw away every choice the marketer had made, the same last-step failure we were fixing. Most issues are partial or temporary: one source fails while the rest is fine, an API stops for an hour and recovers, a volume spike comes from a real campaign. And the marketer can’t fix the data; the data team can.</p>'
              '<p>So the card warns, keeps the attribute usable and links to Data Validation. The marketer knows why the audience looks smaller before the estimate surprises them.</p>')
      + '</div>')
@@ -590,7 +591,7 @@ def untangle():
 def work(v='b', hero=''):
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
-        ('backlot', '01', 'Backlot, the take-home that got me hired', 'From delivery to release, one region at a time',
+        ('backlot', '01', 'Backlot, the take-home that got me hired', 'Fewer review rounds from delivery to release, in a CMS for streaming teams',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
         ('bilge', '02', 'BİLGE', 'Customs software where&nbsp;‘Register’ starts a legal clock',
@@ -625,8 +626,11 @@ def work(v='b', hero=''):
              '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
-            + (f'<h1 class="wk-kh" aria-label="I learned design where there’s no Ctrl+Z."><span aria-hidden="true"><i>I</i> <i>learned</i> <i>design</i> <i>where</i> <i>there’s</i> <i>no</i> <i class="wk-keys"><kbd>Ctrl</kbd><kbd class="z">Z</kbd></i></span></h1>' if hero else f'<h1>I learned design where there’s no Ctrl+Z.</h1>') +
-            f'<p class="wk-lead">I’m a product designer for B2B data products. Mistakes have always been expensive where I worked, so I still go looking for the edge case before a customer finds it.</p></div>'
+            + ((f'<h1 class="wk-nm">Ege Coskun</h1>'
+                '<p class="wk-pos">I design B2B tools for <span class="wk-rot" data-w="customs officers|marketers|streaming editors|data teams">customs officers</span>,<br>people who know their work better than I do.</p>'
+                '<p class="wk-sub">Product designer in Berlin, most recently at <a href="https://insiderone.com/" target="_blank" rel="noopener">Insider One</a>. I learned design where there’s <span style="white-space:nowrap">no <kbd>Ctrl</kbd><kbd>Z</kbd>.</span></p></div>')
+               if hero else (f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
+                f'<p class="wk-lead">I’m a product designer for B2B data products. Mistakes have always been expensive where I worked, so I still go looking for the edge case before a customer finds it.</p></div>')) +
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
             f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div>{about}</div></main>'
             '<script>(function(){var c=document.querySelectorAll(".wk-g.vb>.wk-c");if(!c.length||matchMedia("(prefers-reduced-motion:reduce)").matches)return;var f=0;function d(){f=0;var h=innerHeight;[].forEach.call(c,function(e){var t=e.getBoundingClientRect().top,p=Math.max(0,Math.min(1,(h*.85-t)/(h*.6)))*Math.min(1,scrollY/120);e.style.setProperty("--p",p.toFixed(3));if(t<h*.92)e.classList.add("on")})}addEventListener("scroll",function(){if(!f){f=1;requestAnimationFrame(d)}},{passive:true});addEventListener("resize",d);d()})();</script>')
@@ -706,7 +710,7 @@ if __name__ == '__main__':
     write('data-health/index.html', datahealth())
     write('work/index.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Work | Ege Coskun</title><link rel="canonical" href="/#work"><meta http-equiv="refresh" content="0;url=/#work"><script>location.replace("/#work")</script></head><body><a href="/#work">Work</a></body></html>')
     write('index.html', work())
-    write('home-a/index.html', work('b', 'keys').replace('</body>', '<script>(function(){var h=document.querySelector(".wk-kh"),k=h&&h.querySelector(".wk-keys");if(!k)return;k.addEventListener("mouseenter",function(){h.classList.remove("no");void h.offsetWidth;h.classList.add("no")})})();</script></body>', 1).replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1))
+    write('home-a/index.html', work('b', 'pos').replace('</body>', '<script>(function(){var e=document.querySelector(".wk-rot");if(!e||matchMedia("(prefers-reduced-motion:reduce)").matches)return;var w=e.dataset.w.split("|"),i=0,t=w[0],d=1;function tick(){var g=w[i];if(d<0){t=t.slice(0,-1);if(!t){d=1;i=(i+1)%w.length}}else{t=g.slice(0,t.length+1);if(t===g){d=-1;e.textContent=t;return setTimeout(tick,1800)}}e.textContent=t;setTimeout(tick,d<0?35:70)}setTimeout(function(){d=-1;tick()},1800)})();</script></body>', 1).replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1))
     import about
     for k, iv in [('about', 'a')]:
         h = page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',

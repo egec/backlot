@@ -607,3 +607,10 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 @keyframes nope{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 .wk-sel{margin-top:clamp(64px,8vw,140px)}
 @media (prefers-reduced-motion:reduce){.wk-kh>span>i{animation:none;opacity:1;transform:none}.wk-kh.no{animation:none}}
+
+.wk-nm{margin:0;font-size:clamp(3rem,6vw,6.5rem);line-height:.95;letter-spacing:-.04em;font-weight:600}
+.wk-pos{margin:24px 0 0;max-width:24em;font-size:clamp(1.375rem,2vw,2.125rem);line-height:1.25;letter-spacing:-.015em;color:var(--ink)}
+.wk-rot{color:var(--gd);border-right:2px solid currentColor;padding-right:2px;animation:caret 1s steps(1) infinite}@keyframes caret{50%{border-color:transparent}}
+.wk-sub{margin:20px 0 0;max-width:38em;font-size:clamp(0.9375rem,1.1vw,1.125rem);line-height:1.5;color:var(--mute)}.wk-sub a{color:var(--ink);text-underline-offset:3px}
+.wk-sub kbd{display:inline-block;margin:0 1px;padding:0 5px;font:inherit;font-size:.85em;line-height:1.35;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;color:var(--ink);background:#fff}
+@media (prefers-reduced-motion:reduce){.wk-rot{animation:none;border:0}}
