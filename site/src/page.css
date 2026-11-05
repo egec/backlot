@@ -307,3 +307,7 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .wk-r:hover .wk-cc{border-color:#fff;color:#fff}.wk-r:hover .wk-cc:hover{background:#fff;color:var(--gd)}
 .bl2-co{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(0,0,0,.25)}.bl2-co:hover{text-decoration-color:currentColor}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.wk-g>.wk-c:first-child{grid-column:1/-1}.wk-g>.wk-c:first-child .wk-m{aspect-ratio:2.2/1}
+@media(max-width:767px){.wk-g>.wk-c:first-child .wk-m{aspect-ratio:16/9}}
+@media(hover:none){.wk-pl{display:none}}

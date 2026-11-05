@@ -141,7 +141,7 @@ def hero():
 
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
 PROJ = [('backlot', 'Backlot', 'From delivery to release, one region at a time.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
-        ('bilge', 'BİLGE', 'Container tracking for Turkish customs, designed from the system specs.', GH + 'shots/bilge/b-queue-th.webp'),
+        ('bilge', 'BİLGE', 'Customs software where ‘Register’ starts a legal clock.', GH + 'shots/bilge/b-queue-th.webp'),
         ('data-health', 'Data health', 'Telling marketers which data to trust before they build a segment.', GH + 'shots/dh/thumb.webp'),
         # ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')
         ]
@@ -255,7 +255,9 @@ def features():
         dict(h='Comments become reasons', hl=[(70, 15, 27.6, 30)], ctx=(70, 11, 28, 1)),
         dict(h='Fixed in place', hl=[(5.8, 75.6, 61.4, 5.4)]),
         dict(h='Counted before it is sent', hl=[(69.8, 52.6, 27.6, 8)])], [IMG_REJ],
-        after=sub('Try it', 'Flag two fields as the publisher, then fix them as the editor.') + media_box(EMB('f663202a')), nav=nav))
+        after=sub('When the same reason comes back', 'A clear note can still fail. If one reason returns on three episodes of a season, the editor isn’t the problem: the wrong value is coming from upstream. '
+                  'Because every reason carries a field and a category, a repeat can be counted and fixed where it starts: the season, the delivery spec or an automatic check.')
+              + sub('Try it', 'Flag two fields as the publisher, then fix them as the editor.') + media_box(EMB('f663202a')), nav=nav))
     # AI
     f_ai = dict(t='AI suggests, the editor accepts',
              l='The AI points at likely rejections before the publisher sees them and proposes values like keywords. Nothing is written until the editor accepts.',
@@ -311,8 +313,9 @@ def problem():
         ('Feedback doesn’t point at a field', 'Most tools let a reviewer comment, but a rejection is still a note. The editor has to work out which field it means.')])
     return ('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
             '<p class="bl2-big" data-tint style="--ac:#9184D9"><span class="bl2-line">The work is not hard.</span><span class="bl2-line">The loop is.</span></p>'
-            + split('The problem', '<p>Getting one episode ready for one region means matching its files, filling about forty fields and passing a publisher’s review. '
-                    'Much of it is typing what the file already says, and mistakes only surface at review, where each one costs a round.</p>')
+            + split('The problem', '<p><b>For the team:</b> getting one episode ready for one region means matching its files, filling about forty fields and passing a publisher’s review. '
+                    'Much of it is typing what the file already says, and mistakes only surface at review, where each one costs a round.</p>'
+                    '<p><b>For the service:</b> 86% of streaming operators in <a href="https://fastmaster.substack.com/p/the-metadata-reckoning-streamings" target="_blank" rel="noopener">a 2026 survey</a> said poor metadata costs them real money, and a wrong value for one region can put a title on air where its rights don’t allow it.</p>')
             + f'<div class="bl2-cards">{cards}</div></div>')
 
 def north_star():
@@ -442,9 +445,9 @@ def specpile():
 
 def bilge():
     hero = ('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
-            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Container tracking for Turkish customs</h1>'
-            '<div class="bl2-hg"><p class="lead">BİLGE is the Ministry of Trade’s customs platform, made of dozens of modules, and I designed across many of them. '
-            'This page shows KLTS, container and port tracking, designed from the system specifications and backend rules so every screen offers only what the system allows.</p>'
+            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Customs software where ‘Register’ starts a legal clock</h1>'
+            '<div class="bl2-hg"><p class="lead">BİLGE is the Ministry of Trade’s customs platform, and I designed across many of its modules. '
+            'This page shows KLTS, which replaced paperwork passed between customs, port operators and agencies with one shared record: 107 screens, designed from the system specs.</p>'
             '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://www.milsoft.com.tr/index.php/home/" target="_blank" rel="noopener">MilSOFT <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Client</b>Turkish Ministry of Trade</div>'
             '<div><b>My role</b>UX/UI Designer</div><div><b>Date</b>2022 to 2023</div></div></div>'
             + media_box(f'<img class="bl2-img" src="{GH}shots/bilge/b-detail.webp" width="1920" height="1080" alt="Container tracking form detail as a customs officer sees it: the agent’s details above the containers and their parts">') + '</div>')
@@ -595,7 +598,9 @@ def work():
         ('backlot', '01', 'Backlot, concept project', 'From delivery to release, one region at a time',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
-        ('bilge', '02', 'BİLGE', 'Container tracking for Turkish customs',
+        ('data-health', '02', 'Data health', 'Telling marketers which data to trust before they build a segment',
+         '', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp', 'Data health card in the segment builder', None),
+        ('bilge', '03', 'BİLGE', 'Customs software where ‘Register’ starts a legal clock',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
          ['GovTech', 'Customs platform', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
     ]
@@ -606,7 +611,7 @@ def work():
         return '<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + CO.get(k, '') + '</span>'
     # the title link stretches over the whole card, so the company chip can be its own link
     cards = ''.join(
-        f'<div class="wk-c"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy"><video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em></span>'
+        f'<div class="wk-c"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
         f'<span class="wk-n">{name}</span><a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + chips(k, tags) + '</div>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
@@ -626,9 +631,9 @@ def work():
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qa .k{position:static}}</style>')
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
             f'<h1>I learned design where there’s no Ctrl+Z.</h1>'
-            f'<p class="wk-lead">A millimetre off in a bus interior part, and the tooling is already paid for. I design B2B data products now, and I still look for the edge case while it is a design problem, before it becomes a bug report.</p></div>'
+            f'<p class="wk-lead">Mistakes have always been expensive where I worked. I design B2B data products now, and I still go looking for the edge case before a customer finds it.</p></div>'
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
-            f'<div class="wk-g">{cards}</div><p class="k wk-k">More work</p><ul class="wk-l">{rows}</ul>{about}</div></main>')
+            f'<div class="wk-g">{cards}</div>{about}</div></main>')
     return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin: B2B tools for teams that review, approve and ship work. Case studies: Backlot, BİLGE, UwaVerde.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
 
