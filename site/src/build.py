@@ -625,7 +625,7 @@ def untangle():
 HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div class="hb-sp" aria-hidden="true"></div><p class="wk-pos hb-s">Product designer for B2B software,<br> fluent in both AI and the people.</p></div>'
   '<span class="hb-fly" aria-hidden="true">Ege Coskun</span>'
   '<style>@font-face{font-family:"Bricolage EC";src:url(/assets/bricolage-ec.woff) format("woff");font-display:block}'
-  '.hb{min-height:calc(100svh - 4.75rem - 130px - clamp(72px,11svh,130px));display:flex!important;flex-direction:column;justify-content:space-between;padding:clamp(12px,2svh,32px) 0 clamp(28px,5svh,64px)!important;width:auto!important;box-sizing:border-box}'
+  '.hb{min-height:calc(100svh - 4.75rem - 130px - 34px);display:flex!important;flex-direction:column;justify-content:space-between;padding:clamp(12px,2svh,32px) 0 clamp(28px,5svh,64px)!important;width:auto!important;box-sizing:border-box}'
   '.hb-sp{width:min(100%,1500px);aspect-ratio:var(--ar,6.2)}.hb-s{margin:0!important;max-width:none!important;font-size:clamp(22px,1.9vw,34px)!important;transform-origin:0 100%;will-change:transform,opacity}'
   '.hb-fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform,opacity;font-family:"Bricolage EC",sans-serif;font-variation-settings:"wght" 700,"wdth" 100,"opsz" 12;font-size:200px;line-height:1;white-space:nowrap;color:#1a1a1a}'
   'html.hb-on .site-logo .site-lm{display:none}.hb+.wk-sel{margin-top:0!important;padding-top:0!important}</style>'
@@ -633,10 +633,10 @@ HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div
   'function size(){nw=f.offsetWidth;nh=f.offsetHeight;sp.style.setProperty("--ar",(nw/nh).toFixed(3))}'
   'function tgt(){return Math.max(0,Math.min(1,scrollY/Math.max(1,innerHeight*.34)))}'
   'function draw(){var t=R?(tgt()>0?1:0):tgt();cur=cur<0?t:cur+(t-cur)*.18;if(Math.abs(t-cur)<.001)cur=t;'
-  'var a=sp.getBoundingClientRect(),b=lg.getBoundingClientRect(),a0=a.top+scrollY,e=Math.pow(cur,2.6),w=a.width+(b.width-a.width)*e,k=w/nw,'
-  'y0=a0,y1=b.top+b.height/2-nh*(b.width/nw)/2,y=y0+(y1-y0)*(1-Math.pow(1-cur,2.2)),x=a.left+(b.left-a.left)*e,d=Math.sin(Math.PI*Math.min(1,cur*1.15)),'
-  'sx=k*(1-.08*d),sy=k*(1+.55*d),y=Math.max(Math.min(y,8),y-(sy-k)*nh),fo=Math.max(0,Math.min(1,(cur-.94)/.06));'
-  'f.style.transform="translate("+x.toFixed(2)+"px,"+y.toFixed(2)+"px) skewX("+(-6*d).toFixed(2)+"deg) scale("+sx.toFixed(4)+","+sy.toFixed(4)+")";f.style.opacity=1-fo;f.style.visibility=cur>=.999?"hidden":"visible";'
+  'var a=sp.getBoundingClientRect(),b=lg.getBoundingClientRect(),a0=a.top+scrollY,e=cur*cur*(2.2-1.2*cur),w=a.width+(b.width-a.width)*e,k=w/nw,'
+  'y0=a0,y1=b.top+b.height/2-nh*(b.width/nw)/2,y=y0+(y1-y0)*Math.pow(cur,.8),x=a.left+(b.left-a.left)*e,d=Math.sin(Math.PI*cur),'
+  'sx=k*(1-.06*d),sy=k*(1+.22*d),fo=Math.max(0,Math.min(1,(cur-.94)/.06));'
+  'f.style.transform="translate("+x.toFixed(2)+"px,"+y.toFixed(2)+"px) skewY("+(7*d).toFixed(2)+"deg) scale("+sx.toFixed(4)+","+sy.toFixed(4)+")";f.style.opacity=1-fo;f.style.visibility=cur>=.999?"hidden":"visible";'
   'lg.style.opacity=fo;document.documentElement.classList.toggle("hb-on",cur<.999);'
   'tx.style.transform="scale("+(1-.4*cur).toFixed(3)+")";tx.style.opacity=Math.max(0,1-cur*1.25).toFixed(3);'
   'if(cur!==t)raf=requestAnimationFrame(draw);else raf=0}'
@@ -664,8 +664,8 @@ def work(v='b', hero=''):
         return '<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + CO.get(k, '') + '</span>'
     # the title link stretches over the whole card, so the company chip can be its own link
     cards = ''.join(
-        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}" style="--i:{ix}" data-lab="{num}  {dict(backlot="Backlot", bilge="BİLGE").get(k, "Data health")}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
-        + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + (f'<span class="wk-n">{name}</span>' if name else '') + '</div>'
+        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}" style="--i:{ix}"><span class="wk-lab">{num}  {dict(backlot="Backlot, the take-home that got me hired", bilge="BİLGE").get(k, "Data health")}</span><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
+        + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + '</div>'
         for ix, (k, num, name, t, d, tags, img, alt, vid) in enumerate(lead))
     more = [
         ('data-health', '03', 'Data health', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer Data Platform', '2026'], GH + 'shots/dh/thumb.webp'),
@@ -677,8 +677,8 @@ def work(v='b', hero=''):
         for k, num, name, t, tags, img in more)
     import about as _ab
     qa = _ab.qa_html()
-    about = (f'<section class="ax-ask lt wk-qa"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
-             '<p class="wk-cz">I learned design where there’s <span style="white-space:nowrap">no <kbd>Ctrl</kbd><kbd>Z</kbd>.</span></p><a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></div></section>'
+    about = (f'<section class="ax-ask lt wk-qa"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p><p class="wk-cz">I learned design where there’s <span style="white-space:nowrap">no <kbd>Ctrl</kbd><kbd>Z</kbd>.</span></p><a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></div><div><div class="ax-qs">{qa}</div>'
+             '</div></section>'
              '<style>' + _ab.QCSS + '.wk-qa{margin-top:clamp(96px,10vw,180px);padding:0;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;--h3:clamp(18px,1.3vw,24px)}'
              '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
