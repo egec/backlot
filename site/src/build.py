@@ -120,7 +120,7 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show
 
 IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp?v=5', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
 IMG_EP2 = dict(type='img', src=GH + 'shots/v2/ep2.webp?v=4', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
-IMG_AI = dict(type='img', src=GH + 'shots/v2/ep2-ai-w.webp?v=2', w=1760, h=1200, alt='The episode page with its checks panel: rule checks above, AI suggestions with their evidence below', cap='The checks panel on the episode page')
+IMG_AI = dict(type='img', src=GH + 'shots/v2/ep2-ai-w.webp?v=3', w=2280, h=1220, alt='The episode page with its checks panel: rule checks above, AI suggestions with their evidence below', cap='The checks panel on the episode page')
 IMG_REJ = dict(type='img', cap='What the publisher sees while reviewing', src=GH + 'shots/v2/reject.webp?v=4', w=2880, h=1800, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
 IMG_UP3 = dict(type='img', src=GH + 'shots/v2/upload-modal.webp?v=4', w=2738, h=1712, alt='Upload drop zone open over the assets list')
 IMG_UP15 = dict(type='img', src=GH + 'shots/v2/upload-widget.webp?v=4', w=2738, h=1712, alt='Season 4 in Spain with the upload result in the corner and 15 files waiting in the readiness panel')
@@ -660,9 +660,9 @@ def work(v='b', hero=''):
              '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero">'
-            + '<h1 class="wk-nm">Ege Coskun</h1>'
+            + '<h1 class="sr-only">Ege Coskun</h1>'
             '<p class="wk-pos">I’m a product designer whose brain takes the long way round, so your users don’t have to.</p>'
-            '<p class="wk-sub">People tell me what they want. I design what they meant.</p></div>' +
+            '</div>' +
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
             f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div>{about}</div></main>'
             '<script>(function(){var c=document.querySelectorAll(".wk-g.vb>.wk-c");if(!c.length||matchMedia("(prefers-reduced-motion:reduce)").matches)return;var f=0;function d(){f=0;var h=innerHeight;[].forEach.call(c,function(e){var t=e.getBoundingClientRect().top,p=Math.max(0,Math.min(1,(h*.85-t)/(h*.6)))*Math.min(1,scrollY/120);e.style.setProperty("--p",p.toFixed(3));if(t<h*.92)e.classList.add("on")})}addEventListener("scroll",function(){if(!f){f=1;requestAnimationFrame(d)}},{passive:true});addEventListener("resize",d);d()})();</script>')

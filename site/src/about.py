@@ -405,7 +405,7 @@ DARK_CSS = """body:has(.abx.dk),body:has(.abx.dk) .site-h{background:#161616}bod
 .abx.dk{--ink:#F2F2EF;--line:rgba(255,255,255,.14);--mute:#9B9A96;background:#161616;color:#F2F2EF}.abx.dk .ax-tx p,.abx.dk .ax-pd p{color:#CFCECA}.abx.dk .ax-tq{border-color:#3a3a37}.abx.dk .ax-tq.y{border-color:#6a6a66}.abx.dk .ax-side{background:#222220}.abx.dk .ax-end{background:#F2F2EF}
 .ax-ia{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,6vh,96px);padding-bottom:clamp(56px,7vh,112px)}.ax-l{display:flex;flex-direction:column;justify-content:space-between;gap:40px}
 .abx .ax-big{margin:0;max-width:16em;font-size:clamp(22px,1.9vw,34px)!important;line-height:1.15!important;letter-spacing:-.02em;font-weight:500;color:#6E6D68!important}
-.ax-ia .ax-r{max-width:36em}.ax-ia .ax-rows{grid-column:2;max-width:36em;margin-top:8px}.ax-ia .ax-tx p:last-child{margin-bottom:0}.ax-ia .ax-rows dd{font-size:var(--fs)}@media(max-width:899px){.ax-ia .ax-rows{grid-column:1}}.abx .ax-l h1{margin:0;font-size:clamp(30px,2.6vw,46px);color:#6E6D68}.abx .ax-l .ax-nm{text-decoration-color:#3a3a37}.abx .ax-role{margin:0;font-size:clamp(18px,1.4vw,24px)!important;color:#8E8D88!important}
+.ax-ia .ax-r{max-width:36em}.ax-ia .ax-rows{grid-column:2;max-width:36em;margin-top:8px}.ax-ia .ax-tx p:last-child{margin-bottom:0}.ax-ia .ax-rows dd{font-size:var(--fs)}@media(max-width:899px){.ax-ia .ax-rows{grid-column:1}}.abx .ax-sub{margin:12px 0 0;font-size:clamp(18px,1.4vw,24px);line-height:1.3;font-weight:600;letter-spacing:-.015em;color:#6E6D68!important;max-width:20em}.abx .ax-l h1{margin:0;font-size:clamp(30px,2.6vw,46px);color:#6E6D68}.abx .ax-l .ax-nm{text-decoration-color:#3a3a37}.abx .ax-role{margin:0;font-size:clamp(18px,1.4vw,24px)!important;color:#8E8D88!important}
 .ax-ph{width:clamp(120px,11vw,180px);aspect-ratio:1;border-radius:50%;overflow:hidden;margin:0}.ax-ph img{width:100%;height:100%;object-fit:cover;display:block}
 .ax-ib{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,5vw,88px);padding-bottom:clamp(56px,6vw,104px)}
 .ax-ib .ax-lead{font-size:clamp(18px,1.3vw,22px);line-height:1.45;color:#CFCECA;margin:0 0 28px;max-width:34em}
@@ -431,7 +431,7 @@ def about3(intro="flip"):
     nm = '<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>'
     if intro == 'a':
         rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS if True)
-        intro_html = (f'<section class="ax-w ax-ia"><div class="ax-l"><div>{nm}</div><figure class="ax-ph"><img src="{GH}me/ege-badge.webp" width="480" height="480" alt="Ege Coskun"></figure></div>'
+        intro_html = (f'<section class="ax-w ax-ia"><div class="ax-l"><figure class="ax-ph"><img src="{GH}me/ege-badge.webp" width="480" height="480" alt="Ege Coskun"></figure><div>{nm}<p class="ax-sub">People tell me what they want. I like to design what they meant.</p></div></div>'
                       f'<div class="ax-r"><div class="ax-tx">{lead}</div></div><dl class="ax-rows">{rows}</dl></section>')
     elif intro == 'b':
         rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS)
