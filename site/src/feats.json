@@ -11,7 +11,7 @@
   "on": "Review"
  },
  {
-  "t": "Treating region as a structural scope, not just a filter",
+  "t": "Region is a structural scope, not just a filter",
   "l": "Title, synopsis, age rating, dates, rights, audio and subtitles all change by region. The editor picks a region first, and the whole page answers for it.",
   "r": [],
   "on": "Prepare"
@@ -45,7 +45,7 @@
   "on": "Prepare"
  },
  {
-  "t": "Designed for the delivery that arrives broken",
+  "t": "The delivery that arrives broken",
   "l": "Deliveries often arrive incomplete or mislabelled. After upload, the system assigns the files it can match and hands the rest to the editor.",
   "r": [
    "Processing reads each file’s technical metadata and matches it to its content, so most files are assigned automatically. Only the ones it cannot place wait for the editor.",

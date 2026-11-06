@@ -98,7 +98,7 @@
   .step b em{display:block;font-style:normal;line-height:1;text-box:trim-both cap alphabetic}
   /* site type for the frame around the product */
   .bar,.bar *{font-family:"Inter Tight",Manrope,system-ui,sans-serif!important}
-</style>
+.tag{color:#56652A!important}.right{display:flex!important;flex-direction:row!important;align-items:center;gap:12px}.right .mode{order:0!important}</style>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>if(/[?&]on=green/.test(location.search))document.documentElement.classList.add('on-green')</script>
 </head>
@@ -187,10 +187,11 @@ function flash(before,seen){if(reduce)return;D().querySelectorAll('body *').forE
 function wire(){
   const d=D();
   if(!d.getElementById('blnosb')){const x=d.createElement('style');x.id='blnosb';x.textContent='html,body{scrollbar-width:none}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}';d.head.appendChild(x)}
-  if(!d.getElementById('blf')){const st=d.createElement('style');st.id='blf';st.textContent='.bl-flash{animation:blf .6s ease-out}@keyframes blf{0%{opacity:.15}100%{opacity:1}}';d.head.appendChild(st)}
+  if(!d.getElementById('blf')){const st=d.createElement('style');st.id='blf';st.textContent='.bl-flash{animation:blf 1.2s ease-out}@keyframes blf{0%{background-color:rgba(145,132,217,.22)}100%{background-color:transparent}}';d.head.appendChild(st)}
   d.addEventListener('scroll',()=>{if(!busy)place()},{passive:true,capture:true});
   d.addEventListener('click',e=>{
     if(e.isTrusted)takeOver();
+    if(e.target.closest&&e.target.closest('[role=tab]'))return;
     const st=STEPS[step];if(!st||busy){if(e.isTrusted){e.preventDefault();e.stopPropagation()}return}
     const t=st.t();
     if(t&&(t===e.target||t.contains(e.target))){if(st.flash){const b=snap(),seen=new Set();[200,450,800,1200].forEach(ms=>setTimeout(()=>flash(b,seen),ms))}setTimeout(advance,30);return}

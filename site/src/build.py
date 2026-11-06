@@ -51,6 +51,8 @@ def head(n, f, nav=False, note=''):
         h2 = f'<div class="bl2-hn"><h2 class="bl2-h">{f["t"]}</h2><span class="bl2-note" data-note aria-hidden="true">{NOTE_ARROW}<b>{note}</b></span></div>'
     return f'{hid}<p class="k">Feature {n:02d}</p>{h2}<p class="lead">{f["l"]}</p>'
 
+MXJS = """<script>[].forEach.call(document.querySelectorAll('[data-mx]'),function(m){var b=m.querySelectorAll('.mx-tg button'),p=m.querySelectorAll('.mx-p');[].forEach.call(b,function(x,i){x.addEventListener('click',function(){[].forEach.call(b,function(y,k){y.classList.toggle('on',k===i)});[].forEach.call(p,function(y,k){y.classList.toggle('on',k===i)});var v=p[i].querySelector('video');if(v){if(!v.src&&v.dataset.src)v.src=v.dataset.src;v.play&&v.play().catch(function(){})}})})})</script>"""
+
 def media_box(inner):
     cls = ''
     if re.search(r'proto/(rejection|region)/', inner):  # clickable prototypes carry a green stroke
@@ -82,14 +84,14 @@ def fit(s):
     z = max(1, min(ZCAP, 85 / max(x1 - x0, y1 - y0)))
     return dict(s, z=round(z, 2), x=round((x0 + x1) / 2, 1), y=round((y0 + y1) / 2, 1))
 
-def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show_hl=True):
+def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show_hl=True, pin_head=False):
     """Steps that move the screen. Each step can switch media (m), seek a video (t), zoom to a point (z, x, y in %)
     and highlight boxes (hl: list of (x, y, w, h) in % of the media). The text and the screen stay pinned while
     scrolling moves through the steps."""
     steps = [fit(dict(s, hl=[padbox(b) for b in s.get('hl', [])])) for s in steps]
     lis = ''.join(
         f'<li data-m="{s.get("m", 0)}" data-z="{s["z"]}" data-x="{s["x"]}" data-y="{s["y"]}"' + (f' data-t="{s["t"]}"' if 't' in s else '') +
-        f'><button type="button"><em>{i+1:02d}</em><strong>{s["h"]}</strong></button><div class="zs-d"><span>{t}</span></div></li>'
+        f'>' + (f'<p class="zs-g">{s["g"]}</p>' if s.get('g') else '') + f'<button type="button"><em>{i+1:02d}</em><strong>{s["h"]}</strong></button><div class="zs-d"><span>{t}</span></div></li>'
         for i, (s, t) in enumerate(zip(steps, f['r'])))
     ms = ''
     for i, m in enumerate(medias):
@@ -106,7 +108,9 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show
     ctl = ('<button type="button" class="zs-play" data-zplay><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>'
            '<span>Play the whole video</span></button>') if has_video else ''
     hd = head_html if head_html is not None else head(n, f, nav=nav, note=note)
-    return (f'<div class="bl2-t bl2-f{" first" if nav else ""}">{hd}<div class="zs" data-zs style="--n:{len(steps)}"><div class="zs-pin"><ol class="zs-steps">{lis}</ol>'
+    ph = f'<div class="zs-hd">{hd}</div>' if pin_head else ''
+    if pin_head: hd = ''
+    return (f'<div class="bl2-t bl2-f{" first" if nav else ""}">{hd}<div class="zs" data-zs style="--n:{len(steps)}"><div class="zs-pin{" zs-ph" if pin_head else ""}">{ph}<ol class="zs-steps">{lis}</ol>'
             f'<div class="zs-stick"><div class="zs-frame"><div class="zs-view" style="aspect-ratio:{medias[0]["w"]}/{medias[0]["h"]}">{ms}</div></div>'
             f'<div class="zs-foot"><div class="zs-bar">{bars}</div>{ctl}</div></div></div></div>{after}</div>')
 
@@ -129,18 +133,18 @@ def changed():
 
 def hero():
     h = P['411a7ea2-ad8e-e2d4-3a36-2ddce0bbd66d']
-    rep = [('<b>Category</b>B2B SaaS, Enterprise CMS', '<b>Category</b>B2B SaaS, Streaming CMS'), ('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>Fewer review rounds from delivery to release, in a CMS for streaming teams</h1>'),
+    rep = [('<b>Category</b>B2B SaaS, Enterprise CMS', '<b>Category</b>B2B SaaS, Streaming CMS'), ('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>Fewer review rounds from delivery to release</h1>'),
            ('<p class="lead">Backlot is where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher, so a rejection is a list of reasons pinned to fields, not a vague note.</p>',
-            '<p class="lead">Streaming teams use Backlot to take films and series from delivery to release, region by region. I designed the whole workflow for both sides: dashboards, upload and file matching, fields that fill from the file, the publisher’s review and artwork tests.</p>'),
+            '<p class="lead">Backlot is a concept CMS for streaming teams, taking films and series from delivery to release, region by region. I designed the whole workflow for both sides: publisher and editor.</p>'),
            ('<b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.', '<b>Context</b>The take-home that got me hired for my last role, rebuilt and extended.'),
-           ('<b>Date</b>2026', '<b>Date</b>2026, 3 weeks</div><div><b>Team</b>Just me</div><div><b>Status</b>Concept, not shipped')]
+           ('<b>Date</b>2026', '<b>Date</b>2026, 3 weeks</div><div><b>Status</b>Concept, not shipped'), ('<b>My role</b>Product Designer, end to end', '<b>My role</b>Product Designer, sole designer end to end')]
     for o, n in rep:
         assert o in h, o[:40]
         h = h.replace(o, n)
     return h.replace(GH + 'shots/roles/ed-dashboard.webp', GH + 'shots/v2/ed-dashboard.webp?v=4')
 
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
-PROJ = [('backlot', 'Backlot', 'Fewer review rounds from delivery to release, in a CMS for streaming teams.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
+PROJ = [('backlot', 'Backlot', 'Fewer review rounds from delivery to release.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
         ('bilge', 'BİLGE', 'Customs software where&nbsp;‘Register’ starts a legal clock.', GH + 'shots/bilge/b-queue-th.webp'),
         ('data-health', 'Data health', 'Telling marketers which data to trust before they build a segment.', GH + 'shots/dh/thumb.webp'),
         # ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')
@@ -165,7 +169,7 @@ def sec(k, label, inner):
 
 def backlot():
     w1 = (sec('ov', 'Overview', hero())
-          + sec('pr', 'Why it’s slow', problem() + north_star() + research())
+          + sec('pr', 'Problems', problem() + north_star() + research())
           + sec('ro', 'Two roles', roles())
           + sec('fe', 'Features', features())
           + sec('ch', 'What I changed', changed()))
@@ -210,11 +214,14 @@ def features():
     """Nine features, most telling first, with an index so a skimmer sees all nine at once."""
     F = []
     # region (the old series tree folds in here)
-    f = dict(t='Treating region as a structural scope, not just a filter',
-             l='Title, synopsis, age rating, dates, rights, audio and subtitles all change by region. The editor picks a region first, and the whole page answers for it.')
-    F.append(lambda n, nav: simple(n, f_region, EMB('faf58225'), nav=nav,
-                    after=split('Every level', '<p>Series, season, episode and file each keep their own fields and status, so the editor can tell which level a change affects. '
-                                'Age rating rolls up: a season takes the highest rating among its episodes in that region.</p>')))
+    f = dict(t='Region is a structural scope, not just a filter',
+             l='Almost all metadata, and the files, rights and dates around it, can differ from one region to the next.')
+    mx = ('<div class="mx" data-mx><div class="mx-tg"><button type="button" class="on">Try the prototype</button><button type="button">Watch the season video</button></div>'
+          '<div class="mx-p on">' + EMB('faf58225') + '</div><div class="mx-p">' + EMB('137e3b55') + '</div></div>')
+    F.append(lambda n, nav: simple(n, f_region, mx, nav=nav,
+                    after=split('A tree, per region', '<p>Series, season, episode and file form a tree. Each level keeps its own fields and status, so the editor can tell which level a change affects. '
+                                'Age rating rolls up: a season takes the highest rating among its episodes in that region.</p>'
+                                '<p>A season keeps its own metadata, apart from its episodes. Its page holds the episodes, season metadata and assets, deliveries per region and the audit log, with readiness in view on every tab.</p>')))
     f_region = f
     # the editor only fills what is missing
     f_fill = dict(t='The editor only fills what is missing',
@@ -223,17 +230,16 @@ def features():
                 'Values from the delivery are locked. Each field unlocks on its own, so every change is deliberate.',
                 'Submit hands the episode to the publisher. Save keeps it under In progress, ready to pick up later.',
                 '“4 of 8” tells the editor how much is left and where to start. “Incomplete” would only say something is wrong.',
-                'The season page lists what must be complete before the season can be scheduled.'])
+                'Every season and episode page lists what must be complete before it can be scheduled in that region.'])
     F.append(lambda n, nav: zoom(n, f_fill, [
         dict(h='Gaps come first', m=1, hl=[(5.4, 25, 67.2, 33.4)]),
         dict(h='Locked by its source', m=1, hl=[(5.4, 63.6, 67.2, 30.4)]),
-        dict(h='Save is not submit', m=1, hl=[(62.8, 9, 9.8, 4.4), (66.6, 95.5, 5.8, 2.5)]),
+        dict(h='Save is not submit', m=1, hl=[(62.8, 9, 9.8, 4.4), (66.6, 95.1, 6.0, 3.8)]),
         dict(h='Progress you can count', m=0, hl=[(76.6, 21, 21.2, 16.6)], ctx=(76, 10.5, 22, 1)),
-        dict(h='Readiness for the season', m=0, hl=[(59.4, 9.2, 38.4, 8)])], [IMG_SEASON, IMG_EP2],
-        after=sub('A season keeps its own metadata, apart from its episodes', 'Episodes, season metadata, season assets, deliveries per region and the audit log, with the readiness panel in view on every tab.') + media_box(EMB('137e3b55')), nav=nav))
+        dict(h='Readiness per content', m=0, hl=[(59.4, 9.2, 38.4, 8)])], [IMG_SEASON, IMG_EP2], nav=nav))
     # upload, the unhappy path
-    f_up = dict(t='Designed for the delivery that arrives broken',
-             l='Deliveries often arrive incomplete or mislabelled. The design starts from that case, so a broken delivery never blocks the files that are fine.',
+    f_up = dict(t='The delivery that arrives broken',
+             l='Deliveries might arrive incomplete or mislabelled. None of it blocks the work: processing places what it can, the upload runs in the background, and every file problem has its own fix.',
              r=['Processing reads each file’s technical metadata and links it to its episode. Files it can’t place go to Needs assignment.',
                 'The upload folds into a panel in the corner, so the editor can open other pages and come back to it.',
                 'The drop zone stays open, so files can be added while others are still uploading.',
@@ -298,13 +304,13 @@ def features():
 # ---------- problem, built on what the research found ----------
 def problem():
     cards = ''.join(f'<div class="bl2-c"><span class="bl2-tag">Finding</span><h3>{t}</h3><p>{d}</p></div>' for t, d in [
-        ('Files arrive broken', 'Deliveries come with missing, extra or mislabelled files, and each one has to be matched to its episode by hand.'),
+        ('Files arrive broken', 'Deliveries come with missing, extra or mislabelled files, and each file has to be assigned to its episode by hand.'),
         ('Almost every field changes by region', 'Title, synopsis, age rating, release date, rights, audio and subtitles each need their own version per region.'),
         ('Mistakes hide in the structure', 'Metadata entered on the wrong level, a season instead of an episode, only shows up at review.'),
-        ('Feedback doesn’t point at a field', 'Most tools let a reviewer comment, but a rejection is still a note. The editor has to work out which field it means.')])
+        ('Feedback doesn’t point at a field', 'Some tools let a reviewer comment on a field, but a rejection still lands as one status. Nothing groups the reasons, so the editor can’t see at a glance what blocks the release.')])
     return ('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
             '<p class="bl2-big" data-tint style="--ac:#9184D9"><span class="bl2-line">The work is not hard.</span><span class="bl2-line">The loop is.</span></p>'
-            + split('The problem', '<p><b>For the team:</b> getting one episode ready for one region means matching its files, filling about forty fields and passing a publisher’s review. '
+            + split('The problem', '<p><b>For the team:</b> getting one episode ready for one region means uploading its files, filling about forty fields and passing a publisher’s review. '
                     'Much of it is typing what the file already says, and mistakes only surface at review, where each one costs a round.</p>'
                     '<p><b>For the service:</b> 86% of streaming operators in <a href="https://fastmaster.substack.com/p/the-metadata-reckoning-streamings" target="_blank" rel="noopener">a 2026 survey</a> said poor metadata costs them real money, and a wrong value for one region can put a title on air where its rights don’t allow it.</p>')
             + f'<div class="bl2-cards">{cards}</div></div>')
@@ -312,8 +318,8 @@ def problem():
 def north_star():
     return ('<div class="bl2-t bl2-part"><p class="k">North star</p>'
             '<h2 class="bl2-h cs-title">Release-ready sooner, with less typing</h2>'
-            '<p class="lead">Every decision on this page answers one question: does it get an episode release-ready sooner, with less typing and fewer rounds of review?</p>'
-            + split('The bet', '<p>My bet: most of the delay is retyping and rework. In my design of Episode 2, the editor types 5 of its 41 fields; the file, the delivery and the season fill the rest. If feedback also points at fields, time to release-ready drops. I haven’t tested it with an editor yet.</p>')
+            '<p class="lead">Every decision on this page aims at the same thing: an episode release-ready sooner, with less typing and fewer review rounds.</p>'
+            + split('The bet', '<p>Most of the delay is retyping and rework. On an episode page, the editor types 5 of 41 fields; the rest fill in automatically from the file, the delivery and the season. When a rejection also names the field to fix, there is less to redo in the next round. I haven’t tested this with an editor yet.</p>')
             + '</div>')
 
 # ---------- research: how I looked, and the benchmark ----------
@@ -343,44 +349,46 @@ def roles():
     def rc(q, needs, who, when, sub, ini):
         return (f'<div class="bl2-role"><p class="bl2-q">{q}</p>'
                 + '<ul class="bl2-ck">' + ''.join(f'<li>{x}</li>' for x in needs) + '</ul>'
-                + f'<div class="bl2-rf"><span class="bl2-av" aria-hidden="true">{ini}</span><div><b>{who}</b><span>{when}. {sub}</span></div></div></div>')
+                + f'<div class="bl2-rf"><span class="bl2-av" aria-hidden="true">{ini}</span><div><b>{who}</b></div></div></div>')
     cards = ('<div class="bl2-roles">'
-             + rc('What’s blocking release, and what can I clear today?', ['Files that still need an episode', 'What each region still needs', 'Which field a rejection points at'],
+             + rc('What’s blocking release, and what can I clear today?', ['Where I left off', 'Files without an episode', 'What blocks release', 'What came back rejected', 'What airs first'],
                   'Editor', 'All day', 'Works region by region, many episodes at once.', 'E')
-             + rc('What airs first, and what changed since I last looked?', ['The queue sorted by release date', 'Only the fields that came back', 'Reasons tied to fields'],
+             + rc('What airs first, and what changed since I last looked?', ['Only what was fixed', 'Approved, ready to schedule', 'A short pending queue'],
                   'Publisher', 'Per review', 'Decides before a release date and can’t re-check everything.', 'P')
              + '</div>')
     top = ('<div class="bl2-t"><span class="cs-num bl2-x">02</span><p class="k">Two roles</p>'
            '<h2 class="bl2-h cs-title">One episode, two people asking different questions</h2>' + cards + '</div>')
     full = dict(z=1, x=50, y=50)
-    dash = zoom(0, dict(r=['Blockers, counts and the work the editor left off, on one page.',
-                           'What airs soon, what waits for review, and what each region has received.',
-                           'The editor’s counts start with Rejected, because that is the work that came back to them. The publisher’s start with Pending review: each role sees first what needs them.',
-                           'The editor’s banner names files that couldn’t be assigned. The publisher’s names the one item that airs within seven days and still needs a decision.',
+    dash = zoom(0, dict(r=['Where I left off, what came back and what blocks release, on one page.',
+                           'When files from a delivery couldn’t be assigned, a banner opens the page with one button to resolve them.',
                            'Missing fields grouped across everything assigned to the editor, so one pass fills the Spanish synopsis for seven items.',
+                           'A dashboard can’t hold every status, so each role gets the four that matter most to it, in order. The editor’s start with Rejected: the work that came back.',
+                           'What airs soon, what waits for review, and a banner for the one item that airs within seven days and still needs a decision.',
+                           'The publisher’s metrics start with Pending review, the queue they have to keep short.',
                            'In place of blockers, the publisher sees each region’s deliveries this week and how far along they are.']),
-                [dict(h='Editor: dashboard', m=0, **full),
-                 dict(h='Publisher: dashboard', m=1, **full),
-                 dict(h='Counts that follow the role', m=1, hl=[(19.3, 20.2, 54.4, 13)]),
-                 dict(h='A banner for today’s blocker', m=0, hl=[(19.3, 10.2, 54.4, 7)]),
+                [dict(g='Editor', h='Dashboard', m=0, **full),
+                 dict(h='Upload problems first', m=0, hl=[(19.3, 10.2, 54.4, 7)]),
                  dict(h='What is blocking, grouped by field', m=0, hl=[(74.8, 56, 23.4, 41)]),
+                 dict(h='Metrics for this role', m=0, hl=[(19.3, 20.2, 54.4, 13)]),
+                 dict(g='Publisher', h='Dashboard', m=1, **full),
+                 dict(h='Metrics for this role', m=1, hl=[(19.3, 20.2, 54.4, 13)]),
                  dict(h='Deliveries this week, per region', m=1, hl=[(74.8, 66.2, 23.4, 30.6)])],
-                [IMG_ED_DASH, IMG_PUB_DASH], head_html=sub('Dashboards', 'Where each role starts the day.'))
-    work = zoom(0, dict(r=['The editor’s page is called Workspace: everything they are working on, sorted by status, with rejections underneath.',
-                           'The publisher’s page is called Reviews: only what reaches them, with every past decision underneath.',
-                           'The editor’s list runs through all eight statuses, from To do to Published.',
-                           'To do and In progress are the editor’s, so the publisher’s list leaves them out and starts at Pending review. Scheduled stays: the publisher decides what goes live.',
-                           'The publisher’s queue is sorted by what airs first and shows how long each item has waited. In the same place, the editor’s table shows Blockers.',
-                           'The editor sees rejected work as cards, so each reason shows before the item opens.',
-                           'The publisher keeps a record of every decision: who decided, when, and when it was released.']),
-                [dict(h='Editor: Workspace', m=0, **full),
-                 dict(h='Publisher: Reviews', m=1, **full),
-                 dict(h='Editor: all eight statuses', m=0, hl=[(19.3, 24.6, 15.4, 37.2)]),
-                 dict(h='Publisher: starts at review', m=1, hl=[(19.3, 24.2, 15.4, 37.2)]),
-                 dict(h='Publisher: what has waited longest', m=1, hl=[(75.4, 24.6, 13.8, 36.4)]),
-                 dict(h='Editor: rejections as cards', m=0, hl=[(19.4, 65.6, 79, 28.4)]),
-                 dict(h='Publisher: review history', m=1, hl=[(19.4, 64.4, 79, 33)])],
-                [IMG_ED_WORK, IMG_PUB_WORK], head_html=sub('Workspaces', 'Where the work itself happens.'))
+                [IMG_ED_DASH, IMG_PUB_DASH], pin_head=True,
+                head_html='<h2 class="bl2-h cs-title">Role-based dashboards</h2><p class="lead">Each role starts the day on its own page, with what needs them first.</p>')
+    work = zoom(0, dict(r=['Everything the editor is working on, in one table sorted by status, because they move many items at once and compare them row by row.',
+                           'The list runs through all eight statuses, from To do to Published, so nothing the editor touched drops out of view.',
+                           'Rejected work sits below the table as cards, so each reason is readable before the item opens.',
+                           'Only what reaches the publisher. To do and In progress belong to the editor, so the list starts at Pending review. Scheduled stays: the publisher decides what goes live.',
+                           'The queue is sorted by what airs first and shows how long each item has waited.',
+                           'Every decision the publisher made: who decided, when, and when it was released. The Content library holds everything; this is only what passed through their hands.']),
+                [dict(g='Editor', h='Workspace', m=0, **full),
+                 dict(h='All eight statuses', m=0, hl=[(19.3, 24.6, 15.4, 37.2)]),
+                 dict(h='Rejections as cards', m=0, hl=[(19.4, 65.6, 79, 28.4)]),
+                 dict(g='Publisher', h='Reviews', m=1, **full),
+                 dict(h='What has waited longest', m=1, hl=[(75.4, 24.6, 13.8, 36.4)]),
+                 dict(h='Review history', m=1, hl=[(19.4, 64.4, 79, 33)])],
+                [IMG_ED_WORK, IMG_PUB_WORK], pin_head=True,
+                head_html='<h2 class="bl2-h cs-title">Role-based workspaces</h2><p class="lead">The same menu item has a different name and page for each role: Workspace for the editor, Reviews for the publisher. Each holds only that person’s work, apart from the shared Content library.</p>')
     return top + dash + work
 
 def head2(n, k, h, lead=''):
@@ -591,7 +599,7 @@ def untangle():
 def work(v='b', hero=''):
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
-        ('backlot', '01', 'Backlot, the take-home that got me hired', 'Fewer review rounds from delivery to release, in a CMS for streaming teams',
+        ('backlot', '01', 'Backlot, the take-home that got me hired', 'Fewer review rounds from delivery to release',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
         ('bilge', '02', 'BİLGE', 'Customs software where&nbsp;‘Register’ starts a legal clock',
@@ -625,9 +633,9 @@ def work(v='b', hero=''):
              '<style>' + _ab.QCSS + '.wk-qa{margin-top:clamp(96px,10vw,180px);padding:0;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;--h3:clamp(18px,1.3vw,24px)}'
              '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
-    body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero"><p class="wk-open"><i></i>Open to product design roles, Berlin</p>'
+    body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero">'
             + '<h1 class="wk-nm">Ege Coskun</h1>'
-            '<p class="wk-pos">I’m a product designer whose brain takes the <span class="wk-lw">long way round<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M2 14C40 4 60 22 95 12S150 2 175 14s60 10 80-2 30-8 43 2"/></svg></span>, so your users don’t have to.</p>'
+            '<p class="wk-pos">I’m a product designer whose brain takes the long way round, so your users don’t have to.</p>'
             '<p class="wk-sub">People tell me what they want. I design what they meant.</p></div>' +
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
             f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div>{about}</div></main>'
@@ -702,6 +710,7 @@ if __name__ == '__main__':
     # prototypes load about two screens ahead instead of all at page load
     html = re.sub(r'<iframe data-blx src="([^"]+)"', r'<iframe data-blx data-lsrc="\1"', html)
     html = html.replace('</body>', '<script>(function(){var f=document.querySelectorAll("iframe[data-lsrc]");function go(e){e.src=e.dataset.lsrc;e.removeAttribute("data-lsrc")}if(!("IntersectionObserver" in window)){[].forEach.call(f,go);return}var o=new IntersectionObserver(function(x){x.forEach(function(e){if(e.isIntersecting){go(e.target);o.unobserve(e.target)}})},{rootMargin:"1600px 0px"});[].forEach.call(f,function(e){o.observe(e)})})();</script></body>', 1)
+    html = html.replace('</body>', MXJS + '</body>', 1)
     write('backlot/index.html', html)
     write('bilge/index.html', bilge())
     write('uwaverde/index.html', uwaverde().replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1))
@@ -716,3 +725,4 @@ if __name__ == '__main__':
             h = h.replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1)
         write(k + '/index.html', h)
     print('built', len(html))
+

@@ -174,7 +174,7 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 34px/1 "Reenie Beanie"
 /* cards answer the pointer, quietly: they are not links, so no cursor change */
 .bl2-c,.bl2-role{transition:background-color .3s,transform .45s cubic-bezier(.23,1,.32,1),box-shadow .45s}
 .bl2-c .bl2-tag{transition:background-color .3s}
-@media (hover:hover){.bl2-c:hover,.bl2-role:hover{background:#F2F2F0;transform:translateY(-3px);box-shadow:0 14px 30px rgba(22,22,22,.06)}.bl2-c:hover .bl2-tag{background:#56652A}}
+@media (hover:hover){.bl2-c:hover .bl2-tag{background:#56652A}}
 @media (prefers-reduced-motion:reduce){.bl2-c:hover,.bl2-role:hover{transform:none}}
 
 /* no single word left alone on a line */
@@ -361,3 +361,9 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .wk-cz{margin:40px 0 0;font-size:clamp(18px,1.4vw,22px);letter-spacing:-.01em}.wk-cz kbd{display:inline-block;margin:0 1px;padding:0 6px;font:inherit;font-size:.82em;line-height:1.35;border:1px solid var(--ink);border-bottom-width:3px;border-radius:5px;background:#fff}
 .wk-qa .wk-btn{margin-top:20px}
 @media (prefers-reduced-motion:reduce){.wk-lw path{animation:none;stroke-dashoffset:0}}
+
+.zs-g{margin:22px 0 4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}.zs-steps li:first-child .zs-g{margin-top:12px}
+.zs-pin.zs-ph{grid-template-rows:auto 1fr;align-content:center}.zs-hd{grid-column:1/-1;margin-bottom:clamp(8px,1vw,16px)}.zs-hd .lead{margin-top:10px;max-width:40em}
+.mx-tg{display:flex;gap:8px;margin:0 0 12px}.mx-tg button{font:inherit;font-size:13px;padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--mute);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.mx-tg button:hover{border-color:var(--ink);color:var(--ink)}.mx-tg button.on{background:var(--ink);border-color:var(--ink);color:#fff}.mx-p{display:none}.mx-p.on{display:block}
+@media(max-width:899px){.zs-pin.zs-ph{grid-template-rows:none}}
