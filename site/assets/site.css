@@ -28,3 +28,4 @@ a{color:inherit}
 .site-logo,.site-logo:hover{text-decoration:none!important}
 .site-lt,.site-lm,.hb-fly{font-family:"Bricolage EC",sans-serif!important;font-variation-settings:"wght" 700,"wdth" 100,"opsz" 12!important;font-weight:700!important;letter-spacing:0!important}
 html.f-it .site-h .site-lt,html.f-it .site-h .site-lm,html .hb-fly,html .hb-fly i,html.f-it .site-lt,html.f-it .site-lm{font-family:"Bricolage EC",sans-serif!important}
+body:has(main.abx.dk) .site-lt{color:#F2F2EF!important}
