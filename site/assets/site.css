@@ -22,3 +22,9 @@ a{color:inherit}
 /* logo: green paints only where the pointer is */
 .site-logo{position:relative;display:block}
 .site-lm{position:absolute;inset:0;pointer-events:none;-webkit-mask:var(--lg) center/contain no-repeat;mask:var(--lg) center/contain no-repeat;background:radial-gradient(circle var(--rr,0px) at var(--mx,50%) var(--my,50%),var(--g) 98%,transparent);transition:--rr .3s}
+@font-face{font-family:"Bricolage EC";src:url(/assets/bricolage-ec.woff) format("woff");font-display:block}
+.site-lt,.site-lm{font-family:"Bricolage EC",sans-serif;font-variation-settings:"wght" 700,"wdth" 100,"opsz" 12;font-size:1.238rem;line-height:1;white-space:nowrap;color:#1a1a1a;display:block;letter-spacing:0}
+.site-lm{-webkit-mask:none!important;mask:none!important;color:transparent;-webkit-background-clip:text;background-clip:text}
+.site-logo,.site-logo:hover{text-decoration:none!important}
+.site-lt,.site-lm,.hb-fly{font-family:"Bricolage EC",sans-serif!important;font-variation-settings:"wght" 700,"wdth" 100,"opsz" 12!important;font-weight:700!important;letter-spacing:0!important}
+html.f-it .site-h .site-lt,html.f-it .site-h .site-lm,html .hb-fly,html .hb-fly i,html.f-it .site-lt,html.f-it .site-lm{font-family:"Bricolage EC",sans-serif!important}

@@ -734,3 +734,10 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 
 /* hero end: Selected work sits at the bottom of the first screen, the first project starts below it */
 .wk-qk .wk-cz{margin:clamp(48px,6vw,96px) 0 0}.wk-qk .wk-btn{margin-top:24px}
+/* Ctrl Z: its own row after the questions, keycaps you can press */
+.wk-czs{margin-top:clamp(56px,6vw,104px);padding-top:clamp(40px,4vw,64px);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.wk-czs .wk-cz{margin:0!important;font-size:clamp(1.5rem,2.2vw,2.5rem)!important}.wk-czs .wk-btn{margin:0!important}
+.wk-cz kbd{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:1.5em;height:1.45em;margin:0 .14em;padding:0 .32em;font:inherit;font-size:.8em;font-weight:700;line-height:1;color:#161616;background:#C9D98F;border:2px solid #111!important;border-radius:.38em;transform:rotate(-6deg) translateY(-.08em);box-shadow:.12em .16em 0 0 #728437,.17em .22em 0 1px #111;transition:transform .14s cubic-bezier(.3,.7,.4,1),box-shadow .14s cubic-bezier(.3,.7,.4,1);cursor:pointer;vertical-align:.05em}
+.wk-cz kbd+kbd{background:#F2F2EF;transform:rotate(5deg) translateY(-.08em);box-shadow:.12em .16em 0 0 #98B04A,.17em .22em 0 1px #111}
+.wk-cz kbd:hover,.wk-cz kbd:last-child:hover,.wk-cz:hover kbd:last-child{transform:rotate(-6deg) translate(.1em,.06em);box-shadow:.02em .04em 0 0 #728437,.05em .08em 0 1px #111;border-bottom-width:2px!important}
+.wk-cz kbd+kbd:hover,.wk-cz:hover kbd:last-child{transform:rotate(5deg) translate(.1em,.06em);box-shadow:.02em .04em 0 0 #98B04A,.05em .08em 0 1px #111}

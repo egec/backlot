@@ -32,7 +32,7 @@ def page(title, desc, body, css_files, js_files, font='it', cur='work'):
 <title>{title}</title><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">{fl}{css}</head><body class="case">
-<header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home" style="--lg:url({LOGO})"><img src="{LOGO}" alt="Ege Coskun" width="140" height="23"><i class="site-lm" aria-hidden="true"></i></a>
+<header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home" style="--lg:url({LOGO})"><span class="site-lt">Ege Coskun</span><i class="site-lm" aria-hidden="true">Ege Coskun</i></a>
 <nav class="site-n" aria-label="Main"><a href="/#work"{' aria-current="page"' if cur == 'work' else ''}>Work</a><a href="/about"{' aria-current="page"' if cur == 'about' else ''}>About</a><a href="#contact">Contact</a></nav></div></header>
 {body}
 <footer class="finalfooter" id="contact">{rem(rd('foot.html'))}</footer>{js}</body></html>'''
@@ -623,24 +623,23 @@ def untangle():
     return (f'<div class="ut" data-ut><p class="ut-s" aria-label="I like untangling the parts of a product nobody wants to own."><span aria-hidden="true">{out.strip()}</span></p></div>')
 
 HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div class="hb-sp" aria-hidden="true"></div><p class="wk-pos hb-s">Product designer for B2B software,<br> fluent in both AI and the people.</p></div>'
-  '<span class="hb-fly" aria-hidden="true">Ege Coskun</span>'
-  '<style>@font-face{font-family:"Bricolage EC";src:url(/assets/bricolage-ec.woff) format("woff");font-display:block}'
-  '.hb{min-height:calc(100svh - 4.75rem - 130px - 34px);display:flex!important;flex-direction:column;justify-content:space-between;padding:clamp(12px,2svh,32px) 0 clamp(28px,5svh,64px)!important;width:auto!important;box-sizing:border-box}'
-  '.hb-sp{width:min(100%,1500px);aspect-ratio:var(--ar,6.2)}.hb-s{margin:0!important;max-width:none!important;font-size:clamp(22px,1.9vw,34px)!important;transform-origin:0 100%;will-change:transform,opacity}'
-  '.hb-fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform,opacity;font-family:"Bricolage EC",sans-serif;font-variation-settings:"wght" 700,"wdth" 100,"opsz" 12;font-size:200px;line-height:1;white-space:nowrap;color:#1a1a1a}'
-  'html.hb-on .site-logo .site-lm{display:none}.hb+.wk-sel{margin-top:0!important;padding-top:0!important}</style>'
-  '<script>(function(){var H=document.querySelector("[data-hb]"),sp=H.querySelector(".hb-sp"),f=document.querySelector(".hb-fly"),lg=document.querySelector(".site-logo img"),tx=H.querySelector(".hb-s"),R=matchMedia("(prefers-reduced-motion:reduce)").matches,cur=-1,raf=0,nw=1,nh=1;document.body.appendChild(f);'
+  '<span class="hb-fly" aria-hidden="true"><i style="--j:0">E</i><i style="--j:1">g</i><i style="--j:2">e</i><i style="--j:3">&nbsp;</i><i style="--j:4">C</i><i style="--j:5">o</i><i style="--j:6">s</i><i style="--j:7">k</i><i style="--j:8">u</i><i style="--j:9">n</i></span>'
+  '<style>.hb{min-height:calc(100svh - 4.75rem - 130px - 34px);display:flex!important;flex-direction:column;justify-content:space-between;padding:clamp(12px,2svh,32px) 0 clamp(28px,5svh,64px)!important;width:auto!important;box-sizing:border-box}'
+  '.hb-sp{width:min(100%,1500px);aspect-ratio:var(--ar,6.2)}.hb-s{margin:0!important;max-width:none!important;font-size:clamp(22px,1.9vw,34px)!important;transform-origin:0 50%;will-change:transform,opacity}'
+  '.hb-fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform;font-family:"Bricolage EC",sans-serif;font-variation-settings:"wght" 700,"wdth" 100,"opsz" 12;font-size:200px;line-height:1;white-space:nowrap;color:#1a1a1a}'
+  '.hb-fly i{display:inline-block;font-style:normal;transform-origin:50% 100%;will-change:transform}'
+  'html.hb-on .site-logo{visibility:hidden}.hb+.wk-sel{margin-top:0!important;padding-top:0!important}</style>'
+  '<script>(function(){var H=document.querySelector("[data-hb]"),sp=H.querySelector(".hb-sp"),f=document.querySelector(".hb-fly"),L=[].slice.call(f.children),lg=document.querySelector(".site-lt"),tx=H.querySelector(".hb-s"),R=matchMedia("(prefers-reduced-motion:reduce)").matches,cur=-1,raf=0,nw=1,nh=1,n=L.length;document.body.appendChild(f);'
   'function size(){nw=f.offsetWidth;nh=f.offsetHeight;sp.style.setProperty("--ar",(nw/nh).toFixed(3))}'
-  'function tgt(){return Math.max(0,Math.min(1,scrollY/Math.max(1,innerHeight*.34)))}'
-  'function draw(){var t=R?(tgt()>0?1:0):tgt();cur=cur<0?t:cur+(t-cur)*.18;if(Math.abs(t-cur)<.001)cur=t;'
-  'var a=sp.getBoundingClientRect(),b=lg.getBoundingClientRect(),a0=a.top+scrollY,e=cur*cur*(2.2-1.2*cur),w=a.width+(b.width-a.width)*e,k=w/nw,'
-  'y0=a0,y1=b.top+b.height/2-nh*(b.width/nw)/2,y=y0+(y1-y0)*Math.pow(cur,.8),x=a.left+(b.left-a.left)*e,d=Math.sin(Math.PI*cur),'
-  'sx=k*(1-.06*d),sy=k*(1+.22*d),fo=Math.max(0,Math.min(1,(cur-.94)/.06));'
-  'f.style.transform="translate("+x.toFixed(2)+"px,"+y.toFixed(2)+"px) skewY("+(7*d).toFixed(2)+"deg) scale("+sx.toFixed(4)+","+sy.toFixed(4)+")";f.style.opacity=1-fo;f.style.visibility=cur>=.999?"hidden":"visible";'
-  'lg.style.opacity=fo;document.documentElement.classList.toggle("hb-on",cur<.999);'
-  'tx.style.transform="scale("+(1-.4*cur).toFixed(3)+")";tx.style.opacity=Math.max(0,1-cur*1.25).toFixed(3);'
+  'function run(){return innerHeight*.34}function tgt(){return Math.max(0,Math.min(1,scrollY/Math.max(1,run())))}'
+  'function draw(){var t=R?(tgt()>0?1:0):tgt();cur=cur<0?t:cur+(t-cur)*.16;if(Math.abs(t-cur)<.0015)cur=t;'
+  'var a=sp.getBoundingClientRect(),b=lg.getBoundingClientRect(),a0=a.top+scrollY,e=cur*cur*(3-2*cur),k=(a.width+(b.width-a.width)*e)/nw,x=a.left+(b.left-a.left)*e,y=a0+(b.top-a0)*Math.pow(cur,.75),d=Math.sin(Math.PI*cur);'
+  'f.style.transform="translate("+x.toFixed(2)+"px,"+y.toFixed(2)+"px) scale("+k.toFixed(4)+")";'
+  'L.forEach(function(l,j){var w=1-j/(n-1),q=d*(.35+.65*w);l.style.transform=d<.002?"":"translate("+(-j*12*d).toFixed(1)+"px,"+(-28*q).toFixed(1)+"px) scale("+(1-.16*q).toFixed(3)+","+(1+.55*q).toFixed(3)+")"});'
+  'var done=cur>=.999;f.style.visibility=done?"hidden":"visible";document.documentElement.classList.toggle("hb-on",!done);'
+  'tx.style.transform="translateX("+(-cur*22).toFixed(1)+"%) scale("+(1-.35*cur).toFixed(3)+")";tx.style.opacity=Math.max(0,1-cur*1.3).toFixed(3);'
   'if(cur!==t)raf=requestAnimationFrame(draw);else raf=0}'
-  'function run(){return innerHeight*.34}var lock=0;function snap(dir){var r=run();if(dir>0&&scrollY<r-2){scrollTo({top:Math.ceil(r)+1,behavior:"smooth"});return true}if(dir<0&&scrollY>0&&scrollY<=r+2){scrollTo({top:0,behavior:"smooth"});return true}return false}'
+  'var lock=0;function snap(dir){var r=run();if(dir>0&&scrollY<r-2){scrollTo({top:Math.ceil(r)+1,behavior:"smooth"});return true}if(dir<0&&scrollY>0&&scrollY<=r+2){scrollTo({top:0,behavior:"smooth"});return true}return false}'
   'addEventListener("wheel",function(e){if(R||Math.abs(e.deltaY)<2)return;if(Date.now()<lock){if(scrollY<=run()+2)e.preventDefault();return}if(snap(e.deltaY>0?1:-1)){e.preventDefault();lock=Date.now()+700}},{passive:false});'
   'var ty=null;addEventListener("touchstart",function(e){ty=e.touches[0].clientY},{passive:true});addEventListener("touchend",function(e){if(ty==null||R)return;var dy=ty-e.changedTouches[0].clientY;ty=null;if(Math.abs(dy)>20)snap(dy>0?1:-1)},{passive:true});'
   'function go(){if(!raf)raf=requestAnimationFrame(draw)}size();addEventListener("scroll",go,{passive:true});addEventListener("resize",function(){size();go()});'
@@ -677,8 +676,8 @@ def work(v='b', hero=''):
         for k, num, name, t, tags, img in more)
     import about as _ab
     qa = _ab.qa_html()
-    about = (f'<section class="ax-ask lt wk-qa"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p><p class="wk-cz">I learned design where there’s <span style="white-space:nowrap">no <kbd>Ctrl</kbd><kbd>Z</kbd>.</span></p><a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></div><div><div class="ax-qs">{qa}</div>'
-             '</div></section>'
+    about = (f'<section class="ax-ask lt wk-qa"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
+             '</div></section><section class="wk-czs"><p class="wk-cz">I learned design where there’s <span style="white-space:nowrap">no <kbd>Ctrl</kbd><kbd>Z</kbd>.</span></p><a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></section>'
              '<style>' + _ab.QCSS + '.wk-qa{margin-top:clamp(96px,10vw,180px);padding:0;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;--h3:clamp(18px,1.3vw,24px)}'
              '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
