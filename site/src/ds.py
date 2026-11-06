@@ -49,13 +49,18 @@ def build():
     chips = ''.join(chip(k) for k in CHIP)
     avail = '''<div class="ds-avail"><p class="ds-rl">Progress</p><div class="ds-g"><div><span class="ds-av"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Not started</span><p>Nothing delivered to this region yet.</p></div><div><span class="ds-av"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.5a3.5 3.5 0 0 0 0 7z" fill="currentColor"/></svg>Partial</span><p>Some of the region is ready, not all of it.</p></div><div><span class="ds-av"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="currentColor"/></svg>Ready</span><p>Everything for this region is ready.</p></div></div><p class="ds-ac">Progress says how much of a region is ready, apart from its status.</p></div>
 <div class="ds-avail"><p class="ds-rl">Availability</p><div class="ds-g"><div><span class="ds-av"><i class="ds-av-on"></i>On air</span><p>The series is still releasing episodes in this region.</p></div><div><span class="ds-av"><i class="ds-av-end"></i>Ended</span><p>Every episode is released and still watchable.</p></div><div><span class="ds-av ds-av-x"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="3" width="11" height="3" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3.5 6v6.5h9V6M6.5 9h3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Expired</span><p>The rights window ended in this region. Off the service, all data kept, read-only.</p></div></div><p class="ds-ac">Not a status. Shown only on series, season and film headers and in the content library, never in a work queue. Neutral outline, no status colour.</p></div>'''
-    def srow(th, name, k, date, why, spine):
-        return f'<div class="ds-sr {spine}"><div class="ds-th" style="background-image:url(https://egec.github.io/backlot/ds/{th})"></div><div class="ds-nm">{name}</div><div>{chip(k)}</div><div class="ds-dt"><span>{date}</span><small>{why}</small></div></div>'
-    spine = ('<div class="ds-panel"><div class="ds-spine"><div class="ds-sh"><div>Art</div><div>Content</div><div>Status</div><div>Release</div></div>'
-             + srow('lupin-s4.jpg', 'Lupin, S4-E2', 'rev', '14 Feb (2d)', 'Within 7 days: amber spine', 'sp-amber')
-             + srow('community.jpg', 'Community, S6-E6', 'appr', '10 Feb (2d overdue)', 'Past release, not Published: red spine', 'sp-red')
-             + srow('lss.jpg', 'Long Story Short, S1-E3', 'pend', '8 Mar (24d)', 'More than 7 days out: no spine', '')
-             + '</div>' + note('Driven by days until release, never by row position or waiting time. The status chip stays the same.') + '</div>')
+    def av(*ns): return '<span class="ds-avs">' + ''.join(f'<i style="background-image:url(https://egec.github.io/backlot/proto/dc/avatars/{n}.png)"></i>' for n in ns) + '</span>'
+    def srow(th, name, typ, k, eds, upd, date, blk, spine):
+        return f'<div class="ds-sr {spine}"><div class="ds-th" style="background-image:url(https://egec.github.io/backlot/ds/{th})"></div><div class="ds-nm">{name}</div><div class="ds-mu">{typ}</div><div>{chip(k)}</div><div>{av(*eds)}</div><div class="ds-mu">{upd}</div><div class="ds-dt">{date}</div><div class="ds-mu">{blk}</div></div>'
+    leg = lambda c, t: f'<span class="ds-lg"><i style="background:{c}"></i>{t}</span>'
+    spine = ('<div class="ds-panel"><div class="ds-spine"><div class="ds-sr ds-sh"><div>Art</div><div>Content</div><div>Type</div><div>Status</div><div>Editors</div><div>Updated</div><div>Release</div><div>Blockers</div></div>'
+             + srow('community.jpg', 'Community, S6-E6', 'Episode', 'appr', ['lund'], '1 h ago', '10 Feb (2d overdue)', 'None', 'sp-red')
+             + srow('lupin-s4.jpg', 'Lupin, S4-E2', 'Episode', 'rev', ['rivard', 'ferrer'], '4 min ago', '14 Feb (2d)', 'None', 'sp-amber')
+             + srow('community.jpg', 'Community · S6-E5', 'Episode', 'prog', ['duval'], '20 min ago', '17 Feb (5d)', '3 fields', 'sp-amber')
+             + srow('lss.jpg', 'Long Story Short, S1-E3', 'Episode', 'pend', ['sorensen'], '2 d ago', '8 Mar (24d)', 'None', '')
+             + srow('lupin-s4.jpg', 'Lupin · S4-E7 (FR)', 'Episode', 'prog', ['cro', 'lund'], '1 h ago', '17 Mar (33d)', '5 fields', '')
+             + '</div><div class="ds-legend">' + leg('#D2983F', 'Amber: releases within 7 days') + leg('#EC5B57', 'Red: release date passed, not published') + leg('transparent;box-shadow:inset 0 0 0 1px #5C5954', 'None: more than 7 days out') + '</div>'
+             + note('Driven by days until release, never by row position or waiting time. The status chip stays the same.') + '</div>')
     def prov(tag, tagcls, icon, f, n):
         return f'<div class="ds-cell"><span class="ds-tag {tagcls}">{ph(icon)}{tag}</span>{f}{note(n)}</div>'
     provs = ('<div class="ds-panel ds-prov">'
@@ -83,8 +88,7 @@ def build():
              + prow('Editable', chip('prog'), cell(field('Age rating', '<span class="ds-strong">12</span>', 'filled'), note('Editable until the editor submits.')), cell(field('Age rating', '12'), note('Visible, not editable. Nothing to review yet.')))
              + prow('Locked once review starts', chip('rev'), cell(lockf(), note('The same row, locked while Maya Okafor reviews.')), review_row)
              + prow('Read-only', chip('appr'), cell(lockf(), note('Approved and locked. No per-field unlock.')), cell(lockf(), note('Approved 3 Feb by Maya Okafor. Locked here too.')))
-             + prow('Edit request', chip('appr'), req, req2)
-             + prow('Primary action', '', act1, act2, True)
+             + prow('Edit request', chip('appr'), req, req2, True)
              + '</div>')
     sw = lambda c, extra='': f'<i class="ds-sw" style="background:{c}{extra}"></i>'
     found = ('<div class="ds-panel ds-found"><span class="ds-tag">' + ph('palette') + 'Colour by meaning</span>'
@@ -96,13 +100,17 @@ def build():
     return ('<section class="cs-dsec" data-nav-label="Design system" id="design-system"><div class="ds-in"><div class="ds-head"><span class="cs-num">05</span><h2 class="cs-title">Design system</h2></div><div class="ds-show">'
             + sec('Eight states, one icon family', 'Status tells you where the work is. Availability tells you what viewers can see.',
                   '<div class="ds-panel ds-chips"><p class="ds-rl">Workflow status</p>' + chips + '</div>' + avail)
+            + sec('Every colour stands for one thing', 'Published has no hue, because most of the library ends up there. Amber and red mean urgency, nothing else.', found)
             + sec('Only the release date can make a row urgent', 'The release date is the only thing the team cannot move, so it is the only thing that raises urgency.', spine)
             + sec('Verified means measured, source means asserted', 'Only a source value can be wrong, so only a source value can be unlocked.', provs)
             + sec('Permissions live in the component', 'The page is the same for both roles. Each row knows who is looking and what state the item is in.', perms)
-            + sec('Every colour stands for one thing', 'Published has no hue, because most of the library ends up there. Amber and red mean urgency, nothing else.', found)
             + '</div></div></section>')
 
 CSS = '''
+.ds-mu{color:#96938D}.ds-avs{display:flex}.ds-avs i{width:22px;height:22px;border-radius:50%;background:#3A3937 center/cover;box-shadow:0 0 0 2px #121212}.ds-avs i+i{margin-left:-6px}
+.ds-legend{display:flex;flex-wrap:wrap;gap:8px 24px;margin:0 0 10px;font-size:12px;color:#D4D2CF}.ds-lg{display:inline-flex;align-items:center;gap:8px}.ds-lg i{width:3px;height:16px;border-radius:2px}
+.ds-sr{padding:12px 16px}.ds-th{height:30px}
+
 .cs-dsec{position:relative;background:#121212;color:#fff;margin-top:var(--sec);padding:clamp(72px,8vw,140px) 0 clamp(96px,10vw,160px);font-family:Manrope,sans-serif}
 .ds-in{width:100%;max-width:calc(var(--w) + var(--pad)*2);margin:0 auto;padding:0 var(--pad)}
 @media(min-width:1200px){.ds-in{padding-left:max(var(--gut),calc((100% - var(--w)) / 2))}}
@@ -138,7 +146,7 @@ CSS = '''
 .ds-av-on{background:#EDEBE8}.ds-av-end{border:1px solid #C8C7C0}.ds-av svg *{stroke-width:1.4}.ds-av-x{color:#7D7A74}
 .ds-ac{max-width:560px;margin:24px 0 0;text-align:center;color:#96938D;font-size:12px;line-height:18px;text-wrap:balance}
 .ds-spine{background:#121212;border:1px solid #2A2927;border-radius:8px;overflow:hidden;margin-bottom:16px}
-.ds-sh,.ds-sr{display:grid;grid-template-columns:48px 2fr 1fr 1fr;gap:16px;align-items:center;padding:9px 14px}
+.ds-sh,.ds-sr{display:grid;grid-template-columns:56px minmax(150px,2fr) .9fr 1.3fr 1fr 1fr 1.4fr 1fr;gap:16px;align-items:center;padding:9px 14px}
 .ds-sh{color:#78756F;letter-spacing:.06em;text-transform:uppercase;font-size:10px;border-bottom:1px solid #2A2927}
 .ds-sr{color:#D4D2CF;font-size:12px;border-bottom:1px solid #2A2927;transition:background .2s}.ds-sr:hover{background:#1A1A19}.ds-f{transition:border-color .2s,background .2s}.ds-f:hover{border-color:#6A6760}.ds-rr{transition:border-color .2s}.ds-rr:hover{border-color:#3F3E3B}.ds-reqb{transition:opacity .2s}.ds-reqb:hover{opacity:.7}.ds-pr{transition:background .2s}.ds-sr:last-child{border-bottom:0}
 .sp-amber{box-shadow:inset 2px 0 #D2983F}.sp-red{box-shadow:inset 2px 0 #EC5B57}
@@ -185,7 +193,7 @@ CSS = '''
 .ds-sws{display:flex;flex-wrap:wrap;gap:8px}
 .ds-sw{display:flex;align-items:center;justify-content:center;width:32px;height:24px;border-radius:8px;flex:none}
 .ds-sw-ai{background:rgba(145,132,217,.12);border:1px solid #796CBF}
-@media(max-width:991px){.ds-panel,.ds-avail{padding:24px 20px}.ds-prov{grid-template-columns:1fr 1fr;row-gap:32px}.ds-found{grid-template-columns:1fr 1fr}.ds-perm{overflow-x:auto}.ds-ph,.ds-pr{min-width:760px}.ds-spine{overflow-x:auto}.ds-sh,.ds-sr{min-width:620px}.ds-title{font-size:22px}}
+@media(max-width:991px){.ds-panel,.ds-avail{padding:24px 20px}.ds-prov{grid-template-columns:1fr 1fr;row-gap:32px}.ds-found{grid-template-columns:1fr 1fr}.ds-perm{overflow-x:auto}.ds-ph,.ds-pr{min-width:760px}.ds-spine{overflow-x:auto}.ds-sh,.ds-sr{min-width:980px}.ds-title{font-size:22px}}
 @media(max-width:767px){.ds-lead{font-size:16px;line-height:24px}.ds-g{grid-template-columns:1fr;gap:20px}}
 @media(max-width:479px){.ds-prov,.ds-found{grid-template-columns:1fr}}
 '''

@@ -376,7 +376,7 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .mx{position:relative}.mx-tg{position:absolute;left:0;top:0;z-index:2;margin:0}.mx-tg button{height:32px;padding:0 14px;font-size:12.5px;background:#fff;border:1px solid #d4d4d4;color:#222}.mx-tg button:hover{border-color:#222;color:#222}.mx-tg button.on{background:#222;border-color:#222;color:#fff}
 .has-subs .bl-subs{bottom:10px;display:flex!important;flex-direction:column;justify-content:space-around}
 .wk-cz{font-size:clamp(20px,1.3vw,26px)!important;font-weight:600;letter-spacing:-.025em}.wk-cz kbd{transition:transform .12s,border-bottom-width .12s}.wk-cz kbd:last-child:hover,.wk-cz:hover kbd:last-child{transform:translateY(2px);border-bottom-width:1px}
-.bl2-media.is-img img[src*="ep2-ai"]{max-width:720px!important;margin:0 auto!important}
+
 
 .zs-pin{align-content:start!important;padding-top:clamp(16px,2vw,32px)}.zs{margin-top:clamp(8px,1vw,16px)!important}
 .bl2-media div[style*="margin:32px 0"]{margin:0!important}
@@ -385,3 +385,22 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .bl2-side{display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:clamp(40px,5vw,96px);align-items:start;margin-top:var(--gap)}.bl2-side .bl2-cards{grid-template-columns:1fr;margin-top:0}.bl2-side .bl2-cap{margin-top:0}
 @media(max-width:899px){.bl2-side{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.px-lab i{animation:none}}
+
+/* static screens span the full column, same as the cards above them */
+.bl2-media.is-img{max-width:none!important}
+/* design system on the same column as the rest of the page */
+.bl2-page .ds-in{max-width:none;margin:0;padding-right:max(var(--pad),calc((100% - var(--w)) / 2))}
+@media(min-width:1200px){.bl2-page .ds-in{padding-right:max(var(--bl-gutter,var(--gut)),calc((100% - var(--w)) / 2))}}
+/* side nav: bars only, labels on hover */
+.bl-nav .bl-label,.bl-nav .bl-subs{transition:opacity .25s}
+.bl-nav:not(:hover):not(:focus-within) .bl-label,.bl-nav:not(:hover):not(:focus-within) .bl-subs{opacity:0!important;pointer-events:none}
+/* steps with a pinned heading: one shared rhythm in every case study */
+.zs-pin.zs-ph{row-gap:clamp(24px,2.6vw,44px);padding-bottom:clamp(16px,2vw,32px)}.zs-hd{margin-bottom:0!important}
+/* what's next: outlined squares like How I work */
+.bl2-cards.wn{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.wn .bl2-c{aspect-ratio:1;display:flex;flex-direction:column;background:transparent;border:1px solid #728437;border-radius:16px;padding:clamp(20px,1.8vw,32px)}
+.wn .bl2-c h3{order:1;margin:0;font-size:clamp(18px,1.35vw,24px);line-height:1;letter-spacing:-.02em;font-weight:800;text-transform:uppercase;text-wrap:balance}
+.wn .bl2-c p{order:2;margin:14px 0 0;font-size:15px;line-height:1.5}
+.wn .bl2-c .bl2-tag{order:3;margin:auto 0 0;padding:16px 0 0;background:none!important;color:rgba(22,22,22,.14)!important;font-size:clamp(32px,2.8vw,52px);line-height:.9;font-weight:800;letter-spacing:-.04em;border-radius:0}
+@media(max-width:1279px){.bl2-cards.wn{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:599px){.bl2-cards.wn{grid-template-columns:1fr}.wn .bl2-c{aspect-ratio:auto}}

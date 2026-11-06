@@ -24,9 +24,16 @@ act(0,true);
 all.push({sc:onScroll,rs:function(){act(cur,true);onScroll()}});
 (window.__zs=window.__zs||[]).push({el:z,n:n,range:range,cur:function(){return cur},y:function(i){var g=range();return window.pageYOffset+g.top+(i+.5)/n*g.run}});
 });
+/* heading, screen and progress bar all fit in the pinned view, at any window size */
+function fitAll(){[].forEach.call(document.querySelectorAll('.zs-pin.zs-ph'),function(pin){var st=pin.querySelector('.zs-stick');if(!st)return;if(!matchMedia('(min-width:992px)').matches){st.style.width='';return}
+var hd=pin.querySelector('.zs-hd'),fr=pin.querySelector('.zs-frame'),ft=pin.querySelector('.zs-foot'),vw=pin.querySelector('.zs-view'),c=getComputedStyle(pin),f=getComputedStyle(fr),fo=getComputedStyle(ft);
+var a=vw.style.aspectRatio.split('/'),r=a.length>1?(+a[0])/(+a[1]):1.6,pad=parseFloat(f.paddingTop)+parseFloat(f.paddingBottom);
+var h=pin.clientHeight-parseFloat(c.paddingTop)-parseFloat(c.paddingBottom)-(hd?hd.offsetHeight+parseFloat(c.rowGap||0):0)-ft.offsetHeight-parseFloat(fo.marginTop)-pad;
+st.style.width=Math.max(320,h*r+parseFloat(f.paddingLeft)+parseFloat(f.paddingRight))+'px';st.style.maxWidth='100%'})}
+fitAll();window.addEventListener('load',fitAll);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitAll);
 var raf=0;
 window.addEventListener('scroll',function(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;all.forEach(function(a){a.sc()})})},{passive:true});
-window.addEventListener('resize',function(){all.forEach(function(a){a.rs()})});
+window.addEventListener('resize',function(){fitAll();all.forEach(function(a){a.rs()})});
 all.forEach(function(a){a.sc()});
 /* full screen for the role screens: tabs come along */
 [].forEach.call(document.querySelectorAll('[data-fs]'),function(b){b.addEventListener('click',function(){var f=b.closest('.blr-fs');if(!f)return;if(document.fullscreenElement)document.exitFullscreen();else if(f.requestFullscreen)f.requestFullscreen()})});

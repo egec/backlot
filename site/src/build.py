@@ -58,7 +58,7 @@ def media_box(inner):
     if re.search(r'proto/(rejection|region)/', inner):  # clickable prototypes carry a green stroke
         cls = ' is-proto'
     if cls:
-        lab = 'Interactive prototype: change the region' if 'proto/region/' in inner else 'Interactive prototype'
+        lab = 'Interactive prototype: Change the region' if 'proto/region/' in inner else 'Interactive prototype'
         return f'<p class="px-lab"><i></i>{lab}</p><div class="bl2-media{cls}">{inner}</div>'
     if inner.lstrip().startswith('<img') or 'reviews-row-actions' in inner:
         cls = ' is-img'
@@ -89,7 +89,7 @@ def fit(s):
     z = max(1, min(ZCAP, 85 / max(x1 - x0, y1 - y0)))
     return dict(s, z=round(z, 2), x=round((x0 + x1) / 2, 1), y=round((y0 + y1) / 2, 1))
 
-def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show_hl=True, pin_head=False):
+def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show_hl=True, pin_head=True):
     """Steps that move the screen. Each step can switch media (m), seek a video (t), zoom to a point (z, x, y in %)
     and highlight boxes (hl: list of (x, y, w, h) in % of the media). The text and the screen stay pinned while
     scrolling moves through the steps."""
@@ -121,7 +121,7 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show
 
 IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp?v=5', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
 IMG_EP2 = dict(type='img', src=GH + 'shots/v2/ep2.webp?v=4', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
-IMG_AI = dict(type='img', src=GH + 'shots/v2/ep2-ai.webp?v=3', w=720, h=1062, side=True, alt='The AI panel on the episode page: rule checks above, suggestions with their evidence below', cap='The checks panel on the episode page')
+IMG_AI = dict(type='img', src=GH + 'shots/v2/ep2-ai-w.webp?v=2', w=1760, h=1200, alt='The episode page with its checks panel: rule checks above, AI suggestions with their evidence below', cap='The checks panel on the episode page')
 IMG_REJ = dict(type='img', cap='What the publisher sees while reviewing', src=GH + 'shots/v2/reject.webp?v=4', w=2880, h=1800, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
 IMG_UP3 = dict(type='img', src=GH + 'shots/v2/upload-modal.webp?v=4', w=2738, h=1712, alt='Upload drop zone open over the assets list')
 IMG_UP15 = dict(type='img', src=GH + 'shots/v2/upload-widget.webp?v=4', w=2738, h=1712, alt='Season 4 in Spain with the upload result in the corner and 15 files waiting in the readiness panel')
