@@ -110,7 +110,7 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show
         ms += f'<div class="zs-mw{on}" data-i="{i}">{el}{hls}</div>'
     bars = ''.join(f'<button type="button" aria-label="Step {i+1}"><i></i></button>' for i in range(len(steps)))
     has_video = any(m['type'] == 'video' for m in medias)
-    ctl = ('<div class="zs-vctl"><button type="button" class="zs-play" data-zplay aria-label="Play the whole video"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button></div>') if has_video else ''
+    ctl = ('<div class="zs-vctl"><button type="button" class="zs-play" data-zplay aria-label="Play the whole video"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button><button type="button" class="zs-play" data-zfs aria-label="Full screen"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>') if has_video else ''
     hd = head_html if head_html is not None else head(n, f, nav=nav, note=note)
     ph = f'<div class="zs-hd">{hd}</div>' if pin_head else ''
     if pin_head: hd = ''
@@ -138,7 +138,7 @@ def changed():
 
 def hero():
     h = P['411a7ea2-ad8e-e2d4-3a36-2ddce0bbd66d']
-    rep = [('<b>Category</b>B2B SaaS, Enterprise CMS', '<b>Category</b>B2B SaaS, Streaming CMS'), ('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>Fewer review rounds from delivery to release</h1>'),
+    rep = [('<b>Category</b>B2B SaaS, Enterprise CMS', '<b>Category</b>B2B SaaS, Streaming CMS'), ('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>Fewer review rounds from<br> delivery to release</h1>'),
            ('<p class="lead">Backlot is where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher, so a rejection is a list of reasons pinned to fields, not a vague note.</p>',
             '<p class="lead">Backlot is a concept CMS for streaming teams, taking films and series from delivery to release, region by region. I designed the whole workflow for both sides: publisher and editor.</p>'),
            ('<b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.', '<b>Context</b>The take-home that got me hired for my last role, rebuilt and extended.'),
@@ -190,8 +190,8 @@ def backlot():
     i = wh.index('<div class="bl2-cards wn">'); j = wh.index('<div class="bl2-split">')
     hd = wh[len('<div class="bl2-t">'):i]
     cs = _re.findall(r'<div class="bl2-c"><span class="bl2-tag">(.*?)</span><h3>(.*?)</h3><p>(.*?)</p></div>', wh[i:j])
-    stack = ''.join(f'<article class="wn2-c" style="--i:{k};--r:{[-5, 4, -3, 6][k % 4]}deg;--r2:{[14, -18, 10, -12][k % 4]}deg;--dy:{[0, 26, 8, 34][k % 4]}px"><h3>{h}</h3><p>{t}</p><p class="wn2-n">{g}</p></article>' for k, (g, h, t) in enumerate(cs))
-    w2 = sec('re', "What's next", f'<section class="wn2" style="--n:{len(cs)}" data-wn><div class="wn2-pin"><div class="wn2-hd bl2-t">{hd}</div><div class="wn2-cs">{stack}</div></div></section><div class="bl2-t">' + wh[j:])
+    stack = ''.join(f'<article class="wn2-c" style="--i:{k};--r:{[-5, 4, -3, 6][k % 4]}deg;--r2:{[14, -18, 10, -12][k % 4]}deg;--dy:{[0, 26, 8, 34][k % 4]}px"><h3>{h}</h3><p>{t}</p><p class="wn2-n"><span>{k + 1:02d}</span><span>{g.split(' ', 1)[-1]}</span></p></article>' for k, (g, h, t) in enumerate(cs))
+    w2 = sec('re', "What's next", f'<div class="wn2" style="--n:{len(cs)}" data-wn><div class="wn2-pin"><div class="wn2-hd bl2-t">{hd}</div><div class="wn2-cs">{stack}</div></div></div><div class="bl2-t">' + wh[j:])
     nb = nextblock('backlot')
     body = (f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>'
             f'{ds}<div class="cs-wrap wn-dk" data-bl2root="2">{w2}</div>{nb}</main>' + WNJS)
@@ -459,7 +459,7 @@ def specpile():
 
 def bilge():
     hero = ('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
-            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Customs software where&nbsp;‘Register’ starts a legal clock</h1>'
+            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Customs software where&nbsp;‘Register’<br> starts a legal clock</h1>'
             '<div class="bl2-hg"><p class="lead">BİLGE is the Ministry of Trade’s customs platform, and I designed across many of its modules. '
             'This page shows KLTS, which replaced paperwork passed between customs, port operators and agencies with one shared record: 107 screens, designed from the system specs.</p>'
             '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://www.milsoft.com.tr/index.php/home/" target="_blank" rel="noopener">MilSOFT <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Client</b>Turkish Ministry of Trade</div>'
@@ -489,7 +489,7 @@ def bilge():
         return (f'<div class="bl2-role"><p class="bl2-q">{q}</p><ul class="bl2-ck">' + ''.join(f'<li>{x}</li>' for x in needs) + '</ul>'
                 f'<div class="bl2-rf"><span class="bl2-av" aria-hidden="true">{ini}</span><div><b>{who}</b></div></div></div>')
     roles4 = ('<div class="bl2-t">' + head2(3, 'Four roles', 'One form, four people with different jobs')
-              + '<div class="bl2-roles r4">'
+              + '<div class="bl2-roles">'
               + rc4('Is my form complete, and has it been approved?', ['File the form once per movement', 'Add containers one by one or in bulk', 'Edit until an officer approves'], 'Agent', 'A')
               + rc4('Which containers pass, and does the record match the port’s?', ['Approve some containers, reject the rest', 'Compare the declaration with port data', 'Edit or cancel a registered form'], 'Customs officer', 'O')
               + rc4('Should this container get more time, or be cancelled?', ['Approve or reject time extensions', 'Approve or reject cancellations'], 'Manager', 'M')

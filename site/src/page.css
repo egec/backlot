@@ -431,3 +431,17 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 [data-bl2root]>section[data-bl2]:before{box-shadow:none!important}
 .wn2-c{--w:clamp(300px,26vw,440px)}.wn2-c h3,.wn-dk .wn2-c p:not(.wn2-n){max-width:var(--tw,none)}
 .wn2-hd .bl2-h{margin:8px 0 0}
+/* wider layout: the nav shows only its bars, so content sits closer to it */
+:root{--w:94rem}
+.zs-pin{grid-template-columns:minmax(260px,3.6fr) minmax(0,8fr)}
+@media(min-width:992px) and (max-width:1439px){.zs-pin{grid-template-columns:minmax(230px,3.2fr) minmax(0,8fr)}}
+.bl2-hero .lead{max-width:min(100%,52em)}.bl2-hero h1{max-width:none}
+@media(max-width:767px){.bl2-hero h1 br{display:none}}
+/* sections sliding over the last one: a hairline and a soft edge */
+[data-bl2root]>section[data-bl2]:before{box-shadow:0 -1px 0 rgba(22,22,22,.07),0 -6px 18px rgba(22,22,22,.035)!important}
+/* 40% less air between sections */
+[data-bl2root]{--sec:clamp(58px,5.4vw,101px)!important}
+/* what's next: nothing clipped at the sides, text runs under the next card */
+.wn2-pin{overflow:visible;overflow-y:clip}.wn2-c h3,.wn-dk .wn2-c p:not(.wn2-n){max-width:none}
+.wn-dk .wn2-c .wn2-n{display:flex;justify-content:space-between;align-items:baseline}
+.wn2-c{--w:max(300px,calc((100% - 36px) / 4))}

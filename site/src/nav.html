@@ -82,7 +82,7 @@
   function gutter(){
     if(window.innerWidth<1200)return;
     var r=nav.getBoundingClientRect();
-    document.documentElement.style.setProperty('--bl-gutter',Math.max(232,Math.ceil(r.right+96))+'px');
+    var b=nav.querySelector('.bl-bar');var x=b?b.getBoundingClientRect().right:r.left+8;document.documentElement.style.setProperty('--bl-gutter',Math.max(176,Math.ceil(x+150))+'px');
   }
   function fly(it){
     if(RM||window.innerWidth<1200)return;
