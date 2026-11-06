@@ -622,19 +622,19 @@ def untangle():
         out += f'<span class="ut-w">{ch}</span> '
     return (f'<div class="ut" data-ut><p class="ut-s" aria-label="I like untangling the parts of a product nobody wants to own."><span aria-hidden="true">{out.strip()}</span></p></div>')
 
-HERO_A = ('<div class="wk-hero ha"><h1 class="sr-only">Ege Coskun</h1><p class="wk-pos ha-s" aria-label="Product designer for B2B software. My Figma files are mostly a museum now: I design in working prototypes.">' + ''.join(f'<span class="ha-w" style="--i:{i}" aria-hidden="true">{w}</span> ' for i, w in enumerate("Product designer for B2B software. My Figma files are mostly a museum now: I design in working prototypes.".split(" "))) + '</p></div>'
-  '<style>.ha{min-height:calc(100svh - 4.75rem);display:flex;align-items:center;padding:0!important;width:auto!important}.ha-s{max-width:15em!important;font-size:clamp(34px,4.6vw,84px)!important;line-height:1.05!important;letter-spacing:-.035em!important;font-weight:600}'
-  '.ha-w{display:inline-block;opacity:0;transform:translate(60vw,-70vh) rotate(-28deg);animation:haIn 1.1s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * 90ms + 150ms)}'
-  '@keyframes haIn{70%{opacity:1}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){.ha-w{animation:none;opacity:1;transform:none}}</style>')
-HERO_B = ('<div class="hb" data-hb><div class="hb-pin"><h1 class="hb-nm">Ege Coskun</h1><p class="wk-pos hb-s">Product designer for B2B software. My Figma files are mostly a museum now: I design in working prototypes.</p></div></div>'
-  '<style>.hb{height:calc(100svh + 40svh);margin-top:-4.75rem}.hb+.wk-sel{margin-top:0}.hb-pin{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(32px,5svh,64px);box-sizing:border-box}'
-  '.hb-nm{position:absolute;left:0;top:calc(4.75rem + 1svh);margin:0;font-size:18vw!important;line-height:.9!important;letter-spacing:-.05em!important;font-weight:700!important;white-space:nowrap;transform-origin:0 0;will-change:transform;color:var(--ink)}'
-  '.hb-s{margin:0!important;max-width:22em!important;font-size:clamp(20px,1.6vw,28px)!important}.site-logo.hb-hide{opacity:0}'
-  '</style>'
-  '<script>(function(){var H=document.querySelector("[data-hb]"),n=H.querySelector(".hb-nm"),lg=document.querySelector(".site-logo"),s=H.querySelector(".hb-s"),raf=0,R=matchMedia("(prefers-reduced-motion:reduce)").matches;'
-  'function d(){raf=0;n.style.transform="";var a=n.getBoundingClientRect(),b=lg.getBoundingClientRect(),run=H.offsetHeight-innerHeight*0.6,p=R?0:Math.max(0,Math.min(1,scrollY/run)),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;'
-  'var k=1+(b.width/a.width-1)*e;n.style.transform="translate("+((b.left-a.left)*e)+"px,"+((b.top-a.top)*e)+"px) scale("+k+")";n.style.opacity=p>.96?0:1;lg.classList.toggle("hb-hide",p<.96);s.style.opacity=1-Math.min(1,p*1.6)}'
-  'addEventListener("scroll",function(){if(!raf)raf=requestAnimationFrame(d)},{passive:true});addEventListener("resize",d);d()})();</script>')
+HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div class="hb-sp" aria-hidden="true"></div><p class="wk-pos hb-s">Product designer for B2B software, fluent in both AI and the people.</p></div>'
+  '<img class="hb-fly" src="https://egec.github.io/backlot/logos/ege-coskun.png" alt="" aria-hidden="true" width="1116" height="180">'
+  '<style>.hb{min-height:calc(100svh - 4.75rem);display:flex!important;flex-direction:column;justify-content:space-between;padding:clamp(12px,2svh,32px) 0 clamp(32px,6svh,72px)!important;width:auto!important;box-sizing:border-box}'
+  '.hb-sp{width:min(100%,1400px);aspect-ratio:1116/180}.hb-s{margin:0!important;max-width:22em!important;font-size:clamp(22px,1.9vw,34px)!important}'
+  '.hb-fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform;width:1116px;height:auto;max-width:none}'
+  'html.hb-on .site-logo img{opacity:0}</style>'
+  '<script>(function(){var H=document.querySelector("[data-hb]"),sp=H.querySelector(".hb-sp"),f=document.querySelector(".hb-fly"),lg=document.querySelector(".site-logo img"),R=matchMedia("(prefers-reduced-motion:reduce)").matches,cur=-1,raf=0;document.body.appendChild(f);'
+  'function tgt(){return Math.max(0,Math.min(1,scrollY/Math.max(1,innerHeight*.32)))}'
+  'function draw(){var t=R?(tgt()>0?1:0):tgt();cur=cur<0?t:cur+(t-cur)*.2;if(Math.abs(t-cur)<.001)cur=t;'
+  'var a=sp.getBoundingClientRect(),b=lg.getBoundingClientRect(),e=cur*cur*(2.2-1.2*cur),w=a.width+(b.width-a.width)*e,x=a.left+(b.left-a.left)*e,a0=a.top+scrollY,y=a0+(b.top-a0)*Math.pow(cur,.85);'
+  'f.style.transform="translate("+x.toFixed(2)+"px,"+y.toFixed(2)+"px) scale("+(w/1116).toFixed(4)+")";var done=cur>=.999;f.style.visibility=done?"hidden":"visible";document.documentElement.classList.toggle("hb-on",!done);'
+  'if(cur!==t)raf=requestAnimationFrame(draw);else raf=0}'
+  'function go(){if(!raf)raf=requestAnimationFrame(draw)}addEventListener("scroll",go,{passive:true});addEventListener("resize",go);addEventListener("load",go);go()})();</script>')
 def work(v='b', hero=''):
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
@@ -672,8 +672,7 @@ def work(v='b', hero=''):
              '<style>' + _ab.QCSS + '.wk-qa{margin-top:clamp(96px,10vw,180px);padding:0;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;--h3:clamp(18px,1.3vw,24px)}'
              '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
-    hero_html = hero or ('<div class="wk-hero"><h1 class="sr-only">Ege Coskun</h1>'
-            '<p class="wk-pos">I’m a product designer for complex B2B software. My brain takes the long way round, so your users don’t have to.</p></div>')
+    hero_html = hero or HERO
     body = (f'<main class="wk"><div class="cs-wrap">' + hero_html +
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
             f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div>{about}</div></main>'
@@ -755,8 +754,6 @@ if __name__ == '__main__':
     write('data-health/index.html', datahealth())
     write('work/index.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Work | Ege Coskun</title><link rel="canonical" href="/#work"><meta http-equiv="refresh" content="0;url=/#work"><script>location.replace("/#work")</script></head><body><a href="/#work">Work</a></body></html>')
     write('index.html', work())
-    for k, hh in (('home-a', HERO_A), ('home-b', HERO_B)):
-        write(k + '/index.html', work(hero=hh).replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1))
     import about
     for k, iv in [('about', 'a')]:
         h = page('About | Ege Coskun', 'Ege Coskun, product designer in Berlin: from industrial design to B2B data products.',
