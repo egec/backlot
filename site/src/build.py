@@ -622,19 +622,26 @@ def untangle():
         out += f'<span class="ut-w">{ch}</span> '
     return (f'<div class="ut" data-ut><p class="ut-s" aria-label="I like untangling the parts of a product nobody wants to own."><span aria-hidden="true">{out.strip()}</span></p></div>')
 
-HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div class="hb-sp" aria-hidden="true"></div><p class="wk-pos hb-s">Product designer for B2B software, fluent in both AI and the people.</p></div>'
-  '<img class="hb-fly" src="https://egec.github.io/backlot/logos/ege-coskun.png" alt="" aria-hidden="true" width="1116" height="180">'
-  '<style>.hb{min-height:calc(100svh - 4.75rem);display:flex!important;flex-direction:column;justify-content:space-between;padding:clamp(12px,2svh,32px) 0 clamp(32px,6svh,72px)!important;width:auto!important;box-sizing:border-box}'
-  '.hb-sp{width:min(100%,1400px);aspect-ratio:1116/180}.hb-s{margin:0!important;max-width:22em!important;font-size:clamp(22px,1.9vw,34px)!important}'
-  '.hb-fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform;width:1116px;height:auto;max-width:none}'
-  'html.hb-on .site-logo img{opacity:0}</style>'
-  '<script>(function(){var H=document.querySelector("[data-hb]"),sp=H.querySelector(".hb-sp"),f=document.querySelector(".hb-fly"),lg=document.querySelector(".site-logo img"),R=matchMedia("(prefers-reduced-motion:reduce)").matches,cur=-1,raf=0;document.body.appendChild(f);'
-  'function tgt(){return Math.max(0,Math.min(1,scrollY/Math.max(1,innerHeight*.32)))}'
-  'function draw(){var t=R?(tgt()>0?1:0):tgt();cur=cur<0?t:cur+(t-cur)*.2;if(Math.abs(t-cur)<.001)cur=t;'
-  'var a=sp.getBoundingClientRect(),b=lg.getBoundingClientRect(),e=cur*cur*(2.2-1.2*cur),w=a.width+(b.width-a.width)*e,x=a.left+(b.left-a.left)*e,a0=a.top+scrollY,y=a0+(b.top-a0)*Math.pow(cur,.85);'
-  'f.style.transform="translate("+x.toFixed(2)+"px,"+y.toFixed(2)+"px) scale("+(w/1116).toFixed(4)+")";var done=cur>=.999;f.style.visibility=done?"hidden":"visible";document.documentElement.classList.toggle("hb-on",!done);'
+HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div class="hb-sp" aria-hidden="true"></div><p class="wk-pos hb-s">Product designer for B2B software,<br> fluent in both AI and the people.</p></div>'
+  '<span class="hb-fly" aria-hidden="true">Ege Coskun</span>'
+  '<style>@font-face{font-family:"Bricolage EC";src:url(/assets/bricolage-ec.woff) format("woff");font-display:block}'
+  '.hb{min-height:calc(100svh - 4.75rem - 130px - clamp(72px,11svh,130px));display:flex!important;flex-direction:column;justify-content:space-between;padding:clamp(12px,2svh,32px) 0 clamp(28px,5svh,64px)!important;width:auto!important;box-sizing:border-box}'
+  '.hb-sp{width:min(100%,1500px);aspect-ratio:var(--ar,6.2)}.hb-s{margin:0!important;max-width:none!important;font-size:clamp(22px,1.9vw,34px)!important;transform-origin:0 100%;will-change:transform,opacity}'
+  '.hb-fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform,opacity;font-family:"Bricolage EC",sans-serif;font-variation-settings:"wght" 700,"wdth" 100,"opsz" 12;font-size:200px;line-height:1;white-space:nowrap;color:#1a1a1a}'
+  'html.hb-on .site-logo .site-lm{display:none}.hb+.wk-sel{margin-top:0!important;padding-top:0!important}</style>'
+  '<script>(function(){var H=document.querySelector("[data-hb]"),sp=H.querySelector(".hb-sp"),f=document.querySelector(".hb-fly"),lg=document.querySelector(".site-logo img"),tx=H.querySelector(".hb-s"),R=matchMedia("(prefers-reduced-motion:reduce)").matches,cur=-1,raf=0,nw=1,nh=1;document.body.appendChild(f);'
+  'function size(){nw=f.offsetWidth;nh=f.offsetHeight;sp.style.setProperty("--ar",(nw/nh).toFixed(3))}'
+  'function tgt(){return Math.max(0,Math.min(1,scrollY/Math.max(1,innerHeight*.34)))}'
+  'function draw(){var t=R?(tgt()>0?1:0):tgt();cur=cur<0?t:cur+(t-cur)*.18;if(Math.abs(t-cur)<.001)cur=t;'
+  'var a=sp.getBoundingClientRect(),b=lg.getBoundingClientRect(),a0=a.top+scrollY,e=cur*cur*(2.2-1.2*cur),w=a.width+(b.width-a.width)*e,k=w/nw,'
+  'y0=a0,y1=b.top+b.height/2-nh*(b.width/nw)/2,y=y0+(y1-y0)*Math.pow(cur,.8),x=a.left+(b.left-a.left)*e,d=Math.sin(Math.PI*cur),'
+  'sx=k*(1-.1*d),sy=k*(1+.34*d),fo=Math.max(0,Math.min(1,(cur-.86)/.14));'
+  'f.style.transform="translate("+x.toFixed(2)+"px,"+y.toFixed(2)+"px) skewX("+(-7*d).toFixed(2)+"deg) scale("+sx.toFixed(4)+","+sy.toFixed(4)+")";f.style.opacity=1-fo;f.style.visibility=cur>=.999?"hidden":"visible";'
+  'lg.style.opacity=fo;document.documentElement.classList.toggle("hb-on",cur<.999);'
+  'tx.style.transform="scale("+(1-.4*cur).toFixed(3)+")";tx.style.opacity=Math.max(0,1-cur*1.25).toFixed(3);'
   'if(cur!==t)raf=requestAnimationFrame(draw);else raf=0}'
-  'function go(){if(!raf)raf=requestAnimationFrame(draw)}addEventListener("scroll",go,{passive:true});addEventListener("resize",go);addEventListener("load",go);go()})();</script>')
+  'function go(){if(!raf)raf=requestAnimationFrame(draw)}size();addEventListener("scroll",go,{passive:true});addEventListener("resize",function(){size();go()});'
+  '(document.fonts?document.fonts.load("200px \\"Bricolage EC\\""):Promise.resolve()).then(function(){size();cur=-1;go()});addEventListener("load",function(){size();go()});go()})();</script>')
 def work(v='b', hero=''):
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
