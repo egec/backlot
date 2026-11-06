@@ -60,7 +60,7 @@ def media_box(inner):
     if cls:
         lab = 'Interactive prototype: change the region' if 'proto/region/' in inner else 'Interactive prototype'
         return f'<p class="px-lab"><i></i>{lab}</p><div class="bl2-media{cls}">{inner}</div>'
-    if inner.lstrip().startswith(('<img', '<video')):
+    if inner.lstrip().startswith('<img') or 'reviews-row-actions' in inner:
         cls = ' is-img'
     return f'<div class="bl2-media{cls}">{inner}</div>'
 
@@ -121,7 +121,7 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show
 
 IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp?v=5', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
 IMG_EP2 = dict(type='img', src=GH + 'shots/v2/ep2.webp?v=4', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
-IMG_AI = dict(type='img', src=GH + 'shots/v2/ep2-ai.webp?v=2', w=1296, h=1116, alt='The AI panel on the episode page: rule checks above, suggestions with their evidence below', cap='The checks panel on the episode page')
+IMG_AI = dict(type='img', src=GH + 'shots/v2/ep2-ai.webp?v=3', w=720, h=1062, side=True, alt='The AI panel on the episode page: rule checks above, suggestions with their evidence below', cap='The checks panel on the episode page')
 IMG_REJ = dict(type='img', cap='What the publisher sees while reviewing', src=GH + 'shots/v2/reject.webp?v=4', w=2880, h=1800, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
 IMG_UP3 = dict(type='img', src=GH + 'shots/v2/upload-modal.webp?v=4', w=2738, h=1712, alt='Upload drop zone open over the assets list')
 IMG_UP15 = dict(type='img', src=GH + 'shots/v2/upload-widget.webp?v=4', w=2738, h=1712, alt='Season 4 in Spain with the upload result in the corner and 15 files waiting in the readiness panel')
@@ -207,6 +207,8 @@ def still(n, f, steps, medias, after='', nav=False, note=''):
     cards = ''.join(f'<div class="bl2-c"><span class="bl2-tag">{i:02d}</span><h3>{s["h"]}</h3><p>{t}</p></div>' for i, (s, t) in enumerate(zip(steps, f['r']), 1))
     cls = ' c3' if len(steps) == 3 else ''
     cap = f'<p class="bl2-cap">{m["cap"]}</p>' if m.get('cap') else ''
+    if m.get('side'):
+        return f'<div class="bl2-t bl2-f">{head(n, f, nav=nav, note=note)}<div class="bl2-side"><div>{cap}{media_box(img)}</div><div class="bl2-cards">{cards}</div></div>{after}</div>'
     return f'<div class="bl2-t bl2-f">{head(n, f, nav=nav, note=note)}<div class="bl2-cards{cls}">{cards}</div>{cap}{media_box(img)}{after}</div>'
 
 def simple(n, f, media, nav=False, after=''):
@@ -277,8 +279,7 @@ def features():
     F.append(lambda n, nav: still(n, f_ai, [
         dict(h='Built on past rejections', hl=[(76, 55.6, 22, 9.6)], ctx=(76, 50, 22, 1)),
         dict(h='Rules and AI stay apart', hl=[(77.4, 21, 20.4, 16), (76, 55.6, 22, 9.6)]),
-        dict(h='Nothing written on its own', hl=[(95.2, 55.2, 2.8, 3.8), (76.8, 62.8, 7, 2.4)], ctx=(76, 50, 22, 1))], [IMG_AI],
-        after=media_box(EMB('e76ad60f')), nav=nav))
+        dict(h='Nothing written on its own', hl=[(95.2, 55.2, 2.8, 3.8), (76.8, 62.8, 7, 2.4)], ctx=(76, 50, 22, 1))], [IMG_AI], nav=nav))
     # artwork
     f_art = dict(t='Thumbnails are chosen by taste, not by country',
              l='Most viewing starts from a recommendation, so the thumbnail does much of the selling. Taste predicts a click better than age or location, so each season carries one thumbnail per taste cluster. <span class="bl2-src">Sources: <a href="https://fortune.com/2016/03/27/netflix-predicts-taste/" target="_blank" rel="noopener">Netflix on taste clusters, Fortune</a>, <a href="https://www.dezeen.com/2017/12/20/netflix-targets-film-artwork-depending-users-viewing-habits-design-technology/" target="_blank" rel="noopener">Netflix on personalised artwork, Dezeen</a>.</span>',
@@ -381,13 +382,13 @@ def roles():
                 head_html='<h2 class="bl2-h cs-title">Role-based dashboards</h2><p class="lead">Each role starts the day on its own page, with what needs them first.</p>')
     work = zoom(0, dict(r=['Everything the editor is working on, in one table sorted by status, because they move many items at once and compare them row by row.',
                            'The list runs through all eight statuses, from To do to Published, so nothing the editor touched drops out of view.',
-                           'Each reason is readable before the item opens, with an estimate of the rework. A small fix should look small, not like a failed day.',
+                           'Each piece of content sent back shows its reasons on the card, readable before it opens, so a bad review is less to hold in mind (emotional design).',
                            'Only what reaches the publisher. To do and In progress belong to the editor, so the list starts at Pending review. Scheduled stays: the publisher decides what goes live.',
                            'The queue is sorted by what airs first and shows how long each item has waited.',
                            'Every decision the publisher made: who decided, when, and when it was released. The Content library holds everything; this is only what passed through their hands.']),
                 [dict(g='Editor', h='Workspace', m=0, **full),
                  dict(h='All eight statuses', m=0, hl=[(19.3, 24.6, 15.4, 37.2)]),
-                 dict(h='Rejections sized to the fix', m=0, hl=[(19.4, 65.6, 79, 28.4)]),
+                 dict(h='Rejections as cards', m=0, hl=[(19.4, 65.6, 79, 28.4)]),
                  dict(g='Publisher', h='Reviews', m=1, **full),
                  dict(h='What has waited longest', m=1, hl=[(75.4, 24.6, 13.8, 36.4)]),
                  dict(h='Review history', m=1, hl=[(19.4, 64.4, 79, 33)])],
