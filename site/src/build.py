@@ -110,14 +110,13 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show
         ms += f'<div class="zs-mw{on}" data-i="{i}">{el}{hls}</div>'
     bars = ''.join(f'<button type="button" aria-label="Step {i+1}"><i></i></button>' for i in range(len(steps)))
     has_video = any(m['type'] == 'video' for m in medias)
-    ctl = ('<button type="button" class="zs-play" data-zplay><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>'
-           '<span>Play the whole video</span></button>') if has_video else ''
+    ctl = ('<div class="zs-vctl"><button type="button" class="zs-play" data-zplay aria-label="Play the whole video"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button></div>') if has_video else ''
     hd = head_html if head_html is not None else head(n, f, nav=nav, note=note)
     ph = f'<div class="zs-hd">{hd}</div>' if pin_head else ''
     if pin_head: hd = ''
     return (f'<div class="bl2-t bl2-f{" first" if nav else ""}">{hd}<div class="zs" data-zs style="--n:{len(steps)}"><div class="zs-pin{" zs-ph" if pin_head else ""}">{ph}<ol class="zs-steps">{lis}</ol>'
-            f'<div class="zs-stick"><div class="zs-frame"><div class="zs-view" style="aspect-ratio:{medias[0]["w"]}/{medias[0]["h"]}">{ms}</div></div>'
-            f'<div class="zs-foot"><div class="zs-bar">{bars}</div>{ctl}</div></div></div></div>{after}</div>')
+            f'<div class="zs-stick"><div class="zs-frame">{ctl}<div class="zs-view" style="aspect-ratio:{medias[0]["w"]}/{medias[0]["h"]}">{ms}</div></div>'
+            f'<div class="zs-foot"><div class="zs-bar">{bars}</div></div></div></div></div>{after}</div>')
 
 IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp?v=5', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
 IMG_EP2 = dict(type='img', src=GH + 'shots/v2/ep2.webp?v=4', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
@@ -143,7 +142,7 @@ def hero():
            ('<p class="lead">Backlot is where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher, so a rejection is a list of reasons pinned to fields, not a vague note.</p>',
             '<p class="lead">Backlot is a concept CMS for streaming teams, taking films and series from delivery to release, region by region. I designed the whole workflow for both sides: publisher and editor.</p>'),
            ('<b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.', '<b>Context</b>The take-home that got me hired for my last role, rebuilt and extended.'),
-           ('<b>Date</b>2026', '<b>Date</b>2026, 3 weeks</div><div><b>Status</b>Concept, not shipped'), ('<b>My role</b>Product Designer, end to end', '<b>My role</b>Product Designer, sole designer end to end')]
+           ('<b>Date</b>2026', '<b>Date</b>2026, 3 weeks</div><div><b>Status</b>Concept, Not Shipped'), ('<b>My role</b>Product Designer, end to end', '<b>My role</b>Sole Product Designer, End to End')]
     for o, n in rep:
         assert o in h, o[:40]
         h = h.replace(o, n)
@@ -162,7 +161,7 @@ def nextblock(cur):
     tiles = ''.join(f'<li><a href="/{pk}"' + (' aria-current="page"' if pk == cur else '') + f'><span><img src="{pi}" alt="" loading="lazy"></span><b>{j + 1:02d} / {pn}</b></a></li>'
                     for j, (pk, pn, _, pi) in enumerate(PROJ))
     return (f'<section class="nx" aria-label="Next project"><a class="nx-a" href="/{k}"><p class="nx-k">Next, {n + 1:02d} / {name}</p>'
-            f'<div class="cs-wrap nx-in"><p class="nx-d">{d}</p><span class="nx-go">Read the case study {ARW}</span></div>'
+            f'<div class="cs-wrap nx-in"><p class="nx-d">{d}</p><span class="nx-go">{"Read the case study" if k == "backlot" else "View the project"} {ARW}</span></div>'
             f'<span class="nx-im" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span></a>'
             f'<div class="nx-all"><p class="nx-l">All work</p><div class="cs-wrap"><ul>{tiles}</ul></div><a class="nx-top" href="#">Back to the top</a></div></section>')
 
@@ -173,6 +172,11 @@ def nbthumb(html, src, alt=''):
 def sec(k, label, inner):
     return f'<section data-bl2="{k}" data-nav-label="{label}">{inner}</section>'
 
+WNJS = """<script>(function(){var H=document.querySelector('[data-wn]');if(!H||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var hc=[].slice.call(H.querySelectorAll('.wn2-c')),raf=0;
+function run(){return H.offsetHeight-H.querySelector('.wn2-pin').offsetHeight}
+function fit(){var cs=H.querySelector('.wn2-cs'),w=hc[0].offsetWidth,sp=(cs.clientWidth-w)/Math.max(1,hc.length-1);H.style.setProperty('--tw',Math.max(180,Math.min(w,sp)-56)+'px')}
+function draw(){raf=0;if(innerWidth<900)return;var r=H.getBoundingClientRect(),hv=innerHeight*.5,q=Math.max(0,(hv-r.top)/(hv+run()))*(hc.length+.3);hc.forEach(function(c,i){c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))})}
+addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(draw)},{passive:true});addEventListener('resize',function(){fit();draw()});fit();draw()})();</script>"""
 def backlot():
     w1 = (sec('ov', 'Overview', hero())
           + sec('pr', 'Problems', problem() + north_star() + research())
@@ -181,10 +185,16 @@ def backlot():
           + sec('ch', 'What I changed', changed()))
     ds = ds_build().replace('Lupin, S4-E2', 'Lupin · S4-E2').replace('Community, S6-E6', 'Community · S6-E6').replace('Long Story Short, S1-E3', 'Long Story Short · S1-E3') \
         .replace('Crime, Drama', 'Crime · Drama').replace('Edit requested, waiting', 'Edit requested · waiting').replace('Editor, Alex', 'Editor · Alex').replace('Publisher, Maya', 'Publisher · Maya')
-    w2 = sec('re', "What's next", P['c2545a3c-0f01-ab8f-4f5f-45336f755274'])
+    import re as _re
+    wh = P['c2545a3c-0f01-ab8f-4f5f-45336f755274']
+    i = wh.index('<div class="bl2-cards wn">'); j = wh.index('<div class="bl2-split">')
+    hd = wh[len('<div class="bl2-t">'):i]
+    cs = _re.findall(r'<div class="bl2-c"><span class="bl2-tag">(.*?)</span><h3>(.*?)</h3><p>(.*?)</p></div>', wh[i:j])
+    stack = ''.join(f'<article class="wn2-c" style="--i:{k};--r:{[-5, 4, -3, 6][k % 4]}deg;--r2:{[14, -18, 10, -12][k % 4]}deg;--dy:{[0, 26, 8, 34][k % 4]}px"><h3>{h}</h3><p>{t}</p><p class="wn2-n">{g}</p></article>' for k, (g, h, t) in enumerate(cs))
+    w2 = sec('re', "What's next", f'<section class="wn2" style="--n:{len(cs)}" data-wn><div class="wn2-pin"><div class="wn2-hd bl2-t">{hd}</div><div class="wn2-cs">{stack}</div></div></section><div class="bl2-t">' + wh[j:])
     nb = nextblock('backlot')
     body = (f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>'
-            f'{ds}<div class="cs-wrap" data-bl2root="2">{w2}</div>{nb}</main>')
+            f'{ds}<div class="cs-wrap wn-dk" data-bl2root="2">{w2}</div>{nb}</main>' + WNJS)
     return page('Backlot case study | Ege Coskun',
                 'Backlot, a B2B SaaS CMS for streaming services: review and approval workflows, region-specific metadata and an AI check that flags likely rejections.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'], font='it')
@@ -382,7 +392,7 @@ def roles():
                 head_html='<h2 class="bl2-h cs-title">Role-based dashboards</h2><p class="lead">Each role starts the day on its own page, with what needs them first.</p>')
     work = zoom(0, dict(r=['Everything the editor is working on, in one table sorted by status, because they move many items at once and compare them row by row.',
                            'The list runs through all eight statuses, from To do to Published, so nothing the editor touched drops out of view.',
-                           'Each piece of content sent back shows its reasons on the card, readable before it opens, so a bad review is less to hold in mind (emotional design).',
+                           'Each piece of content sent back shows its reasons on the card, readable before it opens, so a bad review is less to hold in mind.',
                            'Only what reaches the publisher. To do and In progress belong to the editor, so the list starts at Pending review. Scheduled stays: the publisher decides what goes live.',
                            'The queue is sorted by what airs first and shows how long each item has waited.',
                            'Every decision the publisher made: who decided, when, and when it was released. The Content library holds everything; this is only what passed through their hands.']),
@@ -453,28 +463,38 @@ def bilge():
             '<div class="bl2-hg"><p class="lead">BİLGE is the Ministry of Trade’s customs platform, and I designed across many of its modules. '
             'This page shows KLTS, which replaced paperwork passed between customs, port operators and agencies with one shared record: 107 screens, designed from the system specs.</p>'
             '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://www.milsoft.com.tr/index.php/home/" target="_blank" rel="noopener">MilSOFT <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Client</b>Turkish Ministry of Trade</div>'
-            '<div><b>My role</b>UX/UI Designer</div><div><b>Date</b>2022 to 2023</div><div><b>Team</b>Five designers, a PM, engineering</div><div><b>Status</b>Shipped</div></div></div>'
+            '<div><b>My role</b>UX/UI Designer</div><div><b>Date</b>2022 to 2023</div><div><b>Team</b>5 Designers, 1 PM, Engineering</div><div><b>Status</b>Shipped</div></div></div>'
             + media_box(f'<img class="bl2-img" src="{GH}shots/bilge/b-detail.webp" width="1920" height="1080" alt="Container tracking form detail as a customs officer sees it: the agent’s details above the containers and their parts">') + '</div>')
     cards = ''.join(f'<div class="bl2-c"><span class="bl2-tag">Decision {i}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate([
         ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. The header is blue on the agent’s side and red on the customs side, so everyone knows which side of the form they are on.'),
         ('Sources side by side', 'The carrier’s declaration and the port’s records sit next to each other, so a mismatch is visible at a glance.'),
         ('Registering is binding', 'Registering starts the clock on the container’s permitted time in the country, so at the ministry’s request the button says Register. The confirmation shows the registration number and the remaining prepaid balance.')], 1))
-    glance = ('<div class="bl2-t bl2-part"><p class="bl2-big" data-tint style="--ac:#A31A28;font-size:clamp(36px,5.4vw,100px)"><span class="bl2-line">Four parties, one container.</span><span class="bl2-line">No shared record.</span></p><p class="k">At a glance</p><h2 class="bl2-h cs-title">One container, several sources, one form</h2>'
-              + split('The problem', '<p>Every container that enters or leaves a Turkish seaport needs a Container Tracking Form. KLTS moved that form, and the records customs, port operators and agencies used to exchange on paper, into one system.</p>'
-                      '<p>Up to four people work on one form, and from registration the container’s permitted time is running.</p>')
+    glance = ('<div class="bl2-t bl2-part"><p class="bl2-big" data-tint style="--ac:#A31A28;font-size:clamp(36px,5.4vw,100px)"><span class="bl2-line">Four parties, one container.</span><span class="bl2-line">No shared record.</span></p>'
+              + split('The problem', '<p>Every container that enters or leaves a Turkish seaport needs a Container Tracking Form. Customs, port operators and agencies each kept their own records of it and exchanged them on paper, so no one saw the same container the same way.</p>'
+                      '<p>Four roles act on the same form: the agent files it, the officer approves it, and two levels of managers sign off on changes. From the moment it is registered, the container’s permitted time in the country is running.</p>')
               + f'<div class="bl2-cards c3">{cards}</div>'
-              + split('Constraints', '<p>Legal wording on every label and ministry review on every change. The work is under NDA, so the screens on this page are rebuilt from my designs with placeholder data.</p>')
+              + split('Constraints', '<p>The backend rules came from the regulation and could not change. Neither could the legal wording on the labels, and every change went through ministry review. What we could change was the workflow on top: in design and in the front end, we made each rule easier to follow.</p>')
               + '</div>')
     specs = ('<div class="bl2-t"><div class="sp-wrap"><div>' + head2(2, 'Working from specs', 'Designed from the system specifications',
              'Every screen started from the specs: the analysts’ requirements, the regulation and the backend rules behind each field and status. '
              'An exit can’t be registered without an entry, approval needs enough prepaid balance, and a container can’t leave the port without an approved form. '
              'I designed so the interface never offers an action the backend would refuse.') + '</div>' + specpile() + '</div></div>')
     role = ('<div class="bl2-t">' + head2(1, 'My role', 'One module of many',
-            'I joined after BİLGE’s design system was in place and worked across many modules. KLTS is the one whose designs I still have.')
+            'I worked across many of BİLGE’s modules and kept adding to its design system. KLTS is the one whose designs I still have.')
             + split('Team', '<p>Five designers, a product manager and a large engineering team: about half of MilSOFT worked on BİLGE.</p>')
             + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, corrections, cancellations, the container history, the declaration comparison and closing a form with an official report: 107 screens and states in KLTS alone.</p>')
-            + split('Design system', '<p>The platform’s design system was created by Dilmin Doğan and Gizem Turan Yücel. I added to it where these flows needed something it did not have.</p>')
+            + split('Design system', '<p>Dilmin Doğan and Gizem Turan Yücel created the platform’s design system, and like any design system it was never finished. When a flow needed a component it did not have, I added one, and when a component did not hold up in use, I changed it.</p>')
             + '</div>')
+    def rc4(q, needs, who, ini):
+        return (f'<div class="bl2-role"><p class="bl2-q">{q}</p><ul class="bl2-ck">' + ''.join(f'<li>{x}</li>' for x in needs) + '</ul>'
+                f'<div class="bl2-rf"><span class="bl2-av" aria-hidden="true">{ini}</span><div><b>{who}</b></div></div></div>')
+    roles4 = ('<div class="bl2-t">' + head2(3, 'Four roles', 'One form, four people with different jobs')
+              + '<div class="bl2-roles r4">'
+              + rc4('Is my form complete, and has it been approved?', ['File the form once per movement', 'Add containers one by one or in bulk', 'Edit until an officer approves'], 'Agent', 'A')
+              + rc4('Which containers pass, and does the record match the port’s?', ['Approve some containers, reject the rest', 'Compare the declaration with port data', 'Edit or cancel a registered form'], 'Customs officer', 'O')
+              + rc4('Should this container get more time, or be cancelled?', ['Approve or reject time extensions', 'Approve or reject cancellations'], 'Manager', 'M')
+              + rc4('Is this correction right?', ['Approve or reject corrections'], 'Deputy manager', 'D')
+              + '</div></div>')
     V = lambda k: dict(type='video', src=GH + f'bilge/{k}.mp4', poster=GH + f'bilge/{k}.jpg', w=1600, h=900)
     def flow(n, k, h, lead, steps, texts, medias, after=''):
         return zoom(0, dict(r=texts), steps, medias, head_html=head2(n, k, h, lead), after=after, show_hl=False)
@@ -521,15 +541,15 @@ def bilge():
                    after='<div class="bl2-t">' + split('Also in this flow', rules([
                        'Written reasons open in a side drawer, so the form stays in view.',
                        'Editing a form an agent registered warns that the agent’s record will change.'])) + '</div>')
-    spec = ('<div class="bl2-t">' + head2(6, 'When the spec was wrong', 'Twice, the rule I was given was not the rule the work followed')
+    spec = ('<div class="bl2-t">' + head2(6, 'Two stories', 'When the spec was wrong')
             + split('Two days to rebuild', '<p>A backend rule for one of my complex flows arrived incomplete and partly wrong, two days before I had to present the flow. The people who could confirm it were away. I sat down with the system engineer, mapped the corrected logic and rebuilt the flow in time.</p>')
             + split('The users knew better', '<p>Another time the client described a rule wrongly. It surfaced when the customs officers who would use the screens saw them and spotted what did not match their work, and we redesigned. Since then I ask for the people who will use the screens as early as the client allows.</p>')
             + '</div>')
     learned = ('<div class="bl2-t">' + head2(7, 'What I learned', 'In government software the wording is part of the design')
                + split('Wording', '<p>A word like Register carries legal weight, so ministry review shaped the design from the start.</p>')
-               + split('How I built this page', '<p>The flows, screens and design system additions are my work at MilSOFT. I rebuilt the screens in Claude Design from the originals and checked each one against them.</p>')
+               + split('Confidentiality', '<p>The work is under NDA, so the screens on this page are rebuilt from my designs with placeholder data.</p>')
                + '</div>')
-    w1 = (sec('ov', 'Overview', hero) + sec('mr', 'My role', role + glance) + sec('dm', 'Working from specs', specs)
+    w1 = (sec('ov', 'Overview', hero) + sec('mr', 'My role', role + glance) + sec('dm', 'Working from specs', specs) + sec('fr', 'Four roles', roles4)
           + sec('ag', 'The agent files', agent) + sec('tr', 'Tracking a container', track) + sec('cu', 'Customs decides', customs)
           + sec('sw', 'When the spec was wrong', spec) + sec('le', 'What I learned', learned))
     nb = nextblock('bilge')
@@ -548,8 +568,8 @@ def datahealth():
         return f'<div class="bl2-cards{" c3" if c3 else ""}">'+''.join(f'<div class="bl2-c"><span class="bl2-tag">{i:02d}</span><h3>{h}</h3><p>{t}</p></div>' for i,(h,t) in enumerate(items,1))+'</div>'
     hero=('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
      '<p class="k">Data health, product work at Insider One</p><h1>Making broken customer data visible where marketers build their audiences</h1>'
-     '<div class="bl2-hg"><p class="lead">On Insider One’s system team, a question reached me through the PM: why do segments come back with fewer users than expected? I traced it to data that broke without a sign, and designed one health check for every attribute and event a segment can use.</p>'
-     '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://insiderone.com/" target="_blank" rel="noopener">Insider One <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Category</b>B2B SaaS, customer data platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div><div><b>Team</b>Two designers, four engineers, a PM</div><div><b>Status</b>Shipped</div></div></div>'
+     '<div class="bl2-hg"><p class="lead">Marketers build segments on customer data they can’t see. When that data breaks, the audience comes back smaller than expected and nothing says why. I designed one health check for every attribute and event, shown where the segment is built.</p>'
+     '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://insiderone.com/" target="_blank" rel="noopener">Insider One <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Category</b>B2B SaaS, Customer Data Platform</div><div><b>My role</b>Product Designer</div><div><b>Date</b>2026</div><div><b>Team</b>2 Designers, 4 Engineers, 1 PM</div><div><b>Status</b>Shipped</div></div></div>'
      + media_box(dh_img('o_b_issue','Segment builder with the attribute menu open and a data health card for Email Opt-in')) + '</div>')
     prob=('<div class="bl2-t"><span class="cs-num bl2-x">01</span><span class="cs-title bl2-x">The problem</span>'
      '<p class="bl2-big" data-tint style="--ac:#2D2ACF"><span class="bl2-line">The segment broke at the last step.</span></p>'
@@ -557,33 +577,34 @@ def datahealth():
        '<p><b>Elsewhere:</b> Braze and MoEngage explain data type mismatches in their help docs. I wanted the marketer to see the problem and keep going in the same flow, with no doc to look up and nothing that reads as an error.</p>')+'</div>')
     f1=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">04</span><span class="cs-title bl2-x">Where data comes from</span><p class="k">Feature 03</p>'
      '<h2 class="bl2-h">The total, split by where the data comes from</h2><p class="lead">The total now sits next to a count for every source, so a source that stops sending shows up here first.</p>'
-     + sub('Before','Only Total collected.') + media_box(dh_img('o_a_before','App Version attribute page, before: only the total'))
-     + sub('After','The total, then each group of sources with its own count.') + media_box(dh_img('o_a_after','App Version attribute page, after: counts per source'))
      + dh_cards([('Grouped by how data arrives','SDK sources, external integrations and API sit in one group beside the total.'),
               ('Every source named','Mobile, Web, Shopify, Amplitude and API each show their own number.'),
-              ('Help next to the label','Each label has a question mark that explains it on hover.')],True)+'</div>')
+              ('Help next to the label','Each label has a question mark that explains it on hover.')],True)
+     + '<div class="mx dh-mx" data-mx><div class="mx-tg"><button type="button">Before</button><button type="button" class="on">After</button></div>'
+     + '<div class="mx-p"><p class="bl2-cap">Before: only Total collected.</p>' + media_box(dh_img('o_a_before','App Version attribute page, before: only the total')) + '</div><div class="mx-p on"><p class="bl2-cap">After: the total, then each group of sources with its own count.</p>' + media_box(dh_img('o_a_after','App Version attribute page, after: counts per source')) + '</div></div></div>')
     f2=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">02</span><span class="cs-title bl2-x">Data health in the menu</span><p class="k">Feature 01</p>'
      '<h2 class="bl2-h">Data health shown inside the attribute menu</h2><p class="lead">The problem now shows while the marketer picks an attribute, not when the segment fails. Hovering an attribute opens a card with its sources, its volume and, if something is wrong, what and where.</p>'
-     + sub('A healthy attribute') + media_box(dh_img('o_b_healthy','Language attribute card: string, four sources, 1.5k ingested in the last 30 days'))
-     + sub('An attribute with a problem') + media_box(dh_img('o_b_issue','Email Opt-in card: incorrect data type from the Email source, with a link to Data Validation'))
      + dh_cards([('Healthy attributes stay quiet','A blue top line, the sources that send it, how much came in and over what period.'),
               ('A problem names its source','Email Opt-in gets a warning icon in the list, a yellow top line and a red Email chip. The card says the data type is wrong.'),
               ('Usable, with a way to fix it','The attribute can still be used. Go to Data Validation opens the place to correct the data point.')],True)
+     + sub('A healthy attribute') + media_box(dh_img('o_b_healthy','Language attribute card: string, four sources, 1.5k ingested in the last 30 days'))
+     + sub('An attribute with a data quality issue') + media_box(dh_img('o_b_issue','Email Opt-in card: incorrect data type from the Email source, with a link to Data Validation'))
+
      + split('What changed in review','<p>My first card showed data only when something was wrong. The PM asked for the ingested volume on every card, healthy or not, so marketers can check how much data an attribute has before they rely on it.</p>')
-     + split('Warn, don’t block','<p>Blocking the attribute was the safer option for the data, and I chose against it. A block would throw away every choice the marketer had made, the same last-step failure we were fixing. Most issues are partial or temporary: one source fails while the rest is fine, an API stops for an hour and recovers, a volume spike comes from a real campaign. And the marketer can’t fix the data; the data team can.</p>'
-             '<p>So the card warns, keeps the attribute usable and links to Data Validation. The marketer knows why the audience looks smaller before the estimate surprises them.</p>')
      + '</div>')
+    kd=('<div class="bl2-t">' + head2(0, 'The key decision', 'Warn, don’t block') + '<div class="dh-dec">' + '<p>Blocking the attribute was the safer option for the data, and I chose against it. A block would throw away every choice the marketer had made, the same last-step failure we were fixing. Most issues are partial or temporary: one source fails while the rest is fine, an API stops for an hour and recovers, a volume spike comes from a real campaign. And the marketer can’t fix the data; the data team can.</p>'
+             '<p>So the card warns, keeps the attribute usable and links to Data Validation. The marketer knows why the audience looks smaller before the estimate surprises them.</p>' + '</div></div>')
     f3=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Event parameters</span><p class="k">Feature 02</p>'
      '<h2 class="bl2-h">The same check for event parameters</h2><p class="lead">A segment can also filter on what users did. Event parameters break the same way attributes do, so the parameter menu shows the same warning and the same card, worded for a parameter.</p>'
      + media_box(dh_img('o_b_event','Event Source parameter card with an incorrect data type warning'))
-     + '<div class="bl2-t">'+split('One card, many cases',rules(['Seven issue types: Incorrect Data Type, Invalid Value Format, Null Value, Missing Data, Abnormal Volume Change, Volume Threshold Reached, Multiple Issues.',
-         'Five source states: Syncing, Not Used, Paused, Not Receiving Data, and no ingested data.']))+'</div></div>')
+     + sub('One card, many cases', 'The same card covers every issue a data point can have and every state its source can be in.')
+     + '<div class="bl2-cards dh-cases"><div class="bl2-c"><span class="bl2-tag">7</span><h3>Issue types</h3><div class="dh-ch"><span>Incorrect Data Type</span><span>Invalid Value Format</span><span>Null Value</span><span>Missing Data</span><span>Abnormal Volume Change</span><span>Volume Threshold Reached</span><span>Multiple Issues</span></div></div><div class="bl2-c"><span class="bl2-tag">5</span><h3>Source states</h3><div class="dh-ch"><span>Syncing</span><span>Not Used</span><span>Paused</span><span>Not Receiving Data</span><span>No Ingested Data</span></div></div></div></div>')
     nxt=('<div class="bl2-t"><span class="cs-num bl2-x">05</span><span class="cs-title bl2-x">What’s next</span><p class="k">What’s next</p>'
      '<h2 class="bl2-h cs-title">What I would measure</h2>'
      + split('Measure','<p>I don’t have numbers I can share. I would track how often a segment fails at the last step, and how often marketers open Data Validation from the card.</p>')
      + split('Confidentiality','<p>The product is under NDA, so these screens are rebuilt with placeholder data (acme-store), and everything outside my components is blurred. Layout, states and wording follow what shipped.</p>')+'</div>')
     body=('<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>'
-     + sec('ov','Overview',hero)+sec('pr','The problem',prob)+sec('f2','Data health in the menu',f2)+sec('f3','Event parameters',f3)+sec('f1','Where data comes from',f1)+sec('nx','What’s next',nxt)+'</div>' + nextblock('data-health') + '</main>')
+     + sec('ov','Overview',hero)+sec('pr','The problem',prob)+sec('f2','Data health in the menu',f2)+sec('kd','Warn, don’t block',kd)+sec('f3','Event parameters',f3)+sec('f1','Where data comes from',f1)+sec('nx','What’s next',nxt)+'</div>' + nextblock('data-health') + '</main>' + MXJS)
 
     h = page('Data health case study | Ege Coskun', 'Data health in a customer data platform: where data comes from, and a warning in the segment builder.',
              body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
@@ -609,9 +630,9 @@ def work(v='b', hero=''):
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
         ('bilge', '02', 'BİLGE', 'Customs software where&nbsp;‘Register’ starts a legal clock',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
-         ['GovTech', 'Customs platform', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
+         ['GovTech', 'Customs Platform', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
         ('data-health', '03', '', 'Making broken customer data visible where marketers build their audiences',
-         '', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp', 'Data health card in the segment builder', None),
+         '', ['B2B SaaS', 'Customer Data Platform', '2026'], GH + 'shots/dh/thumb.webp', 'Data health card in the segment builder', None),
     ]
     def cc(n, u):
         return f'<a class="wk-cc ec-btn ink" href="{u}" target="_blank" rel="noopener" aria-label="{n}, company website, opens in a new tab"><span>{n}</span><span aria-hidden="true">↗</span></a>'
@@ -624,7 +645,7 @@ def work(v='b', hero=''):
         + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + (f'<span class="wk-n">{name}</span>' if name else '') + '</div>'
         for k, num, name, t, d, tags, img, alt, vid in lead)
     more = [
-        ('data-health', '03', 'Data health', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer data platform', '2026'], GH + 'shots/dh/thumb.webp'),
+        ('data-health', '03', 'Data health', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer Data Platform', '2026'], GH + 'shots/dh/thumb.webp'),
         # ('uwaverde', '04', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),
     ]
     rows = ''.join(
