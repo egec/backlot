@@ -431,7 +431,7 @@ def about3(intro="flip"):
     nm = '<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>'
     if intro == 'a':
         rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS if True)
-        intro_html = (f'<section class="ax-w ax-ia"><div class="ax-l"><figure class="ax-ph"><img src="{GH}me/ege-badge.webp" width="480" height="480" alt="Ege Coskun"></figure><div class="ax-nmw">{nm} <p class="ax-sub">People tell me what they want. I like to design what they meant.</p></div></div>'
+        intro_html = (f'<section class="ax-w ax-ia"><div class="ax-l"><figure class="ax-ph"><img src="{GH}me/ege-badge.webp" width="480" height="480" alt="Ege Coskun"></figure><div class="ax-nmw">{nm} <p class="ax-sub">People tell me what they want.<br>I like to design what they meant.</p></div></div>'
                       f'<div class="ax-r"><div class="ax-tx">{lead}</div></div><dl class="ax-rows">{rows}</dl></section>')
     elif intro == 'b':
         rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS)

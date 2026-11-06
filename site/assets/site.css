@@ -29,3 +29,5 @@ a{color:inherit}
 .site-lt,.site-lm,.hb-fly{font-family:"Bricolage EC",sans-serif!important;font-variation-settings:"wght" 700,"wdth" 100,"opsz" 12!important;font-weight:700!important;letter-spacing:0!important}
 html.f-it .site-h .site-lt,html.f-it .site-h .site-lm,html .hb-fly,html .hb-fly i,html.f-it .site-lt,html.f-it .site-lm{font-family:"Bricolage EC",sans-serif!important}
 body:has(main.abx.dk) .site-lt{color:#F2F2EF!important}
+body:has(.abx.dk) .site-h .site-n a{color:#9a9994}body:has(.abx.dk) .site-h .site-n a[aria-current]{color:#F2F2EF}body:has(.abx.dk) .site-h .site-n a:hover{color:#98B04A}
+.site-lm{font-style:normal!important}
