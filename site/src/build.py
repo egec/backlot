@@ -633,13 +633,16 @@ HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div
   'function size(){nw=f.offsetWidth;nh=f.offsetHeight;sp.style.setProperty("--ar",(nw/nh).toFixed(3))}'
   'function tgt(){return Math.max(0,Math.min(1,scrollY/Math.max(1,innerHeight*.34)))}'
   'function draw(){var t=R?(tgt()>0?1:0):tgt();cur=cur<0?t:cur+(t-cur)*.18;if(Math.abs(t-cur)<.001)cur=t;'
-  'var a=sp.getBoundingClientRect(),b=lg.getBoundingClientRect(),a0=a.top+scrollY,e=cur*cur*(2.2-1.2*cur),w=a.width+(b.width-a.width)*e,k=w/nw,'
-  'y0=a0,y1=b.top+b.height/2-nh*(b.width/nw)/2,y=y0+(y1-y0)*Math.pow(cur,.8),x=a.left+(b.left-a.left)*e,d=Math.sin(Math.PI*cur),'
-  'sx=k*(1-.1*d),sy=k*(1+.34*d),fo=Math.max(0,Math.min(1,(cur-.86)/.14));'
-  'f.style.transform="translate("+x.toFixed(2)+"px,"+y.toFixed(2)+"px) skewX("+(-7*d).toFixed(2)+"deg) scale("+sx.toFixed(4)+","+sy.toFixed(4)+")";f.style.opacity=1-fo;f.style.visibility=cur>=.999?"hidden":"visible";'
+  'var a=sp.getBoundingClientRect(),b=lg.getBoundingClientRect(),a0=a.top+scrollY,e=Math.pow(cur,2.6),w=a.width+(b.width-a.width)*e,k=w/nw,'
+  'y0=a0,y1=b.top+b.height/2-nh*(b.width/nw)/2,y=y0+(y1-y0)*(1-Math.pow(1-cur,2.2)),x=a.left+(b.left-a.left)*e,d=Math.sin(Math.PI*Math.min(1,cur*1.15)),'
+  'sx=k*(1-.08*d),sy=k*(1+.55*d),y=Math.max(Math.min(y,8),y-(sy-k)*nh),fo=Math.max(0,Math.min(1,(cur-.94)/.06));'
+  'f.style.transform="translate("+x.toFixed(2)+"px,"+y.toFixed(2)+"px) skewX("+(-6*d).toFixed(2)+"deg) scale("+sx.toFixed(4)+","+sy.toFixed(4)+")";f.style.opacity=1-fo;f.style.visibility=cur>=.999?"hidden":"visible";'
   'lg.style.opacity=fo;document.documentElement.classList.toggle("hb-on",cur<.999);'
   'tx.style.transform="scale("+(1-.4*cur).toFixed(3)+")";tx.style.opacity=Math.max(0,1-cur*1.25).toFixed(3);'
   'if(cur!==t)raf=requestAnimationFrame(draw);else raf=0}'
+  'function run(){return innerHeight*.34}var lock=0;function snap(dir){var r=run();if(dir>0&&scrollY<r-2){scrollTo({top:Math.ceil(r)+1,behavior:"smooth"});return true}if(dir<0&&scrollY>0&&scrollY<=r+2){scrollTo({top:0,behavior:"smooth"});return true}return false}'
+  'addEventListener("wheel",function(e){if(R||Math.abs(e.deltaY)<2)return;if(Date.now()<lock){if(scrollY<=run()+2)e.preventDefault();return}if(snap(e.deltaY>0?1:-1)){e.preventDefault();lock=Date.now()+700}},{passive:false});'
+  'var ty=null;addEventListener("touchstart",function(e){ty=e.touches[0].clientY},{passive:true});addEventListener("touchend",function(e){if(ty==null||R)return;var dy=ty-e.changedTouches[0].clientY;ty=null;if(Math.abs(dy)>20)snap(dy>0?1:-1)},{passive:true});'
   'function go(){if(!raf)raf=requestAnimationFrame(draw)}size();addEventListener("scroll",go,{passive:true});addEventListener("resize",function(){size();go()});'
   '(document.fonts?document.fonts.load("200px \\"Bricolage EC\\""):Promise.resolve()).then(function(){size();cur=-1;go()});addEventListener("load",function(){size();go()});go()})();</script>')
 def work(v='b', hero=''):
@@ -661,9 +664,9 @@ def work(v='b', hero=''):
         return '<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + CO.get(k, '') + '</span>'
     # the title link stretches over the whole card, so the company chip can be its own link
     cards = ''.join(
-        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
+        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}" style="--i:{ix}" data-lab="{num}  {dict(backlot="Backlot", bilge="BİLGE").get(k, "Data health")}"><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
         + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + (f'<span class="wk-n">{name}</span>' if name else '') + '</div>'
-        for k, num, name, t, d, tags, img, alt, vid in lead)
+        for ix, (k, num, name, t, d, tags, img, alt, vid) in enumerate(lead))
     more = [
         ('data-health', '03', 'Data health', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer Data Platform', '2026'], GH + 'shots/dh/thumb.webp'),
         # ('uwaverde', '04', 'UwaVerde', 'A website and member portal for an NGO I co-founded.', ['Web', 'Portal', '2024'], WF + '691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png'),

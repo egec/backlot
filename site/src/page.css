@@ -462,3 +462,8 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .bl2-media.is-img{max-width:calc((100svh - 7rem) * 1.6)!important}
 .bl2-f:has(.bl2-media.is-img) .bl2-cards{max-width:calc((100svh - 7rem) * 1.6)}
 :root{--w:1480px}
+/* chips: text centred on both axes */
+.wk-tags i,.wk-cc{display:inline-flex;align-items:center;justify-content:center;gap:4px;height:26px;padding:0 11px!important;line-height:1;box-sizing:border-box;text-box:trim-both cap alphabetic}
+/* project rows stack with a sliver of each one left showing, labelled */
+.wk-g.vb>.wk-c{top:calc(4.75rem + var(--i,0) * 30px);padding-top:max(46px,clamp(24px,2.6vw,48px))}
+.wk-g.vb>.wk-c:after{content:attr(data-lab);position:absolute;left:0;top:9px;font-size:12px;line-height:1;letter-spacing:.02em;color:var(--mute);white-space:pre}
