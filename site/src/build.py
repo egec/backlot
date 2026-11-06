@@ -661,7 +661,7 @@ def work(v='b', hero=''):
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
     body = (f'<main class="wk"><div class="cs-wrap"><div class="wk-hero">'
             + '<h1 class="sr-only">Ege Coskun</h1>'
-            '<p class="wk-pos">I’m a product designer whose brain takes the long way round, so your users don’t have to.</p>'
+            '<p class="wk-pos">I’m a product designer for complex B2B software. My brain takes the long way round, so your users don’t have to.</p>'
             '</div>' +
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
             f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div>{about}</div></main>'
