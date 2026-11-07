@@ -293,7 +293,7 @@ def features():
         dict(h='Nothing written on its own', hl=[(95.2, 55.2, 2.8, 3.8), (76.8, 62.8, 7, 2.4)], ctx=(76, 50, 22, 1))], [IMG_AI], nav=nav))
     # artwork
     f_art = dict(t='Thumbnails are chosen by taste, not by country',
-             l='Most viewing starts from a recommendation, so the thumbnail does much of the selling. Taste predicts a click better than age or location, so each season carries one thumbnail per taste cluster. <span class="bl2-src">Sources: <a href="https://fortune.com/2016/03/27/netflix-predicts-taste/" target="_blank" rel="noopener">Netflix on taste clusters, Fortune</a>, <a href="https://www.dezeen.com/2017/12/20/netflix-targets-film-artwork-depending-users-viewing-habits-design-technology/" target="_blank" rel="noopener">Netflix on personalised artwork, Dezeen</a>.</span>',
+             l='Most viewing starts from a recommendation, so the thumbnail does much of the selling. Taste predicts a click better than age or location, so each season carries one thumbnail per taste cluster.',
              r=['Action, drama, romance and mystery fans each see the scene most likely to make them click.',
                 'Variants are tested against each other in each region, with the time left on the test, so the editor knows when the artwork is final.',
                 'Each variant shows its click-through rate, and the leader is marked.'])
@@ -469,7 +469,7 @@ def bilge():
         ('One form, four roles', 'Agents and customs staff open the same form; what changes is what each can do with it. The header is blue on the agent’s side and red on the customs side, so everyone knows which side of the form they are on.'),
         ('Sources side by side', 'The carrier’s declaration and the port’s records sit next to each other, so a mismatch is visible at a glance.'),
         ('Registering is binding', 'Registering starts the clock on the container’s permitted time in the country, so at the ministry’s request the button says Register. The confirmation shows the registration number and the remaining prepaid balance.')], 1))
-    glance = ('<div class="bl2-t bl2-part"><p class="bl2-big" data-tint style="--ac:#A31A28;font-size:clamp(36px,5.4vw,100px)"><span class="bl2-line">Four parties, one container.</span><span class="bl2-line">No shared record.</span></p>'
+    glance = ('<div class="bl2-t bl2-part"><p class="bl2-big" data-tint style="--ac:#A31A28;font-size:clamp(30px,4.3vw,82px)"><span class="bl2-line">Four parties, one container.</span><span class="bl2-line">No shared record.</span></p>'
               + split('The problem', '<p>Every container that enters or leaves a Turkish seaport needs a Container Tracking Form. Customs, port operators and agencies each kept their own records of it and exchanged them on paper, so no one saw the same container the same way.</p>'
                       '<p>Four roles act on the same form: the agent files it, the officer approves it, and two levels of managers sign off on changes. From the moment it is registered, the container’s permitted time in the country is running.</p>')
               + f'<div class="bl2-cards c3">{cards}</div>'

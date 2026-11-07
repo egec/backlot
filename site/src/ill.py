@@ -9,17 +9,6 @@ def lock(x, y, op):
     sh = f'M{x+2.5} {y+3} V{y+1.5} a2.5 2.5 0 0 1 5 0' + ('' if op else f' V{y+3}')
     return f'<rect x="{x}" y="{y+3}" width="10" height="7" rx="1.5"{c}/><path d="{sh}"{c}/>'
 I = {}
-# --- Taken out
-I['Availability as a ninth'] = svg(''.join(f'<rect x="{i*22}" y="24" width="16" height="16" rx="8"/>' for i in range(8))
-    + f'<g class="mv"><rect x="178" y="24" width="16" height="16" rx="8" stroke="{A}" stroke-dasharray="3 3"/><path d="M174 46 L198 18" stroke="{A}"/></g>')
-I['An AI score'] = svg('<rect x="0" y="26" width="140" height="12" rx="6"/>' + f'<rect x="0" y="26" width="100" height="12" rx="6" fill="{A}" fill-opacity=".28" stroke="none"/>'
-    + '<text x="152" y="38" font-size="15" font-weight="600" fill="currentColor" stroke="none" font-family="Manrope,sans-serif">72%</text>'
-    + f'<path class="mv" d="M148 46 L196 20" stroke="{A}"/>')
-I['Rejections first'] = svg('<rect x="0" y="14" width="58" height="24" rx="8"/><rect x="66" y="14" width="58" height="24" rx="8"/><rect x="132" y="14" width="58" height="24" rx="8"/>'
-    + '<path d="M12 26 H34 M78 26 H100 M144 26 H166"/>' + f'<circle cx="46" cy="26" r="3" fill="{A}" stroke="none"/>'
-    + f'<g class="mv"><path d="M29 50 C 70 62, 130 62, 161 50" stroke="{A}"/><path d="M155 46 L162 50 L154 54" stroke="{A}"/></g>')
-I['Bulk unlock'] = svg(''.join(f'<rect x="0" y="{3+i*16}" width="150" height="10" rx="3"/>' for i in range(4))
-    + ''.join(f'<g class="{"mv" if i == 0 else ""}">' + lock(166, 3 + i*16, i == 0) + '</g>' for i in range(4)))
 # --- Findings
 doc = lambda x, d='': f'<path d="M{x} 6 H{x+32} L{x+44} 18 V58 H{x} Z"{d}/><path d="M{x+32} 6 V18 H{x+44}"{d}/>'
 I['Files arrive broken'] = svg(doc(8) + doc(78, f' stroke="{A}" stroke-dasharray="3 3"') + doc(148)
@@ -32,13 +21,13 @@ I['Mistakes hide'] = svg('<rect x="70" y="2" width="60" height="14" rx="4"/><pat
 I['Feedback doesn'] = svg(''.join(f'<rect x="0" y="{6+i*18}" width="96" height="10" rx="3"/>' for i in range(3))
     + f'<g class="mv"><rect x="118" y="4" width="76" height="30" rx="8" stroke="{A}"/><path d="M126 18 H170 M126 25 H156" stroke="{A}"/></g>'
     + f'<path d="M122 34 C 112 44, 108 48, 104 50" stroke="{A}" stroke-dasharray="3 3"/>')
-I['One form'] = svg('<rect x="0" y="2" width="120" height="60" rx="6"/><rect x="12" y="14" width="96" height="8" rx="3"/><rect x="12" y="29" width="96" height="8" rx="3"/><rect x="12" y="44" width="60" height="8" rx="3"/>'
-    + ''.join(f'<circle cx="{150+i%2*30}" cy="{18+i//2*28}" r="11"' + (f' stroke="{A}" fill="{A}" fill-opacity=".22"' if i == 0 else '') + '/>' for i in range(4)))
-I['Sources side by side'] = svg('<rect x="0" y="4" width="90" height="56" rx="6"/><rect x="110" y="4" width="90" height="56" rx="6"/>'
-    + ''.join(f'<path d="M12 {y} H78 M122 {y} H188"/>' for y in (18, 46))
-    + f'<g class="mv"><path d="M12 32 H78" stroke="{A}"/><path d="M122 32 H160" stroke="{A}"/></g><path d="M94 32 H106" stroke="{A}" stroke-dasharray="2 3"/>')
-I['Registering is binding'] = svg('<rect x="0" y="20" width="84" height="24" rx="12"/><path d="M20 32 H56"/><path d="M50 27 L57 32 L50 37"/>'
-    + f'<g class="mv"><circle cx="150" cy="32" r="24" stroke="{A}"/><path d="M150 18 V32 L160 38" stroke="{A}"/></g><path d="M92 32 H120" stroke-dasharray="2 3"/>')
+I['One form'] = svg('<rect x="84" y="2" width="32" height="16" rx="4"/><path d="M92 8 H108 M92 12 H102"/><path d="M100 18 V26 M24 26 H176 M24 26 V32 M72 26 V32 M128 26 V32 M176 26 V32"/>'
+    + ''.join(f'<circle class="r" style="animation-delay:{i*.8}s" cx="{x}" cy="44" r="11"' + (f' stroke="{A}"' if i == 0 else '') + f'/><text x="{x}" y="48" text-anchor="middle" font-size="11" font-weight="600" fill="currentColor" stroke="none" font-family="Manrope,sans-serif">{t}</text>' for i, (x, t) in enumerate([(24, 'A'), (72, 'O'), (128, 'M'), (176, 'D')])))
+I['Sources side by side'] = svg(''.join(f'<path d="M0 {y} H78 M122 {y} H{200 if y != 40 else 170}"/>' for y in (10, 25, 55))
+    + '<path d="M0 40 H78"/>' + ''.join(f'<path d="M92 {y-2} H108 M92 {y+2} H108"/>' for y in (10, 25, 55))
+    + f'<g class="mv"><path d="M122 40 H162" stroke="{A}"/></g><path d="M92 38 H108 M92 42 H108 M96 45 L104 35" stroke="{A}"/>')
+I['Registering is binding'] = svg('<circle cx="100" cy="32" r="27"/><path d="M100 8 V12 M124 32 H120 M100 56 V52 M76 32 H80"/>'
+    + f'<path d="M100 5 A27 27 0 0 1 127 32" stroke="{A}" stroke-width="3"/><path d="M100 32 L100 18"/><path class="rot" d="M100 32 L112 38" stroke="{A}"/><circle cx="100" cy="32" r="2" fill="currentColor" stroke="none"/>')
 def add(html):
     def f(m):
         t = m.group(3).replace('&rsquo;', '’')
@@ -46,8 +35,14 @@ def add(html):
             if t.startswith(k):
                 return m.group(1) + v + m.group(2) + '<h3>' + m.group(3)
         return m.group(0)
-    return re.sub(r'(<div class="bl2-c">)(<span class="bl2-tag">(?:Finding|Taken out|Decision \d)</span>)<h3>([^<]*)', f, html)
+    return re.sub(r'(<div class="bl2-c">)(<span class="bl2-tag">(?:Finding|Decision \d)</span>)<h3>([^<]*)', f, html)
 CSS = (".bl2-ill{display:block;order:-2;margin:0 0 18px;color:var(--ink);opacity:.85}.bl2-ill svg{display:block;width:min(100%,200px);height:auto;overflow:visible}"
-       ".bl2-ill .mv{transition:transform .5s var(--ease),opacity .4s;transform-box:fill-box}"
-       ".bl2-c:hover .bl2-ill .mv{transform:translateX(5px)}"
-       "@media (prefers-reduced-motion:reduce){.bl2-ill .mv{transition:none}.bl2-c:hover .bl2-ill .mv{transform:none}}")
+       ".bl2-ill .mv{transition:transform .5s var(--ease),opacity .4s;transform-box:fill-box}.bl2-ill .rot{transition:transform 1.4s var(--ease);transform-origin:100px 32px}"
+       ".bl2-c:hover .bl2-ill .mv{transform:translateX(5px)}.bl2-c:hover .bl2-ill .rot{transform:rotate(150deg)}"
+       "@keyframes ill-cy{0%,100%{fill:none}35%,60%{fill:#728437;fill-opacity:.3}}.bl2-ill .r{animation:ill-cy 3.2s ease-in-out infinite;animation-play-state:paused}.bl2-c:hover .bl2-ill .r{animation-play-state:running}"
+       "@media (prefers-reduced-motion:reduce){.bl2-ill .mv,.bl2-ill .rot{transition:none}.bl2-c:hover .bl2-ill .mv,.bl2-c:hover .bl2-ill .rot{transform:none}.bl2-ill .r{animation:none}}"
+       # cards with an illustration: picture left, words right (two-column grids only); chip stays ink
+       "@media(min-width:560px){.bl2-cards:not(.c3) .bl2-c:has(.bl2-ill){display:grid;grid-template-columns:clamp(120px,12vw,180px) minmax(0,1fr);column-gap:clamp(20px,2.2vw,36px);align-items:start;align-content:start}"
+       ".bl2-cards:not(.c3) .bl2-c:has(.bl2-ill)>.bl2-ill{grid-column:1;grid-row:1/span 4;margin:2px 0 0}.bl2-cards:not(.c3) .bl2-c:has(.bl2-ill)>:not(.bl2-ill){grid-column:2}"
+       ".bl2-cards:not(.c3) .bl2-c:has(.bl2-ill)>.bl2-tag{justify-self:start}}"
+       ".bl2-c:has(.bl2-ill):hover .bl2-tag{background:var(--ink)}")
