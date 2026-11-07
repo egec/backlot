@@ -27,7 +27,7 @@ l.addEventListener('mouseleave',function(){m.style.setProperty('--rr','0px')})})
 /* Contact opens a panel from the top of the page */
 (function(){var a=document.querySelector('.site-n a[href="#contact"]');if(!a)return;
 var p=document.createElement('div');p.className='ct';p.id='ct';p.setAttribute('role','dialog');p.setAttribute('aria-modal','true');p.setAttribute('aria-labelledby','ct-t');p.hidden=true;
-p.innerHTML='<div class="ct-in"><div class="ct-a"><h2 id="ct-t">Let’s work together.</h2><p>Tell me about the team and the product you are building.</p></div>'
+p.innerHTML='<div class="ct-in"><div class="ct-a"><h2 id="ct-t">Bring me the messy brief.</h2><p>Tell me about the team and where it is stuck.</p></div>'
 +'<ul class="ct-b"><li><a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a><button type="button" class="ct-cp">Copy</button></li><li><a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li></ul>'
 +'<button type="button" class="ct-x" aria-label="Close">Close</button></div>';
 var s=document.createElement('div');s.className='ct-s';s.hidden=true;document.body.appendChild(s);document.body.appendChild(p);

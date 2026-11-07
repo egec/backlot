@@ -425,8 +425,9 @@ def about3(intro="flip"):
     tmin, tmax = EVENTS[0][0], EVENTS[-1][0]
     fr = lambda v: max(0, min(1, (v - tmin) / (tmax - tmin)))
     dots = ''.join(f'<button type="button" class="ax-dt" data-i="{i}" style="--f:{fr(ev[0]):.4f}" aria-label="{ev[3]}"><span>{ev[2].split(" ")[0]}</span></button>' for i, ev in enumerate(EVENTS))
-    cards = ''.join(f'<article class="ax-pc" data-t="{t - Y0}" data-e="{e - Y0}" data-fa="{fr(t):.4f}" data-fb="{fr(e):.4f}" style="--fa:{fr(t):.4f}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
-                    for t, e, w, ti, pl, tx, x in EVENTS)
+    nxt = [fr(EVENTS[i + 1][0]) if i + 1 < len(EVENTS) else fr(EVENTS[i][1]) for i in range(len(EVENTS))]
+    cards = ''.join(f'<article class="ax-pc" data-t="{t - Y0}" data-e="{e - Y0}" data-fa="{fr(t):.4f}" data-fb="{nxt[i]:.4f}" style="--fa:{fr(t):.4f}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
+                    for i, (t, e, w, ti, pl, tx, x) in enumerate(EVENTS))
     how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = qa_html()
     TD = [('Figma', ['figma'], 'My design tool since 2020.'),
@@ -516,11 +517,11 @@ def about3(intro="flip"):
 @media(min-width:900px) and (prefers-reduced-motion:no-preference){{
 .ax-now,.ax-end,.ax-win{{display:none!important}}
 .ax-path{{--ph:min(calc(100svh - 4.75rem),560px);margin-bottom:clamp(48px,6vw,96px)}}
-.ax-st{{--ay:150px}}
+.ax-st{{--ay:150px;--tw:min(1040px,calc(100% - var(--px) * 2));--tx:calc((100% - var(--tw)) / 2)}}
 .ax-hl{{display:block;position:absolute;left:0;right:0;top:var(--ay);height:0;z-index:2}}
-.ax-ln{{position:absolute;left:var(--px);right:var(--px);top:0;height:1px;background:#3a3a37}}
-.ax-sg{{position:absolute;top:-1px;height:3px;border-radius:3px;background:var(--g);left:calc(var(--px) + var(--sa,0) * (100% - var(--px) * 2));width:calc((var(--sb,0) - var(--sa,0)) * (100% - var(--px) * 2));transition:left .7s var(--ease),width .7s var(--ease)}}
-.ax-dt{{position:absolute;top:-5px;left:calc(var(--px) + var(--f) * (100% - var(--px) * 2));width:11px;height:11px;margin-left:-5px;padding:0;border:0;border-radius:50%;background:#55544f;cursor:pointer;transition:background .4s,transform .4s var(--ease)}}
+.ax-ln{{position:absolute;left:var(--tx);width:var(--tw);top:0;height:1px;background:#3a3a37}}
+.ax-sg{{position:absolute;top:-1px;height:3px;border-radius:3px;background:var(--g);left:calc(var(--tx) + var(--sa,0) * var(--tw));width:calc((var(--sb,0) - var(--sa,0)) * var(--tw));transition:left .7s var(--ease),width .7s var(--ease)}}
+.ax-dt{{position:absolute;top:-5px;left:calc(var(--tx) + var(--f) * var(--tw));width:11px;height:11px;margin-left:-5px;padding:0;border:0;border-radius:50%;background:#55544f;cursor:pointer;transition:background .4s,transform .4s var(--ease)}}
 .ax-dt:before{{content:"";position:absolute;inset:-12px}}
 .ax-dt span{{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-size:12px;line-height:1;color:var(--mute);white-space:nowrap;transition:color .4s}}
 .ax-dt.past{{background:#8E8D88}}.ax-dt.on{{background:var(--g);transform:scale(1.5)}}.ax-dt.on span{{opacity:0}}
@@ -529,9 +530,9 @@ def about3(intro="flip"):
 .ax-pc{{top:0;bottom:0}}
 .ax-pg2{{display:contents}}
 .ax-pc h3{{position:absolute;left:var(--px);right:var(--px);top:28px;margin:0;text-align:center;transform:translateY(10px);transition:transform .5s var(--ease)}}
-.ax-pc .ax-pd{{position:absolute;left:0;right:0;bottom:0;max-width:none;width:min(34em,calc(100% - var(--px) * 2));margin:0 auto;text-align:center;transform:translateY(10px);transition:transform .5s var(--ease)}}
+.ax-pc .ax-pd{{position:absolute;left:0;right:0;top:calc(var(--ay) + 56px);max-width:none;width:min(34em,calc(100% - var(--px) * 2));margin:0 auto;text-align:center;transform:translateY(10px);transition:transform .5s var(--ease)}}
 .ax-pc.on h3,.ax-pc.on .ax-pd{{transform:none}}
-.ax-pc .ax-when{{position:absolute!important;left:calc(var(--px) + var(--fa) * (100% - var(--px) * 2))!important;bottom:auto!important;top:calc(var(--ay) - 30px);transform:translateX(-50%)}}
+.ax-pc .ax-when{{position:absolute!important;left:calc(var(--tx) + var(--fa) * var(--tw))!important;bottom:auto!important;top:calc(var(--ay) - 30px);transform:translateX(-50%)}}
 .ax-pc:first-child .ax-when{{transform:none}}.ax-pc:last-child .ax-when{{transform:translateX(-100%)}}
 .ax-side{{display:inline-block;max-width:100%;text-align:left}}
 }}
@@ -566,7 +567,7 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
 @media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end,.ax-hl{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
-{QCSS}{xcss}{NMCSS}.finalfooter{{background:#4A5724!important}}.finalfooter .ec-k{{color:#fff!important}}.tl2>h2{{margin-bottom:20px!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
+{QCSS}{xcss}{NMCSS}.finalfooter{{background:#4A5724!important}}.finalfooter .ec-k{{color:#fff!important}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
 <script>
 (function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
 var P=document.querySelector('[data-axpath]'),rl=P.querySelector('.ax-rl'),bars=[].slice.call(P.querySelectorAll('.ax-bar')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length,hl=P.querySelector('.ax-hl'),dts=[].slice.call(P.querySelectorAll('.ax-dt'));
