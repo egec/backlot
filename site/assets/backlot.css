@@ -796,10 +796,15 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 /* role cards: who it is sits on top */
 .bl2-role>.bl2-rf:first-child{margin-top:0;padding-top:0;border-top:0;padding-bottom:18px;border-bottom:1px solid var(--line)}
 /* hover CTA on the home cards */
-.wk-go{position:absolute;right:14px;bottom:14px;display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:99px;background:#56652A;color:#fff;font:500 0.8125rem/1 "Inter Tight",sans-serif;font-style:normal;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;pointer-events:none;z-index:2}
-.wk-go svg{width:14px;height:14px}
-.wk-c:hover .wk-go,.wk-c:focus-within .wk-go{opacity:1;transform:none}
-@media(hover:none){.wk-go{display:none}}
+/* the CTA grows out of the title arrow, outside the preview */
+.wk-nw{white-space:nowrap}
+.wk-go{display:inline-flex;align-items:center;vertical-align:.02em;padding:0;border-radius:99px;background:transparent;color:inherit;font-style:normal;transition:background .3s,color .3s,padding .3s}
+.wk-go b{display:inline-block;max-width:0;overflow:hidden;opacity:0;white-space:nowrap;margin:0;font:500 0.875rem/1 "Inter Tight",sans-serif;letter-spacing:0;transition:max-width .35s var(--ease),opacity .25s,margin .35s var(--ease)}
+.wk-go svg{transform:none!important}
+.wk-c:hover .wk-go,.wk-c:focus-visible .wk-go{background:#56652A;color:#fff;padding:8px 12px 8px 16px;line-height:1;vertical-align:.1em}
+.wk-c:hover .wk-go svg,.wk-c:focus-visible .wk-go svg{width:16px;height:16px}
+.wk-c:hover .wk-go b,.wk-c:focus-visible .wk-go b{max-width:12em;opacity:1;margin-right:.6em}
+@media(hover:none){.wk-go b{display:none}.wk-c:hover .wk-go{background:transparent;color:inherit;padding:0}}
 /* fixes 7 Nov evening */
 .zs-steps strong,.zs li>button>strong,.zs-pin.zs-ph .zs-steps strong{font-size:clamp(0.875rem,.94vw,1rem)!important}
 .bl2-c h3{font-weight:600!important}

@@ -27,9 +27,9 @@ l.addEventListener('mouseleave',function(){m.style.setProperty('--rr','0px')})})
 /* Contact opens a panel from the top of the page */
 (function(){var a=document.querySelector('.site-n a[href="#contact"]');if(!a)return;
 var p=document.createElement('div');p.className='ct';p.id='ct';p.setAttribute('role','dialog');p.setAttribute('aria-modal','true');p.setAttribute('aria-labelledby','ct-t');p.hidden=true;
-p.innerHTML='<div class="ct-in"><div class="ct-a"><h2 id="ct-t">Got a role in mind?</h2><p>Tell me about the team and the product you are building.</p></div>'
+p.innerHTML='<div class="ct-in"><div class="ct-a"><h2 id="ct-t">Let’s work together.</h2><p>Tell me about the team and the product you are building.</p></div>'
 +'<ul class="ct-b"><li><a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a><button type="button" class="ct-cp">Copy</button></li><li><a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li></ul>'
-+'<div class="ct-c"><p>Based in Berlin</p><p>Open to relocation</p><p>Free to start within two weeks</p></div><button type="button" class="ct-x" aria-label="Close">Close</button></div>';
++'<button type="button" class="ct-x" aria-label="Close">Close</button></div>';
 var s=document.createElement('div');s.className='ct-s';s.hidden=true;document.body.appendChild(s);document.body.appendChild(p);
 var last=null;function open(e){if(e)e.preventDefault();last=document.activeElement;p.hidden=false;s.hidden=false;requestAnimationFrame(function(){document.documentElement.classList.add('ct-on')});setTimeout(function(){p.querySelector('a').focus({preventScroll:true})},50)}
 function close(){document.documentElement.classList.remove('ct-on');setTimeout(function(){if(!document.documentElement.classList.contains('ct-on')){p.hidden=true;s.hidden=true}},420);if(last&&last.focus)last.focus({preventScroll:true})}

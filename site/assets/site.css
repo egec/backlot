@@ -37,15 +37,15 @@ body:has(.abx.dk) .site-h .site-n a{color:#9a9994}body:has(.abx.dk) .site-h .sit
 html.ct-on .ct{transform:none}
 .ct-s{position:fixed;inset:0;z-index:190;background:rgba(18,18,18,.42);opacity:0;transition:opacity .35s}
 html.ct-on .ct-s{opacity:1}
-.ct-in{position:relative;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,.8fr);gap:32px;align-items:start;max-width:1480px;margin:0 auto;padding:clamp(28px,4vw,64px) var(--pad,24px) clamp(32px,4vw,64px);box-sizing:border-box}
+.ct-in{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start;max-width:1480px;margin:0 auto;padding:clamp(28px,4vw,64px) var(--pad,24px) clamp(32px,4vw,64px);box-sizing:border-box}
 .ct-a h2{margin:0;font:700 clamp(32px,3.4vw,56px)/1 "Bricolage EC","Inter Tight",sans-serif;letter-spacing:-.03em}
 .ct-a p{margin:14px 0 0;font-size:1rem;line-height:1.5;color:#5f5e5a;max-width:26em}
-.ct-b{list-style:none;margin:0;padding:0;border-top:1px solid rgba(22,22,22,.14)}
+.ct-b{list-style:none;margin:0;padding:0;border-top:1px solid rgba(22,22,22,.14);justify-self:end;align-self:end;width:min(100%,460px)}
 .ct-b li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(22,22,22,.14);font-size:1rem}
 .ct-b a{color:#161616;text-decoration:none}.ct-b a:hover{color:#56652A}
 .ct-cp{border:1px solid rgba(22,22,22,.2);background:transparent;border-radius:99px;height:28px;padding:0 12px;font:500 0.8125rem/1 inherit;cursor:pointer;color:#161616}.ct-cp:hover{background:#56652A;border-color:#56652A;color:#fff}
 .ct-c p{margin:0 0 6px;font-size:0.875rem;line-height:1.5;color:#5f5e5a}
 .ct-x{position:absolute;right:var(--pad,24px);top:16px;border:0;background:transparent;font:500 0.875rem/1 inherit;color:#5f5e5a;cursor:pointer;padding:8px 0}.ct-x:hover{color:#161616}
 .ct :focus-visible{outline:2px solid #56652A;outline-offset:3px;border-radius:4px}
-@media(max-width:899px){.ct-in{grid-template-columns:1fr;gap:24px;padding-top:56px}}
+@media(max-width:899px){.ct-in{grid-template-columns:1fr;gap:24px;padding-top:56px}.ct-b{justify-self:stretch;width:auto}}
 @media(prefers-reduced-motion:reduce){.ct,.ct-s{transition:none}}

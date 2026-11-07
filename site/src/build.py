@@ -661,8 +661,8 @@ def work(v='b', hero=''):
         return '<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + CO.get(k, '') + '</span>'
     # the title link stretches over the whole card, so the company chip can be its own link
     cards = ''.join(
-        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}" style="--i:{ix}"><span class="wk-lab">{num}  {dict(backlot="Backlot, the take-home that got me hired", bilge="BİLGE").get(k, "Data health")}</span><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + f'<em class="wk-go" aria-hidden="true">{"See case study" if k == "backlot" else "See shipped project"} {ARW}</em></span>'
-        + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + '</div>'
+        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}" style="--i:{ix}"><span class="wk-lab">{num}  {dict(backlot="Backlot, the take-home that got me hired", bilge="BİLGE").get(k, "Data health")}</span><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
+        + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t.rpartition(" ")[0]} <span class="wk-nw">{t.rpartition(" ")[2]} <span class="wk-go" aria-hidden="true"><b>{"See case study" if k == "backlot" else "See shipped project"}</b>{ARW}</span></span></a>' + '</div>'
         for ix, (k, num, name, t, d, tags, img, alt, vid) in enumerate(lead))
     more = [
         ('data-health', '03', 'Data health', 'Telling marketers which data to trust before they build a segment.', ['B2B SaaS', 'Customer Data Platform', '2026'], GH + 'shots/dh/thumb.webp'),
