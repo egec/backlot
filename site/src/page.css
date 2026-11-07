@@ -546,3 +546,6 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 
 /* role questions sit under the section title, so they step down instead of competing with it */
 .bl2-role .bl2-q{font-size:clamp(17px,1.3vw,21px)!important;line-height:1.32;font-weight:500;letter-spacing:-.01em}
+/* projects no longer stack on each other; the dark section slides over the last one instead */
+.wk-g.vb>.wk-c{position:relative!important;top:auto!important}
+.bl2-media:has(>video[data-src]){padding:clamp(10px,1.3vw,22px)!important;max-width:calc((100svh - 9rem) * 1.6)!important;width:100%}

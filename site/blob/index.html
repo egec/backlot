@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Blob logo test | Ege Coskun</title>
+<style>
+@font-face{font-family:"Bricolage EC";src:url(/assets/bricolage-ec.woff) format("woff");font-display:block}
+:root{--bg:#F7F7F5;--ink:#161616;--mute:#6B6A66;--blob:#5E6F2C}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Inter Tight",system-ui,sans-serif}
+header{position:fixed;left:0;right:0;top:0;height:76px;z-index:50;background:var(--bg);display:flex;align-items:center;justify-content:flex-end;gap:28px;padding:0 clamp(20px,2.4vw,44px);font-size:15px;color:var(--mute)}
+header a{color:inherit;text-decoration:none}header a:first-child{color:var(--ink)}
+/* the same three letters in two places: the hero (big) and the header (small). Only their positions are read. */
+.row{display:flex;font:800 100px/.7 "Bricolage EC","Inter Tight",sans-serif;font-variation-settings:"wght" 800,"wdth" 100,"opsz" 96;letter-spacing:-.02em;text-transform:none;visibility:hidden;white-space:nowrap;pointer-events:none}
+.row span{display:block;padding:.06em .02em .22em}
+.hero{padding:76px clamp(20px,2.4vw,44px) 0;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between}
+#big{font-size:calc(min(100vw - 2 * clamp(20px,2.4vw,44px), 1500px) / 1.9);margin-top:2svh}
+#small{position:fixed;left:clamp(20px,2.4vw,44px);top:15px;font-size:44px}
+.tag{margin:0 0 clamp(28px,5svh,64px);font-size:clamp(22px,1.9vw,34px);line-height:1.2;max-width:22em}
+/* the visible blob: one container carries the goo filter, so letters that touch melt into each other */
+#fly{position:fixed;left:0;top:0;width:100%;height:100%;z-index:60;pointer-events:none;filter:url(#goo)}
+#fly b{position:absolute;left:0;top:0;display:block;font:800 100px/.7 "Bricolage EC","Inter Tight",sans-serif;font-variation-settings:"wght" 800,"wdth" 100,"opsz" 96;letter-spacing:-.02em;color:var(--blob);transform-origin:0 0;will-change:transform;padding:.06em .02em .22em}
+#fly b i{display:block;font-style:normal;will-change:transform}
+section.more{padding:clamp(80px,12vw,200px) clamp(20px,2.4vw,44px);border-top:1px solid #E0E0DD}
+section.more p{max-width:34em;font-size:18px;line-height:1.55;color:#3a3936}
+@media(prefers-reduced-motion:reduce){#fly{filter:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<filter id="goo" x="-5%" y="-10%" width="110%" height="120%" color-interpolation-filters="sRGB">
+<feGaussianBlur id="gb" in="SourceGraphic" stdDeviation="9" result="b"/>
+<feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11"/>
+</filter></defs></svg>
+<header><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a></header>
+<div class="row" id="small" aria-hidden="true"><span>e</span><span>g</span><span>e</span></div>
+<main>
+<section class="hero">
+<div class="row" id="big" aria-hidden="true"><span>e</span><span>g</span><span>e</span></div>
+<p class="tag">Product designer for B2B software, fluent in both AI and the people.</p>
+</section>
+<section class="more"><p>Scroll test. The three letters leave the hero one after another, get pulled toward the top left corner like liquid, and settle as the logo. The first letter leads, the others trail behind it and stay joined by the goo until they land.</p></section>
+<section class="more"><p>More page below, so there is room to scroll back and see the logo travel the other way.</p></section>
+<section class="more" style="min-height:60svh"></section>
+</main>
+<h1 style="position:absolute;left:-9999px">Ege Coskun</h1>
+<div id="fly" aria-hidden="true"><b><i>e</i></b><b><i>g</i></b><b><i>e</i></b></div>
+<script>
+(function(){
+var fly=document.getElementById('fly'),L=[].slice.call(fly.children),big=document.getElementById('big'),sm=document.getElementById('small'),
+bs=[].slice.call(big.children),ss=[].slice.call(sm.children),gb=document.getElementById('gb'),
+R=matchMedia('(prefers-reduced-motion:reduce)').matches,cur=-1,raf=0,S=[],E=[],F0=100,F1=44,n=L.length;
+function measure(){
+  var y0=scrollY;
+  S=bs.map(function(e){var r=e.getBoundingClientRect();return{x:r.left,y:r.top+y0,w:r.width,h:r.height}});
+  E=ss.map(function(e){var r=e.getBoundingClientRect();return{x:r.left,y:r.top,w:r.width,h:r.height}});
+  F0=parseFloat(getComputedStyle(big).fontSize);F1=parseFloat(getComputedStyle(sm).fontSize);L.forEach(function(el){el.style.fontSize=F0+'px'});
+}
+function run(){return innerHeight*.5}
+function tgt(){return Math.max(0,Math.min(1,scrollY/run()))}
+var ease=function(t){return t*t*(3-2*t)},lerp=function(a,b,t){return a+(b-a)*t};
+function draw(){
+  var t=R?(tgt()>0?1:0):tgt();
+  cur=cur<0?t:cur+(t-cur)*.14;if(Math.abs(t-cur)<.0012)cur=t;
+  var lag=.2,ksum=0,qsum=0;
+  L.forEach(function(el,i){
+    var q=Math.max(0,Math.min(1,(cur*(1+lag*(n-1))-i*lag)));
+    var qe=.45*ease(q)+.55*q*q*q;                       /* slow start, then pulled in fast */
+    var a=S[i],b=E[i],x=lerp(a.x,b.x,qe),y=lerp(a.y,b.y,Math.pow(qe,.8)),k=lerp(1,F1/F0,qe);
+    var th=Math.atan2(b.y-a.y,b.x-a.x),s=Math.sin(Math.PI*Math.min(1,q*1.0)),st=.7*s,sq=1-.32*s;
+    el.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) scale('+k.toFixed(4)+')';
+    el.firstChild.style.transform='rotate('+th.toFixed(3)+'rad) scale('+(1+st).toFixed(3)+','+sq.toFixed(3)+') rotate('+(-th).toFixed(3)+'rad)';
+    ksum+=k;qsum+=q;
+  });
+  var kb=ksum/n,mid=Math.sin(Math.PI*Math.min(1,cur));
+  gb.setAttribute('stdDeviation',(F0*.02*kb*(1+.9*mid)).toFixed(2));
+  if(cur!==t)raf=requestAnimationFrame(draw);else raf=0;
+}
+function kick(){if(!raf)raf=requestAnimationFrame(draw)}
+function init(){measure();cur=-1;draw()}
+addEventListener('scroll',kick,{passive:true});
+addEventListener('resize',function(){init()});
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(init);
+init();
+})();
+</script>
+</body>
+</html>

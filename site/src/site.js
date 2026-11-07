@@ -29,7 +29,7 @@ l.addEventListener('mouseleave',function(){m.style.setProperty('--rr','0px')})})
 var p=document.createElement('div');p.className='ct';p.id='ct';p.setAttribute('role','dialog');p.setAttribute('aria-modal','true');p.setAttribute('aria-labelledby','ct-t');p.hidden=true;
 p.innerHTML='<div class="ct-in"><div class="ct-a"><h2 id="ct-t">Bring me the messy brief.</h2><p>Tell me about the team and where it is stuck.</p></div>'
 +'<ul class="ct-b"><li><a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a><button type="button" class="ct-cp">Copy</button></li><li><a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li></ul>'
-+'<button type="button" class="ct-x" aria-label="Close">Close</button></div>';
++'</div><button type="button" class="ct-x" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
 var s=document.createElement('div');s.className='ct-s';s.hidden=true;document.body.appendChild(s);document.body.appendChild(p);
 var last=null;function open(e){if(e)e.preventDefault();last=document.activeElement;p.hidden=false;s.hidden=false;requestAnimationFrame(function(){document.documentElement.classList.add('ct-on')});setTimeout(function(){p.querySelector('a').focus({preventScroll:true})},50)}
 function close(){document.documentElement.classList.remove('ct-on');setTimeout(function(){if(!document.documentElement.classList.contains('ct-on')){p.hidden=true;s.hidden=true}},420);if(last&&last.focus)last.focus({preventScroll:true})}

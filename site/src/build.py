@@ -498,19 +498,11 @@ def bilge():
     def flow(n, k, h, lead, steps, texts, medias, after=''):
         return zoom(0, dict(r=texts), steps, medias, head_html=head2(n, k, h, lead), after=after, show_hl=False)
     POP = (37, 25, 26, 39)
-    agent = flow(3, 'The agent files', 'General information first, then the containers',
-                 'The agent picks the movement (foreign or domestic, entry or exit), fills in general information, then adds containers one by one or in bulk. Until an officer approves the form, the agent can still edit it.',
-                 [dict(h='General information first', t=4.45, hl=[(33.5, 25.5, 36.5, 50)]),
-                  dict(h='Parts sit under their container', t=28.5, hl=[(63.5, 53.5, 35.5, 9)]),
-                  dict(h='A last look before sending', t=30.5, hl=[(34, 29, 63, 22)]),
-                  dict(h='Register, not Save', t=32.3, hl=[POP]),
-                  dict(h='Waiting for an officer', t=36.6, hl=[(42, 9, 31.5, 4.5), (20, 29.5, 72, 3)])],
-                 ['Every container on the form shares it, so the agent fills it once. Picking a tax ID fills in the company details.',
-                  'Each container carries its own parts and equipment, so nothing is filed against the wrong one.',
-                  'The list shows each container’s route, weight and parts before anything is sent.',
-                  'Register sends the form to an officer’s queue. From then on, only the officer can change it.',
-                  'The confirmation gives the registration number, and the form moves to the pending list.'],
-                 [V('a')])
+    def pv(k):
+        return media_box(f'<video data-src="{GH}bilge/{k}.mp4" poster="{GH}bilge/{k}.jpg" width="1600" height="900" muted loop playsinline preload="none" style="display:block;width:100%;height:auto;border-radius:8px;background:#121212"></video>')
+    agent = ('<div class="bl2-t bl2-f">' + head2(3, 'The agent files', 'General information first, then the containers',
+             'The agent picks the movement (foreign or domestic, entry or exit), fills in the general information once for every container, then adds containers one by one or in bulk. Register sends the form to an officer’s queue. Until an officer approves it, the agent can still edit it.')
+             + pv('a') + '</div>')
     track = flow(4, 'Tracking a container', 'Every source and every event in one place',
                  'Two screens came straight from the specs. The container history puts every event on one timeline. The comparison sets the carrier’s summary declaration against the port’s records.',
                  [dict(h='One timeline per container', t=0.6, hl=[(20, 43, 77, 55)]),
@@ -522,24 +514,12 @@ def bilge():
                   'Shortfall lists containers the port recorded but the declaration missed. Surplus lists the reverse.',
                   'Selecting a container shows its notice, registration and bill of lading next to the other source.'],
                  [V('d')])
-    customs = flow(5, 'Customs decides', 'Officers and managers act from their queue',
-                   'Officers approve, edit or cancel registered forms; after approval, only customs can change them. Some changes need a second signature: time extensions and cancellations go to the manager, corrections to the deputy manager.',
-                   [dict(h='The form at a glance', m=0, t=3.2, hl=[(20.5, 17, 77, 16.5)]),
-                    dict(h='Approve some, reject the rest', m=0, t=6.0, hl=[(21.5, 49.5, 3, 22), (76.5, 37.5, 12.5, 4)]),
-                    dict(h='Both sides counted', m=0, t=8.3, hl=[POP]),
-                    dict(h='The balance after approval', m=0, t=11.4, hl=[POP]),
-                    dict(h='Managers decide on the row', m=1, t=1.4, hl=[(20, 57, 77, 6)]),
-                    dict(h='The result stays on the list', m=1, t=6.0, hl=[(42, 8.8, 32, 4.6), (82.5, 57.5, 5.5, 4)])],
-                   ['The agent’s details sit above the containers, each with its parts and equipment.',
-                    'The officer selects the containers that pass. Approving the selection rejects the others in the same step.',
-                    'Before anything changes, the confirmation says how many containers are approved and how many rejected.',
-                    'The success message shows how much of the agent’s prepaid balance is left.',
-                    'Time extensions reach the manager as a list with the request and its reason. Approve and Reject sit on the row, behind a confirmation.',
-                    'The status changes in place and a message confirms it, so the manager carries on with the queue.'],
-                   [V('b'), V('c')],
-                   after='<div class="bl2-t">' + split('Also in this flow', rules([
+    customs = ('<div class="bl2-t bl2-f">' + head2(5, 'Customs decides', 'Officers and managers act from their queue',
+               'Officers approve, edit or cancel registered forms, and after approval only customs can change them. Approving a selection rejects the other containers in the same step. Time extensions and cancellations need a second signature from the manager, corrections from the deputy manager, and managers decide on the row, behind a confirmation.')
+               + '<p class="bl2-cap">The officer approves some containers and rejects the rest</p>' + pv('b')
+               + '<p class="bl2-cap">The manager decides on the row</p>' + pv('c') + '<div class="bl2-t">' + split('Also in this flow', rules([
                        'Written reasons open in a side drawer, so the form stays in view.',
-                       'Editing a form an agent registered warns that the agent’s record will change.'])) + '</div>')
+                       'Editing a form an agent registered warns that the agent’s record will change.'])) + '</div></div>')
     spec = ('<div class="bl2-t">' + head2(6, 'Two stories', 'When the spec was wrong')
             + split('Two days to rebuild', '<p>A backend rule for one of my complex flows arrived incomplete and partly wrong, two days before I had to present the flow. The people who could confirm it were away. I sat down with the system engineer, mapped the corrected logic and rebuilt the flow in time.</p>')
             + split('The users knew better', '<p>Another time the client described a rule wrongly. It surfaced when the customs officers who would use the screens saw them and spotted what did not match their work, and we redesigned. Since then I ask for the people who will use the screens as early as the client allows.</p>')
@@ -628,6 +608,7 @@ EGE = ('<section class="wk-ege" aria-label="Contact">'
   '@media(max-width:899px){.wk-dk{padding-top:clamp(120px,16vw,160px)}}.wk-dk .wk-qa{margin-top:0!important}'
   'html.dk-h .site-h{background:#161616}html.dk-h .site-h .site-lt{color:#F2F2EF!important}html.dk-h .site-h .site-n a{color:#9a9994}html.dk-h .site-h .site-n a[aria-current]{color:#F2F2EF}html.dk-h .site-h .site-n a:hover{color:#98B04A}.site-h{transition:background .25s}'
   '.wk-dk .ax-qs{--qbg:#262624;--qbd:rgba(255,255,255,.18);--qtx:#F2F2EF;--abg:#30302d}.wk-dk .wk-btn{border-color:#F2F2EF;color:#F2F2EF}main.wk{padding-bottom:0!important}'
+  '@media(min-width:900px) and (prefers-reduced-motion:no-preference){.wk-rv{position:sticky;top:0;z-index:1}.wk-dk{position:relative;z-index:2}}'
   '.wk-ege{position:relative;padding:clamp(48px,6vw,96px) clamp(20px,2.4vw,44px) 0;overflow:hidden;color:#F2F2EF}'
   '.wk-ege-t{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 32px;max-width:var(--w);margin:0 auto}.wk-ege-t p{margin:0;font-size:clamp(20px,1.6vw,30px);letter-spacing:-.02em;font-weight:600}.wk-ege-t a{color:#98B04A;text-decoration:none;font-size:clamp(15px,1.1vw,19px)}.wk-ege-t a:hover{text-decoration:underline;text-underline-offset:5px}'
   '.wk-ege-g{position:relative;max-width:var(--w);margin:clamp(24px,3vw,56px) auto 0;height:clamp(90px,27vw,470px);filter:url(#goo)}'
@@ -637,7 +618,7 @@ EGE = ('<section class="wk-ege" aria-label="Contact">'
   'function pos(e){var b=g.getBoundingClientRect();m.x=(e.clientX-b.left)/b.width;m.y=(e.clientY-b.top)/b.height;m.on=1}'
   'g.parentNode.addEventListener("pointermove",pos);g.parentNode.addEventListener("pointerleave",function(){m.on=0});'
   'function f(t){r=0;var b=g.getBoundingClientRect();if(b.bottom<0||b.top>innerHeight){r=requestAnimationFrame(f);return}d.forEach(function(e,i){var a=t/1800+i*2.1,tx=m.on?m.x*b.width+Math.cos(a)*(i*34):b.width*(.2+.3*i)+Math.cos(a)*b.width*.12,ty=m.on?Math.max(b.height*.2,Math.min(b.height,m.y*b.height))+Math.sin(a)*(i*20):b.height*.62+Math.sin(a*1.3)*b.height*.22,p=P[i],k=.06+i*.025;p.x+=(tx-p.x)*k;p.y+=(ty-p.y)*k;e.style.transform="translate("+(p.x-e.offsetWidth/2)+"px,"+(p.y-e.offsetHeight/2)+"px)"});r=requestAnimationFrame(f)}'
-  'if(rm){d.forEach(function(e,i){e.style.transform="translate("+(g.offsetWidth*(.25+.25*i))+"px,"+(g.offsetHeight*.7)+"px)"});return}r=requestAnimationFrame(f)})();(function(){var D=document.querySelector(".wk-dk"),h=document.querySelector(".site-h");if(!D||!h)return;function c(){document.documentElement.classList.toggle("dk-h",D.getBoundingClientRect().top<=h.offsetHeight/2)}addEventListener("scroll",c,{passive:true});addEventListener("resize",c);c()})();</script></section>')
+  'if(rm){d.forEach(function(e,i){e.style.transform="translate("+(g.offsetWidth*(.25+.25*i))+"px,"+(g.offsetHeight*.7)+"px)"});return}r=requestAnimationFrame(f)})();(function(){var R=document.querySelector(".wk-rv");function t(){if(R)R.style.top=Math.min(0,innerHeight-R.offsetHeight)+"px"}t();addEventListener("resize",t);addEventListener("load",t);if(window.ResizeObserver&&R)new ResizeObserver(t).observe(R)})();(function(){var D=document.querySelector(".wk-dk"),h=document.querySelector(".site-h");if(!D||!h)return;function c(){document.documentElement.classList.toggle("dk-h",D.getBoundingClientRect().top<=h.offsetHeight/2)}addEventListener("scroll",c,{passive:true});addEventListener("resize",c);c()})();</script></section>')
 
 HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div class="hb-sp" aria-hidden="true"></div><p class="wk-pos hb-s">Product designer for B2B software,<br> fluent in both AI and the people.</p></div>'
   '<span class="hb-fly" aria-hidden="true"><i style="--j:0">E</i><i style="--j:1">g</i><i style="--j:2">e</i><i style="--j:3">&nbsp;</i><i style="--j:4">C</i><i style="--j:5">o</i><i style="--j:6">s</i><i style="--j:7">k</i><i style="--j:8">u</i><i style="--j:9">n</i></span>'
@@ -699,9 +680,9 @@ def work(v='b', hero=''):
              '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
     hero_html = hero or HERO
-    body = (f'<main class="wk"><div class="cs-wrap">' + hero_html +
+    body = (f'<main class="wk"><div class="wk-rv"><div class="cs-wrap">' + hero_html +
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
-            f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div></div><div class="wk-dk"><div class="cs-wrap">{about}</div>{EGE}</div></main>'
+            f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div></div></div><div class="wk-dk"><div class="cs-wrap">{about}</div>{EGE}</div></main>'
             '<script>(function(){var c=document.querySelectorAll(".wk-g.vb>.wk-c");if(!c.length||matchMedia("(prefers-reduced-motion:reduce)").matches)return;var f=0;function d(){f=0;var h=innerHeight;[].forEach.call(c,function(e){var t=e.getBoundingClientRect().top,p=Math.max(0,Math.min(1,(h*.85-t)/(h*.6)))*Math.min(1,scrollY/120);e.style.setProperty("--p",p.toFixed(3));if(t<h*.92)e.classList.add("on")})}addEventListener("scroll",function(){if(!f){f=1;requestAnimationFrame(d)}},{passive:true});addEventListener("resize",d);d()})();</script>')
     return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin: B2B tools for teams that review, approve and ship work. Case studies: Backlot, BİLGE, UwaVerde.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])

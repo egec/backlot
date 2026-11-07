@@ -338,7 +338,7 @@ EVENTS = [(2016.8, 2021.55, '2016 to 2021', 'Industrial Design, B.Sc.', 'Middle 
           (2023.8, 2025.55, '2023 to 2025', 'Integrated Design, M.A.', 'Hochschule Anhalt, Dessau', 'First in class. Thesis: a wearable for continuous monitoring in high-risk pregnancies. ' + AWARD + '.',
            '<div class="ax-side"><p class="ax-sk">From 2024, alongside</p><p class="ax-sh">Founding member, Product Designer</p><p>UwaVerde (NGO): the organisation’s first design work, a website and a member portal. Still going.</p></div>'),
           (2026.35, 2026.7, '2026', 'Product Designer', 'Insider One, remote from Berlin', 'Data health in a customer data platform.', ''),
-          (2026.85, 2026.95, 'Now', 'Looking for my next team', 'Within Germany, currently in Berlin', 'Open to product design roles on B2B products. If the domain is new to me, even better.', '')]
+          (2026.85, 2026.95, 'Now', 'Looking for my next team', 'Within Germany, currently in Berlin', 'Open to product design roles.<br>If the domain is new to me, even better.', '')]
 
 QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px)}
 .ax-ask h2{position:sticky;top:calc(4.75rem + 24px);align-self:start}
@@ -518,7 +518,7 @@ def about3(intro="flip"):
 @media(min-width:900px) and (prefers-reduced-motion:no-preference){{
 .ax-now,.ax-end,.ax-win{{display:none!important}}
 .ax-path{{--ph:min(calc(100svh - 4.75rem),560px);margin-bottom:clamp(48px,6vw,96px)}}
-.ax-st{{--ay:150px;--tw:min(1040px,calc(100% - var(--px) * 2));--tx:calc((100% - var(--tw)) / 2)}}
+.ax-st{{--ay:184px;--tw:min(1040px,calc(100% - var(--px) * 2));--tx:calc((100% - var(--tw)) / 2)}}
 .ax-hl{{display:block;position:absolute;left:0;right:0;top:var(--ay);height:0;z-index:2}}
 .ax-ln{{position:absolute;left:var(--tx);width:var(--tw);top:0;height:1px;background:#3a3a37}}
 .ax-sg{{position:absolute;top:-1px;height:3px;border-radius:3px;background:var(--g);left:calc(var(--tx) + var(--sa,0) * var(--tw));width:calc((var(--sb,0) - var(--sa,0)) * var(--tw));transition:left .7s var(--ease),width .7s var(--ease)}}
@@ -530,10 +530,10 @@ def about3(intro="flip"):
 .ax-pcs{{left:0;right:0;top:0;bottom:0}}
 .ax-pc{{top:0;bottom:0}}
 .ax-pg2{{display:contents}}
-.ax-pc h3{{position:absolute;left:0;right:0;width:min(34rem,calc(100% - var(--px) * 2));top:28px;margin:0 auto;text-align:left;transform:translateY(10px);transition:transform .5s var(--ease)}}
-.ax-pc .ax-pd{{position:absolute;left:0;right:0;top:calc(var(--ay) + 56px);max-width:none;width:min(34rem,calc(100% - var(--px) * 2));margin:0 auto;text-align:left;transform:translateY(10px);transition:transform .5s var(--ease)}}
+.ax-pc h3{{position:absolute;left:0;right:0;width:min(28rem,calc(100% - var(--px) * 2));top:64px;margin:0 auto;text-align:left;transform:translateY(10px);transition:transform .5s var(--ease)}}
+.ax-pc .ax-pd{{position:absolute;left:0;right:0;top:calc(var(--ay) + 56px);max-width:none;width:min(28rem,calc(100% - var(--px) * 2));margin:0 auto;text-align:left;transform:translateY(10px);transition:transform .5s var(--ease)}}
 .ax-pc.on h3,.ax-pc.on .ax-pd{{transform:none}}
-.ax-pc .ax-when{{position:absolute!important;left:calc(var(--tx) + var(--fa) * var(--tw))!important;bottom:auto!important;top:calc(var(--ay) - 30px);transform:translateX(-50%)}}
+.ax-pc .ax-when{{position:absolute!important;left:calc(var(--tx) + var(--fa) * var(--tw))!important;bottom:auto!important;top:calc(var(--ay) - 30px);transform:translateX(-50%);display:none!important}}
 .ax-pc:first-child .ax-when{{transform:none}}.ax-pc:last-child .ax-when{{transform:translateX(-100%)}}
 .ax-side{{display:inline-block;max-width:100%;text-align:left}}
 }}
