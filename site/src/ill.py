@@ -32,6 +32,13 @@ I['Mistakes hide'] = svg('<rect x="70" y="2" width="60" height="14" rx="4"/><pat
 I['Feedback doesn'] = svg(''.join(f'<rect x="0" y="{6+i*18}" width="96" height="10" rx="3"/>' for i in range(3))
     + f'<g class="mv"><rect x="118" y="4" width="76" height="30" rx="8" stroke="{A}"/><path d="M126 18 H170 M126 25 H156" stroke="{A}"/></g>'
     + f'<path d="M122 34 C 112 44, 108 48, 104 50" stroke="{A}" stroke-dasharray="3 3"/>')
+I['One form'] = svg('<rect x="0" y="2" width="120" height="60" rx="6"/><rect x="12" y="14" width="96" height="8" rx="3"/><rect x="12" y="29" width="96" height="8" rx="3"/><rect x="12" y="44" width="60" height="8" rx="3"/>'
+    + ''.join(f'<circle cx="{150+i%2*30}" cy="{18+i//2*28}" r="11"' + (f' stroke="{A}" fill="{A}" fill-opacity=".22"' if i == 0 else '') + '/>' for i in range(4)))
+I['Sources side by side'] = svg('<rect x="0" y="4" width="90" height="56" rx="6"/><rect x="110" y="4" width="90" height="56" rx="6"/>'
+    + ''.join(f'<path d="M12 {y} H78 M122 {y} H188"/>' for y in (18, 46))
+    + f'<g class="mv"><path d="M12 32 H78" stroke="{A}"/><path d="M122 32 H160" stroke="{A}"/></g><path d="M94 32 H106" stroke="{A}" stroke-dasharray="2 3"/>')
+I['Registering is binding'] = svg('<rect x="0" y="20" width="84" height="24" rx="12"/><path d="M20 32 H56"/><path d="M50 27 L57 32 L50 37"/>'
+    + f'<g class="mv"><circle cx="150" cy="32" r="24" stroke="{A}"/><path d="M150 18 V32 L160 38" stroke="{A}"/></g><path d="M92 32 H120" stroke-dasharray="2 3"/>')
 def add(html):
     def f(m):
         t = m.group(3).replace('&rsquo;', '’')
@@ -39,7 +46,7 @@ def add(html):
             if t.startswith(k):
                 return m.group(1) + v + m.group(2) + '<h3>' + m.group(3)
         return m.group(0)
-    return re.sub(r'(<div class="bl2-c">)(<span class="bl2-tag">(?:Finding|Taken out)</span>)<h3>([^<]*)', f, html)
+    return re.sub(r'(<div class="bl2-c">)(<span class="bl2-tag">(?:Finding|Taken out|Decision \d)</span>)<h3>([^<]*)', f, html)
 CSS = (".bl2-ill{display:block;order:-2;margin:0 0 18px;color:var(--ink);opacity:.85}.bl2-ill svg{display:block;width:min(100%,200px);height:auto;overflow:visible}"
        ".bl2-ill .mv{transition:transform .5s var(--ease),opacity .4s;transform-box:fill-box}"
        ".bl2-c:hover .bl2-ill .mv{transform:translateX(5px)}"
