@@ -122,7 +122,7 @@ def zoom(n, f, steps, medias, after='', nav=False, head_html=None, note='', show
 IMG_SEASON = dict(type='img', src=GH + 'shots/v2/season-assets.webp?v=5', w=2738, h=1712, alt='Season 4 in Spain: region selector, readiness panel, personalized thumbnails')
 IMG_EP2 = dict(type='img', src=GH + 'shots/v2/ep2.webp?v=4', w=2880, h=1800, alt='Episode 2 metadata page: needs your input, values from the delivery, AI flags')
 IMG_AI = dict(type='img', src=GH + 'shots/v2/ep2-ai-w.webp?v=3', w=2280, h=1220, alt='The episode page with its checks panel: rule checks above, AI suggestions with their evidence below', cap='The checks panel on the episode page')
-IMG_REJ = dict(type='img', cap='What the publisher sees while reviewing', src=GH + 'shots/v2/reject.webp?v=4', w=2880, h=1800, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
+IMG_REJ = dict(type='img', cap='What the publisher sees while reviewing', src=GH + 'shots/v2/reject.webp?v=5', w=2880, h=1800, alt='Publisher review of Sherlock Holmes: two flagged rows and a list of two rejection reasons')
 IMG_UP3 = dict(type='img', src=GH + 'shots/v2/upload-modal.webp?v=4', w=2738, h=1712, alt='Upload drop zone open over the assets list')
 IMG_UP15 = dict(type='img', src=GH + 'shots/v2/upload-widget.webp?v=4', w=2738, h=1712, alt='Season 4 in Spain with the upload result in the corner and 15 files waiting in the readiness panel')
 IMG_AS = dict(type='img', src=GH + 'shots/v2/assets.webp?v=4', w=2738, h=1712, alt='Assets: the delivery batch with a state per file, and the content list with completeness per title')

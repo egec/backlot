@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 <style>
-:root{--bg:#121212;--s:#191919;--s2:#1F1E1D;--tx:#edebe8;--ac:#9184d9;--ac3:#d2cefd;--ac4:#b5abfc;--ac9:#2b2741;--n3:#d4d2cf;--n4:#b5b3ae;--n5:#96938d;--n6:#78756f;--n7:#5c5954;--n8:#3a3937;--n9:#2a2927;--dv:color-mix(in srgb,#edebe8 10%,transparent);--wn:oklch(.72 .125 75);--wni:oklch(.86 .07 75);--rej:#d9534a}
+:root{--bg:#121212;--s:#191919;--s2:#1F1E1D;--tx:#edebe8;--ac:#9184d9;--ac3:#d2cefd;--ac4:#b5abfc;--ac9:#2b2741;--n3:#d4d2cf;--n4:#b5b3ae;--n5:#96938d;--n6:#78756f;--n7:#5c5954;--n8:#3a3937;--n9:#2a2927;--dv:color-mix(in srgb,#edebe8 10%,transparent);--wn:oklch(.72 .125 75);--wni:oklch(.86 .07 75);--rej:#973630}
 *{box-sizing:border-box;scrollbar-width:none}*::-webkit-scrollbar{display:none}
 html,body{margin:0;height:900px;overflow:hidden;background:var(--bg);color:var(--tx);font:400 13px/1.45 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 button,textarea,select{font:inherit;color:inherit}
@@ -36,7 +36,7 @@ button,textarea,select{font:inherit;color:inherit}
 .btn:hover{background:var(--n9);border-color:var(--n6);color:var(--tx)}
 .btn:active{transform:translateY(1px)}
 .btn.pri{background:var(--ac);border-color:var(--ac);color:var(--bg)}.btn.pri:hover{background:var(--ac4);border-color:var(--ac4)}
-.btn.red{background:var(--rej);border-color:var(--rej);color:#fff}.btn.red:hover{background:#e26158;border-color:#e26158}
+.btn.red{background:var(--rej);border-color:var(--rej);color:#fff}.btn.red:hover{background:#a8413a;border-color:#a8413a}
 .btn.gh{border-color:transparent}.btn.gh:hover{background:var(--n9)}
 .btn[disabled]{opacity:.45;cursor:default;pointer-events:none}
 .acts{display:flex;gap:8px;margin-top:14px}
@@ -57,7 +57,7 @@ button,textarea,select{font:inherit;color:inherit}
 .row .add{display:none}
 .ok{gap:14px;align-items:center}.add{border:0;background:transparent;color:var(--ac3);font:500 12.5px/1 Manrope,sans-serif;align-items:center;gap:6px;padding:4px 2px;cursor:pointer;border-radius:6px}.add .ph{font-size:15px}.add:hover{color:#fff}
 .row:hover .add,.row.focus .add{display:inline-flex}
-.unf{height:28px;padding:0 10px;font-size:12px}
+.unf{border:0!important;background:transparent!important;color:var(--ac3)!important;font:500 12.5px/1 Manrope,sans-serif;height:auto!important;gap:6px;padding:4px 2px!important;border-radius:6px}.unf .ph{font-size:15px}.unf:hover{color:#fff!important}
 .row .fl{display:none;color:var(--wni);font-size:12px;padding:0 15px 10px 187px;margin-top:-6px}
 .row.flagged .fl{display:block}
 .row.flagged .ok .ph-check{display:none}
@@ -98,10 +98,10 @@ button,textarea,select{font:inherit;color:inherit}
 .scrim.on{opacity:1;pointer-events:auto;transition:opacity .2s cubic-bezier(.23,1,.32,1)}
 .modal{width:460px;background:var(--s2);border-radius:14px;box-shadow:0 0 0 1px #3a3937,0 24px 64px rgba(0,0,0,.55);transform:scale(.96);transition:transform .2s cubic-bezier(.23,1,.32,1)}
 .scrim.on .modal{transform:none}
-.modal .mh{display:flex;align-items:flex-start;padding:18px 18px 0}
+.modal .mh{display:flex;align-items:center;padding:16px 14px 0 18px}
 .modal h3{margin:0;font-size:15px;font-weight:500}
 .modal .mh .x{margin-left:auto;width:28px;height:28px;border:0;background:transparent;color:var(--n5);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center}.modal .mh .x:hover{background:var(--n9);color:var(--tx)}
-.modal .md{padding:6px 18px 0;color:var(--n4);font-size:12.5px}
+.modal .md{padding:2px 18px 0;margin:0;color:var(--n4);font-size:12.5px}
 .modal ul{list-style:none;margin:14px 18px 0;padding:0;display:flex;flex-direction:column;gap:8px}
 .modal li{border:1px solid var(--n8);border-radius:8px;padding:10px 12px}
 .modal li .t{display:flex;gap:8px;align-items:center}.modal li .t span{color:var(--n5);font-size:12px}
@@ -135,7 +135,7 @@ button,textarea,select{font:inherit;color:inherit}
  </div>
  <aside class="side" id="side"></aside>
 </div></div>
-<div class="scrim" id="scrim"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="mh"><h3 id="mt"></h3><button class="x" type="button" data-close aria-label="Close"><i class="ph ph-x"></i></button></div><p class="md">Each reason goes back attached to its field.</p><ul id="ml"></ul><div class="mf"><span class="who"><img src="../dc/avatars/rivard.png" alt=""><span><b>Alex Rivard</b> will be notified</span></span><button class="btn gh" type="button" data-close>Cancel</button><button class="btn red" type="button" id="doRej">Reject</button></div></div></div>
+<div class="scrim" id="scrim"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="mh"><h3 id="mt"></h3><button class="x" type="button" data-close aria-label="Close"><i class="ph ph-x"></i></button></div><p class="md">Each reason goes back attached to its field.</p><ul id="ml"></ul><div class="mf"><span class="who"><img src="../dc/avatars/rivard.png" alt=""><span><b>Alex Rivard</b> will be notified</span></span><button class="btn gh" type="button" data-close>Cancel</button><button class="btn red" type="button" id="doRej"><i class="ph ph-arrow-u-up-left"></i>Reject</button></div></div></div>
 <div class="toast" id="toast"><i class="ph ph-check-circle"></i><span></span></div>
 <script>
 (function(){
@@ -150,7 +150,7 @@ const row=k=>document.querySelector('.row[data-k="'+k+'"]'),label=k=>row(k).quer
 function side(){
  const n=reasons.length,s=$('side');
  if(!n){s.innerHTML='<div class="in"><h2>Your decision <small>not decided yet</small></h2><p class="d">Approve to pass it to scheduling, or start a rejection by adding reasons from the sheet.</p><div class="checks"><h5>Automatic checks</h5><div class="ck"><i class="ph ph-check"></i>Required fields<span>41 / 41</span></div><div class="ck"><i class="ph ph-check"></i>Assets delivered<span>6 / 6</span></div><div class="ck"><i class="ph ph-check"></i>Audio &amp; subtitle tracks<span>7 / 7</span></div><div class="ck"><i class="ph ph-check"></i>Rights window covers release<span>to 2029</span></div><p>Checks only prove the fields are filled. Ratings, artwork and sync are your call.</p></div><div class="rh">Rejection reasons <span class="cnt">0</span></div><div class="empty">Nothing flagged yet. Use <b>Add comment</b> on any metadata row and it lands here with the field attached.</div><button class="btn man" type="button"><i class="ph ph-plus"></i>Add a reason manually</button></div><div class="foot"><div class="who"><img src="../dc/avatars/pub.png" alt=""><span>Approving sets status <b>Approved</b> and releases it to scheduling for 17 Feb.</span></div><div class="b"><button class="btn" type="button" disabled>Reject</button><button class="btn pri" type="button"><i class="ph ph-check"></i>Approve</button></div></div>';return}
- s.innerHTML='<div class="in"><h2>Rejection reasons <span class="cnt">'+n+'</span><small>each lands separately</small></h2><div class="rs">'+reasons.map((r,i)=>'<div class="rc" data-r="'+r.k+'"><div class="t"><span class="n">'+(i+1)+'</span><span class="fc"><i class="ph ph-link-simple" style="font-size:13px"></i>'+label(r.k)+'</span><select class="cat" aria-label="Category">'+['Compliance','Localization','Metadata','Artwork'].map(c=>'<option'+(c===r.c?' selected':'')+'>'+c+'</option>').join('')+'</select><button class="x" type="button" data-rm="'+r.k+'" aria-label="Remove reason"><i class="ph ph-x"></i></button></div><p>'+r.t+'</p></div>').join('')+'</div><button class="btn man" type="button"><i class="ph ph-plus"></i>Add a reason manually</button></div><div class="foot"><div class="who"><img src="../dc/avatars/rivard.png" alt=""><span>Goes back to <b>Alex Rivard</b>, status becomes Rejected</span></div><div class="b"><button class="btn" type="button">Save draft</button><button class="btn pri" type="button" id="rej"><i class="ph ph-arrow-u-up-left"></i>Reject, '+n+' reason'+(n>1?'s':'')+'</button></div></div>';
+ s.innerHTML='<div class="in"><h2>Rejection reasons <span class="cnt">'+n+'</span><small>each lands separately</small></h2><div class="rs">'+reasons.map((r,i)=>'<div class="rc" data-r="'+r.k+'"><div class="t"><span class="n">'+(i+1)+'</span><span class="fc"><i class="ph ph-link-simple" style="font-size:13px"></i>'+label(r.k)+'</span><select class="cat" aria-label="Category">'+['Compliance','Localization','Metadata','Artwork'].map(c=>'<option'+(c===r.c?' selected':'')+'>'+c+'</option>').join('')+'</select><button class="x" type="button" data-rm="'+r.k+'" aria-label="Remove reason"><i class="ph ph-x"></i></button></div><p>'+r.t+'</p></div>').join('')+'</div><button class="btn man" type="button"><i class="ph ph-plus"></i>Add a reason manually</button></div><div class="foot"><div class="who"><img src="../dc/avatars/rivard.png" alt=""><span>Goes back to <b>Alex Rivard</b>, status becomes Rejected</span></div><div class="b"><button class="btn" type="button">Save draft</button><button class="btn pri" type="button" id="rej"><i class="ph ph-arrow-u-up-left"></i>Reject</button></div></div>';
 }
 function sum(){const n=reasons.length;$('fsum').textContent=(41-n)+' complete, '+(n?n+' flagged':'none flagged')}
 function close(){if(!editing)return;const r=row(editing);r.classList.remove('editing','focus');typing++;editing=null}
