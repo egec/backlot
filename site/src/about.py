@@ -327,7 +327,7 @@ QA = [('What’s the hardest workflow you’ve designed?', 'Backlot, the case st
       ('When did a technical constraint change your design?', 'At MilSOFT the customs backend was fixed and there was no product brief. Most of the work was separating fields that were written in sequence but weren’t actually dependent, so the form follows what an officer knows at each point. Where the model did force an order, a blocked field says what has to happen first instead of sitting there greyed out.'),
       ('What do you do when you have to compromise?', 'Put the trade-off on the table instead of quietly optimising for one side. If the call goes the other way, I ask for it to be written down and design the chosen version as well as I can. Real usage usually settles it later.'),
       ('How do you use AI?', 'Every day, for real work: exploring, prototyping, and building this site in code. I still make every decision, and I check what the AI makes against how the system actually behaves, because my assumption about the data is usually the thing that’s wrong.'),
-      ('When can you start?', 'As soon as you need me. I’m in Berlin and open to relocation.')]
+      ('When can you start?', 'Within two weeks of signing. I’m based in Berlin and open to relocation.')]
 
 
 
@@ -512,7 +512,7 @@ def about3(intro="flip"):
 .ax-how{{height:calc(var(--n) * 45svh + 60svh)}}
 .ax-hpin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);overflow:hidden;padding-top:clamp(20px,2.4vw,40px);box-sizing:border-box}}
 .ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(100px,14svh,150px);bottom:clamp(16px,3svh,40px)}}
-.ax-hc{{--w:min(25vw,400px);position:absolute;top:var(--dy,0px);left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(100%,520px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:#161616;color:#F2F2EF;border:1.5px solid var(--g);border-radius:18px;
+.ax-hc{{--w:min(25vw,400px);position:absolute;top:var(--dy,0px);left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(calc(100% - 48px),520px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:#161616;color:#F2F2EF;border:1.5px solid var(--g);border-radius:18px;
   transform:translateY(calc((1 - var(--e,0)) * 130%)) rotate(calc(var(--r) + (1 - var(--e,0)) * var(--r2)));opacity:min(1,calc(var(--e,0) * 4))}}
 .ax-hc h3{{font-size:clamp(24px,2vw,36px);line-height:.98;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;text-wrap:balance}}
 .ax-hc .ax-ht{{margin:16px 0 0;font-size:15px!important;line-height:1.5!important;color:#CFCECA!important}}

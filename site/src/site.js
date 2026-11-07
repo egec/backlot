@@ -1,6 +1,13 @@
 // shared site behaviour (kept small; page scripts live next to their page)
 
 /* Work: a case card plays its recording while the pointer is on it */
+/* touch screens have no hover: a card's preview plays while most of it is on screen */
+(function(){if(matchMedia('(hover:hover)').matches||!('IntersectionObserver' in window))return;[].forEach.call(document.querySelectorAll('.wk-c'),function(c){var v=c.querySelector('video');if(!v)return;
+new IntersectionObserver(function(x){var e=x[0];if(e.isIntersecting&&e.intersectionRatio>=.55){if(!v.src)v.src=v.dataset.src;c.classList.add('play');var p=v.play();if(p&&p.catch)p.catch(function(){})}else{c.classList.remove('play');v.pause()}},{threshold:[0,.55,1]}).observe(c.querySelector('.wk-m')||c)})})();
+/* Ctrl Z keycaps: a tap presses and releases the key, nothing stays down or selected */
+(function(){[].forEach.call(document.querySelectorAll('.wk-cz kbd'),function(k){var t=0;k.addEventListener('pointerdown',function(){clearTimeout(t);k.classList.add('pr')});['pointerup','pointercancel','pointerleave'].forEach(function(ev){k.addEventListener(ev,function(){clearTimeout(t);t=setTimeout(function(){k.classList.remove('pr')},120)})})})})();
+/* About: the name tooltip closes when you tap anywhere else */
+document.addEventListener('pointerdown',function(e){var a=document.activeElement;if(a&&a.classList&&a.classList.contains('ax-nm')&&!a.contains(e.target))a.blur()},true);
 (function(){if(!matchMedia('(hover:hover)').matches)return;[].forEach.call(document.querySelectorAll('.wk-c'),function(c){var v=c.querySelector('video');if(!v)return;
 /* fetch the preview while the card scrolls in, so the first hover plays at once */
 if('IntersectionObserver' in window)new IntersectionObserver(function(x,o){if(x[0].isIntersecting){if(!v.src){v.preload='auto';v.src=v.dataset.src}o.disconnect()}},{rootMargin:'800px 0px'}).observe(c);

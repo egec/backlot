@@ -30,7 +30,7 @@ all.push({sc:onScroll,rs:function(){act(cur,true);onScroll()}});
 function fitAll(){[].forEach.call(document.querySelectorAll('.zs-pin.zs-ph'),function(pin){var st=pin.querySelector('.zs-stick');if(!st)return;if(!matchMedia('(min-width:992px)').matches){st.style.width='';return}
 var hd=pin.querySelector('.zs-hd'),fr=pin.querySelector('.zs-frame'),ft=pin.querySelector('.zs-foot'),vw=pin.querySelector('.zs-view'),c=getComputedStyle(pin),f=getComputedStyle(fr),fo=getComputedStyle(ft);
 var a=vw.style.aspectRatio.split('/'),r=a.length>1?(+a[0])/(+a[1]):1.6,pad=parseFloat(f.paddingTop)+parseFloat(f.paddingBottom);
-var ex=fr.offsetHeight-vw.offsetHeight-pad;var h=pin.clientHeight-parseFloat(c.paddingTop)-parseFloat(c.paddingBottom)-(hd?hd.offsetHeight+parseFloat(c.rowGap||0):0)-ft.offsetHeight-parseFloat(fo.marginTop)-pad-ex;
+var side=matchMedia('(max-width:1439px) and (max-height:900px)').matches;var ex=fr.offsetHeight-vw.offsetHeight-pad;var h=pin.clientHeight-parseFloat(c.paddingTop)-parseFloat(c.paddingBottom)-(hd&&!side?hd.offsetHeight+parseFloat(c.rowGap||0):0)-ft.offsetHeight-parseFloat(fo.marginTop)-pad-ex;
 st.style.width=Math.max(320,h*r+parseFloat(f.paddingLeft)+parseFloat(f.paddingRight))+'px';st.style.maxWidth='100%'})}
 fitAll();window.addEventListener('load',fitAll);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitAll);
 var raf=0;

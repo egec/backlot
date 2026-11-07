@@ -27,7 +27,7 @@ FULL_IC = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><p
 def page(title, desc, body, css_files, js_files, font='it', cur='work'):
     css = ''.join('<link rel="stylesheet" href="../assets/%s">' % c for c in css_files)
     js = ''.join('<script src="../assets/%s" defer></script>' % j for j in js_files)
-    fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">' if font else ''
+    fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Reenie+Beanie&family=Satisfy&display=swap" rel="stylesheet">' if font else ''
     return f'''<!doctype html><html lang="en"{' class="f-it"' if font else ''}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,7 @@ def strip(on):
     return '<div class="bl2-strip">Cuts the loop at ' + '<b>→</b>'.join(
         '<i class="on">%s</i>' % x if x == on else '<i>%s</i>' % x for x in ['Deliver', 'Prepare', 'Review', 'Release']) + '</div>'
 
-NOTE_ARROW = '<svg viewBox="0 0 96 56" aria-hidden="true"><path class="nb" d="M90 22 C 70 44, 34 40, 13 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="nh" d="M26.5 23.8 L13 20 L17.4 33.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+NOTE_ARROW = '<svg viewBox="0 0 96 56" aria-hidden="true"><path class="nb" d="M6 40 C 30 52, 66 44, 88 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="nh" d="M76.6 23.6 L88 20 L85.4 31.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 NOTE_DOWN = '<svg viewBox="0 0 60 72" aria-hidden="true"><path class="nb" d="M8 8 C 32 10, 50 30, 44 64" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="nh" d="M34 54 L44 65 L52 52" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 def head(n, f, nav=False, note=''):
     hid = '<span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Features</span>' if nav else ''
@@ -161,7 +161,7 @@ def nextblock(cur):
     tiles = ''.join(f'<li><a href="/{pk}"' + (' aria-current="page"' if pk == cur else '') + f'><span><img src="{pi}" alt="" loading="lazy"></span><b>{j + 1:02d} / {pn}</b></a></li>'
                     for j, (pk, pn, _, pi) in enumerate(PROJ))
     return (f'<section class="nx" aria-label="Next project"><a class="nx-a" href="/{k}"><p class="nx-k">Next, {n + 1:02d} / {name}</p>'
-            f'<div class="cs-wrap nx-in"><p class="nx-d">{d}</p><span class="nx-go">{"Read the case study" if k == "backlot" else "View the project"} {ARW}</span></div>'
+            f'<div class="cs-wrap nx-in"><p class="nx-d">{d}</p><span class="nx-go">{"See case study" if k == "backlot" else "See shipped project"} {ARW}</span></div>'
             f'<span class="nx-im" aria-hidden="true"><img src="{img}" alt="" loading="lazy"></span></a>'
             f'<div class="nx-all"><p class="nx-l">All work</p><div class="cs-wrap"><ul>{tiles}</ul></div><a class="nx-top" href="#">Back to the top</a></div></section>')
 
@@ -658,7 +658,7 @@ def work(v='b', hero=''):
     ]
     def cc(n, u):
         return f'<a class="wk-cc ec-btn ink" href="{u}" target="_blank" rel="noopener" aria-label="{n}, company website, opens in a new tab"><span>{n}</span><span aria-hidden="true">↗</span></a>'
-    CO = {'bilge': cc('MilSOFT', 'https://www.milsoft.com.tr/index.php/home/'), 'data-health': cc('Insider One', 'https://insiderone.com/')}
+    CO = {}  # company links live on the project pages, not on the home cards
     def chips(k, tags):
         return '<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + CO.get(k, '') + '</span>'
     # the title link stretches over the whole card, so the company chip can be its own link

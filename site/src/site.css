@@ -11,7 +11,7 @@ a{color:inherit}
 .site-hi{display:flex;align-items:center;justify-content:space-between;gap:24px;height:4.75rem;padding:0 clamp(20px,2.4vw,44px)}
 .site-logo img{display:block;width:7rem;height:auto}
 /* the menu stacks at the right edge of the site; an arrow slides in on hover only */
-.site-n{display:flex;flex-direction:row;align-items:center;gap:28px;font-size:12px;line-height:15px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.site-n{display:flex;flex-direction:row;align-items:center;gap:32px;font-size:15px;line-height:18px;font-weight:500;letter-spacing:-.005em;text-transform:none}
 .site-n a{position:relative;display:block;text-decoration:none;color:var(--mute);transition:color .2s}
 .site-n a[aria-current]{color:var(--ink)}.site-n a:hover{color:var(--g)}
 .finalfooter{position:relative;z-index:2;background:#000}
@@ -31,3 +31,4 @@ html.f-it .site-h .site-lt,html.f-it .site-h .site-lm,html .hb-fly,html .hb-fly 
 body:has(main.abx.dk) .site-lt{color:#F2F2EF!important}
 body:has(.abx.dk) .site-h .site-n a{color:#9a9994}body:has(.abx.dk) .site-h .site-n a[aria-current]{color:#F2F2EF}body:has(.abx.dk) .site-h .site-n a:hover{color:#98B04A}
 .site-lm{font-style:normal!important}
+@media(max-width:480px){.site-n{gap:20px;font-size:14px}}
