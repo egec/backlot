@@ -177,6 +177,7 @@ var k=Math.round(f);if(k!==cur){{cur=k;ys.forEach(function(y,i){{y.classList.tog
 function go(i){{var run=d.offsetHeight-d.querySelector('.dl-pin').offsetHeight,top=d.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run*i/(n-1))+(i===0?0:1),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'}})}}
 ys.forEach(function(y,i){{y.addEventListener('click',function(){{go(i)}})}});
 /* inside the dial one wheel gesture or swipe moves exactly one year, then waits; at either end the page scrolls on as usual */
+dts.forEach(function(d,i){{d.addEventListener('click',function(){{go(i)}})}});
 var lock=0;function step(dir){{var k=Math.round(prog()*(n-1)),t=k+dir;if(t<0||t>n-1)return false;if(Date.now()<lock)return true;lock=Date.now()+700;go(t);return true}}
 function inside(){{var r=d.getBoundingClientRect(),pin=d.querySelector('.dl-pin').offsetHeight;return r.top<=2&&r.bottom>=pin+innerHeight*0-2}}
 addEventListener('wheel',function(e){{if(!inside()||Math.abs(e.deltaY)<4)return;if(step(e.deltaY>0?1:-1))e.preventDefault()}},{{passive:false}});
@@ -421,7 +422,10 @@ def about3(intro="flip"):
     Y0 = 2016
     ticks = ''.join(f'<i class="ax-tq{" y" if q % 4 == 0 else ""}" style="--o:{q / 4}"></i>' for q in range(0, 11 * 4 + 1))
     bars = ''
-    cards = ''.join(f'<article class="ax-pc" data-t="{t - Y0}" data-e="{e - Y0}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
+    tmin, tmax = EVENTS[0][0], EVENTS[-1][0]
+    fr = lambda v: max(0, min(1, (v - tmin) / (tmax - tmin)))
+    dots = ''.join(f'<button type="button" class="ax-dt" data-i="{i}" style="--f:{fr(ev[0]):.4f}" aria-label="{ev[3]}"><span>{ev[2].split(" ")[0]}</span></button>' for i, ev in enumerate(EVENTS))
+    cards = ''.join(f'<article class="ax-pc" data-t="{t - Y0}" data-e="{e - Y0}" data-fa="{fr(t):.4f}" data-fb="{fr(e):.4f}" style="--fa:{fr(t):.4f}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
                     for t, e, w, ti, pl, tx, x in EVENTS)
     how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = qa_html()
@@ -471,7 +475,7 @@ def about3(intro="flip"):
 <section class="ax-w ax-tl tl2"><h2>Tools</h2>{tools}</section>
 </div>
 <section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
-<div class="ax-st"><div class="ax-win" aria-hidden="true"><div class="ax-rl">{ticks}</div></div><i class="ax-now" aria-hidden="true"></i><i class="ax-end" aria-hidden="true"></i><div class="ax-pcs">{cards}</div></div></div></section></main>
+<div class="ax-st"><div class="ax-hl"><i class="ax-ln" aria-hidden="true"></i><i class="ax-sg" aria-hidden="true"></i>{dots}</div><div class="ax-win" aria-hidden="true"><div class="ax-rl">{ticks}</div></div><i class="ax-now" aria-hidden="true"></i><i class="ax-end" aria-hidden="true"></i><div class="ax-pcs">{cards}</div></div></div></section></main>
 <style>
 /* type scale: h1 56, section titles 26, item titles 36, h3 24, body 16 (18 on very large screens) */
 .abx{{--fs:16px;--h1:clamp(40px,3.4vw,56px);--h2:clamp(20px,1.3vw,26px);--h2b:clamp(26px,1.9vw,36px);--h3:clamp(20px,1.3vw,24px);--px:clamp(20px,2.4vw,44px);--dk:#161616;font-family:"Inter Tight",system-ui,sans-serif}}
@@ -507,6 +511,30 @@ def about3(intro="flip"):
 .ax-pc.on .ax-pg2{{transform:none}}
 .ax-pc h3{{font-size:var(--h2b);letter-spacing:-.025em}}
 .ax-pd{{max-width:30em}}.ax-pd p{{margin:0 0 .4em;color:#2b2a28}}.ax-pp{{font-weight:600}}
+/* experience, horizontal (8 Nov): one line left to right, a dot per stop, the title above it and the description below, centred */
+.ax-hl{{display:none}}
+@media(min-width:900px) and (prefers-reduced-motion:no-preference){{
+.ax-now,.ax-end,.ax-win{{display:none!important}}
+.ax-path{{--ph:min(calc(100svh - 4.75rem),560px);margin-bottom:clamp(48px,6vw,96px)}}
+.ax-st{{--ay:150px}}
+.ax-hl{{display:block;position:absolute;left:0;right:0;top:var(--ay);height:0;z-index:2}}
+.ax-ln{{position:absolute;left:var(--px);right:var(--px);top:0;height:1px;background:#3a3a37}}
+.ax-sg{{position:absolute;top:-1px;height:3px;border-radius:3px;background:var(--g);left:calc(var(--px) + var(--sa,0) * (100% - var(--px) * 2));width:calc((var(--sb,0) - var(--sa,0)) * (100% - var(--px) * 2));transition:left .7s var(--ease),width .7s var(--ease)}}
+.ax-dt{{position:absolute;top:-5px;left:calc(var(--px) + var(--f) * (100% - var(--px) * 2));width:11px;height:11px;margin-left:-5px;padding:0;border:0;border-radius:50%;background:#55544f;cursor:pointer;transition:background .4s,transform .4s var(--ease)}}
+.ax-dt:before{{content:"";position:absolute;inset:-12px}}
+.ax-dt span{{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-size:12px;line-height:1;color:var(--mute);white-space:nowrap;transition:color .4s}}
+.ax-dt.past{{background:#8E8D88}}.ax-dt.on{{background:var(--g);transform:scale(1.5)}}.ax-dt.on span{{opacity:0}}
+.ax-dt:hover span{{color:var(--ink)}}
+.ax-pcs{{left:0;right:0;top:0;bottom:0}}
+.ax-pc{{top:0;bottom:0}}
+.ax-pg2{{display:contents}}
+.ax-pc h3{{position:absolute;left:var(--px);right:var(--px);top:28px;margin:0;text-align:center;transform:translateY(10px);transition:transform .5s var(--ease)}}
+.ax-pc .ax-pd{{position:absolute;left:0;right:0;bottom:0;max-width:none;width:min(34em,calc(100% - var(--px) * 2));margin:0 auto;text-align:center;transform:translateY(10px);transition:transform .5s var(--ease)}}
+.ax-pc.on h3,.ax-pc.on .ax-pd{{transform:none}}
+.ax-pc .ax-when{{position:absolute!important;left:calc(var(--px) + var(--fa) * (100% - var(--px) * 2))!important;bottom:auto!important;top:calc(var(--ay) - 30px);transform:translateX(-50%)}}
+.ax-pc:first-child .ax-when{{transform:none}}.ax-pc:last-child .ax-when{{transform:translateX(-100%)}}
+.ax-side{{display:inline-block;max-width:100%;text-align:left}}
+}}
 .ab-aw{{position:relative;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}
 .ab-aw:hover{{text-decoration-color:var(--ink)}}
 .ab-pv{{position:absolute;left:50%;bottom:calc(100% + 12px);z-index:20;width:300px;display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.16);font-size:13px;line-height:1.45;color:#3a3936;text-align:left;
@@ -534,14 +562,14 @@ def about3(intro="flip"):
 .ax-tools li{{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:99px;background:#262624;font-size:14px;font-weight:500}}
 .ax-tools img{{width:18px;height:18px;object-fit:contain}}
 @media(max-width:899px){{.ax-intro,.ax-ask,.ax-tl{{grid-template-columns:1fr}}.ax-me{{justify-self:start;width:min(70vw,320px)}}.ax-ask h2{{position:static}}
-.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end{{display:none}}
+.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end,.ax-hl{{display:none}}
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
-@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
+@media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end,.ax-hl{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
 {QCSS}{xcss}{NMCSS}.finalfooter{{background:#4A5724!important}}.finalfooter .ec-k{{color:#fff!important}}.tl2>h2{{margin-bottom:20px!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
 <script>
 (function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-var P=document.querySelector('[data-axpath]'),rl=P.querySelector('.ax-rl'),bars=[].slice.call(P.querySelectorAll('.ax-bar')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length;
+var P=document.querySelector('[data-axpath]'),rl=P.querySelector('.ax-rl'),bars=[].slice.call(P.querySelectorAll('.ax-bar')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length,hl=P.querySelector('.ax-hl'),dts=[].slice.call(P.querySelectorAll('.ax-dt'));
 var H=document.querySelector('[data-axhow]'),hc=[].slice.call(H.querySelectorAll('.ax-hc'));
 function run(s){{return s.offsetHeight-s.querySelector('.ax-pin,.ax-hpin').offsetHeight}}
 function prog(s){{var r=s.getBoundingClientRect();return Math.max(0,Math.min(1,-r.top/Math.max(1,run(s))))}}
@@ -550,10 +578,11 @@ function draw(){{raf=0;if(innerWidth<900)return;
   var k=Math.min(n-1,Math.round(prog(P)*(n-1)));
   if(k!==cur){{cur=k;var t=+pc[k].dataset.t,yh=innerHeight*.12;rl.style.transform='translateY('+(-t*yh).toFixed(1)+'px)';P.style.setProperty('--ch',pc[k].offsetHeight+'px');
     bars.forEach(function(b){{var a=+b.dataset.a,e=+b.dataset.b;b.style.setProperty('--f',Math.max(0,Math.min(1,(t-a)/(e-a))).toFixed(3))}});
-    pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
+    pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}});dts.forEach(function(d,i){{d.classList.toggle('on',i===k);d.classList.toggle('past',i<k)}});hl.style.setProperty('--sa',pc[k].dataset.fa);hl.style.setProperty('--sb',pc[k].dataset.fb)}}
   var hr=H.getBoundingClientRect(),hv=innerHeight*.5,q=Math.max(0,(hv-hr.top)/(hv+run(H)))*(hc.length+.3);hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
 /* one wheel gesture or swipe moves exactly one step along the line; at either end the page scrolls on */
 function go(i){{var top=P.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run(P)*i/(n-1))+(i?1:0),behavior:'smooth'}})}}
+dts.forEach(function(d,i){{d.addEventListener('click',function(){{go(i)}})}});
 var lock=0;function step(dir){{var k=Math.round(prog(P)*(n-1)),t=k+dir;if(t<0||t>n-1)return false;if(Date.now()<lock)return true;lock=Date.now()+750;go(t);return true}}
 function inside(){{var r=P.getBoundingClientRect();return r.top<=2&&r.bottom>=innerHeight-2}}
 addEventListener('wheel',function(e){{if(innerWidth<900||!inside()||Math.abs(e.deltaY)<4)return;if(step(e.deltaY>0?1:-1))e.preventDefault()}},{{passive:false}});
