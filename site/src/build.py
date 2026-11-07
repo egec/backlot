@@ -27,7 +27,7 @@ FULL_IC = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><p
 def page(title, desc, body, css_files, js_files, font='it', cur='work'):
     css = ''.join('<link rel="stylesheet" href="../assets/%s">' % c for c in css_files)
     js = ''.join('<script src="../assets/%s" defer></script>' % j for j in js_files)
-    fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Reenie+Beanie&family=Satisfy&display=swap" rel="stylesheet">' if font else ''
+    fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Reenie+Beanie&family=Mr+Dafoe&display=swap" rel="stylesheet">' if font else ''
     return f'''<!doctype html><html lang="en"{' class="f-it"' if font else ''}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -362,9 +362,9 @@ def research():
 # ---------- two roles: the screens as steps, dashboards then workspaces ----------
 def roles():
     def rc(q, needs, who, when, sub, ini):
-        return (f'<div class="rl2"><div class="rl2-h"><b>{who}</b><span class="rl2-st">{when}</span></div>'
-                f'<p class="rl2-q">{q}</p><ul class="rl2-a">' + ''.join(f'<li>{x}</li>' for x in needs) + '</ul></div>')
-    cards = ('<div class="rl2-g">'
+        return (f'<div class="bl2-role"><div class="bl2-rf"><span class="bl2-av" aria-hidden="true">{ini}</span><div><b>{who}</b></div></div><p class="bl2-q">{q}</p>'
+                + '<ul class="bl2-ck">' + ''.join(f'<li>{x}</li>' for x in needs) + '</ul></div>')
+    cards = ('<div class="bl2-roles">'
              + rc('What’s blocking release, and what can I clear today?', ['Where I left off', 'Files without a content', 'What blocks release', 'What came back rejected', 'What airs first'],
                   'Editor', 'All day', 'Works region by region, many episodes at once.', 'E')
              + rc('What airs first, and what changed since I last looked?', ['Recheck only what was fixed', 'Schedule what’s approved', 'Keep pending review short'],
@@ -484,17 +484,14 @@ def bilge():
             + split('What I owned in KLTS', '<p>The agent’s form, the officer’s approval and query flows, time extensions, corrections, cancellations, the container history, the declaration comparison and closing a form with an official report: 107 screens and states in KLTS alone.</p>')
             + split('Design system', '<p>Dilmin Doğan and Gizem Turan Yücel created the platform’s design system, and like any design system it was never finished. When a flow needed a component it did not have, I added one, and when a component did not hold up in use, I changed it.</p>')
             + '</div>')
-    STAGES = ['Files the form', 'Reviews it', 'Extends or cancels', 'Corrects']
-    def rc4(q, needs, who, i):
-        dots = ''.join(f'<i class="{"on" if k == i else ("past" if k < i else "")}"></i>' for k in range(4))
-        return (f'<div class="rl2"><div class="rl2-h"><b>{who}</b><span class="rl2-st"><span class="rl2-d" aria-hidden="true">{dots}</span>{STAGES[i]}</span></div>'
-                f'<p class="rl2-q">{q}</p><ul class="rl2-a">' + ''.join(f'<li>{x}</li>' for x in needs) + '</ul></div>')
+    def rc4(q, needs, who, ini):
+        return (f'<div class="bl2-role"><div class="bl2-rf"><span class="bl2-av" aria-hidden="true">{ini}</span><div><b>{who}</b></div></div><p class="bl2-q">{q}</p><ul class="bl2-ck">' + ''.join(f'<li>{x}</li>' for x in needs) + '</ul></div>')
     roles4 = ('<div class="bl2-t">' + head2(3, 'Four roles', 'One form, four people with different jobs')
-              + '<div class="rl2-g">'
-              + rc4('Is my form complete, and has it been approved?', ['File the form once per movement', 'Add containers one by one or in bulk', 'Edit until an officer approves'], 'Agent', 0)
-              + rc4('Which containers pass, and does the record match the port’s?', ['Approve some containers, reject the rest', 'Compare the declaration with port data', 'Edit or cancel a registered form'], 'Customs officer', 1)
-              + rc4('Should this container get more time, or be cancelled?', ['Approve or reject time extensions', 'Approve or reject cancellations'], 'Manager', 2)
-              + rc4('Is this correction right?', ['Approve or reject corrections'], 'Deputy manager', 3)
+              + '<div class="bl2-roles">'
+              + rc4('Is my form complete, and has it been approved?', ['File the form once per movement', 'Add containers one by one or in bulk', 'Edit until an officer approves'], 'Agent', 'A')
+              + rc4('Which containers pass, and does the record match the port’s?', ['Approve some containers, reject the rest', 'Compare the declaration with port data', 'Edit or cancel a registered form'], 'Customs officer', 'O')
+              + rc4('Should this container get more time, or be cancelled?', ['Approve or reject time extensions', 'Approve or reject cancellations'], 'Manager', 'M')
+              + rc4('Is this correction right?', ['Approve or reject corrections'], 'Deputy manager', 'D')
               + '</div></div>')
     V = lambda k: dict(type='video', src=GH + f'bilge/{k}.mp4', poster=GH + f'bilge/{k}.jpg', w=1600, h=900)
     def flow(n, k, h, lead, steps, texts, medias, after=''):
@@ -664,7 +661,7 @@ def work(v='b', hero=''):
         return '<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in tags) + CO.get(k, '') + '</span>'
     # the title link stretches over the whole card, so the company chip can be its own link
     cards = ''.join(
-        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}" style="--i:{ix}"><span class="wk-lab">{num}  {dict(backlot="Backlot, the take-home that got me hired", bilge="BİLGE").get(k, "Data health")}</span><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
+        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}" style="--i:{ix}"><span class="wk-lab">{num}  {dict(backlot="Backlot, the take-home that got me hired", bilge="BİLGE").get(k, "Data health")}</span><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + f'<em class="wk-go" aria-hidden="true">{"See case study" if k == "backlot" else "See shipped project"} {ARW}</em></span>'
         + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + '</div>'
         for ix, (k, num, name, t, d, tags, img, alt, vid) in enumerate(lead))
     more = [

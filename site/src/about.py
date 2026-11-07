@@ -434,10 +434,10 @@ def about3(intro="flip"):
           ('Miro', ['miro-icon'], 'Remote workshops during Covid. Now research and inspiration boards.'),
           ('Notion', ['notion-icon'], 'Where I plan my days.'),
           ('Adobe', ['adobe-illustrator', 'adobe-photoshop', 'adobe-indesign'], 'Illustrator, Photoshop and InDesign. Last used for my thesis booklet, because print still exists.')]
-    card = lambda t, ics, d: ('<li class="tc"><span class="tc-i">' + ''.join(f'<img src="{GH}logos/tc/{f}.svg" width="22" height="22" alt="" loading="lazy">' for f in ics)
+    card = lambda t, ics, d: ('<li class="tlc"><span class="tlc-i">' + ''.join(f'<img src="{GH}logos/tc/{f}.svg" width="22" height="22" alt="" loading="lazy">' for f in ics)
                               + f'</span><b>{t}</b><p>{d}</p></li>')
     row = ''.join(card(*x) for x in TD)
-    tools = f'<div class="tc-m" data-tcm><ul class="tc-r">{row}</ul><ul class="tc-r" aria-hidden="true">{row}</ul></div>'
+    tools = f'<div class="tlc-m" data-tcm><ul class="tlc-r">{row}</ul><ul class="tlc-r" aria-hidden="true">{row}</ul></div>'
     me = f'<img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy">'
     txt = f'<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1><div class="ax-tx">{lead}</div>'
     nm = '<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>'

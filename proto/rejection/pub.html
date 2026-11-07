@@ -55,12 +55,12 @@ button,textarea,select{font:inherit;color:inherit}
 .row .ok{color:var(--n6);min-width:120px;display:flex;justify-content:flex-end;white-space:nowrap}.row.editing .add,.row.flagged .add{display:none!important}
 .row:hover,.row.focus{background:var(--s2)}
 .row .add{display:none}
-.row:hover .ok .ph-check,.row.focus .ok .ph-check{display:none}
+.ok{gap:14px;align-items:center}.add{border:0;background:transparent;color:var(--ac3);font:500 12.5px/1 Manrope,sans-serif;align-items:center;gap:6px;padding:4px 2px;cursor:pointer;border-radius:6px}.add .ph{font-size:15px}.add:hover{color:#fff}
 .row:hover .add,.row.focus .add{display:inline-flex}
-.add,.unf{height:28px;padding:0 10px;font-size:12px}
+.unf{height:28px;padding:0 10px;font-size:12px}
 .row .fl{display:none;color:var(--wni);font-size:12px;padding:0 15px 10px 187px;margin-top:-6px}
 .row.flagged .fl{display:block}
-.row.flagged .ok .ph-check,.row.flagged:hover .add{display:none}
+.row.flagged .ok .ph-check{display:none}
 .row .unf{display:none}.row.flagged .unf{display:inline-flex}
 .row.flagged .lb{color:var(--wni)}
 .ed{display:none;padding:0 15px 14px 187px}
@@ -145,7 +145,7 @@ const G=[['Core',[['title','Title','L’ombre du père'],['otitle','Original tit
  ['Rights & release',[['terr','Territory','Spain (ES)'],['rel','Release date','17 Feb 2026'],['win','Licence window','to 9 Feb 2029'],['aud','Audio tracks','ES, FR, EN 5.1'],['subs','Subtitles','ES, EN']]]];
 const CAT={age:'Compliance',synes:'Localization'},SUG={age:'Spain needs the ICAA rating for this episode. Set it to 16 before resubmitting.',synes:'The Spanish synopsis is empty, so the Spain catalogue falls back to French. Please write it before resubmitting.'},SHORT={age:'Spain needs the ICAA rating',synes:'Spanish synopsis missing'};
 const reasons=[];let editing=null,typing=0;
-$('rows').innerHTML=G.map(g=>'<div class="grp"><h4>'+g[0].toUpperCase()+'</h4>'+g[1].map(r=>'<div class="row" data-k="'+r[0]+'"><div class="ln"><span class="lb">'+r[1]+'</span><span class="vl'+(r[3]?' mu':'')+'">'+r[2]+'</span><span class="ok"><i class="ph ph-check"></i><button class="btn add" type="button" data-add><i class="ph ph-chat-circle-text"></i>Add comment</button><button class="btn unf" type="button" data-unf><i class="ph ph-flag"></i>Unflag</button></span></div><div class="fl"></div><div class="ed"><textarea placeholder="What needs to change" aria-label="Comment for '+r[1]+'"></textarea><div class="b"><button class="btn gh" type="button" data-cancel>Cancel</button><button class="btn pri" type="button" data-save disabled>Save</button></div></div></div>').join('')+'</div>').join('');
+$('rows').innerHTML=G.map(g=>'<div class="grp"><h4>'+g[0].toUpperCase()+'</h4>'+g[1].map(r=>'<div class="row" data-k="'+r[0]+'"><div class="ln"><span class="lb">'+r[1]+'</span><span class="vl'+(r[3]?' mu':'')+'">'+r[2]+'</span><span class="ok"><i class="ph ph-check"></i><button class="add" type="button" data-add><i class="ph ph-chat-circle"></i>Add comment</button><button class="btn unf" type="button" data-unf><i class="ph ph-flag"></i>Unflag</button></span></div><div class="fl"></div><div class="ed"><textarea placeholder="What needs to change" aria-label="Comment for '+r[1]+'"></textarea><div class="b"><button class="btn gh" type="button" data-cancel>Cancel</button><button class="btn pri" type="button" data-save disabled>Save</button></div></div></div>').join('')+'</div>').join('');
 const row=k=>document.querySelector('.row[data-k="'+k+'"]'),label=k=>row(k).querySelector('.lb').textContent;
 function side(){
  const n=reasons.length,s=$('side');

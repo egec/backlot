@@ -195,7 +195,9 @@ function wire(){
     const st=STEPS[step];if(!st||busy){if(e.isTrusted){e.preventDefault();e.stopPropagation()}return}
     const t=st.t();
     if(t&&(t===e.target||t.contains(e.target))){if(st.flash){const b=snap(),seen=new Set();[200,450,800,1200].forEach(ms=>setTimeout(()=>flash(b,seen),ms))}setTimeout(advance,30);return}
-    e.preventDefault();e.stopPropagation();
+    /* the viewer stays free: the click goes through, a hint shows the next step, and if the click undid a step (closed a menu) the guide steps back */
+    for(let k=step-1;k>=0;k--){const pt=STEPS[k].t&&STEPS[k].t();if(pt&&(pt===e.target||pt.contains(e.target))){setTimeout(()=>go(k),60);return}}
+    setTimeout(()=>{const c=STEPS[step],ct=c&&c.t&&c.t();if(ct&&ct.getBoundingClientRect().width)return;for(let k=step-1;k>=0;k--){const pt=STEPS[k].t&&STEPS[k].t();if(pt&&pt.getBoundingClientRect().width){go(k);break}}},160);
     showTip();tip.classList.remove('nudge');void tip.offsetWidth;if(!reduce)tip.classList.add('nudge');
   },true);
   d.addEventListener('keydown',e=>{
