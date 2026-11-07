@@ -27,7 +27,7 @@ FULL_IC = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><p
 def page(title, desc, body, css_files, js_files, font='it', cur='work'):
     css = ''.join('<link rel="stylesheet" href="../assets/%s">' % c for c in css_files)
     js = ''.join('<script src="../assets/%s" defer></script>' % j for j in js_files)
-    fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Reenie+Beanie&family=Mr+Dafoe&display=swap" rel="stylesheet">' if font else ''
+    fl = '<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Reenie+Beanie&family=Kaushan+Script&display=swap" rel="stylesheet">' if font else ''
     return f'''<!doctype html><html lang="en"{' class="f-it"' if font else ''}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
