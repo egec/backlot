@@ -23,3 +23,16 @@ addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(up)},{pas
 (function(){var l=document.querySelector('.site-logo'),m=l&&l.querySelector('.site-lm');if(!m||!matchMedia('(hover:hover)').matches)return;
 l.addEventListener('mousemove',function(e){var r=l.getBoundingClientRect();m.style.setProperty('--mx',(e.clientX-r.left)+'px');m.style.setProperty('--my',(e.clientY-r.top)+'px');m.style.setProperty('--rr','34px')});
 l.addEventListener('mouseleave',function(){m.style.setProperty('--rr','0px')})})();
+
+/* Contact opens a panel from the top of the page */
+(function(){var a=document.querySelector('.site-n a[href="#contact"]');if(!a)return;
+var p=document.createElement('div');p.className='ct';p.id='ct';p.setAttribute('role','dialog');p.setAttribute('aria-modal','true');p.setAttribute('aria-labelledby','ct-t');p.hidden=true;
+p.innerHTML='<div class="ct-in"><div class="ct-a"><h2 id="ct-t">Got a role in mind?</h2><p>Tell me about the team and the product you are building.</p></div>'
++'<ul class="ct-b"><li><a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a><button type="button" class="ct-cp">Copy</button></li><li><a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li></ul>'
++'<div class="ct-c"><p>Based in Berlin</p><p>Open to relocation</p><p>Free to start within two weeks</p></div><button type="button" class="ct-x" aria-label="Close">Close</button></div>';
+var s=document.createElement('div');s.className='ct-s';s.hidden=true;document.body.appendChild(s);document.body.appendChild(p);
+var last=null;function open(e){if(e)e.preventDefault();last=document.activeElement;p.hidden=false;s.hidden=false;requestAnimationFrame(function(){document.documentElement.classList.add('ct-on')});setTimeout(function(){p.querySelector('a').focus({preventScroll:true})},50)}
+function close(){document.documentElement.classList.remove('ct-on');setTimeout(function(){if(!document.documentElement.classList.contains('ct-on')){p.hidden=true;s.hidden=true}},420);if(last&&last.focus)last.focus({preventScroll:true})}
+a.addEventListener('click',open);s.addEventListener('click',close);p.querySelector('.ct-x').addEventListener('click',close);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.documentElement.classList.contains('ct-on'))close()});
+p.querySelector('.ct-cp').addEventListener('click',function(){var b=this;try{navigator.clipboard.writeText('a.egecoskun@gmail.com').then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1600)})}catch(x){}})})();
