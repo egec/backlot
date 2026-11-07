@@ -624,9 +624,10 @@ def untangle():
 EGE = ('<section class="wk-ege" aria-label="Contact">'
   '<div class="wk-ege-g" data-ege aria-hidden="true"><span class="wk-ege-w">EGE</span><i></i><i></i><i></i></div>'
   '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="goo" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11"/></filter><filter id="goo2" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11"/></filter></defs></svg>'
-  '<style>body:has(main.wk),body.case:has(main.wk){background:#161616}body:has(main.wk){--bg:#161616;--card:#222220;--ink:#F2F2EF;--mute:#9B9A96;--line:rgba(255,255,255,.14);--g:#98B04A;--gd:#98B04A}'
-  'body:has(main.wk) .site-lt,body:has(main.wk) .hb-fly{color:#F2F2EF!important}body:has(main.wk) .site-h .site-n a{color:#9a9994}body:has(main.wk) .site-h .site-n a[aria-current]{color:#F2F2EF}body:has(main.wk) .site-h .site-n a:hover{color:#98B04A}'
-  'body:has(main.wk) .ax-qs{--qbg:#262624;--qbd:rgba(255,255,255,.18);--qtx:#F2F2EF;--abg:#30302d}body:has(main.wk) .wk-btn{border-color:#F2F2EF;color:#F2F2EF}'
+  '<style>.wk-dk{background:#161616;color:#F2F2EF;--bg:#161616;--card:#222220;--ink:#F2F2EF;--mute:#9B9A96;--line:rgba(255,255,255,.14);--g:#98B04A;--gd:#98B04A;padding-top:clamp(96px,10vw,180px)}'
+  '@media(max-width:899px){.wk-dk{padding-top:clamp(120px,16vw,160px)}}.wk-dk .wk-qa{margin-top:0!important}'
+  'html.dk-h .site-h{background:#161616}html.dk-h .site-h .site-lt{color:#F2F2EF!important}html.dk-h .site-h .site-n a{color:#9a9994}html.dk-h .site-h .site-n a[aria-current]{color:#F2F2EF}html.dk-h .site-h .site-n a:hover{color:#98B04A}.site-h{transition:background .25s}'
+  '.wk-dk .ax-qs{--qbg:#262624;--qbd:rgba(255,255,255,.18);--qtx:#F2F2EF;--abg:#30302d}.wk-dk .wk-btn{border-color:#F2F2EF;color:#F2F2EF}main.wk{padding-bottom:0!important}'
   '.wk-ege{position:relative;padding:clamp(48px,6vw,96px) clamp(20px,2.4vw,44px) 0;overflow:hidden;color:#F2F2EF}'
   '.wk-ege-t{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 32px;max-width:var(--w);margin:0 auto}.wk-ege-t p{margin:0;font-size:clamp(20px,1.6vw,30px);letter-spacing:-.02em;font-weight:600}.wk-ege-t a{color:#98B04A;text-decoration:none;font-size:clamp(15px,1.1vw,19px)}.wk-ege-t a:hover{text-decoration:underline;text-underline-offset:5px}'
   '.wk-ege-g{position:relative;max-width:var(--w);margin:clamp(24px,3vw,56px) auto 0;height:clamp(90px,27vw,470px);filter:url(#goo)}'
@@ -636,7 +637,7 @@ EGE = ('<section class="wk-ege" aria-label="Contact">'
   'function pos(e){var b=g.getBoundingClientRect();m.x=(e.clientX-b.left)/b.width;m.y=(e.clientY-b.top)/b.height;m.on=1}'
   'g.parentNode.addEventListener("pointermove",pos);g.parentNode.addEventListener("pointerleave",function(){m.on=0});'
   'function f(t){r=0;var b=g.getBoundingClientRect();if(b.bottom<0||b.top>innerHeight){r=requestAnimationFrame(f);return}d.forEach(function(e,i){var a=t/1800+i*2.1,tx=m.on?m.x*b.width+Math.cos(a)*(i*34):b.width*(.2+.3*i)+Math.cos(a)*b.width*.12,ty=m.on?Math.max(b.height*.2,Math.min(b.height,m.y*b.height))+Math.sin(a)*(i*20):b.height*.62+Math.sin(a*1.3)*b.height*.22,p=P[i],k=.06+i*.025;p.x+=(tx-p.x)*k;p.y+=(ty-p.y)*k;e.style.transform="translate("+(p.x-e.offsetWidth/2)+"px,"+(p.y-e.offsetHeight/2)+"px)"});r=requestAnimationFrame(f)}'
-  'if(rm){d.forEach(function(e,i){e.style.transform="translate("+(g.offsetWidth*(.25+.25*i))+"px,"+(g.offsetHeight*.7)+"px)"});return}r=requestAnimationFrame(f)})();</script></section>')
+  'if(rm){d.forEach(function(e,i){e.style.transform="translate("+(g.offsetWidth*(.25+.25*i))+"px,"+(g.offsetHeight*.7)+"px)"});return}r=requestAnimationFrame(f)})();(function(){var D=document.querySelector(".wk-dk"),h=document.querySelector(".site-h");if(!D||!h)return;function c(){document.documentElement.classList.toggle("dk-h",D.getBoundingClientRect().top<=h.offsetHeight/2)}addEventListener("scroll",c,{passive:true});addEventListener("resize",c);c()})();</script></section>')
 
 HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div class="hb-sp" aria-hidden="true"></div><p class="wk-pos hb-s">Product designer for B2B software,<br> fluent in both AI and the people.</p></div>'
   '<span class="hb-fly" aria-hidden="true"><i style="--j:0">E</i><i style="--j:1">g</i><i style="--j:2">e</i><i style="--j:3">&nbsp;</i><i style="--j:4">C</i><i style="--j:5">o</i><i style="--j:6">s</i><i style="--j:7">k</i><i style="--j:8">u</i><i style="--j:9">n</i></span>'
@@ -700,7 +701,7 @@ def work(v='b', hero=''):
     hero_html = hero or HERO
     body = (f'<main class="wk"><div class="cs-wrap">' + hero_html +
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
-            f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div>{about}</div>{EGE}</main>'
+            f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div></div><div class="wk-dk"><div class="cs-wrap">{about}</div>{EGE}</div></main>'
             '<script>(function(){var c=document.querySelectorAll(".wk-g.vb>.wk-c");if(!c.length||matchMedia("(prefers-reduced-motion:reduce)").matches)return;var f=0;function d(){f=0;var h=innerHeight;[].forEach.call(c,function(e){var t=e.getBoundingClientRect().top,p=Math.max(0,Math.min(1,(h*.85-t)/(h*.6)))*Math.min(1,scrollY/120);e.style.setProperty("--p",p.toFixed(3));if(t<h*.92)e.classList.add("on")})}addEventListener("scroll",function(){if(!f){f=1;requestAnimationFrame(d)}},{passive:true});addEventListener("resize",d);d()})();</script>')
     return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin: B2B tools for teams that review, approve and ship work. Case studies: Backlot, BİLGE, UwaVerde.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
