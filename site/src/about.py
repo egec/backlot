@@ -425,7 +425,19 @@ def about3(intro="flip"):
                     for t, e, w, ti, pl, tx, x in EVENTS)
     how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = qa_html()
-    tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="20" height="20" alt="" loading="lazy">{t}</li>' for t, f in TOOLS)
+    TD = [('Figma', ['figma'], 'My design tool since 2020.'),
+          ('Claude Design', ['claude-icon'], 'Where I design and prototype screens now, Backlot included.'),
+          ('Claude Code', ['claude-code'], 'I built this site with it, and the prototypes on it.'),
+          ('Jira', ['jira'], 'Tickets and sprints at MilSOFT and Insider One.'),
+          ('Confluence', ['confluence'], 'Specs and documentation at MilSOFT and Insider One.'),
+          ('Webflow', ['webflow'], 'I built my first portfolio in it from scratch, no template, to learn how the web is put together.'),
+          ('Miro', ['miro-icon'], 'Remote workshops during Covid. Now research and inspiration boards.'),
+          ('Notion', ['notion-icon'], 'Where I plan my days.'),
+          ('Adobe', ['adobe-illustrator', 'adobe-photoshop', 'adobe-indesign'], 'Illustrator, Photoshop and InDesign. Last used for my thesis booklet, because print still exists.')]
+    card = lambda t, ics, d: ('<li class="tc"><span class="tc-i">' + ''.join(f'<img src="{GH}logos/tc/{f}.svg" width="22" height="22" alt="" loading="lazy">' for f in ics)
+                              + f'</span><b>{t}</b><p>{d}</p></li>')
+    row = ''.join(card(*x) for x in TD)
+    tools = f'<div class="tc-m" data-tcm><ul class="tc-r">{row}</ul><ul class="tc-r" aria-hidden="true">{row}</ul></div>'
     me = f'<img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy">'
     txt = f'<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1><div class="ax-tx">{lead}</div>'
     nm = '<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>'
@@ -456,7 +468,7 @@ def about3(intro="flip"):
 <div class="ax-dark">
 <section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
 <section class="ax-w ax-ask"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div class="ax-qs">{qa}</div></section>
-<section class="ax-w ax-tl"><h2>Tools</h2><ul class="ax-tools">{tools}</ul></section>
+<section class="ax-w ax-tl tl2"><h2>Tools</h2>{tools}</section>
 </div>
 <section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
 <div class="ax-st"><div class="ax-win" aria-hidden="true"><div class="ax-rl">{ticks}</div></div><i class="ax-now" aria-hidden="true"></i><i class="ax-end" aria-hidden="true"></i><div class="ax-pcs">{cards}</div></div></div></section></main>
