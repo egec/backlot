@@ -36,7 +36,7 @@
   .ibtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .mode{font-size:12px;color:#777;white-space:nowrap}
   .stage{position:relative;overflow:hidden;border-radius:8px;background:#121212}
-  .stage .pf{position:absolute;left:0;top:0;width:1440px;height:900px;transform-origin:0 0}.stage .pf img{position:absolute;inset:0;width:100%;height:100%;display:block}.stage .pf.off{opacity:0;pointer-events:none}.ty{position:absolute;left:270px;top:716px;width:680px;height:58px;padding:7px 9px;box-sizing:border-box;background:#191919;border-radius:7px;font:12px/1.5 Manrope,system-ui,sans-serif;color:#d4d2cf;white-space:pre-wrap}.ty:empty{display:none}.ov.on{pointer-events:auto;cursor:default}
+  .stage .pf{position:absolute;left:0;top:0;width:1440px;height:900px;transform-origin:0 0}.stage .pf img{position:absolute;inset:0;width:100%;height:100%;display:block}.stage .pf.off{opacity:0;pointer-events:none}.ty{position:absolute;left:270px;top:716px;width:680px;height:58px;padding:7px 9px;box-sizing:border-box;background:#191919;border-radius:7px;font:12px/1.5 Manrope,system-ui,sans-serif;color:#d4d2cf;white-space:pre-wrap}.ty:empty{display:none}
   .stage iframe{position:absolute;left:0;top:0;width:1440px;height:900px;border:0;transform-origin:0 0;transition:opacity .35s ease}
   .stage iframe.off{opacity:0;pointer-events:none}
   .ov{position:absolute;inset:0;pointer-events:none}
@@ -122,82 +122,113 @@
     </div>
   </div>
   <div class="stage" id="stage">
-    <div class="pf" id="pub" aria-label="Publisher review screen for Lupin Season 4 Episode 2"><img id="pimg" src="rc.webp" alt=""><div class="ty" id="ty"></div></div>
-    <iframe id="ed" src="../dc/ed-rejected.html" title="Editor episode screen" class="off" tabindex="-1" loading="lazy"></iframe>
-    <div class="ov on" id="ov">
+    <iframe id="pub" src="pub.html" title="Publisher review screen for Lupin Season 4 Episode 2"></iframe>
+    <iframe id="ed" src="../dc/ed-rejected.html" title="Editor episode screen" class="off" tabindex="-1"></iframe>
+    <div class="ov" id="ov" aria-hidden="true">
       <div class="ring" id="ring"></div>
       <div class="tip" id="tip" role="status" aria-live="polite"></div>
-      <div class="cur" id="cur"><svg width="22" height="22" viewBox="0 0 22 22"><path d="M4 2l13 8-6 1.5L8 18z" fill="#f5f3f0" stroke="#121212" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
       <div class="banner" id="banner">Now you're the editor</div>
-    </div>
-    <div class="end" id="end">
-      <div><h2>Two reasons, resolved in place. No second round.</h2>
-      <p>The publisher re-checks two fields, not the whole episode.</p></div><button class="ibtn" id="again" type="button" aria-label="Play again" title="Play again"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </div>
 </div>
 <script>
 (function(){
 const W=1440,H=900,$=id=>document.getElementById(id);
-const stage=$('stage'),pub=$('pub'),pimg=$('pimg'),ty=$('ty'),ed=$('ed'),ov=$('ov'),ring=$('ring'),tip=$('tip'),cur=$('cur'),banner=$('banner'),endEl=$('end'),mode=$('mode');
+const stage=$('stage'),pub=$('pub'),ed=$('ed'),ring=$('ring'),tip=$('tip'),banner=$('banner'),mode=$('mode');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let s=1,step=-1,busy=false,tipOn=false,tipTimer=null,timer=null,run=0;
-const sleep=ms=>new Promise(r=>{timer=setTimeout(r,reduce?Math.min(ms,150):ms)});
-const R1='Spain needs the ICAA rating for this episode. Set it to 16 before resubmitting.';
 const SYN='Assane se acerca a la finca Pellegrini justo cuando empieza la subasta.';
-['ac','cs','sc','cr'].forEach(k=>{const i=new Image();i.src=k+'.webp'});
-const ED=()=>ed.contentDocument;
-const box=(x,y,w,h)=>()=>({x,y,w,h});
-const inEd=sel=>()=>{try{const e=typeof sel==='function'?sel():ED().querySelector(sel);if(!e)return null;const r=e.getBoundingClientRect();return{x:r.left,y:r.top,w:r.width,h:r.height}}catch(e){return null}};
-const subBtn=()=>[...ED().querySelectorAll('[role=button]')].find(e=>e.textContent.trim()==='Submit for review');
-function setVal(el,v,ev){const pr=el.tagName==='SELECT'?HTMLSelectElement.prototype:HTMLTextAreaElement.prototype;const set=Object.getOwnPropertyDescriptor(ed.contentWindow[pr===HTMLSelectElement.prototype?'HTMLSelectElement':'HTMLTextAreaElement'].prototype,'value').set;set.call(el,v);el.dispatchEvent(new ed.contentWindow.Event(ev,{bubbles:true}))}
-const STEPS=[
- {s:1,r:box(82,668,882,36),tip:'You are the publisher. Spain has no age rating for this episode. Flag the Age rating row.',a:async()=>{pimg.src='ac.webp'}},
- {s:1,r:box(268,714,684,64),tip:'Say what needs to change.',a:async()=>{for(let i=1;i<=R1.length;i+=reduce?R1.length:2){ty.textContent=R1.slice(0,i);await sleep(18)}ty.textContent=R1}},
- {s:1,r:box(871,788,80,32),tip:'Save it. The comment stays attached to the field.',a:async()=>{ty.textContent='';pimg.src='cs.webp';await sleep(1300);tipOn=true;banner.textContent='The empty Spanish synopsis gets a second reason the same way';banner.classList.add('show');await sleep(1900);banner.classList.remove('show');pimg.src='sc.webp';tipOn=false}},
- {s:2,r:box(1249,511,149,32),tip:'Reject. Each reason goes back with its field.',a:async()=>{pimg.src='cr.webp'}},
- {s:2,r:box(815,397,96,32),tip:'Confirm the rejection.',a:async()=>{banner.textContent='Now you\u2019re the editor';banner.classList.add('show');await sleep(1300);ed.classList.remove('off');pub.classList.add('off');await sleep(500);banner.classList.remove('show')}},
- {s:3,r:inEd('#in-age'),tip:'Both reasons land on their fields. Set the age rating.',a:async()=>{setVal(ED().getElementById('in-age'),'16','change')}},
- {s:3,r:inEd('#in-syn'),tip:'Now write the Spanish synopsis.',a:async()=>{const t=ED().getElementById('in-syn');for(let i=1;i<=SYN.length;i+=reduce?SYN.length:3){setVal(t,SYN.slice(0,i),'input');await sleep(16)}setVal(t,SYN,'input')}},
- {s:4,r:inEd(subBtn),tip:'Both reasons are resolved. Resubmit.',a:async()=>{await sleep(300);endEl.classList.add('show');mode.textContent='Done.'}}
-];
-function size(){if(window.top!==window)return;const c=document.getElementById('app')||document.body;c.style.maxWidth='';c.style.margin='0 auto';const top=stage.getBoundingClientRect().top+scrollY;const w=Math.min(c.clientWidth,(innerHeight-top-16)*1440/900);c.style.maxWidth=Math.max(320,w)+'px'}
+let s=1,tipOn=false,tipTimer=null,run=0,side='pub',P={ed:null,flag:{},modal:false},E={modal:false,done:false};
+const PD=()=>pub.contentDocument,PW=()=>pub.contentWindow,ED=()=>ed.contentDocument,EW=()=>ed.contentWindow;
+const q=(doc,sel)=>{try{return typeof sel==='function'?sel():doc().querySelector(sel)}catch(e){return null}};
+const prow=k=>q(PD,'.row[data-k="'+k+'"] .ln');
+const psave=k=>q(PD,'.row[data-k="'+k+'"] [data-save]');
+const T={
+ a:{s:1,el:()=>prow('age'),t:'You are the publisher. Spain has no age rating for this episode. Hover the Age rating row and add a comment.'},
+ b:{s:1,el:()=>psave('age'),t:'Save it. The comment stays attached to the field.'},
+ c:{s:1,el:()=>prow('synes'),t:'The Spanish synopsis is empty too. Flag it the same way.'},
+ d:{s:1,el:()=>psave('synes'),t:'Save the second reason.'},
+ e:{s:2,el:()=>q(PD,'#rej'),t:'Two reasons. Reject sends both back, each with its field.'},
+ f:{s:2,el:()=>q(PD,'#doRej'),t:'Check what goes back, then confirm. Alex is notified.'},
+ g:{s:3,el:()=>q(ED,'#in-age'),t:'You are the editor now. Both reasons sit on their fields. Set the age rating.'},
+ h:{s:3,el:()=>q(ED,'#in-syn'),t:'Now write the Spanish synopsis.'},
+ i:{s:4,el:()=>{try{return EW().BLX.sub()}catch(e){return null}},t:'Both reasons are resolved. Resubmit.'},
+ j:{s:4,el:()=>{try{return EW().BLX.modalOk()}catch(e){return null}},t:'Maya re-checks only these two fields.'},
+ z:{s:5,el:()=>null,t:''}
+};
+function cur(){
+ if(side==='pub'){if(P.modal)return 'f';if(!P.flag.age)return P.ed==='age'?'b':'a';if(!P.flag.synes)return P.ed==='synes'?'d':'c';return 'e'}
+ if(E.done)return 'z';if(E.modal)return 'j';
+ try{const a=ED().getElementById('in-age').value,y=ED().getElementById('in-syn').value.trim();if(!a)return 'g';if(y.length<20)return 'h'}catch(e){return 'g'}
+ return 'i';
+}
+function setSteps(n){document.querySelectorAll('.step').forEach(e=>{const v=+e.dataset.s;e.classList.toggle('on',v===n);e.classList.toggle('done',v<n)})}
+function size(){if(window.top!==window)return;const c=$('app');c.style.maxWidth='';c.style.margin='0 auto';const top=stage.getBoundingClientRect().top+scrollY;const w=Math.min(c.clientWidth,(innerHeight-top-16)*1440/900);c.style.maxWidth=Math.max(320,w)+'px'}
 var maxH=0;function post(){var h=document.body.scrollHeight;if(h<maxH)return;maxH=h;try{parent.postMessage({backlotProto:'rejection',height:h},'*')}catch(e){}}
 function fit(){maxH=0;size();s=stage.clientWidth/W;[pub,ed].forEach(f=>f.style.transform='scale('+s+')');stage.style.height=(H*s)+'px';place();post()}
 addEventListener('resize',fit);addEventListener('load',fit);
-function setSteps(n){document.querySelectorAll('.step').forEach(e=>{const v=+e.dataset.s;e.classList.toggle('on',v===n);e.classList.toggle('done',v<n)})}
-function rect(st){const r=st&&st.r();return r?{x:r.x*s,y:r.y*s,w:r.w*s,h:r.h*s}:null}
 function place(){
-  const st=STEPS[step];const r=rect(st);
-  if(!r||busy||!tipOn){ring.classList.remove('show');tip.classList.remove('show');return}
-  const p=4;Object.assign(ring.style,{left:(r.x-p)+'px',top:(r.y-p)+'px',width:(r.w+2*p)+'px',height:(r.h+2*p)+'px'});ring.classList.add('show');
-  tip.innerHTML='<small>Step '+st.s+' of 4</small>'+st.tip;tip.classList.add('show');
-  const tw=tip.offsetWidth,th=tip.offsetHeight,sw=stage.clientWidth,sh=stage.clientHeight;
-  let x=r.x+r.w/2-tw/2,y=r.y+r.h+12;if(y+th>sh-8)y=r.y-th-12;
-  x=Math.max(8,Math.min(sw-tw-8,x));y=Math.max(8,y);tip.style.left=x+'px';tip.style.top=y+'px';
+ const k=cur(),st=T[k];setSteps(st.s);
+ const e=st.el&&st.el();
+ if(!e||!tipOn){ring.classList.remove('show');tip.classList.remove('show');return}
+ const r=e.getBoundingClientRect(),p=4,x0=r.left*s,y0=r.top*s,w=r.width*s,h=r.height*s;
+ Object.assign(ring.style,{left:(x0-p)+'px',top:(y0-p)+'px',width:(w+2*p)+'px',height:(h+2*p)+'px'});ring.classList.add('show');
+ tip.innerHTML='<small>Step '+st.s+' of 4</small>'+st.t;tip.classList.add('show');
+ const tw=tip.offsetWidth,th=tip.offsetHeight,sw=stage.clientWidth,sh=stage.clientHeight;
+ let x=x0+w/2-tw/2,y=y0+h+12;if(y+th>sh-8)y=y0-th-12;
+ tip.style.left=Math.max(8,Math.min(sw-tw-8,x))+'px';tip.style.top=Math.max(8,y)+'px';
 }
-function showTip(ms){tipOn=true;clearTimeout(tipTimer);place();tipTimer=setTimeout(()=>{tipOn=false;place()},ms||2800)}
-function go(i){step=i;const st=STEPS[i];if(st)setSteps(st.s);place()}
-async function act(){const id=run;busy=true;tipOn=false;place();await STEPS[step].a();if(id!==run)return;busy=false;if(step<STEPS.length-1){go(step+1);if(step===5)showTip(3600)}else{step=STEPS.length;setSteps(5)}}
-ov.addEventListener('click',e=>{
-  if(busy||step<0||step>=STEPS.length)return;
-  const r=rect(STEPS[step]),b=stage.getBoundingClientRect(),x=e.clientX-b.left,y=e.clientY-b.top;
-  if(r&&x>=r.x-6&&x<=r.x+r.w+6&&y>=r.y-6&&y<=r.y+r.h+6){mode.textContent='Your turn. Click anywhere for a hint.';act();return}
-  showTip();tip.classList.remove('nudge');void tip.offsetWidth;if(!reduce)tip.classList.add('nudge');
-});
-/* the page asks for one hint when the prototype first scrolls into view */
-addEventListener('message',e=>{if(e.data&&e.data.blHint&&step===0&&!busy&&!tipOn)showTip(4200)});
+function showTip(ms,nudge){tipOn=true;clearTimeout(tipTimer);place();if(nudge&&!reduce){tip.classList.remove('nudge');void tip.offsetWidth;tip.classList.add('nudge')}tipTimer=setTimeout(()=>{tipOn=false;place()},ms||3200)}
+function hideTip(){tipOn=false;clearTimeout(tipTimer);place()}
+function onPub(e,x){
+ if(e==='miss'){showTip(3200,true);return}
+ if(e==='wrong'||e==='early'){showTip(3600,true);return}
+ if(e==='scroll'){place();return}
+ if(e==='open'){P.ed=x}
+ if(e==='saved'){P.flag[x.k]=1;P.ed=null;if(x.k==='age')setTimeout(()=>{try{PW().PUB.scrollTo('synes')}catch(_){}},250)}
+ if(e==='unflag'){delete P.flag[x.k]}
+ if(e==='modal')P.modal=true;
+ if(e==='modalclose')P.modal=false;
+ if(e==='rejected'){P.modal=false;toEditor();return}
+ hideTip();
+}
+async function toEditor(){
+ const id=run;await new Promise(r=>setTimeout(r,reduce?100:1100));if(id!==run)return;
+ banner.textContent='Now you\u2019re the editor';banner.classList.add('show');
+ await new Promise(r=>setTimeout(r,reduce?100:1200));if(id!==run)return;
+ side='ed';ed.classList.remove('off');ed.removeAttribute('tabindex');pub.classList.add('off');pub.setAttribute('tabindex','-1');
+ await new Promise(r=>setTimeout(r,500));banner.classList.remove('show');
+ try{EW().BLX.notify()}catch(_){}
+ place();
+}
+function onEd(e){
+ if(e==='miss'){showTip(3200,true);return}
+ if(e==='scroll'){place();return}
+ if(e==='modal')E.modal=true;
+ if(e==='modalclose')E.modal=false;
+ if(e==='submitted'){E.done=true;E.modal=false;mode.textContent='Done. Restart to play again.'}
+ hideTip();
+}
+function wireEd(){
+ try{const d=ED(),w=EW();d.documentElement.style.overscrollBehavior='contain';
+  if(!d.getElementById('blx')){const sc=d.createElement('script');sc.id='blx';sc.src='../rejection/ed-extra.js?v=1';d.body.appendChild(sc)}
+  w.onEd=onEd;
+  const typeSyn=async()=>{const t=d.getElementById('in-syn');if(!t||t.value)return;const set=Object.getOwnPropertyDescriptor(w.HTMLTextAreaElement.prototype,'value').set;for(let i=1;i<=SYN.length;i+=reduce?SYN.length:3){if(d.activeElement!==t&&i>1)break;set.call(t,SYN.slice(0,i));t.dispatchEvent(new w.Event('input',{bubbles:true}));await new Promise(r=>setTimeout(r,16))}};
+  d.addEventListener('focusin',e=>{if(e.target.id==='in-syn')typeSyn()});
+  ['change','input'].forEach(v=>d.addEventListener(v,()=>setTimeout(()=>{hideTip()},30),true));
+ }catch(e){}
+}
+function wirePub(){try{PW().onPub=onPub}catch(e){}}
+pub.addEventListener('load',()=>{wirePub();fit()});
+ed.addEventListener('load',wireEd);
+addEventListener('message',e=>{if(e.data&&e.data.blHint&&side==='pub'&&!P.ed&&!P.flag.age&&!tipOn)showTip(4200)});
 async function start(){
-  run++;clearTimeout(timer);busy=false;tipOn=false;endEl.classList.remove('show');banner.classList.remove('show');ty.textContent='';pimg.src='rc.webp';
-  pub.classList.remove('off');ed.classList.add('off');
-  await new Promise(r=>{ed.onload=r;ed.src='../dc/ed-rejected.html?'+run});
-  fit();go(0);
+ run++;hideTip();banner.classList.remove('show');side='pub';P={ed:null,flag:{},modal:false};E={modal:false,done:false};mode.textContent='Your turn. Click anywhere for a hint.';
+ pub.classList.remove('off');pub.removeAttribute('tabindex');ed.classList.add('off');ed.setAttribute('tabindex','-1');
+ pub.src='pub.html?'+run;ed.src='../dc/ed-rejected.html?'+run;
 }
 $('restart').onclick=()=>start();
-$('again').onclick=()=>start();
-ed.addEventListener('load',()=>{try{const d=ED();d.documentElement.style.overflow='hidden';d.body.style.overflow='hidden'}catch(e){}});
-if(window.top===window){const fl=document.getElementById('full');if(fl)fl.remove();document.body.style.padding='16px'}
-fit();go(0);
+if(window.top===window){const fl=$('full');if(fl)fl.remove();document.body.style.padding='16px'}
+wirePub();wireEd();fit();
 })();
 </script>
 </body>
