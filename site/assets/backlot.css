@@ -805,3 +805,4 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 
 /* case study heroes: the picture is as wide as the column on Backlot, BILGE and Data health alike (it used to be capped by screen height) */
 .bl2-hero>.bl2-media.is-img{max-width:none!important}
+.bl2-ill{display:block;order:-2;margin:0 0 18px;color:var(--ink);opacity:.85}.bl2-ill svg{display:block;width:min(100%,200px);height:auto;overflow:visible}.bl2-ill .mv{transition:transform .5s var(--ease),opacity .4s;transform-box:fill-box}.bl2-c:hover .bl2-ill .mv{transform:translateX(5px)}@media (prefers-reduced-motion:reduce){.bl2-ill .mv{transition:none}.bl2-c:hover .bl2-ill .mv{transform:none}}

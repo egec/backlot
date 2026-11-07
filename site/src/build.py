@@ -3,6 +3,7 @@ Run: python3 site/src/build.py
 """
 import json, os, re
 from ds import build as ds_build, CSS as DS_CSS
+import ill as _ill
 
 SRC = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.dirname(SRC)
@@ -751,7 +752,7 @@ def split_nav():
 def styles():
     nav_css, nav_js = split_nav()
     emb_css = ''.join(re.findall(r'<style>(.*?)</style>', EMB('13941d11') + EMB('f6fe44e7') + EMB('020e6363'), re.S))
-    return rem(rd('bl2.css') + '\n' + nav_css + emb_css + DS_CSS + '\n' + rd('page.css')), nav_js
+    return rem(rd('bl2.css') + '\n' + nav_css + emb_css + DS_CSS + '\n' + rd('page.css') + _ill.CSS), nav_js
 
 def write(path, s):
     p = os.path.join(OUT, path)
@@ -765,7 +766,7 @@ if __name__ == '__main__':
     vid_js = re.search(r'<script>(.*?)</script>', EMB('020e6363'), re.S).group(1)
     write('assets/backlot.js', nav_js + '\n' + rd('bl2.js') + '\n' + rd('tint.js') + '\n' + vid_js.replace("rootMargin:'600px 0px'", "rootMargin:'1400px 0px'") + '\n' + rd('zoom.js') + '\n' + rd('roles.js') + '\n' + rd('pace.js'))
     write('assets/site.js', rd('site.js'))
-    html = backlot()
+    html = _ill.add(backlot())
     a, b = html.index('<main'), html.index('</main>')
     html = html[:a] + re.sub(r'<style>.*?</style>', '', html[a:b], flags=re.S) + html[b:]
     # prototypes load about two screens ahead instead of all at page load
