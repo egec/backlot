@@ -793,3 +793,15 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 .tc b{display:block;font-size:var(--t-md);font-weight:600;letter-spacing:-.01em}
 .tc p{margin:6px 0 0;font-size:var(--t-sm)!important;line-height:1.5;color:#B8B6B0!important}
 @media(prefers-reduced-motion:reduce){.tc-m{flex-wrap:wrap;-webkit-mask:none;mask:none}.tc-r{animation:none;flex-wrap:wrap}.tc-r[aria-hidden]{display:none}}
+/* role cards: who first, where they act, their question, what they do */
+.rl2-g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:var(--s-4)}
+.rl2{display:flex;flex-direction:column;padding:clamp(20px,2vw,32px);border-radius:16px;background:var(--card,#ECECEA)}
+.rl2-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.rl2-h b{font-size:var(--t-md);font-weight:600;letter-spacing:-.01em}
+.rl2-st{display:inline-flex;align-items:center;gap:10px;font-size:var(--t-sm);color:var(--mute)}
+.rl2-d{display:inline-flex;align-items:center;gap:4px}.rl2-d i{width:16px;height:4px;border-radius:2px;background:var(--line)}.rl2-d i.past{background:#B9C58F}.rl2-d i.on{background:#56652A;width:24px}
+.rl2-q{margin:18px 0 0!important;font-size:var(--t-lg)!important;line-height:1.25!important;letter-spacing:-.015em;font-weight:500;color:var(--ink);max-width:22em}
+.rl2-a{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
+.rl2-a li{position:relative;padding-left:20px;font-size:var(--t-sm);line-height:1.45;color:#3a3936}
+.rl2-a li:before{content:"";position:absolute;left:0;top:.62em;width:10px;height:2px;border-radius:1px;background:#728437}
+@media(max-width:767px){.rl2-g{grid-template-columns:1fr}}
