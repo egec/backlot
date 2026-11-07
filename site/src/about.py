@@ -438,6 +438,7 @@ def about3(intro="flip"):
           ('Webflow', ['webflow'], 'I built my first portfolio in it from scratch, no template, to learn how the web is put together.'),
           ('Miro', ['miro-icon'], 'Remote workshops during Covid. Now research and inspiration boards.'),
           ('Notion', ['notion-icon'], 'Where I plan my days.'),
+          ('Fullstory', ['fullstory'], 'Session replays at Insider One, to see where users get stuck.'),
           ('Adobe', ['adobe-illustrator', 'adobe-photoshop', 'adobe-indesign'], 'Illustrator, Photoshop and InDesign. Last used for my thesis booklet, because print still exists.')]
     card = lambda t, ics, d: ('<li class="tlc"><span class="tlc-i">' + ''.join(f'<img src="{GH}logos/tc/{f}.svg" width="22" height="22" alt="" loading="lazy">' for f in ics)
                               + f'</span><b>{t}</b><p>{d}</p></li>')
