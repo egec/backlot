@@ -50,7 +50,7 @@ def more():
     how = ''.join(f'<article class="hw-c" style="--i:{i}"><i class="hw-ln" aria-hidden="true"></i><p class="hw-k">{i + 1:02d}</p><div class="hw-b">'
                   f'<h3 class="hw-h" aria-label="{t}"><span aria-hidden="true">{chars(t)}</span></h3><p class="hw-p">{d}</p></div></article>'
                   for i, (t, d) in enumerate(HOW))
-    tools = ''.join(f'<li><img src="{GH}logos/tc/{f}.svg" width="22" height="22" alt="" loading="lazy"><span>{t}</span></li>' for t, f in TOOLS)
+    tools = ''.join(f'<li><img src="{GH}logos/tc/{f if '.' in f else f + '.svg'}" width="22" height="22" alt="" loading="lazy"><span>{t}</span></li>' for t, f in TOOLS)
     return (f'<section class="cs-wrap hw" aria-labelledby="hw-t"><h2 class="hw-t" id="hw-t">How I work</h2>{how}</section>'
             f'<section class="cs-wrap ab-more">'
             f'<div class="ab-row"><p class="k">Tools</p><ul class="ab-tools">{tools}</ul></div></section>'
@@ -438,9 +438,9 @@ def about3(intro="flip"):
           ('Webflow', ['webflow'], 'I built my first portfolio in it from scratch, no template, to learn how the web is put together.'),
           ('Miro', ['miro-icon'], 'Remote workshops during Covid. Now research and inspiration boards.'),
           ('Notion', ['notion-icon'], 'Where I plan my days.'),
-          ('Fullstory', ['fullstory'], 'Session replays at Insider One, to see where users get stuck.'),
+          ('Fullstory', ['fullstory.png'], 'Session replays at Insider One, to see where users get stuck.'),
           ('Adobe', ['adobe-illustrator', 'adobe-photoshop', 'adobe-indesign'], 'Illustrator, Photoshop and InDesign. Last used for my thesis booklet, because print still exists.')]
-    card = lambda t, ics, d: ('<li class="tlc"><span class="tlc-i">' + ''.join(f'<img src="{GH}logos/tc/{f}.svg" width="22" height="22" alt="" loading="lazy">' for f in ics)
+    card = lambda t, ics, d: ('<li class="tlc"><span class="tlc-i">' + ''.join(f'<img src="{GH}logos/tc/{f if '.' in f else f + '.svg'}" width="22" height="22" alt="" loading="lazy">' for f in ics)
                               + f'</span><b>{t}</b><p>{d}</p></li>')
     row = ''.join(card(*x) for x in TD)
     tools = f'<div class="tlc-m" data-tcm><ul class="tlc-r">{row}</ul><ul class="tlc-r" aria-hidden="true">{row}</ul></div>'
@@ -568,7 +568,7 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
 @media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end,.ax-hl{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
-{QCSS}{xcss}{NMCSS}.finalfooter{{background:#4A5724!important}}.finalfooter .ec-k{{color:#fff!important}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
+{QCSS}{xcss}{NMCSS}.finalfooter{{background:#4A5724!important}}.finalfooter .ec-k{{color:#fff!important}}.tlc-i img[src$='.png']{{border-radius:5px}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
 <script>
 (function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
 var P=document.querySelector('[data-axpath]'),rl=P.querySelector('.ax-rl'),bars=[].slice.call(P.querySelectorAll('.ax-bar')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length,hl=P.querySelector('.ax-hl'),dts=[].slice.call(P.querySelectorAll('.ax-dt'));

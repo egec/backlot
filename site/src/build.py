@@ -621,13 +621,13 @@ def untangle():
         out += f'<span class="ut-w">{ch}</span> '
     return (f'<div class="ut" data-ut><p class="ut-s" aria-label="I like untangling the parts of a product nobody wants to own."><span aria-hidden="true">{out.strip()}</span></p></div>')
 
-EGE = ('<section class="wk-ege" aria-label="Contact"><div class="wk-ege-t"><p>Product designer in Berlin.</p><a href="#work">Back to the work ↑</a></div>'
+EGE = ('<section class="wk-ege" aria-label="Contact">'
   '<div class="wk-ege-g" data-ege aria-hidden="true"><span class="wk-ege-w">EGE</span><i></i><i></i><i></i></div>'
   '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="goo" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11"/></filter><filter id="goo2" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11"/></filter></defs></svg>'
   '<style>body:has(main.wk),body.case:has(main.wk){background:#161616}body:has(main.wk){--bg:#161616;--card:#222220;--ink:#F2F2EF;--mute:#9B9A96;--line:rgba(255,255,255,.14);--g:#98B04A;--gd:#98B04A}'
   'body:has(main.wk) .site-lt,body:has(main.wk) .hb-fly{color:#F2F2EF!important}body:has(main.wk) .site-h .site-n a{color:#9a9994}body:has(main.wk) .site-h .site-n a[aria-current]{color:#F2F2EF}body:has(main.wk) .site-h .site-n a:hover{color:#98B04A}'
   'body:has(main.wk) .ax-qs{--qbg:#262624;--qbd:rgba(255,255,255,.18);--qtx:#F2F2EF;--abg:#30302d}body:has(main.wk) .wk-btn{border-color:#F2F2EF;color:#F2F2EF}'
-  '.wk-ege{position:relative;padding:clamp(72px,9vw,150px) clamp(20px,2.4vw,44px) 0;overflow:hidden;color:#F2F2EF}'
+  '.wk-ege{position:relative;padding:clamp(48px,6vw,96px) clamp(20px,2.4vw,44px) 0;overflow:hidden;color:#F2F2EF}'
   '.wk-ege-t{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 32px;max-width:var(--w);margin:0 auto}.wk-ege-t p{margin:0;font-size:clamp(20px,1.6vw,30px);letter-spacing:-.02em;font-weight:600}.wk-ege-t a{color:#98B04A;text-decoration:none;font-size:clamp(15px,1.1vw,19px)}.wk-ege-t a:hover{text-decoration:underline;text-underline-offset:5px}'
   '.wk-ege-g{position:relative;max-width:var(--w);margin:clamp(24px,3vw,56px) auto 0;height:clamp(90px,27vw,470px);filter:url(#goo)}'
   '.wk-ege-w{position:absolute;left:0;right:0;bottom:-.12em;text-align:center;font:800 clamp(80px,34vw,600px)/.8 "Bricolage EC","Inter Tight",sans-serif;font-variation-settings:"wght" 800,"wdth" 100,"opsz" 96;letter-spacing:-.02em;color:#98B04A;user-select:none}'
