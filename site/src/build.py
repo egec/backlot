@@ -620,6 +620,23 @@ def untangle():
         out += f'<span class="ut-w">{ch}</span> '
     return (f'<div class="ut" data-ut><p class="ut-s" aria-label="I like untangling the parts of a product nobody wants to own."><span aria-hidden="true">{out.strip()}</span></p></div>')
 
+EGE = ('<section class="wk-ege" aria-label="Contact"><div class="wk-ege-t"><p>Product designer in Berlin.</p><a href="#work">Back to the work ↑</a></div>'
+  '<div class="wk-ege-g" data-ege aria-hidden="true"><span class="wk-ege-w">EGE</span><i></i><i></i><i></i></div>'
+  '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="goo" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11"/></filter><filter id="goo2" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11"/></filter></defs></svg>'
+  '<style>body:has(main.wk),body.case:has(main.wk){background:#161616}body:has(main.wk){--bg:#161616;--card:#222220;--ink:#F2F2EF;--mute:#9B9A96;--line:rgba(255,255,255,.14);--g:#98B04A;--gd:#98B04A}'
+  'body:has(main.wk) .site-lt,body:has(main.wk) .hb-fly{color:#F2F2EF!important}body:has(main.wk) .site-h .site-n a{color:#9a9994}body:has(main.wk) .site-h .site-n a[aria-current]{color:#F2F2EF}body:has(main.wk) .site-h .site-n a:hover{color:#98B04A}'
+  'body:has(main.wk) .ax-qs{--qbg:#262624;--qbd:rgba(255,255,255,.18);--qtx:#F2F2EF;--abg:#30302d}body:has(main.wk) .wk-btn{border-color:#F2F2EF;color:#F2F2EF}'
+  '.wk-ege{position:relative;padding:clamp(72px,9vw,150px) clamp(20px,2.4vw,44px) 0;overflow:hidden;color:#F2F2EF}'
+  '.wk-ege-t{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 32px;max-width:var(--w);margin:0 auto}.wk-ege-t p{margin:0;font-size:clamp(20px,1.6vw,30px);letter-spacing:-.02em;font-weight:600}.wk-ege-t a{color:#98B04A;text-decoration:none;font-size:clamp(15px,1.1vw,19px)}.wk-ege-t a:hover{text-decoration:underline;text-underline-offset:5px}'
+  '.wk-ege-g{position:relative;max-width:var(--w);margin:clamp(24px,3vw,56px) auto 0;height:clamp(90px,27vw,470px);filter:url(#goo)}'
+  '.wk-ege-w{position:absolute;left:0;right:0;bottom:-.12em;text-align:center;font:800 clamp(80px,34vw,600px)/.8 "Bricolage EC","Inter Tight",sans-serif;font-variation-settings:"wght" 800,"wdth" 100,"opsz" 96;letter-spacing:-.02em;color:#98B04A;user-select:none}'
+  '.wk-ege-g i{position:absolute;left:0;top:0;width:clamp(40px,7vw,120px);aspect-ratio:1;border-radius:50%;background:#98B04A;will-change:transform}'
+  '@media(max-width:700px){.wk-ege-g{filter:url(#goo2)}}</style><script>(function(){var g=document.querySelector("[data-ege]");if(!g)return;var d=[].slice.call(g.querySelectorAll("i")),P=d.map(function(){return{x:0,y:0}}),m={x:.5,y:.5,on:0},rm=matchMedia("(prefers-reduced-motion:reduce)").matches,t0=0,r=0;'
+  'function pos(e){var b=g.getBoundingClientRect();m.x=(e.clientX-b.left)/b.width;m.y=(e.clientY-b.top)/b.height;m.on=1}'
+  'g.parentNode.addEventListener("pointermove",pos);g.parentNode.addEventListener("pointerleave",function(){m.on=0});'
+  'function f(t){r=0;var b=g.getBoundingClientRect();if(b.bottom<0||b.top>innerHeight){r=requestAnimationFrame(f);return}d.forEach(function(e,i){var a=t/1800+i*2.1,tx=m.on?m.x*b.width+Math.cos(a)*(i*34):b.width*(.2+.3*i)+Math.cos(a)*b.width*.12,ty=m.on?Math.max(b.height*.2,Math.min(b.height,m.y*b.height))+Math.sin(a)*(i*20):b.height*.62+Math.sin(a*1.3)*b.height*.22,p=P[i],k=.06+i*.025;p.x+=(tx-p.x)*k;p.y+=(ty-p.y)*k;e.style.transform="translate("+(p.x-e.offsetWidth/2)+"px,"+(p.y-e.offsetHeight/2)+"px)"});r=requestAnimationFrame(f)}'
+  'if(rm){d.forEach(function(e,i){e.style.transform="translate("+(g.offsetWidth*(.25+.25*i))+"px,"+(g.offsetHeight*.7)+"px)"});return}r=requestAnimationFrame(f)})();</script></section>')
+
 HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div class="hb-sp" aria-hidden="true"></div><p class="wk-pos hb-s">Product designer for B2B software,<br> fluent in both AI and the people.</p></div>'
   '<span class="hb-fly" aria-hidden="true"><i style="--j:0">E</i><i style="--j:1">g</i><i style="--j:2">e</i><i style="--j:3">&nbsp;</i><i style="--j:4">C</i><i style="--j:5">o</i><i style="--j:6">s</i><i style="--j:7">k</i><i style="--j:8">u</i><i style="--j:9">n</i></span>'
   '<style>.hb{min-height:calc(100svh - 4.75rem - 130px - 34px);display:flex!important;flex-direction:column;justify-content:space-between;padding:clamp(12px,2svh,32px) 0 clamp(28px,5svh,64px)!important;width:auto!important;box-sizing:border-box}'
@@ -674,7 +691,7 @@ def work(v='b', hero=''):
         for k, num, name, t, tags, img in more)
     import about as _ab
     qa = _ab.qa_html()
-    about = (f'<section class="ax-ask lt wk-qa"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
+    about = (f'<section class="ax-ask wk-qa"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
              '</div></section><section class="wk-czs"><p class="wk-cz">I learned design where there’s <span style="white-space:nowrap">no <kbd>Ctrl</kbd><kbd>Z</kbd>.</span></p><a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></section>'
              '<style>' + _ab.QCSS + '.wk-qa{margin-top:clamp(96px,10vw,180px);padding:0;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;--h3:clamp(18px,1.3vw,24px)}'
              '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
@@ -682,7 +699,7 @@ def work(v='b', hero=''):
     hero_html = hero or HERO
     body = (f'<main class="wk"><div class="cs-wrap">' + hero_html +
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
-            f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div>{about}</div></main>'
+            f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div>{about}</div>{EGE}</main>'
             '<script>(function(){var c=document.querySelectorAll(".wk-g.vb>.wk-c");if(!c.length||matchMedia("(prefers-reduced-motion:reduce)").matches)return;var f=0;function d(){f=0;var h=innerHeight;[].forEach.call(c,function(e){var t=e.getBoundingClientRect().top,p=Math.max(0,Math.min(1,(h*.85-t)/(h*.6)))*Math.min(1,scrollY/120);e.style.setProperty("--p",p.toFixed(3));if(t<h*.92)e.classList.add("on")})}addEventListener("scroll",function(){if(!f){f=1;requestAnimationFrame(d)}},{passive:true});addEventListener("resize",d);d()})();</script>')
     return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin: B2B tools for teams that review, approve and ship work. Case studies: Backlot, BİLGE, UwaVerde.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
