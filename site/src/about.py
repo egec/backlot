@@ -433,12 +433,12 @@ def about3(intro="flip"):
     TD = [('Figma', ['figma'], 'My design tool since 2020.'),
           ('Claude Design', ['claude-icon'], 'Where I design and prototype screens now, Backlot included.'),
           ('Claude Code', ['claude-code'], 'I built this site with it, and the prototypes on it.'),
-          ('Jira', ['jira'], 'Tickets and sprints at MilSOFT and Insider One.'),
-          ('Confluence', ['confluence'], 'Specs and documentation at MilSOFT and Insider One.'),
+          ('Jira', ['jira'], 'Tickets and sprints.'),
+          ('Confluence', ['confluence'], 'Specs and documentation.'),
           ('Webflow', ['webflow'], 'I built my first portfolio in it from scratch, no template, to learn how the web is put together.'),
           ('Miro', ['miro-icon'], 'Remote workshops during Covid. Now research and inspiration boards.'),
           ('Notion', ['notion-icon'], 'Where I plan my days.'),
-          ('Fullstory', ['fullstory.png'], 'Session replays at Insider One, to see where users get stuck.'),
+          ('Fullstory', ['fullstory.png'], 'Session replays, to see where users get stuck.'),
           ('Adobe', ['adobe-illustrator', 'adobe-photoshop', 'adobe-indesign'], 'Illustrator, Photoshop and InDesign. Last used for my thesis booklet, because print still exists.')]
     card = lambda t, ics, d: ('<li class="tlc"><span class="tlc-i">' + ''.join(f'<img src="{GH}logos/tc/{f if '.' in f else f + '.svg'}" width="22" height="22" alt="" loading="lazy">' for f in ics)
                               + f'</span><b>{t}</b><p>{d}</p></li>')
@@ -530,8 +530,8 @@ def about3(intro="flip"):
 .ax-pcs{{left:0;right:0;top:0;bottom:0}}
 .ax-pc{{top:0;bottom:0}}
 .ax-pg2{{display:contents}}
-.ax-pc h3{{position:absolute;left:var(--px);right:var(--px);top:28px;margin:0;text-align:center;transform:translateY(10px);transition:transform .5s var(--ease)}}
-.ax-pc .ax-pd{{position:absolute;left:0;right:0;top:calc(var(--ay) + 56px);max-width:none;width:min(34em,calc(100% - var(--px) * 2));margin:0 auto;text-align:center;transform:translateY(10px);transition:transform .5s var(--ease)}}
+.ax-pc h3{{position:absolute;left:0;right:0;width:min(34rem,calc(100% - var(--px) * 2));top:28px;margin:0 auto;text-align:left;transform:translateY(10px);transition:transform .5s var(--ease)}}
+.ax-pc .ax-pd{{position:absolute;left:0;right:0;top:calc(var(--ay) + 56px);max-width:none;width:min(34rem,calc(100% - var(--px) * 2));margin:0 auto;text-align:left;transform:translateY(10px);transition:transform .5s var(--ease)}}
 .ax-pc.on h3,.ax-pc.on .ax-pd{{transform:none}}
 .ax-pc .ax-when{{position:absolute!important;left:calc(var(--tx) + var(--fa) * var(--tw))!important;bottom:auto!important;top:calc(var(--ay) - 30px);transform:translateX(-50%)}}
 .ax-pc:first-child .ax-when{{transform:none}}.ax-pc:last-child .ax-when{{transform:translateX(-100%)}}
