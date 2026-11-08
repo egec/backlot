@@ -33,7 +33,7 @@ def page(title, desc, body, css_files, js_files, font='it', cur='work'):
 <title>{title}</title><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">{fl}{css}</head><body class="case">
-<header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home" style="--lg:url({LOGO})"><span class="site-lt"><span class="lm-m"></span></span><i class="site-lm" aria-hidden="true"><span class="lm-m lm-mk"></span></i></a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="cgoo" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="g"/><feComposite in="SourceGraphic" in2="g" operator="atop"/></filter></defs></svg><header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home" style="--lg:url({LOGO})"><span class="site-lt"><span class="lm-m"></span></span><i class="site-lm" aria-hidden="true"><span class="lm-m lm-mk"></span></i></a>
 <nav class="site-n" aria-label="Main"><a href="/#work"{' aria-current="page"' if cur == 'work' else ''}>Work</a><a href="/about"{' aria-current="page"' if cur == 'about' else ''}>About</a><a href="#contact">Contact</a></nav></div></header>
 {body}
 <footer class="finalfooter" id="contact">{rem(rd('foot.html'))}</footer>{js}</body></html>'''
@@ -602,14 +602,13 @@ def untangle():
     return (f'<div class="ut" data-ut><p class="ut-s" aria-label="I like untangling the parts of a product nobody wants to own."><span aria-hidden="true">{out.strip()}</span></p></div>')
 
 EGE = ('<section class="wk-ege" aria-label="Contact">'
-  '<div class="wk-ege-g" data-ege aria-hidden="true"><span class="wk-ege-w">ege</span><i></i><i></i><i></i></div>'
   '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="goo" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11"/></filter><filter id="goo2" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11"/></filter></defs></svg>'
   '<style>@font-face{font-family:"Oi EC";src:url(/assets/oi.ttf) format("truetype");font-display:block}.wk-dk{background:#161616;color:#F2F2EF;--bg:#161616;--card:#222220;--ink:#F2F2EF;--mute:#9B9A96;--line:rgba(255,255,255,.14);--g:#98B04A;--gd:#98B04A;padding-top:clamp(96px,10vw,180px)}'
   '@media(max-width:899px){.wk-dk{padding-top:clamp(120px,16vw,160px)}}.wk-dk .wk-qa{margin-top:0!important}'
   'html.dk-h .site-h{background:#161616}html.dk-h .site-h .site-lt{color:#F2F2EF!important}html.dk-h .site-h .site-n a{color:#9a9994}html.dk-h .site-h .site-n a[aria-current]{color:#F2F2EF}html.dk-h .site-h .site-n a:hover{color:#98B04A}.site-h{transition:background .25s}'
   '.wk-dk .ax-qs{--qbg:#262624;--qbd:rgba(255,255,255,.18);--qtx:#F2F2EF;--abg:#30302d}.wk-dk .wk-btn{border-color:#F2F2EF;color:#F2F2EF}main.wk{padding-bottom:0!important}'
   '@media(min-width:900px) and (prefers-reduced-motion:no-preference){.wk-rv{position:sticky;top:0;z-index:1}.wk-dk{position:relative;z-index:2}}'
-  '.wk-ege{position:relative;padding:clamp(48px,6vw,96px) clamp(20px,2.4vw,44px) 0;overflow:hidden;color:#F2F2EF}'
+  '.wk-ege{position:relative;padding:0;overflow:hidden;color:#F2F2EF}'
   '.wk-ege-t{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 32px;max-width:var(--w);margin:0 auto}.wk-ege-t p{margin:0;font-size:clamp(20px,1.6vw,30px);letter-spacing:-.02em;font-weight:600}.wk-ege-t a{color:#98B04A;text-decoration:none;font-size:clamp(15px,1.1vw,19px)}.wk-ege-t a:hover{text-decoration:underline;text-underline-offset:5px}'
   '.wk-ege-g{position:relative;max-width:var(--w);margin:clamp(24px,3vw,56px) auto 0;height:clamp(90px,24vw,420px);filter:url(#goo2)}'
   'html.f-it .wk .wk-ege-w{font-family:"Oi EC","Inter Tight",sans-serif!important}.wk-ege-w{position:absolute;left:0;right:0;bottom:-.1em;text-align:center;font:400 clamp(70px,22vw,400px)/.8 "Oi EC","Bricolage EC",sans-serif;font-synthesis:none;letter-spacing:0;color:#98B04A;user-select:none}'

@@ -36,3 +36,8 @@ function close(){document.documentElement.classList.remove('ct-on');setTimeout(f
 a.addEventListener('click',open);s.addEventListener('click',close);p.querySelector('.ct-x').addEventListener('click',close);
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.documentElement.classList.contains('ct-on'))close()});
 p.querySelector('.ct-cp').addEventListener('click',function(){var b=this;try{navigator.clipboard.writeText('a.egecoskun@gmail.com').then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1600)})}catch(x){}})})();
+
+(function(){if(!matchMedia('(hover:hover) and (pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var N=20,w=document.createElement('div');w.className='ck';w.setAttribute('aria-hidden','true');var d=[],P=[],mx=-100,my=-100,on=false;for(var i=0;i<N;i++){var e=document.createElement('i');e.style.transform='translate(-100px,-100px)';w.appendChild(e);d.push(e);P.push({x:-100,y:-100})}document.body.appendChild(w);
+addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;if(!on){on=true;for(var i=0;i<N;i++){P[i].x=mx;P[i].y=my}}},{passive:true});
+document.documentElement.addEventListener('mouseleave',function(){on=false;mx=my=-100;for(var i=0;i<N;i++){P[i].x=P[i].y=-100}});
+(function t(){P[0].x=mx;P[0].y=my;for(var i=1;i<N;i++){P[i].x+=(P[i-1].x-P[i].x)*.35;P[i].y+=(P[i-1].y-P[i].y)*.35}for(var i=0;i<N;i++){d[i].style.transform='translate('+P[i].x.toFixed(1)+'px,'+P[i].y.toFixed(1)+'px) scale('+(1-i*.045).toFixed(3)+')'}requestAnimationFrame(t)})()})();
