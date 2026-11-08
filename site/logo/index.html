@@ -21,7 +21,7 @@ header nav{display:flex;gap:28px;font-size:15px;color:var(--mute)}header nav a{c
 #fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform;font-size:200px;line-height:1;white-space:nowrap;color:var(--ink)}
 #fly b,#hl{display:flex;align-items:baseline;font-weight:400}
 #fly b{transform-origin:0 100%;will-change:transform}
-.oi{font-family:OI,sans-serif}.rs{font-family:RS,cursive}.cs{font-family:OI,sans-serif;color:var(--gray);margin-left:.18em}
+.oi{font-family:OI,sans-serif}.rs{font-family:RS,cursive}.cs{font-family:OI,sans-serif;color:var(--gray);margin-left:.14em}.mk{display:block;height:1.1em;width:2.9em;margin-bottom:-.2em}
 .rs i{font-style:normal;display:inline-block}
 #fly.wr .rs i{clip-path:inset(-30% 100% -30% -8%);animation:wr .3s ease-out forwards;animation-delay:calc(var(--i)*.1s + .25s)}
 @keyframes wr{to{clip-path:inset(-30% -8% -30% -8%)}}
@@ -47,9 +47,9 @@ nav.tabs button[aria-pressed=true]{background:#56652A;color:#fff}
 <script>
 function wr(t){return t.split('').map(function(c,i){return '<i style="--i:'+i+'">'+(c==' '?'&nbsp;':c)+'</i>'}).join('')}
 var O=[
- {n:'A  Oi, ege',fly:'<span class="oi">ege</span>',hd:'<span class="oi" style="font-size:30px">ege</span>',w:620,dist:1},
+ {n:'A  Oi, ege (organik gözler)',fly:'<img class="mk" src="/logo/ege-mark.svg" alt="">',hd:'<img class="mk" style="font-size:30px" src="/logo/ege-mark.svg" alt="">',w:620,dist:1},
  {n:'B  Rock Salt, writes on',fly:'<span class="rs">'+wr('EGE COSKUN')+'</span>',hd:'<span class="rs" style="font-size:17px">EGE COSKUN</span>',w:780,dist:0,wr:1},
- {n:'C  Oi, coskun in grey',fly:'<span class="oi">ege</span><span class="cs">coskun</span>',hd:'<span class="oi" style="font-size:30px">ege</span><span class="cs" style="font-size:30px">coskun</span>',w:980,dist:1}
+ {n:'C  ege + gri coskun',fly:'<img class="mk" src="/logo/ege-mark.svg" alt=""><span class="cs">coskun</span>',hd:'<img class="mk" style="font-size:30px" src="/logo/ege-mark.svg" alt=""><span class="cs" style="font-size:30px">coskun</span>',w:980,dist:1}
 ];
 var fly=document.getElementById('fly'),fb=fly.firstChild,hl=document.getElementById('hl'),sp=document.getElementById('sp'),tag=document.getElementById('tag'),vd=document.getElementById('vd'),tb=document.getElementById('tabs');
 var R=matchMedia('(prefers-reduced-motion:reduce)').matches,cur=-1,raf=0,nw=1,nh=1,k=0;
