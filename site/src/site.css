@@ -16,7 +16,7 @@ a{color:inherit}
 .site-n a[aria-current]{color:var(--ink)}.site-n a:hover{color:var(--g)}
 .finalfooter{position:relative;z-index:2;background:#000}
 .finalfooter .ec-foot{padding-left:max(var(--pad),calc((100% - var(--w)) / 2));padding-right:max(var(--pad),calc((100% - var(--w)) / 2))}
-@media(min-width:1200px){body:has(.bl-nav) .finalfooter .ec-foot{padding-left:max(var(--bl-gutter,var(--gut)),calc((100% - var(--w)) / 2))}}
+
 
 
 /* logo: green paints only where the pointer is */
@@ -66,3 +66,7 @@ html.ct-on .ct-s{opacity:1}
 .ck{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;filter:url(#cgoo)}.ck i{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#CDB1EA;will-change:transform}
 
 .ct-cp:hover{background:#CDB1EA;border-color:#CDB1EA;color:#161616}
+
+.ct-a h2{color:#CDB1EA}
+.ck{mix-blend-mode:difference}
+body:has(nav.bl-nav) .ck{mix-blend-mode:normal}body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px;background:#98B04A}
