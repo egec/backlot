@@ -23,11 +23,13 @@ a{color:inherit}
 .site-logo{position:relative;display:block}
 .site-lm{position:absolute;inset:0;pointer-events:none;-webkit-mask:var(--lg) center/contain no-repeat;mask:var(--lg) center/contain no-repeat;background:radial-gradient(circle var(--rr,0px) at var(--mx,50%) var(--my,50%),var(--g) 98%,transparent);transition:--rr .3s}
 @font-face{font-family:"Bricolage EC";src:url(/assets/bricolage-ec.woff) format("woff");font-display:block}
+@font-face{font-family:"Beth Ellen EC";src:url(/assets/beth-ellen.ttf) format("truetype");font-display:block}
 .site-lt,.site-lm{font-family:"Bricolage EC",sans-serif;font-variation-settings:"wght" 700,"wdth" 100,"opsz" 12;font-size:1.238rem;line-height:1;white-space:nowrap;color:#1a1a1a;display:block;letter-spacing:0}
 .site-lm{-webkit-mask:none!important;mask:none!important;color:transparent;-webkit-background-clip:text;background-clip:text}
 .site-logo,.site-logo:hover{text-decoration:none!important}
-.site-lt,.site-lm,.hb-fly{font-family:"Bricolage EC",sans-serif!important;font-variation-settings:"wght" 700,"wdth" 100,"opsz" 12!important;font-weight:700!important;letter-spacing:0!important}
-html.f-it .site-h .site-lt,html.f-it .site-h .site-lm,html .hb-fly,html .hb-fly i,html.f-it .site-lt,html.f-it .site-lm{font-family:"Bricolage EC",sans-serif!important}
+.site-lt,.site-lm,.hb-fly{font-family:"Beth Ellen EC",cursive!important;font-variation-settings:normal!important;font-weight:400!important;font-synthesis:none;letter-spacing:0!important;font-size:1.312rem}
+.hb-fly{font-size:12.5rem!important}
+html.f-it .site-h .site-lt,html.f-it .site-h .site-lm,html .hb-fly,html .hb-fly b,html.f-it .site-lt,html.f-it .site-lm{font-family:"Beth Ellen EC",cursive!important}
 body:has(main.abx.dk) .site-lt{color:#F2F2EF!important}
 body:has(.abx.dk) .site-h .site-n a{color:#9a9994}body:has(.abx.dk) .site-h .site-n a[aria-current]{color:#F2F2EF}body:has(.abx.dk) .site-h .site-n a:hover{color:#98B04A}
 .site-lm{font-style:normal!important}
