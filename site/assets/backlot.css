@@ -755,7 +755,8 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 .bl2-co{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:99px;background:#E7ECD4;color:#3F4A1E!important;font-weight:500;text-decoration:none!important;transition:background .2s,color .2s}.bl2-co:hover{background:#56652A;color:#fff!important}
 
 /* handwritten notes: one natural brush hand, green, on one line; the arrow leaves the title and points at the note */
-html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 clamp(24px,2vw,30px)/1 "Kaushan Script","Mr Dafoe",cursive!important;letter-spacing:0;white-space:nowrap;color:#56652A}
+@font-face{font-family:"Over the Rainbow EC";src:url(/assets/over-the-rainbow.ttf) format("truetype");font-display:swap}
+html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 clamp(28px,2.3vw,36px)/1 "Over the Rainbow EC",cursive!important;letter-spacing:0;white-space:nowrap;color:#56652A}
 .bl2-note{align-items:flex-start;gap:4px}.bl2-note:not(.down) b{transform:rotate(-4deg) translateY(-14px)}
 
 /* ===== type scale (7 Nov): eight sizes for the whole site, nothing in between ===== */
