@@ -500,10 +500,10 @@ def bilge():
     POP = (37, 25, 26, 39)
     def pv(k):
         return media_box(f'<video data-src="{GH}bilge/{k}.mp4" poster="{GH}bilge/{k}.jpg" width="1600" height="900" muted loop playsinline preload="none" style="display:block;width:100%;height:auto;border-radius:8px;background:#121212"></video>')
-    agent = ('<div class="bl2-t bl2-f">' + head2(3, 'The agent files', 'General information first, then the containers',
+    agent = ('<div class="bl2-t bl2-f">' + head2(4, 'The agent files', 'General information first, then the containers',
              'The agent picks the movement (foreign or domestic, entry or exit), fills in the general information once for every container, then adds containers one by one or in bulk. Register sends the form to an officer’s queue. Until an officer approves it, the agent can still edit it.')
              + pv('a') + '</div>')
-    track = flow(4, 'Tracking a container', 'Every source and every event in one place',
+    track = flow(5, 'Tracking a container', 'Every source and every event in one place',
                  'Two screens came straight from the specs. The container history puts every event on one timeline. The comparison sets the carrier’s summary declaration against the port’s records.',
                  [dict(h='One timeline per container', t=0.6, hl=[(20, 43, 77, 55)]),
                   dict(h='Each event keeps its record', t=2.6, hl=[(20, 70, 77, 22)]),
@@ -514,17 +514,17 @@ def bilge():
                   'Shortfall lists containers the port recorded but the declaration missed. Surplus lists the reverse.',
                   'Selecting a container shows its notice, registration and bill of lading next to the other source.'],
                  [V('d')])
-    customs = ('<div class="bl2-t bl2-f">' + head2(5, 'Customs decides', 'Officers and managers act from their queue',
+    customs = ('<div class="bl2-t bl2-f">' + head2(6, 'Customs decides', 'Officers and managers act from their queue',
                'Officers approve, edit or cancel registered forms, and after approval only customs can change them. Approving a selection rejects the other containers in the same step. Time extensions and cancellations need a second signature from the manager, corrections from the deputy manager, and managers decide on the row, behind a confirmation.')
                + '<p class="bl2-cap">The officer approves some containers and rejects the rest</p>' + pv('b')
                + '<p class="bl2-cap">The manager decides on the row</p>' + pv('c') + '<div class="bl2-t">' + split('Also in this flow', rules([
                        'Written reasons open in a side drawer, so the form stays in view.',
                        'Editing a form an agent registered warns that the agent’s record will change.'])) + '</div></div>')
-    spec = ('<div class="bl2-t">' + head2(6, 'Two stories', 'When the spec was wrong')
+    spec = ('<div class="bl2-t">' + head2(7, 'Two stories', 'When the spec was wrong')
             + split('Two days to rebuild', '<p>A backend rule for one of my complex flows arrived incomplete and partly wrong, two days before I had to present the flow. The people who could confirm it were away. I sat down with the system engineer, mapped the corrected logic and rebuilt the flow in time.</p>')
             + split('The users knew better', '<p>Another time the client described a rule wrongly. It surfaced when the customs officers who would use the screens saw them and spotted what did not match their work, and we redesigned. Since then I ask for the people who will use the screens as early as the client allows.</p>')
             + '</div>')
-    learned = ('<div class="bl2-t">' + head2(7, 'What I learned', 'In government software the wording is part of the design')
+    learned = ('<div class="bl2-t">' + head2(8, 'What I learned', 'In government software the wording is part of the design')
                + split('Wording', '<p>A word like Register carries legal weight, so ministry review shaped the design from the start.</p>')
                + split('Confidentiality', '<p>The work is under NDA, so the screens on this page are rebuilt from my designs with placeholder data.</p>')
                + '</div>')
@@ -554,7 +554,7 @@ def datahealth():
      '<p class="bl2-big" data-tint style="--ac:#2D2ACF"><span class="bl2-line">The segment broke at the last step.</span></p>'
      + split('The problem','<p>Data breaks in many ways: a source stops sending, a value arrives in the wrong type or format, volume drops or spikes. Nothing in the segment builder said so, and marketers found out from an audience far smaller than expected, after every other choice was made.</p>'
        '<p><b>Elsewhere:</b> Braze and MoEngage explain data type mismatches in their help docs. I wanted the marketer to see the problem and keep going in the same flow, with no doc to look up and nothing that reads as an error.</p>')+'</div>')
-    f1=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">04</span><span class="cs-title bl2-x">Where data comes from</span><p class="k">Feature 03</p>'
+    f1=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">05</span><span class="cs-title bl2-x">Where data comes from</span><p class="k">Feature 03</p>'
      '<h2 class="bl2-h">The total, split by where the data comes from</h2><p class="lead">The total now sits next to a count for every source, so a source that stops sending shows up here first.</p>'
      + dh_cards([('Grouped by how data arrives','SDK sources, external integrations and API sit in one group beside the total.'),
               ('Every source named','Mobile, Web, Shopify, Amplitude and API each show their own number.'),
@@ -571,14 +571,14 @@ def datahealth():
 
      + split('What changed in review','<p>My first card showed data only when something was wrong. The PM asked for the ingested volume on every card, healthy or not, so marketers can check how much data an attribute has before they rely on it.</p>')
      + '</div>')
-    kd=('<div class="bl2-t">' + head2(0, 'The key decision', 'Warn, don’t block') + '<div class="dh-dec">' + '<p>Blocking the attribute was the safer option for the data, and I chose against it. A block would throw away every choice the marketer had made, the same last-step failure we were fixing. Most issues are partial or temporary: one source fails while the rest is fine, an API stops for an hour and recovers, a volume spike comes from a real campaign. And the marketer can’t fix the data; the data team can.</p>'
+    kd=('<div class="bl2-t">' + head2(3, 'The key decision', 'Warn, don’t block') + '<div class="dh-dec">' + '<p>Blocking the attribute was the safer option for the data, and I chose against it. A block would throw away every choice the marketer had made, the same last-step failure we were fixing. Most issues are partial or temporary: one source fails while the rest is fine, an API stops for an hour and recovers, a volume spike comes from a real campaign. And the marketer can’t fix the data; the data team can.</p>'
              '<p>So the card warns, keeps the attribute usable and links to Data Validation. The marketer knows why the audience looks smaller before the estimate surprises them.</p>' + '</div></div>')
-    f3=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Event parameters</span><p class="k">Feature 02</p>'
+    f3=('<div class="bl2-t bl2-f"><span class="cs-num bl2-x">04</span><span class="cs-title bl2-x">Event parameters</span><p class="k">Feature 02</p>'
      '<h2 class="bl2-h">The same check for event parameters</h2><p class="lead">A segment can also filter on what users did. Event parameters break the same way attributes do, so the parameter menu shows the same warning and the same card, worded for a parameter.</p>'
      + media_box(dh_img('o_b_event','Event Source parameter card with an incorrect data type warning'))
      + sub('One card, many cases', 'The same card covers every issue a data point can have and every state its source can be in.')
      + '<div class="bl2-cards dh-cases"><div class="bl2-c"><span class="bl2-tag">7</span><h3>Issue types</h3><div class="dh-ch"><span>Incorrect Data Type</span><span>Invalid Value Format</span><span>Null Value</span><span>Missing Data</span><span>Abnormal Volume Change</span><span>Volume Threshold Reached</span><span>Multiple Issues</span></div></div><div class="bl2-c"><span class="bl2-tag">5</span><h3>Source states</h3><div class="dh-ch"><span>Syncing</span><span>Not Used</span><span>Paused</span><span>Not Receiving Data</span><span>No Ingested Data</span></div></div></div></div>')
-    nxt=('<div class="bl2-t"><span class="cs-num bl2-x">05</span><span class="cs-title bl2-x">What’s next</span><p class="k">What’s next</p>'
+    nxt=('<div class="bl2-t"><span class="cs-num bl2-x">06</span><span class="cs-title bl2-x">What’s next</span><p class="k">What’s next</p>'
      '<h2 class="bl2-h cs-title">What I would measure</h2>'
      + split('Measure','<p>I don’t have numbers I can share. I would track how often a segment fails at the last step, and how often marketers open Data Validation from the card.</p>')
      + split('Confidentiality','<p>The product is under NDA, so these screens are rebuilt with placeholder data (acme-store), and everything outside my components is blurred. Layout, states and wording follow what shipped.</p>')+'</div>')
@@ -647,7 +647,7 @@ HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><div
 def work(v='b', hero=''):
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
-        ('backlot', '01', 'Backlot, the take-home that got me hired', 'Fewer review rounds from delivery to release',
+        ('backlot', '01', 'Backlot', 'Fewer review rounds from delivery to release',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
         ('bilge', '02', 'BİLGE', 'Customs software where&nbsp;‘Register’ starts a legal clock',
@@ -663,7 +663,7 @@ def work(v='b', hero=''):
         return '<span class="wk-tags">' + ''.join(f'<i>{x}</i>' for x in list(tags) + ['Concept' if k == 'backlot' else 'Shipped']) + CO.get(k, '') + '</span>'
     # the title link stretches over the whole card, so the company chip can be its own link
     cards = ''.join(
-        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}" style="--i:{ix}"><span class="wk-lab">{num}  {dict(backlot="Backlot, the take-home that got me hired", bilge="BİLGE").get(k, "Data health")}</span><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
+        f'<div class="wk-c{" wk-ft" if k == "backlot" else ""}" style="--i:{ix}"><span class="wk-lab">{num}  {dict(backlot="Backlot", bilge="BİLGE").get(k, "Data health")}</span><span class="wk-m"><img src="{img}" alt="{alt}" loading="lazy">' + (f'<video data-src="{vid}" muted loop playsinline preload="none" aria-hidden="true"></video><em class="wk-pl">Hover to play</em>' if vid else '') + '</span>'
         + chips(k, tags) + f'<a class="wk-t wk-sl" href="/{k}">{t} {ARW}</a>' + '</div>'
         for ix, (k, num, name, t, d, tags, img, alt, vid) in enumerate(lead))
     more = [
