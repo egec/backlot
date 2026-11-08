@@ -504,7 +504,7 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 clamp(28px,2.3vw,36px)
 [data-bl2root] p.lead,.bl2-split p,.wn-dk .wn2-c p:not(.wn2-n){font-size:var(--t-base)!important;line-height:1.55}
 .bl2-c h3,.bl2-subh h3,.zs li>button>strong,li>button>strong,.dh-dec p{font-size:var(--t-md)!important}
 .ax-q summary,.wk-qa h2,.ax-w>h2,h2.ax-w{font-size:var(--t-lg)!important}
-.bl2-q,.wn2-c h3,.wn-dk .wn2-c .wn2-n,.ax-hc h3,.wk-pos.hb-s{font-size:var(--t-xl)!important}
+.bl2-q,.wn2-c h3,.wn-dk .wn2-c .wn2-n,.ax-hc h3{font-size:var(--t-xl)!important}.wk-pos.hb-s{font-size:clamp(15px,1.45vw,24px)!important}
 [data-bl2root] h2.bl2-h,[data-bl2root] h2.cs-title,.nx-d,.wk-g.vb>.wk-c .wk-t,.wk-czs .wk-cz{font-size:var(--t-2xl)!important}
 [data-bl2root] .bl2-hero h1{font-size:var(--t-3xl)!important}
 /* more air between a heading with its lead and the list or steps under it */
