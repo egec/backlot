@@ -33,7 +33,7 @@ def page(title, desc, body, css_files, js_files, font='it', cur='work'):
 <title>{title}</title><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">{fl}{css}</head><body class="case">
-<header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home" style="--lg:url({LOGO})"><span class="site-lt">Ege Coskun</span><i class="site-lm" aria-hidden="true">Ege Coskun</i></a>
+<header class="site-h"><div class="site-hi"><a class="site-logo" href="/" aria-label="Ege Coskun, home" style="--lg:url({LOGO})"><span class="site-lt"><span class="lm-e">ege</span><span class="lm-c">coskun</span></span><i class="site-lm" aria-hidden="true"><span class="lm-e">ege</span><span class="lm-c">coskun</span></i></a>
 <nav class="site-n" aria-label="Main"><a href="/#work"{' aria-current="page"' if cur == 'work' else ''}>Work</a><a href="/about"{' aria-current="page"' if cur == 'about' else ''}>About</a><a href="#contact">Contact</a></nav></div></header>
 {body}
 <footer class="finalfooter" id="contact">{rem(rd('foot.html'))}</footer>{js}</body></html>'''
@@ -621,11 +621,11 @@ EGE = ('<section class="wk-ege" aria-label="Contact">'
   'if(rm){d.forEach(function(e,i){e.style.transform="translate("+(g.offsetWidth*(.25+.25*i))+"px,"+(g.offsetHeight*.7)+"px)"});return}r=requestAnimationFrame(f)})();(function(){var R=document.querySelector(".wk-rv");function t(){if(R)R.style.top=Math.min(0,innerHeight-R.offsetHeight)+"px"}t();addEventListener("resize",t);addEventListener("load",t);if(window.ResizeObserver&&R)new ResizeObserver(t).observe(R)})();(function(){var D=document.querySelector(".wk-dk"),h=document.querySelector(".site-h");if(!D||!h)return;function c(){document.documentElement.classList.toggle("dk-h",D.getBoundingClientRect().top<=h.offsetHeight/2)}addEventListener("scroll",c,{passive:true});addEventListener("resize",c);c()})();</script></section>')
 
 HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><p class="wk-pos hb-s">Product designer for B2B software,<br> fluent in both AI and the people.</p><div class="hb-sp" aria-hidden="true"></div></div>'
-  '<span class="hb-fly" aria-hidden="true"><b>Ege Coskun</b></span>'
+  '<span class="hb-fly" aria-hidden="true"><b><span class="lm-e">ege</span><span class="lm-c">coskun</span></b></span>'
   '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="vac" x="-15%" y="-60%" width="130%" height="220%"><feTurbulence type="fractalNoise" baseFrequency=".004 .018" numOctaves="1" seed="4" result="n"/><feDisplacementMap id="vd" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>'
   '<style>.hb{min-height:calc(100svh - 4.75rem - 130px - 34px);display:flex!important;flex-direction:column;justify-content:space-between;padding:clamp(40px,11svh,150px) 0 clamp(28px,5svh,64px)!important;width:auto!important;box-sizing:border-box}'
-  '.hb-sp{width:min(100%,980px);aspect-ratio:var(--ar,6.2)}.hb-s{margin:0!important;max-width:none!important;font-size:clamp(22px,1.9vw,34px)!important;transform-origin:0 50%;will-change:transform,opacity}'
-  '.hb-fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform;font-family:"Beth Ellen EC",cursive;font-size:200px;line-height:1;white-space:nowrap;color:#1a1a1a}'
+  '.hb-sp{width:min(100%,780px);aspect-ratio:var(--ar,6.2)}.hb-s{margin:0!important;max-width:none!important;font-size:clamp(22px,1.9vw,34px)!important;transform-origin:0 50%;will-change:transform,opacity}'
+  '.hb-fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform;font-size:200px;line-height:1;white-space:nowrap;color:#1a1a1a}'
   '.hb-fly b{display:block;font-weight:400;transform-origin:0 100%;will-change:transform}'
   'html.hb-on .site-logo{visibility:hidden}.hb+.wk-sel{margin-top:0!important;padding-top:0!important}</style>'
   '<script>(function(){var H=document.querySelector("[data-hb]"),sp=H.querySelector(".hb-sp"),f=document.querySelector(".hb-fly"),L=f.firstChild,vd=document.getElementById("vd"),lg=document.querySelector(".site-lt"),tx=H.querySelector(".hb-s"),R=matchMedia("(prefers-reduced-motion:reduce)").matches,cur=-1,raf=0,nw=1,nh=1;document.body.appendChild(f);'
@@ -643,7 +643,7 @@ HERO = ('<div class="wk-hero hb" data-hb><h1 class="sr-only">Ege Coskun</h1><p c
   'addEventListener("wheel",function(e){if(R||Math.abs(e.deltaY)<2)return;if(Date.now()<lock){if(scrollY<=run()+2)e.preventDefault();return}if(snap(e.deltaY>0?1:-1)){e.preventDefault();lock=Date.now()+700}},{passive:false});'
   'var ty=null;addEventListener("touchstart",function(e){ty=e.touches[0].clientY},{passive:true});addEventListener("touchend",function(e){if(ty==null||R)return;var dy=ty-e.changedTouches[0].clientY;ty=null;if(Math.abs(dy)>20)snap(dy>0?1:-1)},{passive:true});'
   'function go(){if(!raf)raf=requestAnimationFrame(draw)}size();addEventListener("scroll",go,{passive:true});addEventListener("resize",function(){size();go()});'
-  '(document.fonts?document.fonts.load("200px \\"Beth Ellen EC\\""):Promise.resolve()).then(function(){size();cur=-1;go()});addEventListener("load",function(){size();go()});go()})();</script>')
+  '(document.fonts?document.fonts.load("200px \\"Oi EC\\"","ege"):Promise.resolve()).then(function(){size();cur=-1;go()});addEventListener("load",function(){size();go()});go()})();</script>')
 def work(v='b', hero=''):
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = [
