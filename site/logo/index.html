@@ -42,7 +42,7 @@ function paint(c,p){var x=c.getContext('2d'),d=x.createImageData(IW,IH),o=d.data
  for(var i=0,j=0;i<ink.length;i++,j+=4){var a=ink[i];if(!a)continue;var v=(P-tn[i])/E;if(v<=0)continue;if(v>1)v=1;o[j]=22;o[j+1]=22;o[j+2]=22;o[j+3]=a*v}
  x.putImageData(d,0,0)}
 function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
-function wf(now){if(!t0)t0=now;var q=Math.min(1,(now-t0)/2600);prog=q;paint(fly,ease(q));if(q<1)requestAnimationFrame(wf);else{prog=2;paint(hl,1)}}
+function wf(now){if(!t0)t0=now;var q=Math.min(1,(now-t0)/3200);prog=q;paint(fly,ease(q));if(q<1)requestAnimationFrame(wf);else{prog=2;paint(hl,1)}}
 function draw(){
  var t=tgt();cur=cur<0?t:cur+(t-cur)*.16;if(Math.abs(t-cur)<.0015)cur=t;
  var a=sp.getBoundingClientRect(),b=hl.getBoundingClientRect(),a0=a.top+scrollY,e=cur*cur*(3-2*cur),sc=(a.width+(b.width-a.width)*e)/nw,x=a.left+(b.left-a.left)*e,y=a0+(b.top-a0)*Math.pow(cur,.75);
@@ -55,8 +55,8 @@ img.onload=function(){
  var c=document.createElement('canvas');IW=c.width=img.width;IH=c.height=img.height;var x=c.getContext('2d');x.drawImage(img,0,0);var d=x.getImageData(0,0,IW,IH).data;
  ink=new Uint8Array(IW*IH);tn=new Uint16Array(IW*IH);for(var i=0,j=0;i<ink.length;i++,j+=4){ink[i]=d[j];tn[i]=d[j+1]*256+d[j+2]}
  fly.width=hl.width=IW;fly.height=hl.height=IH;nw=IW;nh=IH;fly.style.width=IW+'px';fly.style.height=IH+'px';
- hl.style.height="46px";hl.style.width=(46*IW/IH)+"px";
- sp.style.aspectRatio=(IW/IH).toFixed(4);sp.style.setProperty('--w','700px');
+ hl.style.width="150px";hl.style.height=(150*IH/IW)+"px";
+ sp.style.aspectRatio=(IW/IH).toFixed(4);sp.style.setProperty('--w','780px');
  paint(hl,1);
  if(R){paint(fly,1)}else{requestAnimationFrame(wf)}
  go()};
