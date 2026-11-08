@@ -552,3 +552,5 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 .bl2-media:has(>video[data-src]){padding:clamp(10px,1.3vw,22px)!important;max-width:calc((100svh - 9rem) * 1.6)!important;width:100%}
 
 .wk-sel .k.k{font-size:var(--t-lg)!important;font-weight:600;letter-spacing:-.025em;line-height:1.1;color:var(--ink)}
+
+.wk-cz kbd:not(kbd+kbd){background:#AECDD0}.wk-dk .ec-btn.ink .ec-fl{background:#AECDD0}
