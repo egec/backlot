@@ -7,8 +7,6 @@
 <title>Logo test | Ege Coskun</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:OI;src:url(/logo/Oi-sub.ttf)}
-@font-face{font-family:RS;src:url(/logo/RockSalt-Regular.ttf)}
 :root{--bg:#F7F7F5;--ink:#161616;--mute:#6B6A66;--gray:#BDBCB7;--pad:clamp(20px,2.4vw,44px)}
 *{box-sizing:border-box}html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:"Inter Tight",system-ui,sans-serif}
@@ -19,62 +17,51 @@ header nav{display:flex;gap:28px;font-size:15px;color:var(--mute)}header nav a{c
 .tag{margin:0;max-width:20em;font-size:clamp(22px,2.1vw,36px);line-height:1.2;font-weight:500;letter-spacing:-.01em;will-change:transform,opacity}
 #sp{align-self:flex-start;width:min(100%,var(--w,780px))}
 #fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform;font-size:200px;line-height:1;white-space:nowrap;color:var(--ink)}
-#fly b,#hl{display:flex;align-items:baseline;font-weight:400}
-#fly b{transform-origin:0 100%;will-change:transform}
-.oi{font-family:OI,sans-serif}.rs{font-family:RS,cursive}.cs{font-family:OI,sans-serif;color:var(--gray);margin-left:.14em}.mk{display:block;height:1.1em;width:2.9em;margin-bottom:-.2em}
-.rs i{font-style:normal;display:inline-block}
-#fly.wr .rs i{clip-path:inset(-30% 100% -30% -8%);animation:wr .3s ease-out forwards;animation-delay:calc(var(--i)*.1s + .25s)}
-@keyframes wr{to{clip-path:inset(-30% -8% -30% -8%)}}
+#hl{display:block}
+canvas{display:block}
 section.more{padding:clamp(80px,12vw,200px) var(--pad);border-top:1px solid #E0E0DD}
 section.more p{max-width:34em;font-size:16px;line-height:1.55;color:#3a3936;margin:0}
-nav.tabs{position:fixed;left:0;right:0;margin:0 auto;width:max-content;max-width:96vw;bottom:18px;z-index:70;display:flex;gap:2px;padding:6px;background:#fff;border:1px solid #E0E0DD;border-radius:999px}
-nav.tabs button{font:500 12.5px "Inter Tight",sans-serif;border:0;background:none;color:var(--mute);padding:8px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
-nav.tabs button[aria-pressed=true]{background:#56652A;color:#fff}
-@media(prefers-reduced-motion:reduce){#fly.wr .rs i{animation-duration:.01s;animation-delay:0s}}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="vac" x="-15%" y="-60%" width="130%" height="220%"><feTurbulence type="fractalNoise" baseFrequency=".004 .018" numOctaves="1" seed="4" result="n"/><feDisplacementMap id="vd" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
-<header><a href="#" id="hla" style="text-decoration:none;color:inherit"><div id="hl" aria-label="Ege Coskun"></div></a><nav><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a></nav></header>
+<header><a href="#" id="hla" style="text-decoration:none;color:inherit"><canvas id="hl" aria-label="Ege Coskun"></canvas></a><nav><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a></nav></header>
 <main>
 <section class="hero"><p class="tag" id="tag">Product designer for B2B software,<br>fluent in both AI and the people.</p><div id="sp" aria-hidden="true"></div></section>
-<section class="more"><p>Scroll to see the logo travel to the header. A and C are pulled up like liquid. B keeps its shape and writes itself on when the page opens. Use the tabs below to switch.</p></section>
+<section class="more"><p>Scroll to see the logo travel to the header. It writes itself on when the page opens; reload to see it again.</p></section>
 <section class="more"><p>More page below, so there is room to scroll back.</p></section>
 <section class="more" style="min-height:70svh"></section>
 </main>
-<span id="fly" aria-hidden="true"><b></b></span>
-<nav class="tabs" id="tabs"></nav>
+<canvas id="fly" aria-hidden="true"></canvas>
 <script>
-function wr(t){return t.split('').map(function(c,i){return '<i style="--i:'+i+'">'+(c==' '?'&nbsp;':c)+'</i>'}).join('')}
-var O=[
- {n:'A  Oi, ege (organik gözler)',fly:'<img class="mk" src="/logo/ege-mark.svg" alt="">',hd:'<img class="mk" style="font-size:30px" src="/logo/ege-mark.svg" alt="">',w:620,dist:1},
- {n:'B  Rock Salt, writes on',fly:'<span class="rs">'+wr('EGE COSKUN')+'</span>',hd:'<span class="rs" style="font-size:17px">EGE COSKUN</span>',w:780,dist:0,wr:1},
- {n:'C  ege + gri coskun',fly:'<img class="mk" src="/logo/ege-mark.svg" alt=""><span class="cs">coskun</span>',hd:'<img class="mk" style="font-size:30px" src="/logo/ege-mark.svg" alt=""><span class="cs" style="font-size:30px">coskun</span>',w:980,dist:1}
-];
-var fly=document.getElementById('fly'),fb=fly.firstChild,hl=document.getElementById('hl'),sp=document.getElementById('sp'),tag=document.getElementById('tag'),vd=document.getElementById('vd'),tb=document.getElementById('tabs');
-var R=matchMedia('(prefers-reduced-motion:reduce)').matches,cur=-1,raf=0,nw=1,nh=1,k=0;
-function size(){nw=fly.offsetWidth;nh=fly.offsetHeight;sp.style.aspectRatio=(nw/nh).toFixed(3)}
+var fly=document.getElementById('fly'),hl=document.getElementById('hl'),sp=document.getElementById('sp'),tag=document.getElementById('tag');
+var R=matchMedia('(prefers-reduced-motion:reduce)').matches,cur=-1,raf=0,nw=1,nh=1;
+var IW=0,IH=0,ink,tn,img=new Image(),prog=R?2:0,t0=0,wrote=false;
 function run(){return innerHeight*.34}
 function tgt(){return Math.max(0,Math.min(1,scrollY/Math.max(1,run())))}
+function paint(c,p){var x=c.getContext('2d'),d=x.createImageData(IW,IH),o=d.data,E=900,P=p*(65535+E);
+ for(var i=0,j=0;i<ink.length;i++,j+=4){var a=ink[i];if(!a)continue;var v=(P-tn[i])/E;if(v<=0)continue;if(v>1)v=1;o[j]=22;o[j+1]=22;o[j+2]=22;o[j+3]=a*v}
+ x.putImageData(d,0,0)}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+function wf(now){if(!t0)t0=now;var q=Math.min(1,(now-t0)/2600);prog=q;paint(fly,ease(q));if(q<1)requestAnimationFrame(wf);else{prog=2;paint(hl,1)}}
 function draw(){
- var t=R?(tgt()>0?1:0):tgt();cur=cur<0?t:cur+(t-cur)*.16;if(Math.abs(t-cur)<.0015)cur=t;
- var a=sp.getBoundingClientRect(),b=hl.getBoundingClientRect(),a0=a.top+scrollY,e=cur*cur*(3-2*cur),sc=(a.width+(b.width-a.width)*e)/nw,x=a.left+(b.left-a.left)*e,y=a0+(b.top-a0)*Math.pow(cur,.75),d=Math.sin(Math.PI*cur);
+ var t=tgt();cur=cur<0?t:cur+(t-cur)*.16;if(Math.abs(t-cur)<.0015)cur=t;
+ var a=sp.getBoundingClientRect(),b=hl.getBoundingClientRect(),a0=a.top+scrollY,e=cur*cur*(3-2*cur),sc=(a.width+(b.width-a.width)*e)/nw,x=a.left+(b.left-a.left)*e,y=a0+(b.top-a0)*Math.pow(cur,.75);
  fly.style.transform='translate('+x.toFixed(2)+'px,'+y.toFixed(2)+'px) scale('+sc.toFixed(4)+')';
- var o=O[k];
- if(o.dist&&d>=.002){var th=Math.atan2(b.top-a0,b.left-a.left),s=d*(.25+.75*Math.pow(cur,.8));fb.style.transform='rotate('+th.toFixed(3)+'rad) scale('+(1+.9*s).toFixed(3)+','+(1-.3*s).toFixed(3)+') rotate('+(-th).toFixed(3)+'rad) skewX('+(-.35*s).toFixed(3)+'rad)';vd.setAttribute('scale',(70*d).toFixed(1));fly.style.filter='url(#vac)'}
- else{fb.style.transform='';fly.style.filter=''}
- var done=cur>=.999;fly.style.visibility=done?'hidden':'visible';hl.style.visibility=done?'visible':'hidden';
+ var done=cur>=.999&&prog>=2;fly.style.visibility=done?'hidden':'visible';hl.style.visibility=done?'visible':'hidden';
  tag.style.transform='translateX('+(-cur*22).toFixed(1)+'%) scale('+(1-.35*cur).toFixed(3)+')';tag.style.opacity=Math.max(0,1-cur*1.3).toFixed(3);
- if(cur!==t)raf=requestAnimationFrame(draw);else raf=0}
+ if(cur!==t||prog<2)raf=requestAnimationFrame(draw);else raf=0}
 function go(){if(!raf)raf=requestAnimationFrame(draw)}
-function set(i){k=i;var o=O[i];fb.innerHTML=o.fly;hl.innerHTML=o.hd;sp.style.setProperty('--w',o.w+'px');
- fly.classList.remove('wr');void fly.offsetWidth;if(o.wr)fly.classList.add('wr');
- [].forEach.call(tb.children,function(b,j){b.setAttribute('aria-pressed',j==i)});
- try{history.replaceState(0,'','#'+'ABC'[i])}catch(e){}
- (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){size();cur=-1;go()});size();cur=-1;go()}
-O.forEach(function(o,i){var b=document.createElement('button');b.textContent=o.n;b.onclick=function(){scrollTo(0,0);set(i)};tb.appendChild(b)});
-addEventListener('scroll',go,{passive:true});addEventListener('resize',function(){size();go()});
-set(Math.max(0,'ABC'.indexOf((location.hash||'#A').slice(1,2))));
+img.onload=function(){
+ var c=document.createElement('canvas');IW=c.width=img.width;IH=c.height=img.height;var x=c.getContext('2d');x.drawImage(img,0,0);var d=x.getImageData(0,0,IW,IH).data;
+ ink=new Uint8Array(IW*IH);tn=new Uint16Array(IW*IH);for(var i=0,j=0;i<ink.length;i++,j+=4){ink[i]=d[j];tn[i]=d[j+1]*256+d[j+2]}
+ fly.width=hl.width=IW;fly.height=hl.height=IH;nw=IW;nh=IH;fly.style.width=IW+'px';fly.style.height=IH+'px';
+ hl.style.height="46px";hl.style.width=(46*IW/IH)+"px";
+ sp.style.aspectRatio=(IW/IH).toFixed(4);sp.style.setProperty('--w','700px');
+ paint(hl,1);
+ if(R){paint(fly,1)}else{requestAnimationFrame(wf)}
+ go()};
+img.src='/logo/ege-tm.png';
+addEventListener('scroll',go,{passive:true});addEventListener('resize',go);
 </script>
 </body>
 </html>
