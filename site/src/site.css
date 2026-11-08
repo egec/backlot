@@ -63,10 +63,11 @@ html.ct-on .ct-s{opacity:1}
 .ct-x:hover{background:rgba(255,255,255,.16);color:#fff}.ct-x:focus-visible{outline:2px solid #fff;outline-offset:2px}
 
 
-.ck{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;filter:url(#cgoo)}.ck i{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#CDB1EA;will-change:transform}
+.ck{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;filter:url(#cgoo)}.ck i{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#fff;will-change:transform}
 
 .ct-cp:hover{background:#CDB1EA;border-color:#CDB1EA;color:#161616}
 
 .ct-a h2{color:#CDB1EA}
 .ck{mix-blend-mode:difference}
-body:has(nav.bl-nav) .ck{mix-blend-mode:normal}body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px;background:#98B04A}
+html:has(.hb-sp:hover) .ck i,html:has(.wk-pos:hover) .ck i{background:#CDB1EA}.wk-pos{width:fit-content}
+body:has(nav.bl-nav) .ck{mix-blend-mode:normal}body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px;background:#728437}
