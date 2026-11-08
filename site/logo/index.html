@@ -7,40 +7,74 @@
 <title>Logo test | Ege Coskun</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+@font-face{font-family:OI;src:url(/logo/Oi-sub.ttf)}
 @font-face{font-family:RS;src:url(/logo/RockSalt-Regular.ttf)}
-@font-face{font-family:BE;src:url(/logo/BethEllen-Regular.ttf)}
-@font-face{font-family:GG;src:url(/logo/GiveYouGlory.ttf)}
-@font-face{font-family:PM;src:url(/logo/PermanentMarker-Regular.ttf)}
-@font-face{font-family:OI;src:url(/logo/Oi-Regular.ttf)}
-:root{--bg:#F7F7F5;--ink:#161616;--mute:#6B6A66;--pad:clamp(20px,2.4vw,44px)}
-*{box-sizing:border-box}html,body{margin:0;height:100%}
+:root{--bg:#F7F7F5;--ink:#161616;--mute:#6B6A66;--gray:#BDBCB7;--pad:clamp(20px,2.4vw,44px)}
+*{box-sizing:border-box}html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:"Inter Tight",system-ui,sans-serif}
-header{position:fixed;left:0;right:0;top:0;height:76px;display:flex;align-items:center;justify-content:flex-end;gap:28px;padding:0 var(--pad);font-size:15px;color:var(--mute)}
-header a{color:inherit;text-decoration:none}header a:first-child{color:var(--ink)}
-.hero{min-height:100svh;padding:clamp(120px,18svh,200px) var(--pad) clamp(120px,18svh,170px);display:flex;flex-direction:column;justify-content:space-between}
-.tag{margin:0;max-width:20em;font-size:clamp(22px,2.1vw,36px);line-height:1.2;font-weight:500;letter-spacing:-.01em}
-#logo{align-self:flex-start;white-space:nowrap;line-height:1;color:var(--ink);font-size:200px;margin:0}
-nav.tabs{position:fixed;left:0;right:0;margin:0 auto;width:max-content;bottom:18px;display:flex;gap:2px;flex-wrap:wrap;justify-content:center;max-width:96vw;padding:6px;background:#fff;border:1px solid #E0E0DD;border-radius:999px}
-nav.tabs button{font:500 12.5px "Inter Tight",sans-serif;border:0;background:none;color:var(--mute);padding:8px 11px;border-radius:999px;white-space:nowrap;cursor:pointer}
+header{position:fixed;left:0;right:0;top:0;height:76px;z-index:50;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad)}
+header nav{display:flex;gap:28px;font-size:15px;color:var(--mute)}header nav a{color:inherit;text-decoration:none}header nav a:first-child{color:var(--ink)}
+#hl{white-space:nowrap;line-height:1;visibility:hidden}
+.hero{min-height:100svh;padding:clamp(120px,18svh,200px) var(--pad) clamp(90px,13svh,130px);display:flex;flex-direction:column;justify-content:space-between}
+.tag{margin:0;max-width:20em;font-size:clamp(22px,2.1vw,36px);line-height:1.2;font-weight:500;letter-spacing:-.01em;will-change:transform,opacity}
+#sp{align-self:flex-start;width:min(100%,var(--w,780px))}
+#fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;transform-origin:0 0;will-change:transform;font-size:200px;line-height:1;white-space:nowrap;color:var(--ink)}
+#fly b,#hl{display:flex;align-items:baseline;font-weight:400}
+#fly b{transform-origin:0 100%;will-change:transform}
+.oi{font-family:OI,sans-serif}.rs{font-family:RS,cursive}.cs{font-family:OI,sans-serif;color:var(--gray);margin-left:.18em}
+.rs i{font-style:normal;display:inline-block}
+#fly.wr .rs i{clip-path:inset(-30% 100% -30% -8%);animation:wr .3s ease-out forwards;animation-delay:calc(var(--i)*.1s + .25s)}
+@keyframes wr{to{clip-path:inset(-30% -8% -30% -8%)}}
+section.more{padding:clamp(80px,12vw,200px) var(--pad);border-top:1px solid #E0E0DD}
+section.more p{max-width:34em;font-size:16px;line-height:1.55;color:#3a3936;margin:0}
+nav.tabs{position:fixed;left:0;right:0;margin:0 auto;width:max-content;max-width:96vw;bottom:18px;z-index:70;display:flex;gap:2px;padding:6px;background:#fff;border:1px solid #E0E0DD;border-radius:999px}
+nav.tabs button{font:500 12.5px "Inter Tight",sans-serif;border:0;background:none;color:var(--mute);padding:8px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
 nav.tabs button[aria-pressed=true]{background:#56652A;color:#fff}
-@media(max-width:700px){.hero{padding-bottom:200px}}
+@media(prefers-reduced-motion:reduce){#fly.wr .rs i{animation-duration:.01s;animation-delay:0s}}
 </style>
 </head>
 <body>
-<header><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a></header>
-<main class="hero">
-<p class="tag">Product designer for B2B software, fluent in both AI and the people.</p>
-<div id="logo" aria-label="Ege Coskun">Ege Coskun</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="vac" x="-15%" y="-60%" width="130%" height="220%"><feTurbulence type="fractalNoise" baseFrequency=".004 .018" numOctaves="1" seed="4" result="n"/><feDisplacementMap id="vd" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
+<header><a href="#" id="hla" style="text-decoration:none;color:inherit"><div id="hl" aria-label="Ege Coskun"></div></a><nav><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a></nav></header>
+<main>
+<section class="hero"><p class="tag" id="tag">Product designer for B2B software,<br>fluent in both AI and the people.</p><div id="sp" aria-hidden="true"></div></section>
+<section class="more"><p>Scroll to see the logo travel to the header. A and C are pulled up like liquid. B keeps its shape and writes itself on when the page opens. Use the tabs below to switch.</p></section>
+<section class="more"><p>More page below, so there is room to scroll back.</p></section>
+<section class="more" style="min-height:70svh"></section>
 </main>
+<span id="fly" aria-hidden="true"><b></b></span>
 <nav class="tabs" id="tabs"></nav>
 <script>
-var V=[['Rock Salt','RS','EGE COSKUN'],['Beth Ellen','BE','Ege Coskun'],['Beth Ellen, lowercase','BE','ege coskun'],['Give You Glory','GG','ege coskun'],['Give You Glory, caps','GG','Ege Coskun'],['Permanent Marker','PM','EGE COSKUN'],['Oi','OI','ege']];
-var lg=document.getElementById('logo'),tb=document.getElementById('tabs'),cur=0;
-function fit(){var w=Math.min(innerWidth-2*parseFloat(getComputedStyle(document.querySelector('.hero')).paddingLeft),V[cur][2].length<5?560:800);lg.style.fontSize='200px';var r=lg.getBoundingClientRect();lg.style.fontSize=(200*w/r.width)+'px'}
-function set(i){cur=i;lg.style.fontFamily=V[i][1]+',cursive';lg.textContent=V[i][2];[].forEach.call(tb.children,function(b,k){b.setAttribute('aria-pressed',k==i)});(document.fonts&&document.fonts.load?document.fonts.load('100px '+V[i][1],V[i][2]):Promise.resolve()).then(fit);fit();try{history.replaceState(0,'','#'+(i+1))}catch(e){}}
-V.forEach(function(v,i){var b=document.createElement('button');b.textContent=String.fromCharCode(65+i)+' '+v[0];b.onclick=function(){set(i)};tb.appendChild(b)});
-addEventListener('resize',fit);
-var h=parseInt(location.hash.slice(1))||1;set(Math.min(V.length,h)-1);
+function wr(t){return t.split('').map(function(c,i){return '<i style="--i:'+i+'">'+(c==' '?'&nbsp;':c)+'</i>'}).join('')}
+var O=[
+ {n:'A  Oi, ege',fly:'<span class="oi">ege</span>',hd:'<span class="oi" style="font-size:30px">ege</span>',w:620,dist:1},
+ {n:'B  Rock Salt, writes on',fly:'<span class="rs">'+wr('EGE COSKUN')+'</span>',hd:'<span class="rs" style="font-size:17px">EGE COSKUN</span>',w:780,dist:0,wr:1},
+ {n:'C  Oi, coskun in grey',fly:'<span class="oi">ege</span><span class="cs">coskun</span>',hd:'<span class="oi" style="font-size:30px">ege</span><span class="cs" style="font-size:30px">coskun</span>',w:980,dist:1}
+];
+var fly=document.getElementById('fly'),fb=fly.firstChild,hl=document.getElementById('hl'),sp=document.getElementById('sp'),tag=document.getElementById('tag'),vd=document.getElementById('vd'),tb=document.getElementById('tabs');
+var R=matchMedia('(prefers-reduced-motion:reduce)').matches,cur=-1,raf=0,nw=1,nh=1,k=0;
+function size(){nw=fly.offsetWidth;nh=fly.offsetHeight;sp.style.aspectRatio=(nw/nh).toFixed(3)}
+function run(){return innerHeight*.34}
+function tgt(){return Math.max(0,Math.min(1,scrollY/Math.max(1,run())))}
+function draw(){
+ var t=R?(tgt()>0?1:0):tgt();cur=cur<0?t:cur+(t-cur)*.16;if(Math.abs(t-cur)<.0015)cur=t;
+ var a=sp.getBoundingClientRect(),b=hl.getBoundingClientRect(),a0=a.top+scrollY,e=cur*cur*(3-2*cur),sc=(a.width+(b.width-a.width)*e)/nw,x=a.left+(b.left-a.left)*e,y=a0+(b.top-a0)*Math.pow(cur,.75),d=Math.sin(Math.PI*cur);
+ fly.style.transform='translate('+x.toFixed(2)+'px,'+y.toFixed(2)+'px) scale('+sc.toFixed(4)+')';
+ var o=O[k];
+ if(o.dist&&d>=.002){var th=Math.atan2(b.top-a0,b.left-a.left),s=d*(.25+.75*Math.pow(cur,.8));fb.style.transform='rotate('+th.toFixed(3)+'rad) scale('+(1+.9*s).toFixed(3)+','+(1-.3*s).toFixed(3)+') rotate('+(-th).toFixed(3)+'rad) skewX('+(-.35*s).toFixed(3)+'rad)';vd.setAttribute('scale',(70*d).toFixed(1));fly.style.filter='url(#vac)'}
+ else{fb.style.transform='';fly.style.filter=''}
+ var done=cur>=.999;fly.style.visibility=done?'hidden':'visible';hl.style.visibility=done?'visible':'hidden';
+ tag.style.transform='translateX('+(-cur*22).toFixed(1)+'%) scale('+(1-.35*cur).toFixed(3)+')';tag.style.opacity=Math.max(0,1-cur*1.3).toFixed(3);
+ if(cur!==t)raf=requestAnimationFrame(draw);else raf=0}
+function go(){if(!raf)raf=requestAnimationFrame(draw)}
+function set(i){k=i;var o=O[i];fb.innerHTML=o.fly;hl.innerHTML=o.hd;sp.style.setProperty('--w',o.w+'px');
+ fly.classList.remove('wr');void fly.offsetWidth;if(o.wr)fly.classList.add('wr');
+ [].forEach.call(tb.children,function(b,j){b.setAttribute('aria-pressed',j==i)});
+ try{history.replaceState(0,'','#'+'ABC'[i])}catch(e){}
+ (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){size();cur=-1;go()});size();cur=-1;go()}
+O.forEach(function(o,i){var b=document.createElement('button');b.textContent=o.n;b.onclick=function(){scrollTo(0,0);set(i)};tb.appendChild(b)});
+addEventListener('scroll',go,{passive:true});addEventListener('resize',function(){size();go()});
+set(Math.max(0,'ABC'.indexOf((location.hash||'#A').slice(1,2))));
 </script>
 </body>
 </html>
