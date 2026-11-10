@@ -27,7 +27,7 @@ l.addEventListener('mouseleave',function(){m.style.setProperty('--rr','0px')})})
 /* Contact opens a panel from the top of the page */
 (function(){var a=document.querySelector('.site-n a[href="#contact"]');if(!a)return;
 var p=document.createElement('div');p.className='ct';p.id='ct';p.setAttribute('role','dialog');p.setAttribute('aria-modal','true');p.setAttribute('aria-labelledby','ct-t');p.hidden=true;
-p.innerHTML='<div class="ct-in"><div class="ct-a"><h2 id="ct-t">Bring me the messy brief.</h2><p>Tell me about the team and where it is stuck.</p></div>'
+p.innerHTML='<div class="ct-in"><div class="ct-a"><h2 id="ct-t">Bring me the messy brief.</h2></div>'
 +'<ul class="ct-b"><li><a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a><button type="button" class="ct-cp">Copy</button></li><li><a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li></ul>'
 +'</div><button type="button" class="ct-x" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
 var s=document.createElement('div');s.className='ct-s';s.hidden=true;document.body.appendChild(s);document.body.appendChild(p);
@@ -39,7 +39,8 @@ p.querySelector('.ct-cp').addEventListener('click',function(){var b=this;try{nav
 
 (function(){if(!matchMedia('(hover:hover) and (pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var N=60,LAG=3.5,w=document.createElement('div');w.className='ck';w.setAttribute('aria-hidden','true');var d=[],H=[],hx=-100,hy=-100,mx=-100,my=-100,on=false;
 for(var i=0;i<N;i++){var e=document.createElement('i');e.style.transform='translate(-100px,-100px)';w.appendChild(e);d.push(e)}document.body.appendChild(w);
-function mv(x,y){mx=x;my=y;if(!on){on=true;hx=x;hy=y;H.length=0}}
+var dkT=0;function dk(x,y){var el=document.elementFromPoint(x,y),c;while(el&&el!==document.documentElement){c=getComputedStyle(el).backgroundColor.match(/[\d.]+/g);if(c&&(c.length<4||+c[3]>.5)){document.documentElement.classList.toggle('ck-d',(+c[0]*.299+ +c[1]*.587+ +c[2]*.114)<110);return}el=el.parentElement}document.documentElement.classList.remove('ck-d')}
+function mv(x,y){mx=x;my=y;if(!dkT){dkT=setTimeout(function(){dkT=0;dk(mx,my)},90)}if(!on){on=true;hx=x;hy=y;H.length=0}}
 addEventListener('mousemove',function(e){var c=e.getCoalescedEvents?e.getCoalescedEvents():null;if(c&&c.length)for(var i=0;i<c.length;i++)mv(c[i].clientX,c[i].clientY);else mv(e.clientX,e.clientY)},{passive:true});
 document.documentElement.addEventListener('mouseleave',function(){on=false;mx=my=hx=hy=-100;H.length=0});
 function at(t){var n=H.length;if(!n)return[hx,hy];if(t>=H[n-1][0])return[H[n-1][1],H[n-1][2]];if(t<=H[0][0])return[H[0][1],H[0][2]];var lo=0,hi=n-1;while(hi-lo>1){var m=(lo+hi)>>1;if(H[m][0]<=t)lo=m;else hi=m}var a=H[lo],b=H[hi],k=(t-a[0])/(b[0]-a[0]||1);return[a[1]+(b[1]-a[1])*k,a[2]+(b[2]-a[2])*k]}

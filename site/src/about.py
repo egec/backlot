@@ -347,8 +347,8 @@ QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6f
 .ax-q summary{display:inline-flex;align-items:center;max-width:100%;box-sizing:border-box;padding:16px 24px;border-radius:22px;background:var(--qbg);border:1px solid transparent;color:var(--qtx);cursor:pointer;list-style:none;font-size:var(--h3);font-weight:500;letter-spacing:-.01em;line-height:1.3;transition:border-color .3s,background .3s}
 .ax-q summary::-webkit-details-marker{display:none}
 .ax-q summary:hover{border-color:var(--qbd)}
-.ax-q[open]:not(.cl) summary{background:transparent;border-color:var(--g);border-bottom-left-radius:0}
-.ax-q summary:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+.ax-q[open]:not(.cl) summary{background:transparent;border-color:#672D37;border-bottom-left-radius:0}
+.ax-q summary:focus-visible{outline:2px solid #DCD0F8;outline-offset:3px}
 .ax-a{overflow:hidden}
 .ax-ai{display:flex;justify-content:flex-end;padding:10px 12px 6px 0}
 .ax-a p{position:relative;margin:0!important;max-width:36em;padding:18px 24px;background:var(--abg);border-radius:22px 22px 0 22px;color:var(--qtx)!important;font-size:var(--fs,16px);line-height:1.5}
@@ -406,7 +406,7 @@ DARK_CSS = """body:has(.abx.dk),body:has(.abx.dk) .site-h{background:#161616}bod
 .abx.dk{--ink:#F2F2EF;--line:rgba(255,255,255,.14);--mute:#9B9A96;background:#161616;color:#F2F2EF}.abx.dk .ax-tx p,.abx.dk .ax-pd p{color:#CFCECA}.abx.dk .ax-tq{border-color:#3a3a37}.abx.dk .ax-tq.y{border-color:#6a6a66}.abx.dk .ax-side{background:#222220}.abx.dk .ax-end{background:#F2F2EF}
 .ax-ia{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,6vh,96px);padding-bottom:clamp(56px,7vh,112px)}.ax-l{display:flex;flex-direction:column;justify-content:space-between;gap:40px}
 .abx .ax-big{margin:0;max-width:16em;font-size:clamp(22px,1.9vw,34px)!important;line-height:1.15!important;letter-spacing:-.02em;font-weight:500;color:#6E6D68!important}
-.ax-ia .ax-r{max-width:36em}.ax-ia .ax-rows{grid-column:2;max-width:36em;margin-top:8px}.ax-ia .ax-tx p:last-child{margin-bottom:0}.ax-ia .ax-rows dd{font-size:var(--fs)}@media(max-width:899px){.ax-ia .ax-rows{grid-column:1}}.abx .ax-nmw h1,.abx .ax-nmw .ax-sub{display:inline}.abx .ax-sub{margin:0;font-size:clamp(18px,1.4vw,24px);line-height:1.3;font-weight:600;letter-spacing:-.015em;color:#6E6D68!important;max-width:20em}.abx .ax-l h1{font-size:clamp(18px,1.4vw,24px)!important;line-height:1.3!important;font-weight:600!important;letter-spacing:-.015em!important;margin:0;font-size:clamp(30px,2.6vw,46px);color:#6E6D68}.abx .ax-l .ax-nm{text-decoration-color:#3a3a37}.abx .ax-role{margin:0;font-size:clamp(18px,1.4vw,24px)!important;color:#8E8D88!important}
+.ax-ia .ax-r{max-width:36em}.ax-ia .ax-rows{grid-column:2;max-width:36em;margin-top:8px}.ax-ia .ax-tx p:last-child{margin-bottom:0}.ax-ia .ax-rows dd{font-size:var(--fs)}@media(max-width:899px){.ax-ia .ax-rows{grid-column:1}}.abx .ax-nmw h1,.abx .ax-nmw .ax-sub{display:inline}.abx .ax-sub{margin:0;font-size:clamp(18px,1.4vw,24px);line-height:1.3;font-weight:600;letter-spacing:-.015em;color:#DCD0F8!important;max-width:20em}.abx .ax-l h1{font-size:clamp(18px,1.4vw,24px)!important;line-height:1.3!important;font-weight:600!important;letter-spacing:-.015em!important;margin:0;font-size:clamp(30px,2.6vw,46px);color:#6E6D68}.abx .ax-l .ax-nm{text-decoration-color:#3a3a37}.abx .ax-role{margin:0;font-size:clamp(18px,1.4vw,24px)!important;color:#8E8D88!important}
 .ax-fr{position:relative;margin:0;width:clamp(190px,18vw,270px);aspect-ratio:900/995}.ax-fr img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 38%}.ax-fr .fr-l{position:absolute;left:-5.93%;top:-5.37%;width:111.85%;height:110.5%;overflow:visible;pointer-events:none}
 .ax-ph{width:clamp(120px,11vw,180px);aspect-ratio:1;border-radius:50%;overflow:hidden;margin:0}.ax-ph img{width:100%;height:100%;object-fit:cover;display:block}
 .ax-ib{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,5vw,88px);padding-bottom:clamp(56px,6vw,104px)}
@@ -434,15 +434,15 @@ def about3(intro="flip"):
     TD = [('Figma', ['figma'], 'My design tool since 2020.'),
           ('Claude Design', ['claude-icon'], 'Where I design and prototype screens now, Backlot included.'),
           ('Claude Code', ['claude-code'], 'I built this site with it, and the prototypes on it.'),
-          ('Jira', ['jira'], 'Tickets and sprints.'),
+          ('Jira', ['jira'], ''),
           ('Confluence', ['confluence'], 'Specs and documentation.'),
           ('Webflow', ['webflow'], 'I built my first portfolio in it from scratch, no template, to learn how the web is put together.'),
-          ('Miro', ['miro-icon'], 'Remote workshops during Covid. Now research and inspiration boards.'),
-          ('Notion', ['notion-icon'], 'Where I plan my days.'),
+          ('Miro', ['miro-icon'], ''),
+          ('Notion', ['notion-icon'], ''),
           ('Fullstory', ['fullstory.png'], 'Session replays, to see where users get stuck.'),
-          ('Adobe', ['adobe-illustrator', 'adobe-photoshop', 'adobe-indesign'], 'Illustrator, Photoshop and InDesign. Last used for my thesis booklet, because print still exists.')]
+          ('Adobe', ['adobe-illustrator', 'adobe-photoshop', 'adobe-indesign'], '')]
     card = lambda t, ics, d: ('<li class="tlc"><span class="tlc-i">' + ''.join(f'<img src="{GH}logos/tc/{f if '.' in f else f + '.svg'}" width="22" height="22" alt="" loading="lazy">' for f in ics)
-                              + f'</span><b>{t}</b><p>{d}</p></li>')
+                              + f'</span><b>{t}</b>' + (f'<p>{d}</p>' if d else '') + '</li>')
     row = ''.join(card(*x) for x in TD)
     tools = f'<div class="tlc-m" data-tcm><ul class="tlc-r">{row}</ul><ul class="tlc-r" aria-hidden="true">{row}</ul></div>'
     me = f'<img class="ax-d" src="{GH}me/ege-drawn.webp" width="900" height="900" alt="A drawing of Ege Coskun"><img class="ax-p" src="{GH}me/ege-photo.webp" width="900" height="900" alt="" aria-hidden="true" loading="lazy">'
@@ -474,7 +474,6 @@ def about3(intro="flip"):
 {intro_html}
 <div class="ax-dark">
 <section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
-<section class="ax-w ax-ask"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div class="ax-qs">{qa}</div></section>
 <section class="ax-w ax-tl tl2"><h2>Tools</h2>{tools}</section>
 </div>
 <section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
@@ -514,30 +513,25 @@ def about3(intro="flip"):
 .ax-pc.on .ax-pg2{{transform:none}}
 .ax-pc h3{{font-size:var(--h2b);letter-spacing:-.025em}}
 .ax-pd{{max-width:30em}}.ax-pd p{{margin:0 0 .4em;color:#2b2a28}}.ax-pp{{font-weight:600}}
-/* experience, horizontal (8 Nov): one line left to right, a dot per stop, the title above it and the description below, centred */
-.ax-hl{{display:none}}
-@media(min-width:900px) and (prefers-reduced-motion:no-preference){{
-.ax-now,.ax-end,.ax-win{{display:none!important}}
-.ax-path{{--ph:min(calc(100svh - 4.75rem),560px);margin-bottom:clamp(48px,6vw,96px)}}
-.ax-st{{--ay:184px;--tw:min(1040px,calc(100% - var(--px) * 2));--tx:calc((100% - var(--tw)) / 2)}}
-.ax-hl{{display:block;position:absolute;left:0;right:0;top:var(--ay);height:0;z-index:2}}
-.ax-ln{{position:absolute;left:var(--tx);width:var(--tw);top:0;height:1px;background:#3a3a37}}
-.ax-sg{{position:absolute;top:-1px;height:3px;border-radius:3px;background:var(--g);left:calc(var(--tx) + var(--sa,0) * var(--tw));width:calc((var(--sb,0) - var(--sa,0)) * var(--tw));transition:left .7s var(--ease),width .7s var(--ease)}}
-.ax-dt{{position:absolute;top:-5px;left:calc(var(--tx) + var(--f) * var(--tw));width:11px;height:11px;margin-left:-5px;padding:0;border:0;border-radius:50%;background:#55544f;cursor:pointer;transition:background .4s,transform .4s var(--ease)}}
-.ax-dt:before{{content:"";position:absolute;inset:-12px}}
-.ax-dt span{{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-size:12px;line-height:1;color:var(--mute);white-space:nowrap;transition:color .4s}}
-.ax-dt.past{{background:#8E8D88}}.ax-dt.on{{background:var(--g);transform:scale(1.5)}}.ax-dt.on span{{opacity:0}}
-.ax-dt:hover span{{color:var(--ink)}}
-.ax-pcs{{left:0;right:0;top:0;bottom:0}}
-.ax-pc{{top:0;bottom:0}}
-.ax-pg2{{display:contents}}
-.ax-pc h3{{position:absolute;left:0;right:0;width:min(28rem,calc(100% - var(--px) * 2));top:64px;margin:0 auto;text-align:left;transform:translateY(10px);transition:transform .5s var(--ease)}}
-.ax-pc .ax-pd{{position:absolute;left:0;right:0;top:calc(var(--ay) + 56px);max-width:none;width:min(28rem,calc(100% - var(--px) * 2));margin:0 auto;text-align:left;transform:translateY(10px);transition:transform .5s var(--ease)}}
-.ax-pc.on h3,.ax-pc.on .ax-pd{{transform:none}}
-.ax-pc .ax-when{{position:absolute!important;left:calc(var(--tx) + var(--fa) * var(--tw))!important;bottom:auto!important;top:calc(var(--ay) - 30px);transform:translateX(-50%);display:none!important}}
-.ax-pc:first-child .ax-when{{transform:none}}.ax-pc:last-child .ax-when{{transform:translateX(-100%)}}
-.ax-side{{display:inline-block;max-width:100%;text-align:left}}
-}}
+/* experience: every stop stays on the page, stacked; the line lights up only along the one in view */
+.ax-path{{height:auto;margin-bottom:clamp(48px,6vw,96px)}}
+.ax-pin{{position:static;height:auto;overflow:visible;display:block;padding-bottom:clamp(8px,2vw,32px)}}
+.ax-st{{flex:none}}
+.ax-hl,.ax-win,.ax-now,.ax-end{{display:none!important}}
+.ax-pcs{{position:relative;left:auto;right:auto;top:auto;bottom:auto;padding:clamp(28px,3vw,48px) var(--px) 0}}
+.ax-pc{{position:relative;left:auto;right:auto;top:auto;bottom:auto;opacity:1;pointer-events:auto;display:grid;grid-template-columns:minmax(120px,220px) minmax(0,40em);gap:clamp(24px,5vw,96px);padding:0 0 clamp(40px,5vw,72px) clamp(28px,3vw,44px)}}
+.ax-pc:before{{content:"";position:absolute;left:0;top:.7em;bottom:-.7em;width:1px;background:#3a3a37;transition:background .4s,width .4s,left .4s}}
+.ax-pc:last-child:before{{display:none}}
+.ax-pc:after{{content:"";position:absolute;left:-5px;top:.45em;width:11px;height:11px;border-radius:50%;background:#55544f;transition:background .4s,transform .4s var(--ease)}}
+.ax-pc.on:before{{left:-1px;width:3px;border-radius:3px;background:#DCD0F8}}
+.ax-pc.on:after{{background:#DCD0F8;transform:scale(1.3)}}
+.ax-when{{position:static!important;margin:0!important;padding-top:.2em;font-size:14px!important;font-weight:600;color:var(--mute)!important;transition:color .4s}}
+.ax-pc.on .ax-when{{color:#DCD0F8!important}}
+.ax-pg2{{display:block;padding:0;transform:none}}
+.ax-pc h3{{position:static;margin:0 0 .5em;font-size:var(--h2b);letter-spacing:-.025em;transform:none}}
+.ax-pd{{max-width:34em}}
+.ax-side{{border-left-color:#DCD0F8}}.ax-sk{{color:#DCD0F8!important}}
+@media(max-width:899px){{.ax-pc{{grid-template-columns:1fr;gap:6px}}}}
 .ab-aw{{position:relative;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}
 .ab-aw:hover{{text-decoration-color:var(--ink)}}
 .ab-pv{{position:absolute;left:50%;bottom:calc(100% + 12px);z-index:20;width:300px;display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.16);font-size:13px;line-height:1.45;color:#3a3936;text-align:left;
@@ -555,7 +549,7 @@ def about3(intro="flip"):
 .ax-how{{height:calc(var(--n) * 45svh + 60svh)}}
 .ax-hpin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);overflow:hidden;padding-top:clamp(20px,2.4vw,40px);box-sizing:border-box}}
 .ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(100px,14svh,150px);bottom:clamp(16px,3svh,40px)}}
-.ax-hc{{--w:min(25vw,400px);position:absolute;top:var(--dy,0px);left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(calc(100% - 48px),520px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:#161616;color:#F2F2EF;border:1.5px solid var(--g);border-radius:18px;
+.ax-hc{{--w:min(25vw,400px);position:absolute;top:var(--dy,0px);left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(calc(100% - 48px),520px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:#161616;color:#F2F2EF;border:1.5px solid #DCD0F8;border-radius:18px;
   transform:translateY(calc((1 - var(--e,0)) * 130%)) rotate(calc(var(--r) + (1 - var(--e,0)) * var(--r2)));opacity:min(1,calc(var(--e,0) * 4))}}
 .ax-hc h3{{font-size:clamp(24px,2vw,36px);line-height:.98;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;text-wrap:balance}}
 .ax-hc .ax-ht{{margin:16px 0 0;font-size:15px!important;line-height:1.5!important;color:#CFCECA!important}}
@@ -569,27 +563,19 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
 @media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end,.ax-hl{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
-{QCSS}{xcss}{NMCSS}footer.finalfooter{{background:#A99AD5!important}}footer.finalfooter .ec-foot,footer.finalfooter .ec-q,footer.finalfooter .ec-mail,footer.finalfooter .ec-mail:hover{{color:#1B2110!important}}footer.finalfooter .ec-foot .ec-k{{color:#3D3560!important}}footer.finalfooter .ec-mail{{background-image:linear-gradient(#1B2110,#1B2110)}}footer.finalfooter .ec-btn{{border-color:rgba(27,33,16,.55);color:#1B2110!important}}footer.finalfooter .ec-fl{{background:#1B2110}}footer.finalfooter .ec-btn.on{{color:#A99AD5!important;border-color:#1B2110}}.tlc-i img[src$='.png']{{border-radius:5px}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
+{QCSS}{xcss}{NMCSS}.tlc-i img[src$='.png']{{border-radius:5px}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
 <script>
-(function(){{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-var P=document.querySelector('[data-axpath]'),rl=P.querySelector('.ax-rl'),bars=[].slice.call(P.querySelectorAll('.ax-bar')),pc=[].slice.call(P.querySelectorAll('.ax-pc')),n=pc.length,hl=P.querySelector('.ax-hl'),dts=[].slice.call(P.querySelectorAll('.ax-dt'));
-var H=document.querySelector('[data-axhow]'),hc=[].slice.call(H.querySelectorAll('.ax-hc'));
-function run(s){{return s.offsetHeight-s.querySelector('.ax-pin,.ax-hpin').offsetHeight}}
-function prog(s){{var r=s.getBoundingClientRect();return Math.max(0,Math.min(1,-r.top/Math.max(1,run(s))))}}
-var cur=-1,raf=0;
-function draw(){{raf=0;if(innerWidth<900)return;
-  var k=Math.min(n-1,Math.round(prog(P)*(n-1)));
-  if(k!==cur){{cur=k;var t=+pc[k].dataset.t,yh=innerHeight*.12;rl.style.transform='translateY('+(-t*yh).toFixed(1)+'px)';P.style.setProperty('--ch',pc[k].offsetHeight+'px');
-    bars.forEach(function(b){{var a=+b.dataset.a,e=+b.dataset.b;b.style.setProperty('--f',Math.max(0,Math.min(1,(t-a)/(e-a))).toFixed(3))}});
-    pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}});dts.forEach(function(d,i){{d.classList.toggle('on',i===k);d.classList.toggle('past',i<k)}});hl.style.setProperty('--sa',pc[k].dataset.fa);hl.style.setProperty('--sb',pc[k].dataset.fb)}}
+(function(){{
+var P=document.querySelector('[data-axpath]'),pc=[].slice.call(P.querySelectorAll('.ax-pc'));
+var H=document.querySelector('[data-axhow]'),hc=[].slice.call(H.querySelectorAll('.ax-hc')),R=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function run(s){{return s.offsetHeight-s.querySelector('.ax-hpin').offsetHeight}}
+var raf=0,cur=-2;
+function draw(){{raf=0;
+  /* experience: all entries stay in view, the line lights up only along the one nearest the middle of the screen */
+  var pr=P.getBoundingClientRect(),k=-1;
+  if(pr.top<innerHeight&&pr.bottom>0){{var mid=innerHeight*.5,bd=1e9;pc.forEach(function(c,i){{var r=c.getBoundingClientRect(),d=(r.top<=mid&&r.bottom>=mid)?0:Math.min(Math.abs(r.top-mid),Math.abs(r.bottom-mid));if(d<bd){{bd=d;k=i}}}})}}
+  if(k!==cur){{cur=k;pc.forEach(function(c,i){{c.classList.toggle('on',i===k)}})}}
+  if(innerWidth<900||R)return;
   var hr=H.getBoundingClientRect(),hv=innerHeight*.5,q=Math.max(0,(hv-hr.top)/(hv+run(H)))*(hc.length+.3);hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
-/* one wheel gesture or swipe moves exactly one step along the line; at either end the page scrolls on */
-function go(i){{var top=P.getBoundingClientRect().top+pageYOffset;scrollTo({{top:Math.round(top+run(P)*i/(n-1))+(i?1:0),behavior:'smooth'}})}}
-dts.forEach(function(d,i){{d.addEventListener('click',function(){{go(i)}})}});
-var lock=0;function step(dir){{var k=Math.round(prog(P)*(n-1)),t=k+dir;if(t<0||t>n-1)return false;if(Date.now()<lock)return true;lock=Date.now()+750;go(t);return true}}
-function inside(){{var r=P.getBoundingClientRect();return r.top<=2&&r.bottom>=innerHeight-2}}
-addEventListener('wheel',function(e){{if(innerWidth<900||!inside()||Math.abs(e.deltaY)<4)return;if(step(e.deltaY>0?1:-1))e.preventDefault()}},{{passive:false}});
-var ty=null;addEventListener('touchstart',function(e){{ty=e.touches[0].clientY}},{{passive:true}});
-addEventListener('touchmove',function(e){{if(innerWidth<900||ty==null||!inside())return;var dy=ty-e.touches[0].clientY;if(Math.abs(dy)<30)return;if(step(dy>0?1:-1)){{e.preventDefault();ty=null}}}},{{passive:false}});
-addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',function(){{cur=-1;draw()}});draw()}})();
+addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',function(){{cur=-2;draw()}});draw()}})();
 </script>{xjs}{QJS}"""
