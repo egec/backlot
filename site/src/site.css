@@ -69,5 +69,5 @@ html.ct-on .ct-s{opacity:1}
 
 .ct-a h2{color:#CDB1EA}
 .ck{mix-blend-mode:difference}
-html:has(.hb-sp:hover) .ck i,html:has(.wk-pos:hover) .ck i{background:#CDB1EA}.wk-pos{width:fit-content}
+html:has(.hb-sp:hover) .ck i,html:has(.wk-pos:hover) .ck i{background:#806EB8}.wk-pos{width:fit-content}
 body:has(nav.bl-nav) .ck{mix-blend-mode:normal}body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px;background:#728437}
