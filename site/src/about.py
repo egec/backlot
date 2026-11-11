@@ -585,7 +585,7 @@ function draw(){{raf=0;
   var hr=H.getBoundingClientRect(),hv=innerHeight*.5,q=Math.max(0,(hv-hr.top)/(hv+run(H)))*(hc.length+.3);hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
 addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',function(){{cur=-2;draw()}});draw()}})();
 /* UwaVerde card wipes out from its left stroke when it comes into view */
-(function(){{var e=document.querySelector('.ax-side');if(!e||matchMedia('(prefers-reduced-motion:reduce)').matches||!('IntersectionObserver' in window))return;e.classList.add('ax-rv');var io=new IntersectionObserver(function(l){{l.forEach(function(x){{if(x.isIntersecting){{e.classList.add('in');io.disconnect()}}}})}},{{threshold:.4}});io.observe(e)}})();
+(function(){{var e=document.querySelector('.ax-side');if(!e||matchMedia('(prefers-reduced-motion:reduce)').matches||!('IntersectionObserver' in window))return;e.classList.add('ax-rv');var io=new IntersectionObserver(function(l){{l.forEach(function(x){{if(x.isIntersecting){{e.classList.add('in');io.disconnect()}}}})}},{{rootMargin:'0px 0px -22% 0px',threshold:0}});io.observe(e)}})();
 /* tools drift on their own and can be dragged either way */
 (function(){{var m=document.querySelector('[data-tcm]');if(!m||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var rs=[].slice.call(m.querySelectorAll('.tlc-r'));if(rs.length<2)return;rs.forEach(function(r){{r.style.animation='none'}});
 var x=0,w=0,dn=false,hv=false,sx=0,x0=0,t0=performance.now();

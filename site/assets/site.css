@@ -68,11 +68,12 @@ html.ct-on .ct-s{opacity:1}
 
 /* cursor: plum on light, lilac on dark; in the hero it stays plum and turns lilac only where it crosses the ink */
 .ck{mix-blend-mode:difference}.ck i{background:#fff}
-html:has(.hb-sp:hover) .ck,html:has(.wk-pos:hover) .ck{mix-blend-mode:normal}html:has(.hb-sp:hover) .ck i,html:has(.wk-pos:hover) .ck i{background:#56652A}.hb-g{position:fixed;left:0;top:0;z-index:10000;pointer-events:none;transform-origin:0 0;visibility:hidden}.hb-gt{position:fixed;margin:0;z-index:10000;pointer-events:none;white-space:nowrap;color:#DCD0F8;visibility:hidden}.wk-pos{width:fit-content}
+.hb-g,.hb-gt{display:none!important}.hb-g{position:fixed;left:0;top:0;z-index:10000;pointer-events:none;transform-origin:0 0;visibility:hidden}.hb-gt{position:fixed;margin:0;z-index:10000;pointer-events:none;white-space:nowrap;color:#DCD0F8;visibility:hidden}.wk-pos{width:fit-content}
 body:has(nav.bl-nav) .ck{mix-blend-mode:normal}body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px;background:#56652A}
 /* the dot flips against whatever it sits on: lilac on the plum-filled footer button, plum on the lilac-filled panel buttons */
 
-/* contact drawer: no rules around the mail row, secondary (outlined) copy and close buttons, readable text */
-.ct-b,.ct-b li{border:0!important}
+/* contact drawer: light green rules around the mail and LinkedIn rows, secondary (outlined) copy and close buttons, readable text */
+.ct-b{border-top:1px solid rgba(86,101,42,.28)!important}.ct-b li{border-bottom:1px solid rgba(86,101,42,.28)!important}
 .ct-cp,.ct-x{border:1px solid rgba(86,101,42,.55)!important;background:transparent!important;color:#56652A!important}.ct-cp:hover,.ct-x:hover{background:#56652A!important;border-color:#56652A!important;color:#DCD0F8!important;opacity:1}
 .ct-a p,.ct-c p{color:#56652A!important;font-weight:500}
+.ct-a p{max-width:none!important}@media(min-width:900px){.ct-a p{white-space:nowrap}}
