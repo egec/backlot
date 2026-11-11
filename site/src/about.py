@@ -357,7 +357,7 @@ QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6f
 @media(max-width:899px){.ax-ask{grid-template-columns:1fr}.ax-ask h2,.wk-qa .k{position:static}}
 @media (prefers-reduced-motion:reduce){.ax-q summary{transition:none}}
 """
-NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:var(--gd);color:#fff;font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
+NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:#DCD0F8;color:#161616;font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
 QJS = """<script>(function(){var R=matchMedia('(prefers-reduced-motion:reduce)').matches;
 function op(d){d.open=true;if(R)return;var a=d.querySelector('.ax-a');a.animate([{height:'0px',opacity:0,transform:'translateY(10px)'},{height:a.scrollHeight+'px',opacity:1,transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}
 function cl(d){if(R){d.open=false;return}var a=d.querySelector('.ax-a');if(d._x)return;d.classList.add('cl');var x=a.animate([{height:a.offsetHeight+'px',opacity:1},{height:'0px',opacity:0}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});d._x=x;x.onfinish=function(){d.open=false;d.classList.remove('cl');x.cancel();d._x=null}}
@@ -431,15 +431,15 @@ def about3(intro="flip"):
                     for i, (t, e, w, ti, pl, tx, x) in enumerate(EVENTS))
     how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = qa_html()
-    TD = [('Figma', ['figma'], 'My design tool since 2020.'),
-          ('Claude Design', ['claude-icon'], 'Where I design and prototype screens now, Backlot included.'),
-          ('Claude Code', ['claude-code'], 'I built this site with it, and the prototypes on it.'),
+    TD = [('Figma', ['figma'], ''),
+          ('Claude Design', ['claude-icon'], ''),
+          ('Claude Code', ['claude-code'], ''),
           ('Jira', ['jira'], ''),
-          ('Confluence', ['confluence'], 'Specs and documentation.'),
-          ('Webflow', ['webflow'], 'I built my first portfolio in it from scratch, no template, to learn how the web is put together.'),
+          ('Confluence', ['confluence'], ''),
+          ('Webflow', ['webflow'], ''),
           ('Miro', ['miro-icon'], ''),
           ('Notion', ['notion-icon'], ''),
-          ('Fullstory', ['fullstory.png'], 'Session replays, to see where users get stuck.'),
+          ('Fullstory', ['fullstory.png'], ''),
           ('Adobe', ['adobe-illustrator', 'adobe-photoshop', 'adobe-indesign'], '')]
     card = lambda t, ics, d: ('<li class="tlc"><span class="tlc-i">' + ''.join(f'<img src="{GH}logos/tc/{f if '.' in f else f + '.svg'}" width="22" height="22" alt="" loading="lazy">' for f in ics)
                               + f'</span><b>{t}</b>' + (f'<p>{d}</p>' if d else '') + '</li>')
@@ -528,7 +528,9 @@ def about3(intro="flip"):
 .ax-when{{position:static!important;margin:0!important;padding-top:.2em;font-size:14px!important;font-weight:600;color:var(--mute)!important;transition:color .4s}}
 .ax-pc.on .ax-when{{color:#DCD0F8!important}}
 .ax-pg2{{display:block;padding:0;transform:none}}
-.ax-pc h3{{position:static;margin:0 0 .5em;font-size:var(--h2b);letter-spacing:-.025em;transform:none}}
+.ax-pc h3{{position:static;margin:0 0 .5em;font-size:18px;letter-spacing:-.015em;transform:none;transition:color .4s}}
+.ax-pc.on h3{{color:#DCD0F8}}
+.ax-ia .ax-nmw h1,.ax-ia .ax-nmw .ax-nm{{color:#DCD0F8!important;font-size:clamp(18px,1.4vw,24px);font-weight:600;letter-spacing:-.015em;line-height:1.3}}.ax-ia .ax-nm{{text-decoration-color:rgba(220,208,248,.45)}}
 .ax-pd{{max-width:34em}}
 .ax-side{{border-left-color:#DCD0F8}}.ax-sk{{color:#DCD0F8!important}}
 @media(max-width:899px){{.ax-pc{{grid-template-columns:1fr;gap:6px}}}}

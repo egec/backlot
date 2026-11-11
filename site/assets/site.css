@@ -53,15 +53,15 @@ html.ct-on .ct-s{opacity:1}
 .ct :focus-visible{outline:2px solid #56652A;outline-offset:3px;border-radius:4px}
 @media(max-width:899px){.ct-in{grid-template-columns:1fr;gap:24px;padding-top:56px}.ct-b{justify-self:stretch;width:auto}}
 @media(prefers-reduced-motion:reduce){.ct,.ct-s{transition:none}}
-/* contact panel: plum with lilac type (the footer, inverted), close as an icon at the far right edge */
-.ct{background:#672D37;color:#DCD0F8;box-shadow:none}
-.ct-a h2{color:#DCD0F8}.ct-a p,.ct-c p{color:rgba(220,208,248,.78)}
-.ct-b{border-top-color:rgba(220,208,248,.32)}.ct-b li{border-bottom-color:rgba(220,208,248,.32)}
-.ct-b a{color:#DCD0F8}.ct-b a:hover{color:#fff}
-.ct-cp{border-color:rgba(220,208,248,.55);color:#DCD0F8}.ct-cp:hover{background:#DCD0F8;border-color:#DCD0F8;color:#672D37}
-.ct-x{position:absolute;right:clamp(20px,2.4vw,44px);top:20px;width:32px;height:32px;padding:0;border:1px solid rgba(220,208,248,.55);border-radius:50%;background:transparent;color:#DCD0F8;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,color .2s}
-.ct-x:hover{background:#DCD0F8;color:#672D37}.ct-x:focus-visible{outline:2px solid #DCD0F8;outline-offset:2px}
-.ct :focus-visible{outline-color:#DCD0F8}
+/* contact panel: lilac with plum type, the footer's own colours, close as an icon at the far right edge */
+.ct{background:#DCD0F8;color:#672D37;box-shadow:none}
+.ct-a h2{color:#672D37}.ct-a p,.ct-c p{color:rgba(103,45,55,.8)}
+.ct-b{border-top-color:rgba(103,45,55,.3)}.ct-b li{border-bottom-color:rgba(103,45,55,.3)}
+.ct-b a{color:#672D37}.ct-b a:hover{color:#672D37;text-decoration:underline;text-underline-offset:4px}
+.ct-cp{border-color:rgba(103,45,55,.5);color:#672D37}.ct-cp:hover{background:#672D37;border-color:#672D37;color:#DCD0F8}
+.ct-x{position:absolute;right:clamp(20px,2.4vw,44px);top:20px;width:32px;height:32px;padding:0;border:1px solid rgba(103,45,55,.5);border-radius:50%;background:transparent;color:#672D37;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,color .2s}
+.ct-x:hover{background:#672D37;color:#DCD0F8}.ct-x:focus-visible{outline:2px solid #672D37;outline-offset:2px}
+.ct :focus-visible{outline-color:#672D37}
 
 
 .ck{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;filter:url(#cgoo)}.ck i{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#672D37;will-change:transform}
@@ -71,5 +71,5 @@ html.ct-on .ct-s{opacity:1}
 html:has(.hb-sp:hover) .ck i,html:has(.wk-pos:hover) .ck i{background:#672D37}.hb-g{position:fixed;left:0;top:0;z-index:10000;pointer-events:none;transform-origin:0 0;visibility:hidden}.hb-gt{position:fixed;margin:0;z-index:10000;pointer-events:none;white-space:nowrap;color:#DCD0F8;visibility:hidden}.wk-pos{width:fit-content}
 body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px}
 /* the dot flips against whatever it sits on: lilac on the plum-filled footer button, plum on the lilac-filled panel buttons */
-html:has(.ec-btn.on) .ck i{background:#DCD0F8}html:has(.ct-cp:hover) .ck i,html:has(.ct-x:hover) .ck i{background:#672D37}
+html:has(.ec-btn.on) .ck i{background:#DCD0F8}html:has(.ct-cp:hover) .ck i,html:has(.ct-x:hover) .ck i{background:#DCD0F8}
 html:has(.ec-btn.on) .ck,html:has(.ct-cp:hover) .ck,html:has(.ct-x:hover) .ck{opacity:.45}
