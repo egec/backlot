@@ -32,10 +32,10 @@ AB_LEAD = ('Every project began in a domain I didn’t know: customs regulation,
            'I’m based in Berlin and open to relocation. I’m looking for a team with high standards and bad jokes.')
 
 
-HOW = [('Learn the domain first', 'Customs declarations, naval radar displays, customer data, a prenatal monitoring wearable. Each time, I learned how the work is really done, and by whom, before I started designing.'),
+HOW = [('No playbook, no problem', 'Customs, naval radar, customer data, prenatal health. Each domain was new to me and none came with a playbook. I learned how the work is really done and who does it, then turned messy requests into clear flows.'),
        ('Design for the unhappy path', 'Most products work when everything goes right. I spend more of my time on the other cases: the action that fails, the data that is missing, the step someone skips. That is where people decide whether they can trust a tool.'),
-       ('A reason for every decision', 'If I cannot say why something sits where it does, it moves or goes. Hierarchy, colour and wording all need a reason I could defend in a review.'),
-       ('Say the trade-off out loud', 'Most decisions cost one side something: more control is more surface to maintain, a faster flow means fewer confirmations. I put the trade-off on the table with the PM and the engineers, and when the call goes the other way, I make sure it is written down.'),
+       ('Systems that hold as the product grows', 'I’ve extended and maintained design systems at two companies: adding components when a flow needed them and fixing the ones that broke in real use, so the product stays consistent as it changes.'),
+       ('AI that people can check', 'When a feature uses AI, I design for review: what it suggests, how sure it is, and a quick way to accept, change or reject it. Nothing is written without a person.'),
        ('The fortieth time, not the first', 'I look for how people work when they are tired, in a hurry and doing it for the fortieth time today. Support tickets, session replays and watching someone work without stepping in tell me more than the brief.')]
 TOOLS = [('Figma', 'figma'), ('Claude Design', 'claude-icon'), ('Claude Code', 'claude-code'), ('Storybook', 'storybook-icon'), ('Jira', 'jira'), ('Confluence', 'confluence'),
          ('Webflow', 'webflow'), ('Miro', 'miro-icon'), ('Notion', 'notion-icon'), ('Illustrator', 'adobe-illustrator'), ('Photoshop', 'adobe-photoshop'), ('InDesign', 'adobe-indesign')]
@@ -347,7 +347,7 @@ QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6f
 .ax-q summary{display:inline-flex;align-items:center;max-width:100%;box-sizing:border-box;padding:16px 24px;border-radius:22px;background:var(--qbg);border:1px solid transparent;color:var(--qtx);cursor:pointer;list-style:none;font-size:var(--h3);font-weight:500;letter-spacing:-.01em;line-height:1.3;transition:border-color .3s,background .3s}
 .ax-q summary::-webkit-details-marker{display:none}
 .ax-q summary:hover{border-color:var(--qbd)}
-.ax-q[open]:not(.cl) summary{background:transparent;border-color:#672D37;border-bottom-left-radius:0}
+.ax-q[open]:not(.cl) summary{background:transparent;border-color:#4F2550;border-bottom-left-radius:0}
 .ax-q summary:focus-visible{outline:2px solid #DCD0F8;outline-offset:3px}
 .ax-a{overflow:hidden}
 .ax-ai{display:flex;justify-content:flex-end;padding:10px 12px 6px 0}
@@ -357,7 +357,7 @@ QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6f
 @media(max-width:899px){.ax-ask{grid-template-columns:1fr}.ax-ask h2,.wk-qa .k{position:static}}
 @media (prefers-reduced-motion:reduce){.ax-q summary{transition:none}}
 """
-NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:#672D37;color:#DCD0F8;box-shadow:0 0 0 1px rgba(220,208,248,.5);font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
+NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:#4F2550;color:#DCD0F8;box-shadow:0 0 0 1px rgba(220,208,248,.5);font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
 QJS = """<script>(function(){var R=matchMedia('(prefers-reduced-motion:reduce)').matches;
 function op(d){d.open=true;if(R)return;var a=d.querySelector('.ax-a');a.animate([{height:'0px',opacity:0,transform:'translateY(10px)'},{height:a.scrollHeight+'px',opacity:1,transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}
 function cl(d){if(R){d.open=false;return}var a=d.querySelector('.ax-a');if(d._x)return;d.classList.add('cl');var x=a.animate([{height:a.offsetHeight+'px',opacity:1},{height:'0px',opacity:0}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});d._x=x;x.onfinish=function(){d.open=false;d.classList.remove('cl');x.cancel();d._x=null}}
@@ -565,14 +565,7 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
 @media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end,.ax-hl{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
-{QCSS}{xcss}{NMCSS}/* About in plum: every black surface becomes the footer's plum */
-body:has(.abx.dk),body:has(.abx.dk) .site-h,.abx.dk,.ax-hc,.ax-dark{{background:#672D37;--dk:#672D37}}
-.abx.dk{{--line:rgba(220,208,248,.22);--mute:rgba(220,208,248,.72)}}
-.abx.dk .ax-side{{background:#5A2630}}.abx.dk .ax-tx p,.abx.dk .ax-pd p{{color:#EDE6FB}}
-.ax-pc:before{{background:rgba(220,208,248,.25)}}.ax-pc:after{{background:rgba(220,208,248,.45)}}.ax-pc.on:before{{background:#DCD0F8}}.ax-pc.on:after,.ax-pc.edu:after{{background:#DCD0F8}}
-.tlc{{background:#5A2630!important;border-color:rgba(220,208,248,.2)!important}}
-.ax-hc .ax-ht{{color:#EDE6FB!important}}.ax-hc .ax-hn{{color:rgba(220,208,248,.22)!important}}
-.abx.dk .ax-rows dd{{color:#F2F2EF}}.abx.dk .ax-rows>div{{border-color:rgba(220,208,248,.22)}}.tlc-i img[src$='.png']{{border-radius:5px}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
+{QCSS}{xcss}{NMCSS}.tlc-i img[src$='.png']{{border-radius:5px}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
 <script>
 (function(){{
 var P=document.querySelector('[data-axpath]'),pc=[].slice.call(P.querySelectorAll('.ax-pc'));
