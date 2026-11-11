@@ -427,7 +427,8 @@ def about3(intro="flip"):
     fr = lambda v: max(0, min(1, (v - tmin) / (tmax - tmin)))
     dots = ''.join(f'<button type="button" class="ax-dt" data-i="{i}" style="--f:{fr(ev[0]):.4f}" aria-label="{ev[3]}"><span>{ev[2].split(" ")[0]}</span></button>' for i, ev in enumerate(EVENTS))
     nxt = [fr(EVENTS[i + 1][0]) if i + 1 < len(EVENTS) else fr(EVENTS[i][1]) for i in range(len(EVENTS))]
-    cards = ''.join(f'<article class="ax-pc{" edu" if ("B.Sc" in ti or "M.A." in ti) else ""}" data-t="{t - Y0}" data-e="{e - Y0}" data-fa="{fr(t):.4f}" data-fb="{nxt[i]:.4f}" style="--fa:{fr(t):.4f}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
+    chipf = lambda ti: '<span class="ax-chip">Bachelor’s</span>' if 'B.Sc' in ti else ('<span class="ax-chip">Master’s</span>' if 'M.A.' in ti else '')
+    cards = ''.join(f'<article class="ax-pc{" edu" if ("B.Sc" in ti or "M.A." in ti) else ""}" data-t="{t - Y0}" data-e="{e - Y0}" data-fa="{fr(t):.4f}" data-fb="{nxt[i]:.4f}" style="--fa:{fr(t):.4f}"><p class="ax-when">{w}{chipf(ti)}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
                     for i, (t, e, w, ti, pl, tx, x) in enumerate(EVENTS))
     how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = qa_html()
@@ -565,6 +566,9 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:relative;opacity:1;margin-bottom:0}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
 @media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end,.ax-hl{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:relative;opacity:1;margin-bottom:0}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
+.ax-chip{{display:block;width:max-content;margin-top:8px;padding:2px 10px;border-radius:99px;background:rgba(220,208,248,.14);color:#DCD0F8;font-size:12px;font-weight:600;line-height:1.55;letter-spacing:0}}
+.ax-side.ax-rv{{clip-path:inset(0 calc(100% - 3px) 0 0);transition:clip-path 1s cubic-bezier(.2,.8,.2,1)}}.ax-side.ax-rv>*{{opacity:0;transition:opacity .5s ease .4s}}.ax-side.ax-rv.in{{clip-path:inset(0 0 0 0)}}.ax-side.ax-rv.in>*{{opacity:1}}
+.tlc-m{{cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none}}.tlc-m.dr{{cursor:grabbing}}.tlc img{{pointer-events:none;-webkit-user-drag:none}}
 {QCSS}{xcss}{NMCSS}.tlc-i img[src$='.png']{{border-radius:5px}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
 <script>
 (function(){{
@@ -580,4 +584,19 @@ function draw(){{raf=0;
   if(innerWidth<900||R)return;
   var hr=H.getBoundingClientRect(),hv=innerHeight*.5,q=Math.max(0,(hv-hr.top)/(hv+run(H)))*(hc.length+.3);hc.forEach(function(c,i){{c.style.setProperty('--e',Math.max(0,Math.min(1,q-i)).toFixed(3))}})}}
 addEventListener('scroll',function(){{if(!raf)raf=requestAnimationFrame(draw)}},{{passive:true}});addEventListener('resize',function(){{cur=-2;draw()}});draw()}})();
+/* UwaVerde card wipes out from its left stroke when it comes into view */
+(function(){{var e=document.querySelector('.ax-side');if(!e||matchMedia('(prefers-reduced-motion:reduce)').matches||!('IntersectionObserver' in window))return;e.classList.add('ax-rv');var io=new IntersectionObserver(function(l){{l.forEach(function(x){{if(x.isIntersecting){{e.classList.add('in');io.disconnect()}}}})}},{{threshold:.4}});io.observe(e)}})();
+/* tools drift on their own and can be dragged either way */
+(function(){{var m=document.querySelector('[data-tcm]');if(!m||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var rs=[].slice.call(m.querySelectorAll('.tlc-r'));if(rs.length<2)return;rs.forEach(function(r){{r.style.animation='none'}});
+var x=0,w=0,dn=false,hv=false,sx=0,x0=0,t0=performance.now();
+function meas(){{w=rs[0].offsetWidth+(parseFloat(getComputedStyle(m).columnGap)||12)}}
+function wrap(){{if(w){{x=((x%w)-w)%w}}}}
+function set(){{rs.forEach(function(r){{r.style.transform='translateX('+x+'px)'}})}}
+function tick(t){{var dt=Math.min(64,t-t0);t0=t;if(!dn&&!hv){{x-=w/60000*dt}}wrap();set();requestAnimationFrame(tick)}}
+m.addEventListener('pointerdown',function(e){{if(e.button)return;dn=true;sx=e.clientX;x0=x;m.classList.add('dr');try{{m.setPointerCapture(e.pointerId)}}catch(_){{}}}});
+m.addEventListener('pointermove',function(e){{if(dn){{x=x0+(e.clientX-sx);wrap();set()}}}});
+function up(){{dn=false;m.classList.remove('dr')}}
+m.addEventListener('pointerup',up);m.addEventListener('pointercancel',up);
+m.addEventListener('mouseenter',function(){{hv=true}});m.addEventListener('mouseleave',function(){{hv=false}});
+addEventListener('resize',meas);meas();requestAnimationFrame(tick)}})();
 </script>{xjs}{QJS}"""
