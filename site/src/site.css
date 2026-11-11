@@ -64,14 +64,16 @@ html.ct-on .ct-s{opacity:1}
 .ct :focus-visible{outline-color:#56652A}
 
 
-.ck{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;filter:url(#cgoo)}.ck i{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#672D37;will-change:transform}
+.ck{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;filter:url(#cgoo)}.ck i{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#56652A;will-change:transform}
 
 /* cursor: plum on light, lilac on dark; in the hero it stays plum and turns lilac only where it crosses the ink */
-.ck i{background:#672D37}html.ck-d .ck i{background:#DCD0F8}
-/* About and the contact panel: dot in the footer's green on light, lilac on dark, as in the footer-1 preview */
-html:has(.abx) .ck i,html.ct-on .ck i{background:#56652A}html:has(.abx).ck-d .ck i{background:#DCD0F8}
-html:has(.hb-sp:hover) .ck i,html:has(.wk-pos:hover) .ck i{background:#672D37}.hb-g{position:fixed;left:0;top:0;z-index:10000;pointer-events:none;transform-origin:0 0;visibility:hidden}.hb-gt{position:fixed;margin:0;z-index:10000;pointer-events:none;white-space:nowrap;color:#DCD0F8;visibility:hidden}.wk-pos{width:fit-content}
+.ck i{background:#56652A}html.ck-d .ck i{background:#DCD0F8}
+html:has(.hb-sp:hover) .ck i,html:has(.wk-pos:hover) .ck i{background:#56652A}.hb-g{position:fixed;left:0;top:0;z-index:10000;pointer-events:none;transform-origin:0 0;visibility:hidden}.hb-gt{position:fixed;margin:0;z-index:10000;pointer-events:none;white-space:nowrap;color:#DCD0F8;visibility:hidden}.wk-pos{width:fit-content}
 body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px}
 /* the dot flips against whatever it sits on: lilac on the plum-filled footer button, plum on the lilac-filled panel buttons */
 html:has(.ec-btn.on) .ck i{background:#DCD0F8}html:has(.ct-cp:hover) .ck i,html:has(.ct-x:hover) .ck i{background:#DCD0F8}
 html:has(.ec-btn.on) .ck,html:has(.ct-cp:hover) .ck,html:has(.ct-x:hover) .ck{opacity:.45}
+
+/* contact drawer: no strokes around the mail row, solid copy and close buttons */
+.ct-b,.ct-b li{border:0!important}.ct-cp{border:0!important;background:#56652A;color:#DCD0F8}.ct-cp:hover{background:#56652A;color:#DCD0F8;opacity:.85}
+.ct-x{border:0!important;background:#56652A;color:#DCD0F8}.ct-x:hover{background:#56652A;color:#DCD0F8;opacity:.85}
