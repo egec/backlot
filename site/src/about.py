@@ -357,7 +357,7 @@ QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6f
 @media(max-width:899px){.ax-ask{grid-template-columns:1fr}.ax-ask h2,.wk-qa .k{position:static}}
 @media (prefers-reduced-motion:reduce){.ax-q summary{transition:none}}
 """
-NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:#DCD0F8;color:#161616;font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
+NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:#672D37;color:#DCD0F8;box-shadow:0 0 0 1px rgba(220,208,248,.5);font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
 QJS = """<script>(function(){var R=matchMedia('(prefers-reduced-motion:reduce)').matches;
 function op(d){d.open=true;if(R)return;var a=d.querySelector('.ax-a');a.animate([{height:'0px',opacity:0,transform:'translateY(10px)'},{height:a.scrollHeight+'px',opacity:1,transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}
 function cl(d){if(R){d.open=false;return}var a=d.querySelector('.ax-a');if(d._x)return;d.classList.add('cl');var x=a.animate([{height:a.offsetHeight+'px',opacity:1},{height:'0px',opacity:0}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});d._x=x;x.onfinish=function(){d.open=false;d.classList.remove('cl');x.cancel();d._x=null}}
@@ -427,7 +427,7 @@ def about3(intro="flip"):
     fr = lambda v: max(0, min(1, (v - tmin) / (tmax - tmin)))
     dots = ''.join(f'<button type="button" class="ax-dt" data-i="{i}" style="--f:{fr(ev[0]):.4f}" aria-label="{ev[3]}"><span>{ev[2].split(" ")[0]}</span></button>' for i, ev in enumerate(EVENTS))
     nxt = [fr(EVENTS[i + 1][0]) if i + 1 < len(EVENTS) else fr(EVENTS[i][1]) for i in range(len(EVENTS))]
-    cards = ''.join(f'<article class="ax-pc" data-t="{t - Y0}" data-e="{e - Y0}" data-fa="{fr(t):.4f}" data-fb="{nxt[i]:.4f}" style="--fa:{fr(t):.4f}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
+    cards = ''.join(f'<article class="ax-pc{" edu" if ("B.Sc" in ti or "M.A." in ti) else ""}" data-t="{t - Y0}" data-e="{e - Y0}" data-fa="{fr(t):.4f}" data-fb="{nxt[i]:.4f}" style="--fa:{fr(t):.4f}"><p class="ax-when">{w}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
                     for i, (t, e, w, ti, pl, tx, x) in enumerate(EVENTS))
     how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = qa_html()
@@ -476,7 +476,7 @@ def about3(intro="flip"):
 <section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
 <section class="ax-w ax-tl tl2"><h2>Tools</h2>{tools}</section>
 </div>
-<section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Experience</h2>
+<section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Education and experience</h2>
 <div class="ax-st"><div class="ax-hl"><i class="ax-ln" aria-hidden="true"></i><i class="ax-sg" aria-hidden="true"></i>{dots}</div><div class="ax-win" aria-hidden="true"><div class="ax-rl">{ticks}</div></div><i class="ax-now" aria-hidden="true"></i><i class="ax-end" aria-hidden="true"></i><div class="ax-pcs">{cards}</div></div></div></section></main>
 <style>
 /* type scale: h1 56, section titles 26, item titles 36, h3 24, body 16 (18 on very large screens) */
@@ -529,7 +529,7 @@ def about3(intro="flip"):
 .ax-pc.on .ax-when{{color:#DCD0F8!important}}
 .ax-pg2{{display:block;padding:0;transform:none}}
 .ax-pc h3{{position:static;margin:0 0 .5em;font-size:18px;letter-spacing:-.015em;transform:none;transition:color .4s}}
-.ax-pc.on h3{{color:#DCD0F8}}
+.ax-pc.edu,.ax-pc.edu h3,.ax-pc.edu .ax-pd p,.ax-pc.edu .ax-when{{color:#DCD0F8!important}}.ax-pc.edu:after{{background:#DCD0F8}}.ax-pc.on .ax-when{{color:#F2F2EF!important}}.ax-pc.edu.on .ax-when{{color:#DCD0F8!important}}
 .ax-ia .ax-nmw h1,.ax-ia .ax-nmw .ax-nm{{color:#DCD0F8!important;font-size:clamp(18px,1.4vw,24px);font-weight:600;letter-spacing:-.015em;line-height:1.3}}.ax-ia .ax-nm{{text-decoration-color:rgba(220,208,248,.45)}}
 .ax-pd{{max-width:34em}}
 .ax-side{{border-left-color:#DCD0F8}}.ax-sk{{color:#DCD0F8!important}}
@@ -565,7 +565,14 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
 @media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end,.ax-hl{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:static;opacity:1;margin-bottom:32px}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
-{QCSS}{xcss}{NMCSS}.tlc-i img[src$='.png']{{border-radius:5px}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
+{QCSS}{xcss}{NMCSS}/* About in plum: every black surface becomes the footer's plum */
+body:has(.abx.dk),body:has(.abx.dk) .site-h,.abx.dk,.ax-hc,.ax-dark{{background:#672D37;--dk:#672D37}}
+.abx.dk{{--line:rgba(220,208,248,.22);--mute:rgba(220,208,248,.72)}}
+.abx.dk .ax-side{{background:#5A2630}}.abx.dk .ax-tx p,.abx.dk .ax-pd p{{color:#EDE6FB}}
+.ax-pc:before{{background:rgba(220,208,248,.25)}}.ax-pc:after{{background:rgba(220,208,248,.45)}}.ax-pc.on:before{{background:#DCD0F8}}.ax-pc.on:after,.ax-pc.edu:after{{background:#DCD0F8}}
+.tlc{{background:#5A2630!important;border-color:rgba(220,208,248,.2)!important}}
+.ax-hc .ax-ht{{color:#EDE6FB!important}}.ax-hc .ax-hn{{color:rgba(220,208,248,.22)!important}}
+.abx.dk .ax-rows dd{{color:#F2F2EF}}.abx.dk .ax-rows>div{{border-color:rgba(220,208,248,.22)}}.tlc-i img[src$='.png']{{border-radius:5px}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
 <script>
 (function(){{
 var P=document.querySelector('[data-axpath]'),pc=[].slice.call(P.querySelectorAll('.ax-pc'));

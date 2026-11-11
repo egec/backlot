@@ -696,7 +696,7 @@ def work(v='b', hero=''):
     hero_html = hero or HERO
     body = (f'<main class="wk"><div class="wk-rv"><div class="cs-wrap">' + hero_html +
             f'<div class="wk-sel" id="work"><p class="k">Selected work</p></div>'
-            f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div></div></div><div class="wk-dk wk-lt"><div class="cs-wrap">{about}</div>{EGE}</div></main>'
+            f'<div class="wk-g{(" v" + v) if v else ""}">{cards}</div></div></div><div class="wk-dk"><div class="cs-wrap">{about}</div>{EGE}</div></main>'
             '<script>(function(){var c=document.querySelectorAll(".wk-g.vb>.wk-c");if(!c.length||matchMedia("(prefers-reduced-motion:reduce)").matches)return;var f=0;function d(){f=0;var h=innerHeight;[].forEach.call(c,function(e){var t=e.getBoundingClientRect().top,p=Math.max(0,Math.min(1,(h*.85-t)/(h*.6)))*Math.min(1,scrollY/120);e.style.setProperty("--p",p.toFixed(3));if(t<h*.92)e.classList.add("on")})}addEventListener("scroll",function(){if(!f){f=1;requestAnimationFrame(d)}},{passive:true});addEventListener("resize",d);d()})();</script>')
     return page('Ege Coskun | Product designer, Berlin', 'Ege Coskun, product designer in Berlin. B2B software for teams that review, approve and ship work.',
                 body, ['site.css', 'backlot.css'], ['site.js', 'backlot.js'])
