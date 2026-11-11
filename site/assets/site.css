@@ -68,6 +68,8 @@ html.ct-on .ct-s{opacity:1}
 
 /* cursor: plum on light, lilac on dark; in the hero it stays plum and turns lilac only where it crosses the ink */
 .ck i{background:#672D37}html.ck-d .ck i{background:#DCD0F8}
+/* About and the contact panel: dot in the footer's green on light, lilac on dark, as in the footer-1 preview */
+html:has(.abx) .ck i,html.ct-on .ck i{background:#56652A}html:has(.abx).ck-d .ck i{background:#DCD0F8}
 html:has(.hb-sp:hover) .ck i,html:has(.wk-pos:hover) .ck i{background:#672D37}.hb-g{position:fixed;left:0;top:0;z-index:10000;pointer-events:none;transform-origin:0 0;visibility:hidden}.hb-gt{position:fixed;margin:0;z-index:10000;pointer-events:none;white-space:nowrap;color:#DCD0F8;visibility:hidden}.wk-pos{width:fit-content}
 body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px}
 /* the dot flips against whatever it sits on: lilac on the plum-filled footer button, plum on the lilac-filled panel buttons */
