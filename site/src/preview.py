@@ -2,9 +2,9 @@
 import os, re
 R = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 PL = {  # page number: (bg, tx, underline, buttons, kicker, accent on dark)
-    1: ('#DCD0F8', '#56652A', '#4F2550', '#56652A', '#56652A', '#DCD0F8'),
+    1: ('#DCD0F8', '#56652A', '#672D37', '#56652A', '#56652A', '#DCD0F8'),
     5: ('#56652A', '#F2E5EF', '#D5DA8F', '#CDB1EA', '#F2E5EF', '#CDB1EA'),
-    9: ('#E9CFD3', '#4F2550', '#56652A', '#56652A', '#4F2550', '#E9CFD3'),
+    9: ('#E9CFD3', '#672D37', '#56652A', '#56652A', '#672D37', '#E9CFD3'),
 }
 def rgb(h): return ','.join(str(int(h[i:i + 2], 16)) for i in (1, 3, 5))
 src = open(os.path.join(R, 'about', 'index.html'), encoding='utf-8').read()
