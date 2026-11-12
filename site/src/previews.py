@@ -76,7 +76,7 @@ def crop(html, expr, css='', extra_js='', extra_after=''):
 SOKO = 'footer.finalfooter{--fb:#D492EC;--ft:#3B1223;--fl:rgba(59,18,35,.28)}'
 
 # add (key, label) pairs here when she asks for backups; empty means no /preview page is built
-TABS = [('homefr', 'Home: orkide çerçeveli'), ('homepl', 'Home: çerçevesiz')]
+TABS = []
 
 SHELL = ('<!doctype html><html lang="tr"><head>' + NOINDEX + '<meta name="viewport" content="width=device-width,initial-scale=1"><title>Onizleme</title>'
          '<style>html,body{margin:0;height:100%;background:#161616;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}'
