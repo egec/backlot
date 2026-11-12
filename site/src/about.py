@@ -412,7 +412,7 @@ IC_CSS = """.ax-ic{display:block;padding-top:clamp(40px,7svh,104px);padding-bott
 .ax-ic .ax-ic-l{grid-column:1/5;margin:0;font-size:14px;color:var(--mute)}
 .ax-ic .ax-ic-r{grid-column:5/13;max-width:34em;margin-top:clamp(18px,1.8vw,30px)}
 .ax-ic .ax-ic-r .ax-tx p{margin:0 0 1.15em;font-size:var(--t-base);line-height:1.6}.ax-ic .ax-ic-r .ax-tx p:last-child{margin-bottom:0}
-.ax-ic .ax-rows{margin-top:clamp(40px,5vw,72px)}
+.ax-ic .ax-rows{margin-top:clamp(40px,5vw,72px)}.ax-ic .ax-rows dd{font-size:var(--t-base);line-height:1.6}
 @media(max-width:899px){.ax-ic .ax-ic-h{flex-direction:column;align-items:flex-start;gap:36px}.ax-ic .ax-fr{width:170px;margin:10px 0 10px 10px}.ax-ic .ax-ic-b{display:block;margin-top:36px}.ax-ic .ax-ic-l{margin-bottom:8px}.ax-ic .ax-ic-r{max-width:none}}
 """
 
