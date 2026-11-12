@@ -663,15 +663,17 @@ _H_OLD = '<p class="wk-pos hb-s"><span class="tl" style="--n:0"><span>Product de
 assert _H_OLD in HERO
 FR_SVG = '<svg class="fr-l" viewBox="-16 -16 302 330" aria-hidden="true" fill="none" stroke="#D492EC" stroke-linecap="round" stroke-linejoin="round"><path d="M-10.5 -9.2 L49.2 -10.1 L105.0 -8.7 L165.2 -9.9 L221.4 -11.2 L276.8 -10.6 L279.4 41.1 L280.3 94.8 L277.8 147.0 L281.2 203.1 L280.7 255.5 L276.9 307.2 L221.4 306.3 L165.8 307.4 L104.7 309.4 L46.9 309.9 L-9.2 308.2 L-9.7 254.9 L-10.4 200.0 L-7.4 147.8 L-7.8 94.7 L-6.9 44.7 Z" stroke-width="1.5"/></svg>'
 def hero3(frame):
-    return (HERO.replace('<div class="wk-hero hb" data-hb>', '<div class="wk-hero hb hb3" data-hb="3">', 1).replace(_H_OLD,
-    '<figure class="hb-pt' + (' fr' if frame else '') + '"><img src="' + GH + 'me/ege-portrait.webp?v=1" width="900" height="995" alt="Ege Coskun">' + (FR_SVG if frame else '') + '</figure>'
-    '<div class="hb-row"><p class="wk-pos hb-s"><span class="tl" style="--n:0"><span>Product designer based in Berlin,</span></span><span class="tl" style="--n:1"><span>making B2B software that still makes</span></span><span class="tl" style="--n:2"><span>sense when things go wrong.</span></span></p><div class="hb-sp" aria-hidden="true"></div></div></div>', 1)
-  + '<style>.hb-pt{--pw:clamp(112px,30vw,150px);position:relative;margin:0 0 28px;width:var(--pw);aspect-ratio:900/995}.hb-pt img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 38%;transition:opacity .9s ease,transform .9s var(--ease)}html.hb-w0 .hb-pt img{opacity:0;transform:translateY(10px)}@media(prefers-reduced-motion:reduce){.hb-pt img{transition:none}}'
+    # the hidden-at-start class and the portrait styles come before the markup, so the photo never shows before the name is written
+    return ('<script>document.documentElement.classList.add("hb-w0")</script><style>.hb-pt{--pw:clamp(112px,30vw,150px);position:relative;margin:0 0 28px;width:var(--pw);aspect-ratio:900/995}.hb-pt img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 38%;transition:opacity .9s ease,transform .9s var(--ease)}html.hb-w0 .hb-pt img{opacity:0;transform:translateY(10px)}@media(prefers-reduced-motion:reduce){.hb-pt img{transition:none}}'
     '.hb-pt .fr-l{position:absolute;left:-5.93%;top:-5.37%;width:111.85%;height:110.5%;overflow:visible;pointer-events:none}.hb-pt.fr{margin:calc(var(--pw) * .06) 0 calc(28px + var(--pw) * .06) calc(var(--pw) * .06)}'
     '.hb3 .wk-pos.hb-s{font-weight:600;letter-spacing:-.015em}'
     '@media(min-width:900px){.hb-pt{--pw:clamp(140px,11.8vw,236px);position:fixed;left:clamp(20px,2.4vw,44px);top:clamp(22px,4.4svh,48px);z-index:55;margin:0;transform-origin:0 50%;will-change:transform,opacity;pointer-events:none}.hb-pt.fr{margin:0 0 0 calc(var(--pw) * .06)}'
     '.hb3{padding-top:0!important;justify-content:flex-end!important}.hb3 .hb-row{display:flex;align-items:center;justify-content:space-between;gap:clamp(24px,4vw,80px)}'
-    '.hb3 .hb-sp{flex:none;width:68%;max-width:none}.hb3 .wk-pos.hb-s{position:static!important;flex:0 1 auto;font-size:clamp(17px,1.25vw,22px)!important;line-height:1.25!important}}</style>')
+    '.hb3 .hb-sp{flex:none;width:68%;max-width:none}.hb3 .wk-pos.hb-s{position:static!important;flex:0 1 auto;font-size:clamp(17px,1.25vw,22px)!important;line-height:1.25!important}}</style>'
+  + HERO.replace('<div class="wk-hero hb" data-hb>', '<div class="wk-hero hb hb3" data-hb="3">', 1).replace(_H_OLD,
+    '<figure class="hb-pt' + (' fr' if frame else '') + '"><img src="' + GH + 'me/ege-portrait.webp?v=1" width="900" height="995" alt="Ege Coskun">' + (FR_SVG if frame else '') + '</figure>'
+    '<div class="hb-row"><p class="wk-pos hb-s"><span class="tl" style="--n:0"><span>Product designer based in Berlin,</span></span><span class="tl" style="--n:1"><span>making B2B software that still makes</span></span><span class="tl" style="--n:2"><span>sense when things go wrong.</span></span></p><div class="hb-sp" aria-hidden="true"></div></div></div>', 1))
+
 
 def work(v='b', hero=''):
     ARW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
