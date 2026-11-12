@@ -1,4 +1,4 @@
-:root{--bg:#F7F7F5;--card:#ECECEA;--ink:#161616;--mute:#6B6A66;--line:#E0E0DD;--g:#728437;--gd:#56652A;--w:83.75rem;--pad:24px;--gut:236px;--ease:cubic-bezier(.23,1,.32,1)}
+:root{--bg:#F2F1ED;--card:#E7E6E1;--ink:#161616;--mute:#6B6A66;--line:#DCDBD6;--g:#728437;--gd:#56652A;--w:83.75rem;--pad:24px;--gut:236px;--ease:cubic-bezier(.23,1,.32,1)}
 @media(min-width:992px){:root{--pad:50px}}
 /* type scales with the screen: 15px at 1440, 17px at 1920, 19px at 2560 */
 html{font-size:clamp(15px,calc(9px + .4167vw),19px);-webkit-text-size-adjust:100%}

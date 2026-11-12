@@ -86,7 +86,7 @@ def more():
 .ab-how p{margin:0;font-size:15px;line-height:1.5;color:#3a3936;text-wrap:pretty}
 .ab-lead+.ab-lead{margin-top:12px;font-size:clamp(15px,1.05vw,17px);color:#55524c}
 .ab-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);align-items:end}
-.ab-ph{margin:0;aspect-ratio:1/1.05;border-radius:14px;overflow:hidden;background:#ECECEA}
+.ab-ph{margin:0;aspect-ratio:1/1.05;border-radius:14px;overflow:hidden;background:#E7E6E1}
 .ab-ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .ab-aw{position:relative;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .ab-aw:hover{text-decoration-color:var(--ink)}
@@ -212,7 +212,7 @@ def drawer():
 <div class="dx-back">{back}</div>
 <div class="dx-page"><div class="dx-in">{pages}</div></div>
 <div class="dx-front">{front}</div>
-<svg class="dx-box" viewBox="0 0 1000 260" preserveAspectRatio="none" aria-hidden="true"><path d="M30 2 H970 L996 30 V258 H4 V30 Z" fill="#F7F7F5" stroke="#161616" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="M4 30 H996" fill="none" stroke="#161616" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
+<svg class="dx-box" viewBox="0 0 1000 260" preserveAspectRatio="none" aria-hidden="true"><path d="M30 2 H970 L996 30 V258 H4 V30 Z" fill="#F2F1ED" stroke="#161616" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="M4 30 H996" fill="none" stroke="#161616" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>
 <span class="dx-hd" aria-hidden="true"><i></i><i></i><i></i></span>
 </div></section>{more()}</main>
 <style>
@@ -343,7 +343,7 @@ EVENTS = [(2016.8, 2021.55, '2016 to 2021', 'Industrial Design, B.Sc.', 'Middle 
 QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px)}
 .ax-ask h2{position:sticky;top:calc(4.75rem + 24px);align-self:start}
 .ax-qs{display:flex;flex-direction:column;gap:10px;--qbg:#262624;--qbd:rgba(255,255,255,.18);--qtx:#F2F2EF;--abg:#30302d}
-.ax-ask.lt .ax-qs{--qbg:#ECECEA;--qbd:#D6D6D2;--qtx:var(--ink);--abg:#fff}
+.ax-ask.lt .ax-qs{--qbg:#E7E6E1;--qbd:#D2D1CC;--qtx:var(--ink);--abg:#fff}
 .ax-q summary{display:inline-flex;align-items:center;max-width:100%;box-sizing:border-box;padding:16px 24px;border-radius:22px;background:var(--qbg);border:1px solid transparent;color:var(--qtx);cursor:pointer;list-style:none;font-size:var(--h3);font-weight:500;letter-spacing:-.01em;line-height:1.3;transition:border-color .3s,background .3s}
 .ax-q summary::-webkit-details-marker{display:none}
 .ax-q summary:hover{border-color:var(--qbd)}

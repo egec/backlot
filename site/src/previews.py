@@ -75,13 +75,13 @@ def crop(html, expr, css='', extra_js='', extra_after=''):
 
 SOKO = 'footer.finalfooter{--fb:#D492EC;--ft:#3B1223;--fl:rgba(59,18,35,.28)}'
 
-TABS = [('works', 'Works layout'), ('feat1', 'Feature hover 1'), ('feat2', 'Feature hover 2'),
+TABS = [('works', 'Works layout'),
         ('bgd', 'Arka plan koyu gri'), ('bgl', 'Arka plan acik lila'),
         ('ftsoko', 'Footer yeni palet'), ('ftold', 'Footer su anki palet'), ('ftall', 'Footer eski secenekler')]
 
 SHELL = ('<!doctype html><html lang="tr"><head>' + NOINDEX + '<meta name="viewport" content="width=device-width,initial-scale=1"><title>Onizleme</title>'
          '<style>html,body{margin:0;height:100%;background:#161616;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}'
-         'iframe{position:fixed;left:0;top:0;width:100%;height:calc(100% - 58px);border:0;background:#F7F7F5}'
+         'iframe{position:fixed;left:0;top:0;width:100%;height:calc(100% - 58px);border:0;background:#F2F1ED}'
          'nav{position:fixed;left:0;right:0;bottom:0;height:58px;display:flex;gap:8px;align-items:center;padding:0 12px;background:#161616;overflow-x:auto;box-sizing:border-box}'
          'button{flex:none;height:36px;padding:0 16px;border-radius:99px;border:1px solid #4a4a47;background:transparent;color:#d8d8d4;font:500 14px/1 inherit;cursor:pointer}'
          'button:hover{border-color:#aaa}button.on{background:#F2F2EF;border-color:#F2F2EF;color:#161616}</style></head><body>'
@@ -93,12 +93,8 @@ SHELL = ('<!doctype html><html lang="tr"><head>' + NOINDEX + '<meta name="viewpo
 
 def make_all(write, home_html, backlot_html, work_fn, bjs):
     import json
-    write('assets/backlot-h.js', hover_js(bjs))
     base = work_fn(hero=' ')
     write('preview/works/index.html', crop(_works_wrap(base), "[document.querySelector('.wk-wrap')]", W1_CSS + '.wk-rv{padding-bottom:0}'))
-    feat = "[document.querySelector('[data-zs]').closest('.bl2-t')]"
-    for k, css in (('feat1', FH1_CSS), ('feat2', FH2_CSS)):
-        write('preview/%s/index.html' % k, crop(backlot_html, feat, css).replace('/assets/backlot.js', '/assets/backlot-h.js'))
     sel = "[].slice.call(document.querySelectorAll('.bl2-media:not(.is-img)')).filter(function(e){return e.querySelector('video,iframe')}).slice(0,2)"
     for k, cls in (('bgd', 'lb lb-d'), ('bgl', 'lb lb-l')):
         js = "var s=" + sel + ";s.forEach(function(e){e.className+=' %s'});keep(s);" % cls
