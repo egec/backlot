@@ -79,3 +79,9 @@ html[data-ck=orchid] .ck{mix-blend-mode:difference}html[data-ck=orchid] .ck i{ba
 .ct-cp,.ct-x{border:1px solid rgba(59,18,35,.55)!important;background:transparent!important;color:#3B1223!important}.ct-cp:hover,.ct-x:hover{background:#3B1223!important;border-color:#3B1223!important;color:#D492EC!important;opacity:1}
 .ct-a p,.ct-c p{color:#3B1223!important;font-weight:500}
 .ct-a p{max-width:none!important}@media(min-width:900px){.ct-a p{white-space:nowrap}}
+
+/* cursor lens: swaps bone with black and orchid with plum under the trail, so no off-palette colour ever appears and text stays readable */
+.ckl{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;-webkit-backdrop-filter:url(#ckA);backdrop-filter:url(#ckA);will-change:transform,clip-path}
+html[data-ck=orchid] .ckl{-webkit-backdrop-filter:url(#ckX);backdrop-filter:url(#ckX)}
+/* browsers without the lens: on dark the trail is a quiet grey behind the text, never an inversion */
+html[data-ck=dark] .ck{mix-blend-mode:lighten}html[data-ck=dark] .ck i{background:#45443F}

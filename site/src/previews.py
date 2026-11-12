@@ -76,7 +76,7 @@ def crop(html, expr, css='', extra_js='', extra_after=''):
 SOKO = 'footer.finalfooter{--fb:#D492EC;--ft:#3B1223;--fl:rgba(59,18,35,.28)}'
 
 # add (key, label) pairs here when she asks for backups; empty means no /preview page is built
-TABS = []
+TABS = [('home3', 'Home: 3.ss')]
 
 SHELL = ('<!doctype html><html lang="tr"><head>' + NOINDEX + '<meta name="viewport" content="width=device-width,initial-scale=1"><title>Onizleme</title>'
          '<style>html,body{margin:0;height:100%;background:#161616;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}'
@@ -88,23 +88,30 @@ SHELL = ('<!doctype html><html lang="tr"><head>' + NOINDEX + '<meta name="viewpo
          '<script>(function(){var T=@@TABS@@,f=document.getElementById("f"),n=document.getElementById("n");'
          'function go(k){[].forEach.call(n.children,function(b){b.classList.toggle("on",b.dataset.k===k)});f.src=T[k];try{history.replaceState(null,"","#"+k)}catch(e){}}'
          '[].forEach.call(n.children,function(b){b.addEventListener("click",function(){go(b.dataset.k)})});'
-         'var h=location.hash.slice(1);go(T[h]?h:"works")})();</script></body></html>')
+         'var h=location.hash.slice(1);go(T[h]?h:Object.keys(T)[0])})();</script></body></html>')
 
-def make_all(write, home_html, backlot_html, work_fn, bjs):
+def make_all(write, home_html, backlot_html, work_fn, bjs, hero3=''):
     import json
     if not TABS:
         return
-    base = work_fn(hero=' ')
-    write('preview/works/index.html', crop(_works_wrap(base), "[document.querySelector('.wk-wrap')]", W1_CSS + '.wk-rv{padding-bottom:0}'))
+    keys = [k for k, _ in TABS]
+    if 'home3' in keys:
+        write('preview/home3/index.html', crop(work_fn(hero=hero3), "[].slice.call(document.querySelectorAll('.wk-hero,.wk-sel,.hb-fly,body>.hb-pt,.ckl,.ck'))", '.wk-rv{padding-bottom:0}'))
+    base = work_fn(hero=' ') if [k for k in keys if k in ('works', 'ftsoko', 'ftold')] else ''
+    if 'works' in keys:
+        write('preview/works/index.html', crop(_works_wrap(base), "[document.querySelector('.wk-wrap')]", W1_CSS + '.wk-rv{padding-bottom:0}'))
     sel = "[].slice.call(document.querySelectorAll('.bl2-media:not(.is-img)')).filter(function(e){return e.querySelector('video,iframe')}).slice(0,2)"
     for k, cls in (('bgd', 'lb lb-d'), ('bgl', 'lb lb-l')):
+        if k not in keys:
+            continue
         js = "var s=" + sel + ";s.forEach(function(e){e.className+=' %s'});keep(s);" % cls
         h = backlot_html.replace('<meta charset="utf-8">', NOINDEX, 1).replace('../assets/', '/assets/')
         js_all = KEEP_JS % js
         write('preview/%s/index.html' % k, h.replace('</body>', '<style>' + LB_CSS + '</style><script>' + js_all + '</script></body>'))
-    write('preview/ftsoko/index.html', crop(base, "[document.querySelector('.finalfooter')]", SOKO))
-    write('preview/ftold/index.html', crop(base, "[document.querySelector('.finalfooter')]"))
-    tabs = {k: '/preview/%s/' % k for k, _ in TABS if k != 'ftall'}
-    tabs['ftall'] = '/footer/'
+    if 'ftsoko' in keys:
+        write('preview/ftsoko/index.html', crop(base, "[document.querySelector('.finalfooter')]", SOKO))
+    if 'ftold' in keys:
+        write('preview/ftold/index.html', crop(base, "[document.querySelector('.finalfooter')]"))
+    tabs = {k: ('/footer/' if k == 'ftall' else '/preview/%s/' % k) for k in keys}
     btn = ''.join('<button type="button" data-k="%s">%s</button>' % (k, t) for k, t in TABS)
     write('preview/index.html', SHELL.replace('@@NAV@@', btn).replace('@@TABS@@', json.dumps(tabs)))

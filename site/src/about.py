@@ -404,15 +404,16 @@ DOCK_CSS = """.ax-print{position:absolute;left:var(--px);bottom:clamp(24px,3vw,4
 
 
 IC_CSS = """.ax-ic{display:block;padding-top:clamp(40px,7svh,104px);padding-bottom:clamp(64px,9svh,128px)}
-.ax-ic .ax-ic-t{margin:0;max-width:15em;font-size:var(--t-3xl);line-height:1.04;letter-spacing:-.035em;font-weight:600;color:#D492EC}
+.ax-ic .ax-ic-h{display:flex;align-items:center;justify-content:space-between;gap:clamp(32px,5vw,96px)}
+.ax-ic .ax-ic-t{flex:0 1 auto;min-width:0;margin:0;max-width:13.9em;font-size:var(--t-3xl);line-height:1.04;letter-spacing:-.035em;font-weight:600;color:#D492EC}
 .ax-ic .ax-ic-t .ax-nm{text-decoration:underline dotted;text-decoration-thickness:2px;text-underline-offset:.12em;text-decoration-color:rgba(212,146,236,.45)}
-.ax-ic .ax-ic-b{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);margin-top:clamp(56px,10svh,128px);padding-top:clamp(28px,3vw,44px);border-top:1px solid var(--line);align-items:start}
-.ax-ic .ax-ic-l{grid-column:1/4;margin:0;font-size:14px;color:var(--mute)}
-.ax-ic .ax-fr{grid-column:4/7;margin:0;width:min(100%,270px)}
-.ax-ic .ax-ic-r{grid-column:7/13;max-width:34em}
+.ax-ic .ax-fr{--fw:clamp(180px,15vw,270px);flex:none;margin:calc(var(--fw) * .06) calc(var(--fw) * .06) calc(var(--fw) * .06) 0;width:var(--fw)}
+.ax-ic .ax-ic-b{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);margin-top:clamp(28px,3vw,48px);padding-top:14px;border-top:1px solid var(--line);align-items:start}
+.ax-ic .ax-ic-l{grid-column:1/5;margin:0;font-size:14px;color:var(--mute)}
+.ax-ic .ax-ic-r{grid-column:5/13;max-width:34em;margin-top:clamp(18px,1.8vw,30px)}
 .ax-ic .ax-ic-r .ax-tx p{margin:0 0 1.15em;font-size:var(--t-base);line-height:1.6}.ax-ic .ax-ic-r .ax-tx p:last-child{margin-bottom:0}
 .ax-ic .ax-rows{margin-top:clamp(40px,5vw,72px)}
-@media(max-width:899px){.ax-ic .ax-ic-b{display:block}.ax-ic .ax-ic-l{margin-bottom:20px}.ax-ic .ax-fr{width:190px;margin:0 0 32px}.ax-ic .ax-ic-r{max-width:none}}
+@media(max-width:899px){.ax-ic .ax-ic-h{flex-direction:column;align-items:flex-start;gap:36px}.ax-ic .ax-fr{width:170px;margin:10px 0 10px 10px}.ax-ic .ax-ic-b{display:block;margin-top:36px}.ax-ic .ax-ic-l{margin-bottom:8px}.ax-ic .ax-ic-r{max-width:none}}
 """
 
 ROWS = [('What I like to own', 'The whole arc of a feature: the first interview, the flows, the prototype, and the review of what developers built against the design.'), ('Working with clients', 'I bring options to a review instead of arguing for one: the version I recommend, next to the one I expect them to ask for. The client feels heard, the decision comes faster, and I get back to the work with what I need.')]
@@ -470,8 +471,8 @@ def about3(intro="flip"):
     elif intro == 'c':
         rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS)
         fig = (f'<figure class="ax-fr"><img src="{GH}me/ege-portrait.webp?v=1" width="900" height="995" alt="Ege Coskun"><svg class="fr-l" viewBox="-16 -16 302 330" aria-hidden="true" fill="none" stroke="#D492EC" stroke-linecap="round" stroke-linejoin="round"><path d="M-10.5 -9.2 L49.2 -10.1 L105.0 -8.7 L165.2 -9.9 L221.4 -11.2 L276.8 -10.6 L279.4 41.1 L280.3 94.8 L277.8 147.0 L281.2 203.1 L280.7 255.5 L276.9 307.2 L221.4 306.3 L165.8 307.4 L104.7 309.4 L46.9 309.9 L-9.2 308.2 L-9.7 254.9 L-10.4 200.0 L-7.4 147.8 L-7.8 94.7 L-6.9 44.7 Z" stroke-width="1.5"/></svg></figure>')
-        intro_html = (f'<section class="ax-w ax-ic"><h1 class="ax-ic-t">Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>. People tell me what they want. I like to design what they meant.</h1>'
-                      f'<div class="ax-ic-b"><p class="ax-ic-l">About</p>{fig}<div class="ax-ic-r"><div class="ax-tx">{lead}</div><dl class="ax-rows">{rows}</dl></div></div></section>')
+        intro_html = (f'<section class="ax-w ax-ic"><div class="ax-ic-h"><h1 class="ax-ic-t">Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>. People tell me what they want. I like to design what they meant.</h1>{fig}</div>'
+                      f'<div class="ax-ic-b"><p class="ax-ic-l">About</p><div class="ax-ic-r"><div class="ax-tx">{lead}</div><dl class="ax-rows">{rows}</dl></div></div></section>')
     elif intro == 'b':
         rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS)
         intro_html = (f'<section class="ax-w ax-ib"><div>{nm}<p class="ax-lead">I’ve spent every role designing for people who know their domain far better than I do: customs officers, marketers, streaming editors.</p><dl class="ax-rows">{rows}</dl></div>'
