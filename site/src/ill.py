@@ -1,6 +1,6 @@
 """Small line illustrations for the text-only Backlot cards (Findings, Taken out)."""
 import re
-A = '#728437'
+A = '#3B1223'
 def svg(b):
     return ('<span class="bl2-ill" aria-hidden="true"><svg viewBox="0 0 200 64" width="200" height="64" fill="none" stroke="currentColor" '
             'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">' + b + '</svg></span>')
@@ -38,7 +38,7 @@ def add(html):
 CSS = (".bl2-ill{display:block;order:-2;margin:0 0 18px;color:var(--ink);opacity:.85}.bl2-ill svg{display:block;width:min(100%,200px);height:auto;overflow:visible}"
        ".bl2-ill .mv{transition:transform .5s var(--ease),opacity .4s;transform-box:fill-box}.bl2-ill .rot{transition:transform 1.4s var(--ease);transform-origin:100px 32px}"
        ".bl2-c:hover .bl2-ill .mv{transform:translateX(5px)}.bl2-ill .arc{stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 1.4s var(--ease)}.bl2-c:hover .bl2-ill .rot{transform:rotate(90deg)}.bl2-c:hover .bl2-ill .arc{stroke-dashoffset:0}"
-       "@keyframes ill-cy{0%,100%{fill:none}35%,60%{fill:#728437;fill-opacity:.3}}.bl2-ill .r{animation:ill-cy 3.2s ease-in-out infinite;animation-play-state:paused}.bl2-c:hover .bl2-ill .r{animation-play-state:running}"
+       "@keyframes ill-cy{0%,100%{fill:none}35%,60%{fill:#3B1223;fill-opacity:.3}}.bl2-ill .r{animation:ill-cy 3.2s ease-in-out infinite;animation-play-state:paused}.bl2-c:hover .bl2-ill .r{animation-play-state:running}"
        "@media (prefers-reduced-motion:reduce){.bl2-ill .mv,.bl2-ill .rot,.bl2-ill .arc{transition:none}.bl2-c:hover .bl2-ill .mv{transform:none}.bl2-ill .arc{stroke-dashoffset:0}.bl2-ill .rot{transform:rotate(90deg)}.bl2-ill .r{animation:none}}"
        # cards with an illustration: picture left, words right (two-column grids only); chip stays ink
        "@media(min-width:560px){.bl2-cards:not(.c3) .bl2-c:has(.bl2-ill){display:grid;grid-template-columns:clamp(120px,12vw,180px) minmax(0,1fr);column-gap:clamp(20px,2.2vw,36px);align-items:start;align-content:start;grid-template-rows:auto auto auto 1fr}"

@@ -141,7 +141,7 @@ def dial():
 .dl-c{{position:absolute;left:0;top:50%;width:100%;opacity:0;transform:translateY(calc(-50% + 18px));transition:opacity .35s,transform .5s var(--ease);pointer-events:none}}
 .dl-c.on{{opacity:1;transform:translateY(-50%);pointer-events:auto}}
 .dl-k{{display:inline-flex;align-items:center;gap:8px;margin:0;font-size:13px;color:var(--mute)}}
-.dl-k i{{width:8px;height:8px;border-radius:50%;background:#728437}}.dl-k i.edu{{background:transparent;box-shadow:inset 0 0 0 1.5px #728437}}
+.dl-k i{{width:8px;height:8px;border-radius:50%;background:#3B1223}}.dl-k i.edu{{background:transparent;box-shadow:inset 0 0 0 1.5px #3B1223}}
 .dl-c h2{{margin:10px 0 0;font-size:clamp(24px,2.2vw,36px);line-height:1.1;letter-spacing:-.02em;font-weight:600;text-wrap:balance}}
 .dl-p{{margin:6px 0 0;font-size:16px;color:#3a3936}}
 .dl-d{{margin:4px 0 14px;font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}}
@@ -294,12 +294,12 @@ def tunnel():
 .tn-now{{position:absolute;left:50%;top:50%;width:min(640px,86%);transform:translate(-50%,-50%);text-align:center;transition:opacity .3s,transform .5s var(--ease)}}
 .tn-now h1{{margin:10px 0 0;font-size:clamp(34px,3.6vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:600}}
 .tn-now .ab-lead{{margin:16px auto 0;max-width:30em;font-size:clamp(16px,1.2vw,20px);line-height:1.45;color:#3a3936}}
-.tn-go{{margin:22px 0 0;font:400 30px/1 "Reenie Beanie",cursive;color:#56652A}}
+.tn-go{{margin:22px 0 0;font:400 30px/1 "Reenie Beanie",cursive;color:#3B1223}}
 .tn-ss{{position:absolute;inset:0;pointer-events:none}}
 .tn-s{{position:absolute;left:50%;top:50%;width:min(620px,86%);transform:translate(-50%,-50%);text-align:center;opacity:0}}
 .tn-y{{margin:0;font-size:clamp(64px,9vw,150px);line-height:.9;letter-spacing:-.05em;font-weight:700;color:var(--ink)}}
 .tn-c{{margin-top:14px}}
-.tn-k{{margin:0;font:400 26px/1 "Reenie Beanie",cursive;color:#56652A}}
+.tn-k{{margin:0;font:400 26px/1 "Reenie Beanie",cursive;color:#3B1223}}
 .tn-s h2{{margin:6px 0 0;font-size:clamp(22px,2vw,32px);line-height:1.1;letter-spacing:-.02em;font-weight:600}}
 .tn-p{{margin:6px 0 0;font-size:14px;color:var(--mute)}}
 .tn-l{{margin:8px auto 0;max-width:30em;font-size:15px;line-height:1.45;color:#3a3936}}
@@ -347,8 +347,8 @@ QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6f
 .ax-q summary{display:inline-flex;align-items:center;max-width:100%;box-sizing:border-box;padding:16px 24px;border-radius:22px;background:var(--qbg);border:1px solid transparent;color:var(--qtx);cursor:pointer;list-style:none;font-size:var(--h3);font-weight:500;letter-spacing:-.01em;line-height:1.3;transition:border-color .3s,background .3s}
 .ax-q summary::-webkit-details-marker{display:none}
 .ax-q summary:hover{border-color:var(--qbd)}
-.ax-q[open]:not(.cl) summary{background:transparent;border-color:#56652A;border-bottom-left-radius:0}
-.ax-q summary:focus-visible{outline:2px solid #DCD0F8;outline-offset:3px}
+.ax-q[open]:not(.cl) summary{background:transparent;border-color:#3B1223;border-bottom-left-radius:0}
+.ax-q summary:focus-visible{outline:2px solid #D492EC;outline-offset:3px}
 .ax-a{overflow:hidden}
 .ax-ai{display:flex;justify-content:flex-end;padding:10px 12px 6px 0}
 .ax-a p{position:relative;margin:0!important;max-width:36em;padding:18px 24px;background:var(--abg);border-radius:22px 22px 0 22px;color:var(--qtx)!important;font-size:var(--fs,16px);line-height:1.5}
@@ -357,7 +357,7 @@ QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6f
 @media(max-width:899px){.ax-ask{grid-template-columns:1fr}.ax-ask h2,.wk-qa .k{position:static}}
 @media (prefers-reduced-motion:reduce){.ax-q summary{transition:none}}
 """
-NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:#56652A;color:#DCD0F8;font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
+NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:#3B1223;color:#D492EC;font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
 QJS = """<script>(function(){var R=matchMedia('(prefers-reduced-motion:reduce)').matches;
 function op(d){d.open=true;if(R)return;var a=d.querySelector('.ax-a');a.animate([{height:'0px',opacity:0,transform:'translateY(10px)'},{height:a.scrollHeight+'px',opacity:1,transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}
 function cl(d){if(R){d.open=false;return}var a=d.querySelector('.ax-a');if(d._x)return;d.classList.add('cl');var x=a.animate([{height:a.offsetHeight+'px',opacity:1},{height:'0px',opacity:0}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});d._x=x;x.onfinish=function(){d.open=false;d.classList.remove('cl');x.cancel();d._x=null}}
@@ -406,7 +406,7 @@ DARK_CSS = """body:has(.abx.dk),body:has(.abx.dk) .site-h{background:#161616}bod
 .abx.dk{--ink:#F2F2EF;--line:rgba(255,255,255,.14);--mute:#9B9A96;background:#161616;color:#F2F2EF}.abx.dk .ax-tx p,.abx.dk .ax-pd p{color:#CFCECA}.abx.dk .ax-tq{border-color:#3a3a37}.abx.dk .ax-tq.y{border-color:#6a6a66}.abx.dk .ax-side{background:#222220}.abx.dk .ax-end{background:#F2F2EF}
 .ax-ia{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,6vh,96px);padding-bottom:clamp(56px,7vh,112px)}.ax-l{display:flex;flex-direction:column;justify-content:space-between;gap:40px}
 .abx .ax-big{margin:0;max-width:16em;font-size:clamp(22px,1.9vw,34px)!important;line-height:1.15!important;letter-spacing:-.02em;font-weight:500;color:#6E6D68!important}
-.ax-ia .ax-r{max-width:36em}.ax-ia .ax-rows{grid-column:2;max-width:36em;margin-top:8px}.ax-ia .ax-tx p:last-child{margin-bottom:0}.ax-ia .ax-rows dd{font-size:var(--fs)}@media(max-width:899px){.ax-ia .ax-rows{grid-column:1}}.abx .ax-nmw h1,.abx .ax-nmw .ax-sub{display:inline}.abx .ax-sub{margin:0;font-size:clamp(18px,1.4vw,24px);line-height:1.3;font-weight:600;letter-spacing:-.015em;color:#DCD0F8!important;max-width:20em}.abx .ax-l h1{font-size:clamp(18px,1.4vw,24px)!important;line-height:1.3!important;font-weight:600!important;letter-spacing:-.015em!important;margin:0;font-size:clamp(30px,2.6vw,46px);color:#6E6D68}.abx .ax-l .ax-nm{text-decoration-color:#3a3a37}.abx .ax-role{margin:0;font-size:clamp(18px,1.4vw,24px)!important;color:#8E8D88!important}
+.ax-ia .ax-r{max-width:36em}.ax-ia .ax-rows{grid-column:2;max-width:36em;margin-top:8px}.ax-ia .ax-tx p:last-child{margin-bottom:0}.ax-ia .ax-rows dd{font-size:var(--fs)}@media(max-width:899px){.ax-ia .ax-rows{grid-column:1}}.abx .ax-nmw h1,.abx .ax-nmw .ax-sub{display:inline}.abx .ax-sub{margin:0;font-size:clamp(18px,1.4vw,24px);line-height:1.3;font-weight:600;letter-spacing:-.015em;color:#D492EC!important;max-width:20em}.abx .ax-l h1{font-size:clamp(18px,1.4vw,24px)!important;line-height:1.3!important;font-weight:600!important;letter-spacing:-.015em!important;margin:0;font-size:clamp(30px,2.6vw,46px);color:#6E6D68}.abx .ax-l .ax-nm{text-decoration-color:#3a3a37}.abx .ax-role{margin:0;font-size:clamp(18px,1.4vw,24px)!important;color:#8E8D88!important}
 .ax-fr{position:relative;margin:0;width:clamp(190px,18vw,270px);aspect-ratio:900/995}.ax-fr img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 38%}.ax-fr .fr-l{position:absolute;left:-5.93%;top:-5.37%;width:111.85%;height:110.5%;overflow:visible;pointer-events:none}
 .ax-ph{width:clamp(120px,11vw,180px);aspect-ratio:1;border-radius:50%;overflow:hidden;margin:0}.ax-ph img{width:100%;height:100%;object-fit:cover;display:block}
 .ax-ib{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);gap:clamp(32px,5vw,96px);padding-top:clamp(40px,5vw,88px);padding-bottom:clamp(56px,6vw,104px)}
@@ -451,7 +451,7 @@ def about3(intro="flip"):
     nm = '<h1>Hi, I’m <span class="ax-nm" tabindex="0">Ege<span class="ax-say" role="tooltip">[eh-GEH]</span></span>.</h1>'
     if intro == 'a':
         rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS if True)
-        intro_html = (f'<section class="ax-w ax-ia"><div class="ax-l"><figure class="ax-fr"><img src="{GH}me/ege-portrait.webp?v=1" width="900" height="995" alt="Ege Coskun"><svg class="fr-l" viewBox="-16 -16 302 330" aria-hidden="true" fill="none" stroke="#CDB1EA" stroke-linecap="round" stroke-linejoin="round"><path d="M-10.5 -9.2 L49.2 -10.1 L105.0 -8.7 L165.2 -9.9 L221.4 -11.2 L276.8 -10.6 L279.4 41.1 L280.3 94.8 L277.8 147.0 L281.2 203.1 L280.7 255.5 L276.9 307.2 L221.4 306.3 L165.8 307.4 L104.7 309.4 L46.9 309.9 L-9.2 308.2 L-9.7 254.9 L-10.4 200.0 L-7.4 147.8 L-7.8 94.7 L-6.9 44.7 Z" stroke-width="1.5"/></svg></figure><div class="ax-nmw">{nm} <p class="ax-sub">People tell me what they want.<br>I like to design what they meant.</p></div></div>'
+        intro_html = (f'<section class="ax-w ax-ia"><div class="ax-l"><figure class="ax-fr"><img src="{GH}me/ege-portrait.webp?v=1" width="900" height="995" alt="Ege Coskun"><svg class="fr-l" viewBox="-16 -16 302 330" aria-hidden="true" fill="none" stroke="#D492EC" stroke-linecap="round" stroke-linejoin="round"><path d="M-10.5 -9.2 L49.2 -10.1 L105.0 -8.7 L165.2 -9.9 L221.4 -11.2 L276.8 -10.6 L279.4 41.1 L280.3 94.8 L277.8 147.0 L281.2 203.1 L280.7 255.5 L276.9 307.2 L221.4 306.3 L165.8 307.4 L104.7 309.4 L46.9 309.9 L-9.2 308.2 L-9.7 254.9 L-10.4 200.0 L-7.4 147.8 L-7.8 94.7 L-6.9 44.7 Z" stroke-width="1.5"/></svg></figure><div class="ax-nmw">{nm} <p class="ax-sub">People tell me what they want.<br>I like to design what they meant.</p></div></div>'
                       f'<div class="ax-r"><div class="ax-tx">{lead}</div></div><dl class="ax-rows">{rows}</dl></section>')
     elif intro == 'b':
         rows = ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in ROWS)
@@ -524,16 +524,16 @@ def about3(intro="flip"):
 .ax-pc:before{{content:"";position:absolute;left:0;top:.7em;bottom:-.7em;width:1px;background:#3a3a37;transition:background .4s,width .4s,left .4s}}
 .ax-pc:last-child:before{{display:none}}
 .ax-pc:after{{content:"";position:absolute;left:-5px;top:.45em;width:11px;height:11px;border-radius:50%;background:#55544f;transition:background .4s,transform .4s var(--ease)}}
-.ax-pc.on:before{{left:-1px;width:3px;border-radius:3px;background:#DCD0F8}}
-.ax-pc.on:after{{background:#DCD0F8;transform:scale(1.3)}}
+.ax-pc.on:before{{left:-1px;width:3px;border-radius:3px;background:#D492EC}}
+.ax-pc.on:after{{background:#D492EC;transform:scale(1.3)}}
 .ax-when{{position:static!important;margin:0!important;padding-top:.2em;font-size:14px!important;font-weight:600;color:var(--mute)!important;transition:color .4s}}
-.ax-pc.on .ax-when{{color:#DCD0F8!important}}
+.ax-pc.on .ax-when{{color:#D492EC!important}}
 .ax-pg2{{display:block;padding:0;transform:none}}
 .ax-pc h3{{position:static;margin:0 0 .5em;font-size:22px;letter-spacing:-.015em;transform:none;transition:color .4s}}
-.ax-pc.edu,.ax-pc.edu h3,.ax-pc.edu .ax-pd p,.ax-pc.edu .ax-when{{color:#DCD0F8!important}}.ax-pc.edu:after{{background:#DCD0F8}}.ax-pc.on .ax-when{{color:#F2F2EF!important}}.ax-pc.edu.on .ax-when{{color:#DCD0F8!important}}
-.ax-ia .ax-nmw h1,.ax-ia .ax-nmw .ax-nm{{color:#DCD0F8!important;font-size:clamp(18px,1.4vw,24px);font-weight:600;letter-spacing:-.015em;line-height:1.3}}.ax-ia .ax-nm{{text-decoration-color:rgba(220,208,248,.45)}}
+.ax-pc.edu,.ax-pc.edu h3,.ax-pc.edu .ax-pd p,.ax-pc.edu .ax-when{{color:#D492EC!important}}.ax-pc.edu:after{{background:#D492EC}}.ax-pc.on .ax-when{{color:#F2F2EF!important}}.ax-pc.edu.on .ax-when{{color:#D492EC!important}}
+.ax-ia .ax-nmw h1,.ax-ia .ax-nmw .ax-nm{{color:#D492EC!important;font-size:clamp(18px,1.4vw,24px);font-weight:600;letter-spacing:-.015em;line-height:1.3}}.ax-ia .ax-nm{{text-decoration-color:rgba(212,146,236,.45)}}
 .ax-pd{{max-width:34em}}
-.ax-side{{border-left-color:#DCD0F8}}.ax-sk{{color:#DCD0F8!important}}
+.ax-side{{border-left-color:#D492EC}}.ax-sk{{color:#D492EC!important}}
 @media(max-width:899px){{.ax-pc{{grid-template-columns:1fr;gap:6px}}}}
 .ab-aw{{position:relative;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}
 .ab-aw:hover{{text-decoration-color:var(--ink)}}
@@ -552,7 +552,7 @@ def about3(intro="flip"):
 .ax-how{{height:calc(var(--n) * 45svh + 60svh)}}
 .ax-hpin{{position:sticky;top:4.75rem;height:calc(100svh - 4.75rem);overflow:hidden;padding-top:clamp(20px,2.4vw,40px);box-sizing:border-box}}
 .ax-hcs{{position:absolute;left:var(--px);right:var(--px);top:clamp(100px,14svh,150px);bottom:clamp(16px,3svh,40px)}}
-.ax-hc{{--w:min(25vw,400px);position:absolute;top:var(--dy,0px);left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(calc(100% - 48px),520px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:#161616;color:#F2F2EF;border:1.5px solid #DCD0F8;border-radius:18px;
+.ax-hc{{--w:min(25vw,400px);position:absolute;top:var(--dy,0px);left:calc(var(--i) * (100% - var(--w)) / (var(--n) - 1));width:var(--w);height:min(calc(100% - 48px),520px);box-sizing:border-box;display:flex;flex-direction:column;padding:clamp(20px,1.8vw,32px);background:#161616;color:#F2F2EF;border:1.5px solid #D492EC;border-radius:18px;
   transform:translateY(calc((1 - var(--e,0)) * 130%)) rotate(calc(var(--r) + (1 - var(--e,0)) * var(--r2)));opacity:min(1,calc(var(--e,0) * 4))}}
 .ax-hc h3{{font-size:clamp(20px,1.5vw,26px);line-height:.98;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;text-wrap:balance}}
 .ax-hc .ax-ht{{margin:16px 0 0;font-size:15px!important;line-height:1.5!important;color:#CFCECA!important}}
@@ -566,7 +566,7 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}.ax-pcs{{position:static;padding:24px var(--px) 24px}}.ax-pc{{position:relative;opacity:1;margin-bottom:0}}.ax-when{{position:static;margin-bottom:6px}}.ax-pg2{{display:block;padding-top:0;transform:none}}.ax-pc h3{{margin-bottom:10px}}
 .ax-hcs{{position:static;display:grid;gap:12px;padding:24px var(--px) 48px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1;--w:auto}}.ax-hc .ax-hn{{margin-top:20px!important}}}}
 @media (prefers-reduced-motion:reduce){{.ax-path,.ax-how{{height:auto}}.ax-pin,.ax-hpin{{position:static;height:auto;overflow:visible}}.ax-win,.ax-now,.ax-end,.ax-hl{{display:none}}.ax-pcs{{position:static}}.ax-pc{{position:relative;opacity:1;margin-bottom:0}}.ax-when{{position:static}}.ax-pg2{{transform:none}}.ax-hcs{{position:static;display:grid;gap:12px}}.ax-hc{{position:static;width:auto;height:auto;transform:none;opacity:1}}}}
-.ax-chip{{display:block;width:max-content;margin-top:8px;padding:2px 10px;border-radius:99px;background:rgba(220,208,248,.14);color:#DCD0F8;font-size:12px;font-weight:600;line-height:1.55;letter-spacing:0}}
+.ax-chip{{display:block;width:max-content;margin-top:8px;padding:2px 10px;border-radius:99px;background:rgba(212,146,236,.14);color:#D492EC;font-size:12px;font-weight:600;line-height:1.55;letter-spacing:0}}
 .ax-side.ax-rv{{clip-path:inset(0 calc(100% - 3px) 0 0);transition:clip-path 1s cubic-bezier(.2,.8,.2,1)}}.ax-side.ax-rv>*{{opacity:0;transition:opacity .5s ease .4s}}.ax-side.ax-rv.in{{clip-path:inset(0 0 0 0)}}.ax-side.ax-rv.in>*{{opacity:1}}
 .tlc-m{{cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none}}.tlc-m.dr{{cursor:grabbing}}.tlc img{{pointer-events:none;-webkit-user-drag:none}}
 {QCSS}{xcss}{NMCSS}.tlc-i img[src$='.png']{{border-radius:5px}}.tl2>h2{{margin-bottom:clamp(28px,2.6vw,40px)!important}}.ax-ask .wk-qk{{position:sticky;top:calc(4.75rem + 24px);align-self:start}}.abx.dk .ax-qc a{{color:#F2F2EF}}.ax-when{{bottom:calc(100% + 8px)!important;left:calc(-120px + 22px)!important;font-weight:500!important;line-height:1.2}}</style>
