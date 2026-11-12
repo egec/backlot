@@ -34,7 +34,7 @@ AB_LEAD = ('Every project began in a domain I didn’t know: customs regulation,
 
 HOW = [('No playbook, no problem', 'Customs, naval radar, customer data, prenatal health. Each domain was new to me and none came with a playbook. I learned how the work is really done and who does it, then turned messy requests into clear flows.'),
        ('Design for the unhappy path', 'Most products work when everything goes right. I spend more of my time on the other cases: the action that fails, the data that is missing, the step someone skips. That is where people decide whether they can trust a tool.'),
-       ('Systems that hold<br>as the product grows', 'I’ve extended and maintained design systems at two companies: adding components when a flow needed them and fixing the ones that broke in real use, so the product stays consistent as it changes.'),
+       ('Systems that hold <br class="dbr">as the product grows', 'I’ve extended and maintained design systems at two companies: adding components when a flow needed them and fixing the ones that broke in real use, so the product stays consistent as it changes.'),
        ('AI that people can check', 'When a feature uses AI, I design for review: what it suggests, how sure it is, and a quick way to accept, change or reject it. Nothing is written without a person.'),
        ('Decisions with evidence', 'Support tickets, session replays and watching people work tell me more than a brief. Every decision needs a reason I can defend, and the trade-off goes on the table.')]
 TOOLS = [('Figma', 'figma'), ('Claude Design', 'claude-icon'), ('Claude Code', 'claude-code'), ('Storybook', 'storybook-icon'), ('Jira', 'jira'), ('Confluence', 'confluence'),
@@ -338,7 +338,7 @@ EVENTS = [(2016.8, 2021.55, '2016 to 2021', 'Industrial Design, B.Sc.', 'Middle 
           (2023.8, 2025.55, '2023 to 2025', 'Integrated Design, M.A.', 'Hochschule Anhalt, Dessau', 'First in class. Thesis: a wearable for continuous monitoring in high-risk pregnancies. ' + AWARD + '.',
            '<div class="ax-side"><p class="ax-sk">From 2024, alongside</p><p class="ax-sh">Founding member, Product Designer</p><p>UwaVerde (NGO): the organisation’s first design work, a website and a member portal. Still going.</p></div>'),
           (2026.35, 2026.7, '2026', 'Product Designer', 'Insider One, remote from Berlin', 'Data health in a customer data platform.', ''),
-          (2026.85, 2026.95, 'Now', 'Looking for my next team', 'Within Germany, currently in Berlin', 'Open to product design roles.<br>If the domain is new to me, even better.', '')]
+          (2026.85, 2026.95, 'Now', 'Looking for my next team', 'Within Germany, currently in Berlin', 'Open to product design roles. <br class="dbr">If the domain is new to me, even better.', '')]
 
 QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(32px,5vw,96px);padding-top:clamp(32px,4vw,64px);padding-bottom:clamp(64px,7vw,120px)}
 .ax-ask h2{position:sticky;top:calc(4.75rem + 24px);align-self:start}
@@ -403,14 +403,14 @@ DOCK_CSS = """.ax-print{position:absolute;left:var(--px);bottom:clamp(24px,3vw,4
 """
 
 
-IC_CSS = """.ax-ic{display:block;padding-top:clamp(40px,7svh,104px);padding-bottom:clamp(64px,9svh,128px)}
+IC_CSS = """.ax-ic{display:block;padding-top:clamp(88px,19svh,230px);padding-bottom:clamp(64px,9svh,128px)}
 .ax-ic .ax-ic-h{display:flex;align-items:center;justify-content:space-between;gap:clamp(32px,5vw,96px)}
-.ax-ic .ax-ic-t{flex:0 1 auto;min-width:0;margin:0;max-width:24em;font-size:var(--t-3xl);line-height:1.04;letter-spacing:-.035em;font-weight:600;color:#D492EC}
+.ax-ic .ax-ic-t{flex:0 1 auto;min-width:0;margin:0;max-width:15.5em;font-size:var(--t-3xl);line-height:1.04;letter-spacing:-.035em;font-weight:600;color:#D492EC}
 .ax-ic .ax-ic-t .ax-nm{text-decoration:underline dotted;text-decoration-thickness:2px;text-underline-offset:.12em;text-decoration-color:rgba(212,146,236,.45)}
 .ax-ic .ax-fr{--fw:clamp(180px,15vw,270px);flex:none;margin:calc(var(--fw) * .06) calc(var(--fw) * .06) calc(var(--fw) * .06) 0;width:var(--fw)}
-.ax-ic .ax-ic-b{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);margin-top:clamp(28px,3vw,48px);padding-top:14px;border-top:1px solid var(--line);align-items:start}
-.ax-ic .ax-ic-l{grid-column:1/5;margin:0;font-size:14px;color:var(--mute)}
-.ax-ic .ax-ic-r{grid-column:5/13;max-width:34em;margin-top:clamp(18px,1.8vw,30px)}
+.ax-ic .ax-ic-b{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);margin-top:clamp(28px,3vw,48px);padding-top:14px;border-top:1px solid var(--line);align-items:baseline}
+.ax-ic .ax-ic-l{grid-column:1/5;margin:0;font-size:14px;line-height:1.6;color:var(--mute)}
+.ax-ic .ax-ic-r{grid-column:5/13;max-width:34em;margin-top:0}
 .ax-ic .ax-ic-r .ax-tx p{margin:0 0 1.15em;font-size:var(--t-base);line-height:1.6}.ax-ic .ax-ic-r .ax-tx p:last-child{margin-bottom:0}
 .ax-ic .ax-rows{margin-top:clamp(40px,5vw,72px)}.ax-ic .ax-rows dd{font-size:var(--t-base);line-height:1.6}
 @media(max-width:899px){.ax-ic .ax-ic-h{flex-direction:column;align-items:flex-start;gap:36px}.ax-ic .ax-fr{width:170px;margin:10px 0 10px 10px}.ax-ic .ax-ic-b{display:block;margin-top:36px}.ax-ic .ax-ic-l{margin-bottom:8px}.ax-ic .ax-ic-r{max-width:none}}

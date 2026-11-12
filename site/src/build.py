@@ -139,7 +139,7 @@ def changed():
 
 def hero():
     h = P['411a7ea2-ad8e-e2d4-3a36-2ddce0bbd66d']
-    rep = [('<b>Category</b>B2B SaaS, Enterprise CMS', '<b>Category</b>B2B SaaS, Streaming CMS'), ('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>Fewer review rounds from<br> delivery to release</h1>'),
+    rep = [('<b>Category</b>B2B SaaS, Enterprise CMS', '<b>Category</b>B2B SaaS, Streaming CMS'), ('<h1>Rejections that tell the editor exactly what to fix</h1>', '<h1>Fewer review rounds from <br class="dbr">delivery to release</h1>'),
            ('<p class="lead">Backlot is where streaming services prepare films and series for release, one region at a time. I designed the review loop between editor and publisher, so a rejection is a list of reasons pinned to fields, not a vague note.</p>',
             '<p class="lead">Backlot is a concept CMS for streaming teams, taking films and series from delivery to release, region by region. I designed the whole workflow for both sides: publisher and editor.</p>'),
            ('<b>Context</b>Solo concept. The take-home that got me hired for my last role, rebuilt and extended.', '<b>Context</b>The take-home that got me hired for my last role, rebuilt and extended.'),
@@ -151,7 +151,7 @@ def hero():
 
 MINI = '<i></i><b>Pending Approval</b><u></u><u></u><u></u>'
 PROJ = [('backlot', 'Backlot', 'Fewer review rounds from delivery to release.', GH + 'shots/v2/ed-dashboard.webp?v=4'),
-        ('bilge', 'BİLGE', 'Customs software where&nbsp;‘Register’ starts a legal clock.', GH + 'shots/bilge/b-queue-th.webp'),
+        ('bilge', 'BİLGE', 'Customs software <span class="nw">where ‘Register’</span> starts a legal clock.', GH + 'shots/bilge/b-queue-th.webp'),
         ('data-health', 'Data health', 'Making broken customer data visible where marketers build their audiences', GH + 'shots/dh/thumb.webp'),
         # ('uwaverde', 'UwaVerde', 'A website and member portal for&nbsp;an<br>NGO I co-founded.', 'https://s3.amazonaws.com/webflow-prod-assets/67a7e306e38056dfa249a42d/691de9a378fcaab7283af4c8_HomePage%20(1)%20(1)-p-1080.png')
         ]
@@ -462,7 +462,7 @@ def specpile():
 
 def bilge():
     hero = ('<div class="bl2-t bl2-hero"><span class="cs-num bl2-x">00</span><span class="cs-title bl2-x">Overview</span>'
-            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Customs software where&nbsp;‘Register’<br> starts a legal clock</h1>'
+            '<p class="k">BİLGE, the customs platform of the Turkish Ministry of Trade</p><h1>Customs software <span class="nw">where ‘Register’</span><br class="dbr"> starts a legal clock</h1>'
             '<div class="bl2-hg"><p class="lead">BİLGE is the Ministry of Trade’s customs platform, and I designed across many of its modules. '
             'This page shows KLTS, which replaced paperwork passed between customs, port operators and agencies with one shared record: 107 screens, designed from the system specs.</p>'
             '<div class="bl2-meta"><div><b>Company</b><a class="bl2-co" href="https://www.milsoft.com.tr/index.php/home/" target="_blank" rel="noopener">MilSOFT <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div><div><b>Client</b>Turkish Ministry of Trade</div>'
@@ -681,7 +681,7 @@ def work(v='b', hero=''):
         ('backlot', '01', 'Backlot', 'Fewer review rounds from delivery to release',
          'A CMS where streaming teams take films and series from delivery to release. I designed the whole workflow for editors and publishers.',
          ['B2B SaaS', 'Streaming CMS', '2026'], GH + 'shots/v2/ed-dashboard.webp?v=4', 'Backlot editor dashboard', GH + 'content-tour-fast.mp4'),
-        ('bilge', '02', 'BİLGE', 'Customs software where&nbsp;‘Register’ starts a legal clock',
+        ('bilge', '02', 'BİLGE', 'Customs software <span class="nw">where ‘Register’</span> starts a legal clock',
          'Customs software for the Ministry of Trade, designed from the system specifications and backend rules.',
          ['GovTech', 'Customs Platform', '2022 to 2023'], GH + 'shots/bilge/b-detail.webp', 'BİLGE container tracking form detail', GH + 'bilge/preview.mp4'),
         ('data-health', '03', '', 'Making broken customer data visible where marketers build their audiences',
@@ -707,7 +707,7 @@ def work(v='b', hero=''):
         for k, num, name, t, tags, img in more)
     import about as _ab
     qa = _ab.qa_html()
-    about = (f'<section class="ax-ask wk-qa"><div class="wk-qk"><h2>Things you<br>might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
+    about = (f'<section class="ax-ask wk-qa"><div class="wk-qk"><h2>Things you <br class="dbr">might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
              '</div></section><section class="wk-czs"><p class="wk-cz">I learned design where there’s <span style="white-space:nowrap">no <kbd>Ctrl</kbd><kbd>Z</kbd>.</span></p><a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></section>'
              '<style>' + _ab.QCSS + '.wk-qa{margin-top:clamp(96px,10vw,180px);padding:0;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;--h3:clamp(18px,1.3vw,24px)}'
              '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:var(--t-2xl);line-height:1.08;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'

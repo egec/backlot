@@ -85,3 +85,8 @@ html[data-ck=orchid] .ck{mix-blend-mode:difference}html[data-ck=orchid] .ck i{ba
 html[data-ck=orchid] .ckl{-webkit-backdrop-filter:url(#ckX);backdrop-filter:url(#ckX)}
 /* browsers without the lens: on dark the trail is a quiet grey behind the text, never an inversion */
 html[data-ck=dark] .ck{mix-blend-mode:lighten}html[data-ck=dark] .ck i{background:#45443F}
+
+/* manual line breaks and no-wrap word pairs only from tablet size up; on phones the text just flows */
+.dbr{display:none}@media(min-width:768px){.dbr{display:inline}.nw{white-space:nowrap}}
+/* contact drawer: focus lands on the panel, so no ring appears around the mail row on touch */
+.ct:focus{outline:none}.ct a,.ct button{-webkit-tap-highlight-color:transparent}

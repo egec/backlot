@@ -31,7 +31,7 @@ p.innerHTML='<div class="ct-in"><div class="ct-a"><h2 id="ct-t">Bring me the mes
 +'<ul class="ct-b"><li><a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a><button type="button" class="ct-cp">Copy</button></li><li><a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li></ul>'
 +'</div><button type="button" class="ct-x" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
 var s=document.createElement('div');s.className='ct-s';s.hidden=true;document.body.appendChild(s);document.body.appendChild(p);
-var last=null;function open(e){if(e)e.preventDefault();last=document.activeElement;p.hidden=false;s.hidden=false;requestAnimationFrame(function(){document.documentElement.classList.add('ct-on')});setTimeout(function(){p.querySelector('a').focus({preventScroll:true})},50)}
+var last=null;function open(e){if(e)e.preventDefault();last=document.activeElement;p.hidden=false;s.hidden=false;requestAnimationFrame(function(){document.documentElement.classList.add('ct-on')});setTimeout(function(){p.setAttribute('tabindex','-1');p.focus({preventScroll:true})},50)}
 function close(){document.documentElement.classList.remove('ct-on');setTimeout(function(){if(!document.documentElement.classList.contains('ct-on')){p.hidden=true;s.hidden=true}},420);if(last&&last.focus)last.focus({preventScroll:true})}
 a.addEventListener('click',open);s.addEventListener('click',close);p.querySelector('.ct-x').addEventListener('click',close);
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.documentElement.classList.contains('ct-on'))close()});
@@ -61,3 +61,6 @@ for(i=1;i<N;i++){ax=Q[i][0]-px;ay=Q[i][1]-py;l=Math.sqrt(ax*ax+ay*ay);if(l<.6&&i
 if(l>.01){nx=-ay/l;ny=ax/l;u+='M'+(px+nx*pr-x0).toFixed(1)+' '+(py+ny*pr-y0).toFixed(1)+'L'+(Q[i][0]+nx*r-x0).toFixed(1)+' '+(Q[i][1]+ny*r-y0).toFixed(1)+'L'+(Q[i][0]-nx*r-x0).toFixed(1)+' '+(Q[i][1]-ny*r-y0).toFixed(1)+'L'+(px-nx*pr-x0).toFixed(1)+' '+(py-ny*pr-y0).toFixed(1)+'z'}px=Q[i][0];py=Q[i][1];pr=r}
 if(!shown){w.style.display='';shown=1}w.style.transform='translate('+x0+'px,'+y0+'px)';w.style.width=Math.ceil(x1-x0+2)+'px';w.style.height=Math.ceil(y1-y0+2)+'px';w.style.clipPath='path("'+u+'")'}
 requestAnimationFrame(t)})(performance.now())})();
+
+/* overscroll at the very bottom: the page canvas takes the footer colour, so no bone strip shows under the orchid footer on phones */
+(function(){var f=document.querySelector('.ec-foot');if(!f)return;var d=document.documentElement,on=false;function bg(){var c=getComputedStyle(f).backgroundColor;return c&&c!=='rgba(0, 0, 0, 0)'&&c!=='transparent'?c:'#D492EC'}function u(){var h=Math.max(d.scrollHeight,document.body.scrollHeight),y=window.pageYOffset||d.scrollTop,e=y>0&&y+window.innerHeight>=h-2;if(e!==on){on=e;d.style.backgroundColor=e?bg():''}}addEventListener('scroll',u,{passive:true});addEventListener('resize',u);u()})();
