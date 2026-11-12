@@ -597,3 +597,11 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 .wk-g.vb>.wk-c:hover .wk-m img{transform:none!important}
 .wk-g.vb>.wk-c.wk-ft .wk-m{aspect-ratio:16/10}
 .wk-g.vb>.wk-c.wk-ft{overflow:visible!important}
+
+/* Backlot page keeps its original white base and grey cards */
+body:has(.bl2-bk){--bg:#F7F7F5;background:#F7F7F5}
+.bl2-bk [data-bl2root]{--card:#ECECEA;--line:#E0E0DD}
+.bl2-bk [data-bl2root="1"]>section[data-bl2]:not([data-bl2="ov"]):before{background:#F7F7F5}
+.bl2-bk [data-bl2root="2"]:not(.wn-dk){background:#F7F7F5}
+.bl2-bk .bl2-nb{background:#ECECEA}
+.bl2-bk .bl2-c,.bl2-bk .bl2-role,.bl2-bk .bl2-ns,.bl2-bk .rs-c{background:var(--card)}

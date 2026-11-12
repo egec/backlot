@@ -194,7 +194,7 @@ def backlot():
     stack = ''.join(f'<article class="wn2-c" style="--i:{k};--r:{[-5, 4, -3, 6][k % 4]}deg;--r2:{[14, -18, 10, -12][k % 4]}deg;--dy:{[0, 26, 8, 34][k % 4]}px"><h3>{h}</h3><p>{t}</p><p class="wn2-n"><span>{k + 1:02d}</span><span>{g.split(' ', 1)[-1]}</span></p></article>' for k, (g, h, t) in enumerate(cs))
     w2 = sec('re', "What's next", f'<div class="wn2" style="--n:{len(cs)}" data-wn><div class="wn2-pin"><div class="wn2-hd bl2-t">{hd}</div><div class="wn2-cs">{stack}</div></div></div><div class="bl2-t">' + wh[j:])
     nb = nextblock('backlot')
-    body = (f'<main class="bl2-page"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>'
+    body = (f'<main class="bl2-page bl2-bk"><div class="cs-wrap" data-bl2root="1"><nav class="bl-nav" aria-label="Case study sections"><ol></ol></nav>{w1}</div>'
             f'{ds}<div class="cs-wrap wn-dk" data-bl2root="2">{w2}</div>{nb}</main>' + WNJS)
     return page('Backlot case study | Ege Coskun',
                 'Backlot, a B2B SaaS CMS for streaming services: review and approval workflows, region-specific metadata and an AI check that flags likely rejections.',
