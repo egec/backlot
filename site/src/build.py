@@ -761,7 +761,8 @@ if __name__ == '__main__':
     write('assets/backlot.css', css)
     write('assets/site.css', rem(rd('site.css')))
     vid_js = re.search(r'<script>(.*?)</script>', EMB('020e6363'), re.S).group(1)
-    write('assets/backlot.js', nav_js + '\n' + rd('bl2.js') + '\n' + rd('tint.js') + '\n' + vid_js.replace("rootMargin:'600px 0px'", "rootMargin:'1400px 0px'") + '\n' + rd('zoom.js') + '\n' + rd('roles.js') + '\n' + rd('pace.js'))
+    BJS = nav_js + '\n' + rd('bl2.js') + '\n' + rd('tint.js') + '\n' + vid_js.replace("rootMargin:'600px 0px'", "rootMargin:'1400px 0px'") + '\n' + rd('zoom.js') + '\n' + rd('roles.js') + '\n' + rd('pace.js')
+    write('assets/backlot.js', BJS)
     write('assets/site.js', rd('site.js'))
     html = _ill.add(backlot())
     a, b = html.index('<main'), html.index('</main>')
@@ -783,5 +784,12 @@ if __name__ == '__main__':
         if k != 'about':
             h = h.replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1)
         write(k + '/index.html', h)
+    import previews as _pv
+    write('works-1/index.html', _pv.works_1(work()))
+    write('bg-test/index.html', _pv.bg_test(html))
+    write('feat-1/index.html', _pv.feat(html, _pv.FH1_CSS, 'backlot-h1.js'))
+    write('feat-2/index.html', _pv.feat(html, _pv.FH2_CSS, 'backlot-h2.js'))
+    write('assets/backlot-h1.js', _pv.hover_js(BJS, True))
+    write('assets/backlot-h2.js', _pv.hover_js(BJS, False))
     print('built', len(html))
 
