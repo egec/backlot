@@ -75,9 +75,8 @@ def crop(html, expr, css='', extra_js='', extra_after=''):
 
 SOKO = 'footer.finalfooter{--fb:#D492EC;--ft:#3B1223;--fl:rgba(59,18,35,.28)}'
 
-TABS = [('works', 'Works layout'),
-        ('bgd', 'Arka plan koyu gri'), ('bgl', 'Arka plan acik lila'),
-        ('ftsoko', 'Footer yeni palet'), ('ftold', 'Footer su anki palet'), ('ftall', 'Footer eski secenekler')]
+# add (key, label) pairs here when she asks for backups; empty means no /preview page is built
+TABS = []
 
 SHELL = ('<!doctype html><html lang="tr"><head>' + NOINDEX + '<meta name="viewport" content="width=device-width,initial-scale=1"><title>Onizleme</title>'
          '<style>html,body{margin:0;height:100%;background:#161616;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}'
@@ -93,6 +92,8 @@ SHELL = ('<!doctype html><html lang="tr"><head>' + NOINDEX + '<meta name="viewpo
 
 def make_all(write, home_html, backlot_html, work_fn, bjs):
     import json
+    if not TABS:
+        return
     base = work_fn(hero=' ')
     write('preview/works/index.html', crop(_works_wrap(base), "[document.querySelector('.wk-wrap')]", W1_CSS + '.wk-rv{padding-bottom:0}'))
     sel = "[].slice.call(document.querySelectorAll('.bl2-media:not(.is-img)')).filter(function(e){return e.querySelector('video,iframe')}).slice(0,2)"
