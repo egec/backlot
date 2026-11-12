@@ -463,8 +463,8 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 /* chips: text centred on both axes */
 .wk-tags i,.wk-cc{display:inline-flex;align-items:center;justify-content:center;gap:4px;height:26px;padding:0 11px!important;line-height:1;box-sizing:border-box;text-box:trim-both cap alphabetic}
 /* project rows stack with a sliver of each one left showing, labelled */
-.wk-g.vb>.wk-c{top:calc(4.75rem + var(--i,0) * 30px);padding-top:max(46px,clamp(24px,2.6vw,48px))}
-.wk-lab{position:absolute;left:0;top:13px;font-size:12px;line-height:1;letter-spacing:.02em;color:var(--mute);white-space:pre}
+.wk-g.vb{--st:clamp(48px,6svh,84px)}.wk-g.vb>.wk-c{top:calc(4.75rem + var(--i,0) * var(--st));padding-top:calc(var(--st) + 14px)}
+.wk-lab{position:absolute;left:0;top:calc(var(--st) / 2 - 8px);font-size:15px;line-height:1;letter-spacing:.02em;color:var(--mute);white-space:pre}
 
 /* hero end: Selected work sits at the bottom of the first screen, the first project starts below it */
 .wk-qk .wk-cz{margin:clamp(48px,6vw,96px) 0 0}.wk-qk .wk-btn{margin-top:24px}
@@ -496,12 +496,12 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 clamp(22px,1.75vw,27px
 /* ===== type scale (7 Nov): eight sizes for the whole site, nothing in between ===== */
 :root{--t-xs:12px;--t-sm:14px;--t-base:16px;--t-md:18px;--t-lg:22px;--t-xl:clamp(22px,1.8vw,30px);--t-2xl:clamp(28px,2.3vw,38px);--t-3xl:clamp(40px,4.4vw,72px);
  --s-1:8px;--s-2:16px;--s-3:24px;--s-4:clamp(28px,2.6vw,40px);--s-5:clamp(40px,4vw,64px);--s-6:clamp(56px,5.6vw,96px)}
-.bl-label,.bl2-tag,.wk-lab,.wk-pl,.wk-tags i{font-size:var(--t-xs)!important}
+.bl-label,.bl2-tag,.wk-pl,.wk-tags i{font-size:var(--t-xs)!important}
 [data-bl2root] p.k,.wk-sel .k,.px-lab,.bl2-cap,.bl2-src,.bl2-meta,.bl2-meta>div,.bl2-meta b,.nx-go,.nx-k,.nx-l,.nx-top,.zs-d span,.bl2-subh p,.bl2-c p:not(.bl2-q):not(.wn2-n),[data-bl2root] td,.dh-ch span,.blr-rs p,.ax-qc{font-size:var(--t-sm)!important;line-height:1.5}
 .bl2-meta b{font-size:var(--t-xs)!important}
 [data-bl2root] p.lead,.bl2-split p,.wn-dk .wn2-c p:not(.wn2-n){font-size:var(--t-base)!important;line-height:1.55}
 .bl2-c h3,.bl2-subh h3,.zs li>button>strong,li>button>strong,.dh-dec p{font-size:var(--t-md)!important}
-.ax-q summary,.wk-qa h2,.ax-w>h2,h2.ax-w{font-size:var(--t-lg)!important}
+.ax-q summary,.ax-w>h2,h2.ax-w{font-size:var(--t-lg)!important}.wk-qa h2{font-size:var(--t-2xl)!important}
 .bl2-q,.wn2-c h3,.wn-dk .wn2-c .wn2-n{font-size:var(--t-xl)!important}.wk-pos.hb-s{font-size:clamp(15px,1.45vw,24px)!important}
 [data-bl2root] h2.bl2-h,[data-bl2root] h2.cs-title,.nx-d,.wk-g.vb>.wk-c .wk-t,.wk-czs .wk-cz{font-size:var(--t-2xl)!important}
 [data-bl2root] .bl2-hero h1{font-size:var(--t-3xl)!important}
@@ -545,8 +545,6 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 
 /* role questions sit under the section title, so they step down instead of competing with it */
 .bl2-role .bl2-q{font-size:clamp(17px,1.3vw,21px)!important;line-height:1.32;font-weight:500;letter-spacing:-.01em}
-/* projects no longer stack on each other; the dark section slides over the last one instead */
-.wk-g.vb>.wk-c{position:relative!important;top:auto!important}
 .bl2-media:has(>video[data-src]){padding:clamp(10px,1.3vw,22px)!important;max-width:calc((100svh - 9rem) * 1.6)!important;width:100%}
 
 .wk-sel .k.k{font-size:var(--t-lg)!important;font-weight:600;letter-spacing:-.025em;line-height:1.1;color:var(--ink)}
@@ -570,7 +568,7 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 .bm td{padding:7px 12px}.bm th{padding:0 12px 10px}.bm .bd{width:10px;height:10px}.bm-l{margin-top:12px;font-size:12px;line-height:17px}.bm-l span:last-child{max-width:70em}
 
 .wk-czs{border-top:0!important}
-.wk-g.vb>.wk-c:before{height:2px;background:linear-gradient(#D492EC,#D492EC) 0 0/calc(var(--p,0) * 100%) 2px no-repeat,linear-gradient(var(--line),var(--line)) 0 0/100% 1px no-repeat}
+.wk-g.vb>.wk-c:before{height:1px;background:linear-gradient(#D492EC,#D492EC) 0 0/calc(var(--p,0) * 100%) 1px no-repeat,linear-gradient(var(--line),var(--line)) 0 0/100% 1px no-repeat}
 
 /* works: room under the last project, and the hovered project's media grows smoothly */
 .wk-rv{padding-bottom:clamp(96px,16svh,220px)}
@@ -579,3 +577,15 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 
 /* feature steps: the step under the pointer opens, a line grows down its left edge; scroll still moves through the steps */
 @media(min-width:768px){.zs-steps{border-bottom:0!important}.zs-steps li{position:relative;border-top:0!important;padding-left:22px}.zs-steps li:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line)}.zs-steps li:after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gd);transform:scaleY(0);transform-origin:top;transition:transform 1.1s cubic-bezier(.22,1,.36,1)}.zs-steps li.on:after,.zs-steps li:hover:after{transform:scaleY(1)}.zs-steps li button{cursor:default;padding:16px 0}.zs-d{transition:grid-template-rows 1.1s cubic-bezier(.22,1,.36,1)}.zs-d span{opacity:0;transform:translateY(-4px);transition:opacity 1s .12s ease,transform 1s .12s cubic-bezier(.22,1,.36,1)}.zs-steps li.on .zs-d span{opacity:1;transform:none}}
+
+/* whole project card is the link, also over the growing media */
+.wk-g.vb>.wk-c .wk-sl:after{z-index:5}
+/* Ctrl Z row belongs to the Q&A: starts on the chat column's left edge */
+.wk-czs{margin-top:clamp(28px,3vw,52px)!important;padding-top:0!important;margin-left:33.33%}
+@media(max-width:899px){.wk-czs{margin-left:0}}
+
+/* BİLGE videos: the caption lives in the grey card, on the left, level with the control buttons */
+.bl2-media:has(>.bl-vc){display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:16px;row-gap:12px}
+.bl2-media>.bl-vc{grid-column:1;margin:0!important;max-width:none!important;text-align:left;color:var(--ink);font-size:var(--t-sm)}
+.bl2-media:has(>.bl-vc)>.bl-vctl{grid-column:2;margin:0!important;max-width:none!important}
+.bl2-media:has(>.bl-vc)>video{grid-column:1/-1}

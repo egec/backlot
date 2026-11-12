@@ -67,11 +67,11 @@ html.ct-on .ct-s{opacity:1}
 .ck{position:fixed;left:0;top:0;width:0;height:0;z-index:9999;pointer-events:none;filter:url(#cgoo)}.ck i{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#3B1223;will-change:transform}
 
 /* cursor: plum on light, lilac on dark; in the hero it stays plum and turns lilac only where it crosses the ink */
-.ck{mix-blend-mode:normal}.ck i{background:#3B1223}
+.ck{mix-blend-mode:darken}.ck i{background:#D492EC}
 .hb-g,.hb-gt{display:none!important}.hb-g{position:fixed;left:0;top:0;z-index:10000;pointer-events:none;transform-origin:0 0;visibility:hidden}.hb-gt{position:fixed;margin:0;z-index:10000;pointer-events:none;white-space:nowrap;color:#D492EC;visibility:hidden}.wk-pos{width:fit-content}
-body:has(nav.bl-nav) .ck{mix-blend-mode:normal}body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px;background:#3B1223}
-/* cursor: plum on light surfaces, orchid on dark ones; over the menu the light dot sits behind the dark text */
-html.ck-d .ck i{background:#D492EC!important}html:has(.site-n a:hover) .ck{mix-blend-mode:darken}html:has(.site-n a:hover) .ck i{background:#D492EC!important}html.ck-d:has(.site-n a:hover) .ck{mix-blend-mode:lighten}html.ck-d:has(.site-n a:hover) .ck i{background:#3B1223!important}
+body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px}
+/* cursor: orchid on bone (darken keeps dark text on top), plum on orchid (darken), orchid on dark (lighten keeps light text on top) */
+html[data-ck=orchid] .ck i{background:#3B1223}html[data-ck=dark] .ck{mix-blend-mode:lighten}
 /* the dot flips against whatever it sits on: lilac on the plum-filled footer button, plum on the lilac-filled panel buttons */
 
 /* contact drawer: light green rules around the mail and LinkedIn rows, secondary (outlined) copy and close buttons, readable text */

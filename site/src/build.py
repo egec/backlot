@@ -501,8 +501,8 @@ def bilge():
     def flow(n, k, h, lead, steps, texts, medias, after=''):
         return zoom(0, dict(r=texts), steps, medias, head_html=head2(n, k, h, lead), after=after, show_hl=False)
     POP = (37, 25, 26, 39)
-    def pv(k):
-        return media_box(f'<video data-src="{GH}bilge/{k}.mp4" poster="{GH}bilge/{k}.jpg" width="1600" height="900" muted loop playsinline preload="none" style="display:block;width:100%;height:auto;border-radius:8px;background:#121212"></video>')
+    def pv(k, cap=''):
+        return media_box((f'<p class="bl2-cap bl-vc">{cap}</p>' if cap else '') + f'<video data-src="{GH}bilge/{k}.mp4" poster="{GH}bilge/{k}.jpg" width="1600" height="900" muted loop playsinline preload="none" style="display:block;width:100%;height:auto;border-radius:8px;background:#121212"></video>')
     agent = ('<div class="bl2-t bl2-f">' + head2(4, 'The agent files', 'General information first, then the containers',
              'The agent picks the movement (foreign or domestic, entry or exit), fills in the general information once for every container, then adds containers one by one or in bulk. Register sends the form to an officer’s queue. Until an officer approves it, the agent can still edit it.')
              + pv('a') + '</div>')
@@ -519,8 +519,8 @@ def bilge():
                  [V('d')])
     customs = ('<div class="bl2-t bl2-f">' + head2(6, 'Customs decides', 'Officers and managers act from their queue',
                'Officers approve, edit or cancel registered forms, and after approval only customs can change them. Approving a selection rejects the other containers in the same step. Time extensions and cancellations need a second signature from the manager, corrections from the deputy manager, and managers decide on the row, behind a confirmation.')
-               + '<p class="bl2-cap">The officer approves some containers and rejects the rest</p>' + pv('b')
-               + '<p class="bl2-cap">The manager decides on the row</p>' + pv('c') + '<div class="bl2-t">' + split('Also in this flow', rules([
+               + pv('b', 'The officer approves some containers and rejects the rest')
+               + pv('c', 'The manager decides on the row') + '<div class="bl2-t">' + split('Also in this flow', rules([
                        'Written reasons open in a side drawer, so the form stays in view.',
                        'Editing a form an agent registered warns that the agent’s record will change.'])) + '</div></div>')
     learned = ('<div class="bl2-t">' + head2(7, 'What I learned', 'Specs can be wrong, and wording is part of the design')
@@ -690,10 +690,10 @@ def work(v='b', hero=''):
         for k, num, name, t, tags, img in more)
     import about as _ab
     qa = _ab.qa_html()
-    about = (f'<section class="ax-ask wk-qa"><div class="wk-qk"><h2>Things you might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
+    about = (f'<section class="ax-ask wk-qa"><div class="wk-qk"><h2>Things you<br>might ask</h2><p class="ax-qc">Something else? Ask me at <a href="mailto:a.egecoskun@gmail.com">a.egecoskun@gmail.com</a> or on <a href="https://www.linkedin.com/in/ege-coskun/" target="_blank" rel="noopener">LinkedIn</a>.</p></div><div><div class="ax-qs">{qa}</div>'
              '</div></section><section class="wk-czs"><p class="wk-cz">I learned design where there’s <span style="white-space:nowrap">no <kbd>Ctrl</kbd><kbd>Z</kbd>.</span></p><a class="wk-btn ec-btn ink" href="/about"><span>More about me</span></a></section>'
              '<style>' + _ab.QCSS + '.wk-qa{margin-top:clamp(96px,10vw,180px);padding:0;grid-template-columns:calc(33.33% - 16px) minmax(0,1fr);gap:16px;--h3:clamp(18px,1.3vw,24px)}'
-             '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:clamp(20px,1.3vw,26px);line-height:1.1;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
+             '.wk-qk{position:sticky;top:calc(4.75rem + 24px);align-self:start}.wk-qa h2{margin:0;font-size:var(--t-2xl);line-height:1.08;letter-spacing:-.025em;font-weight:600}.wk-qa .wk-btn{margin-top:32px}'
              '@media(max-width:899px){.wk-qa{grid-template-columns:1fr}.wk-qk{position:static}}</style>' + _ab.QJS)
     hero_html = hero or HERO
     body = (f'<main class="wk"><div class="wk-rv"><div class="cs-wrap">' + hero_html +

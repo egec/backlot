@@ -347,7 +347,7 @@ QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6f
 .ax-q summary{display:inline-flex;align-items:center;max-width:100%;box-sizing:border-box;padding:16px 24px;border-radius:22px;background:var(--qbg);border:1px solid transparent;color:var(--qtx);cursor:pointer;list-style:none;font-size:var(--h3);font-weight:500;letter-spacing:-.01em;line-height:1.3;transition:border-color .3s,background .3s}
 .ax-q summary::-webkit-details-marker{display:none}
 .ax-q summary:hover{border-color:var(--qbd)}
-.ax-q[open]:not(.cl) summary{background:transparent;border-color:#3B1223;border-bottom-left-radius:0}
+.ax-q[open]:not(.cl) summary{background:transparent;border-color:var(--qtx);border-bottom-left-radius:0}
 .ax-q summary:focus-visible{outline:2px solid #D492EC;outline-offset:3px}
 .ax-a{overflow:hidden}
 .ax-ai{display:flex;justify-content:flex-end;padding:10px 12px 6px 0}
@@ -359,7 +359,8 @@ QCSS = """.ax-ask{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6f
 """
 NMCSS = """.ax-nm{position:relative;cursor:help;text-decoration:underline dotted 2px;text-decoration-color:var(--line);text-underline-offset:6px}.ax-say{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);padding:6px 10px;border-radius:8px;background:#3B1223;color:#D492EC;font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.ax-nm:hover .ax-say,.ax-nm:focus .ax-say{opacity:1;transform:translate(-50%,0)}"""
 QJS = """<script>(function(){var R=matchMedia('(prefers-reduced-motion:reduce)').matches;
-function op(d){d.open=true;if(R)return;var a=d.querySelector('.ax-a');a.animate([{height:'0px',opacity:0,transform:'translateY(10px)'},{height:a.scrollHeight+'px',opacity:1,transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}
+function rise(a){var p=a.querySelector('p');if(!p||p._r)return;p._r=1;var src=p.innerHTML,ws=[];(function w(n){[].slice.call(n.childNodes).forEach(function(c){if(c.nodeType===3){var f=document.createDocumentFragment();c.nodeValue.split(/(\\s+)/).forEach(function(t){if(!t)return;if(/^\\s+$/.test(t)){f.appendChild(document.createTextNode(t));return}var s=document.createElement('span');s.textContent=t;s.style.cssText='display:inline-block';ws.push(s);f.appendChild(s)});c.parentNode.replaceChild(f,c)}else if(c.nodeType===1)w(c)})})(p);var ln=-1,top=null;ws.forEach(function(s){var t=s.offsetTop;if(top===null||Math.abs(t-top)>4){ln++;top=t}s._l=ln;s.style.opacity=0;s.style.transform='translateY(.7em)'});var last=0;ws.forEach(function(s){var d=120+s._l*70;last=Math.max(last,d);s.animate([{opacity:0,transform:'translateY(.7em)'},{opacity:1,transform:'none'}],{duration:520,delay:d,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'})});setTimeout(function(){p.innerHTML=src;p._r=0},last+560)}
+function op(d){d.open=true;if(R)return;var a=d.querySelector('.ax-a');a.animate([{height:'0px'},{height:a.scrollHeight+'px'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'});rise(a)}
 function cl(d){if(R){d.open=false;return}var a=d.querySelector('.ax-a');if(d._x)return;d.classList.add('cl');var x=a.animate([{height:a.offsetHeight+'px',opacity:1},{height:'0px',opacity:0}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});d._x=x;x.onfinish=function(){d.open=false;d.classList.remove('cl');x.cancel();d._x=null}}
 [].forEach.call(document.querySelectorAll('.ax-qs'),function(g){[].forEach.call(g.querySelectorAll('.ax-q'),function(d){d.querySelector('summary').addEventListener('click',function(e){e.preventDefault();if(d.open){cl(d);return}[].forEach.call(g.querySelectorAll('.ax-q[open]'),cl);op(d)})})})})();</script>"""
 
@@ -428,7 +429,7 @@ def about3(intro="flip"):
     dots = ''.join(f'<button type="button" class="ax-dt" data-i="{i}" style="--f:{fr(ev[0]):.4f}" aria-label="{ev[3]}"><span>{ev[2].split(" ")[0]}</span></button>' for i, ev in enumerate(EVENTS))
     nxt = [fr(EVENTS[i + 1][0]) if i + 1 < len(EVENTS) else fr(EVENTS[i][1]) for i in range(len(EVENTS))]
     chipf = lambda ti: '<span class="ax-chip">Bachelor’s</span>' if 'B.Sc' in ti else ('<span class="ax-chip">Master’s</span>' if 'M.A.' in ti else '')
-    cards = ''.join(f'<article class="ax-pc{" edu" if ("B.Sc" in ti or "M.A." in ti) else ""}" data-t="{t - Y0}" data-e="{e - Y0}" data-fa="{fr(t):.4f}" data-fb="{nxt[i]:.4f}" style="--fa:{fr(t):.4f}"><p class="ax-when">{w}{chipf(ti)}</p><div class="ax-pg2"><h3>{ti}</h3><div class="ax-pd"><p class="ax-pp">{pl}</p><p>{tx}</p>{x}</div></div></article>'
+    cards = ''.join(f'<article class="ax-pc{" edu" if ("B.Sc" in ti or "M.A." in ti) else ""}" data-t="{t - Y0}" data-e="{e - Y0}" data-fa="{fr(t):.4f}" data-fb="{nxt[i]:.4f}" style="--fa:{fr(t):.4f}"><p class="ax-when">{w}{chipf(ti)}</p><div class="ax-pg2"><div class="ax-ti"><h3>{ti}</h3><p class="ax-pp">{pl}</p></div><div class="ax-pd"><p>{tx}</p>{x}</div></div></article>'
                     for i, (t, e, w, ti, pl, tx, x) in enumerate(EVENTS))
     how = ''.join(f'<article class="ax-hc{" g" if i % 2 else ""}" style="--i:{i};--r:{[-6, 4, -3, 7, -5][i % 5]}deg;--r2:{[14, -18, 10, -12, 16][i % 5]}deg;--dy:{[0, 26, 8, 34, 14][i % 5]}px"><h3>{t}</h3><p class="ax-ht">{d}</p><p class="ax-hn">{i + 1:02d}.</p></article>' for i, (t, d) in enumerate(HOW))
     qa = qa_html()
@@ -477,7 +478,7 @@ def about3(intro="flip"):
 <section class="ax-how" style="--n:{len(HOW)}" data-axhow><div class="ax-hpin"><h2 class="ax-w">How I work</h2><div class="ax-hcs">{how}</div></div></section>
 <section class="ax-w ax-tl tl2"><h2>Tools</h2>{tools}</section>
 </div>
-<section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Education and experience</h2>
+<section class="ax-path" style="--n:{n}" data-axpath><div class="ax-pin"><h2 class="ax-w">Education and Experience</h2>
 <div class="ax-st"><div class="ax-hl"><i class="ax-ln" aria-hidden="true"></i><i class="ax-sg" aria-hidden="true"></i>{dots}</div><div class="ax-win" aria-hidden="true"><div class="ax-rl">{ticks}</div></div><i class="ax-now" aria-hidden="true"></i><i class="ax-end" aria-hidden="true"></i><div class="ax-pcs">{cards}</div></div></div></section></main>
 <style>
 /* type scale: h1 56, section titles 26, item titles 36, h3 24, body 16 (18 on very large screens) */
@@ -520,7 +521,7 @@ def about3(intro="flip"):
 .ax-st{{flex:none}}
 .ax-hl,.ax-win,.ax-now,.ax-end{{display:none!important}}
 .ax-pcs{{position:relative;left:auto;right:auto;top:auto;bottom:auto;padding:clamp(28px,3vw,48px) var(--px) 0}}
-.ax-pc{{position:relative;left:auto;right:auto;top:auto;bottom:auto;opacity:1;pointer-events:auto;display:grid;grid-template-columns:minmax(120px,220px) minmax(0,40em);gap:clamp(24px,5vw,96px);padding:0 0 clamp(40px,5vw,72px) clamp(28px,3vw,44px)}}
+.ax-pc{{position:relative;left:auto;right:auto;top:auto;bottom:auto;opacity:1;pointer-events:auto;display:grid;grid-template-columns:clamp(110px,11vw,190px) minmax(0,1fr);gap:clamp(20px,3vw,56px);padding:0 0 clamp(40px,5vw,72px) clamp(28px,3vw,44px)}}
 .ax-pc:before{{content:"";position:absolute;left:0;top:.7em;bottom:-.7em;width:1px;background:#3a3a37;transition:background .4s,width .4s,left .4s}}
 .ax-pc:last-child:before{{display:none}}
 .ax-pc:after{{content:"";position:absolute;left:-5px;top:.45em;width:11px;height:11px;border-radius:50%;background:#55544f;transition:background .4s,transform .4s var(--ease)}}
@@ -528,13 +529,13 @@ def about3(intro="flip"):
 .ax-pc.on:after{{background:#D492EC;transform:scale(1.3)}}
 .ax-when{{position:static!important;margin:0!important;padding-top:.2em;font-size:14px!important;font-weight:600;color:var(--mute)!important;transition:color .4s}}
 .ax-pc.on .ax-when{{color:#D492EC!important}}
-.ax-pg2{{display:block;padding:0;transform:none}}
+.ax-pg2{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(20px,3vw,56px);align-items:start;padding:0;transform:none}}.ax-ti h3{{margin:0 0 .35em}}.ax-ti .ax-pp{{margin:0;color:var(--mute)}}.ax-pd p:first-child{{margin-top:.15em}}
 .ax-pc h3{{position:static;margin:0 0 .5em;font-size:22px;letter-spacing:-.015em;transform:none;transition:color .4s}}
-.ax-pc.edu,.ax-pc.edu h3,.ax-pc.edu .ax-pd p,.ax-pc.edu .ax-when{{color:#D492EC!important}}.ax-pc.edu:after{{background:#D492EC}}.ax-pc.on .ax-when{{color:#F2F2EF!important}}.ax-pc.edu.on .ax-when{{color:#D492EC!important}}
+.ax-pc.edu,.ax-pc.edu h3,.ax-pc.edu .ax-pd p,.ax-pc.edu .ax-pp,.ax-pc.edu .ax-when{{color:#D492EC!important}}.ax-pc.edu:after{{background:#D492EC}}.ax-pc.on .ax-when{{color:#F2F2EF!important}}.ax-pc.edu.on .ax-when{{color:#D492EC!important}}
 .ax-ia .ax-nmw h1,.ax-ia .ax-nmw .ax-nm{{color:#D492EC!important;font-size:clamp(18px,1.4vw,24px);font-weight:600;letter-spacing:-.015em;line-height:1.3}}.ax-ia .ax-nm{{text-decoration-color:rgba(212,146,236,.45)}}
-.ax-pd{{max-width:34em}}
+.ax-pd{{max-width:none}}
 .ax-side{{border-left-color:#D492EC}}.ax-sk{{color:#D492EC!important}}
-@media(max-width:899px){{.ax-pc{{grid-template-columns:1fr;gap:6px}}}}
+@media(max-width:899px){{.ax-pc{{grid-template-columns:1fr;gap:6px}}.ax-pg2{{grid-template-columns:1fr;gap:10px}}}}
 .ab-aw{{position:relative;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}
 .ab-aw:hover{{text-decoration-color:var(--ink)}}
 .ab-pv{{position:absolute;left:50%;bottom:calc(100% + 12px);z-index:20;width:300px;display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.16);font-size:13px;line-height:1.45;color:#3a3936;text-align:left;
