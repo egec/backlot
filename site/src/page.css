@@ -581,8 +581,7 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 /* whole project card is the link, also over the growing media */
 .wk-g.vb>.wk-c .wk-sl:after{z-index:5}
 /* Ctrl Z row belongs to the Q&A: starts on the chat column's left edge */
-.wk-czs{margin-top:clamp(28px,3vw,52px)!important;padding-top:0!important;margin-left:33.33%}
-@media(max-width:899px){.wk-czs{margin-left:0}}
+.wk-czs{margin-top:clamp(28px,3vw,52px)!important;padding-top:0!important;margin-left:0}
 
 /* BİLGE videos: the caption lives in the grey card, on the left, level with the control buttons */
 .bl2-media:has(>.bl-vc){display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:16px;row-gap:12px}
@@ -597,3 +596,4 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 /* hover growth: only the card grows, the image inside is not zoomed again, and Backlot's 16:10 screen is not cropped */
 .wk-g.vb>.wk-c:hover .wk-m img{transform:none!important}
 .wk-g.vb>.wk-c.wk-ft .wk-m{aspect-ratio:16/10}
+.wk-g.vb>.wk-c.wk-ft{overflow:visible!important}

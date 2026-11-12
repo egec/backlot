@@ -71,7 +71,7 @@ html.ct-on .ct-s{opacity:1}
 .hb-g,.hb-gt{display:none!important}.hb-g{position:fixed;left:0;top:0;z-index:10000;pointer-events:none;transform-origin:0 0;visibility:hidden}.hb-gt{position:fixed;margin:0;z-index:10000;pointer-events:none;white-space:nowrap;color:#D492EC;visibility:hidden}.wk-pos{width:fit-content}
 body:has(nav.bl-nav) .ck i{width:14px;height:14px;margin:-7px 0 0 -7px}
 /* cursor: orchid on bone (darken keeps dark text readable); on orchid and dark surfaces it inverts, so the dot is plum / orchid and the text under it flips to a readable tone */
-html[data-ck=orchid] .ck{mix-blend-mode:difference}html[data-ck=orchid] .ck i{background:#9980C9}html[data-ck=dark] .ck{mix-blend-mode:difference}html[data-ck=dark] .ck i{background:#EAA8FF}
+html[data-ck=orchid] .ck{mix-blend-mode:difference}html[data-ck=orchid] .ck i{background:#FFA4FF}html[data-ck=dark] .ck{mix-blend-mode:difference}html[data-ck=dark] .ck i{background:#fff}
 /* the dot flips against whatever it sits on: lilac on the plum-filled footer button, plum on the lilac-filled panel buttons */
 
 /* contact drawer: light green rules around the mail and LinkedIn rows, secondary (outlined) copy and close buttons, readable text */
