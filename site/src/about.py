@@ -533,7 +533,7 @@ def about3(intro="flip"):
 .ax-pc h3{{position:static;margin:0 0 .5em;font-size:22px;letter-spacing:-.015em;transform:none;transition:color .4s}}
 .ax-pc.edu,.ax-pc.edu h3,.ax-pc.edu .ax-pd p,.ax-pc.edu .ax-pp,.ax-pc.edu .ax-when{{color:#D492EC!important}}.ax-pc.edu:after{{background:#D492EC}}.ax-pc.on .ax-when{{color:#F2F2EF!important}}.ax-pc.edu.on .ax-when{{color:#D492EC!important}}
 .ax-ia .ax-nmw h1,.ax-ia .ax-nmw .ax-nm{{color:#D492EC!important;font-size:clamp(18px,1.4vw,24px);font-weight:600;letter-spacing:-.015em;line-height:1.3}}.ax-ia .ax-nm{{text-decoration-color:rgba(212,146,236,.45)}}
-.ax-pd{{max-width:none}}
+.ax-pd{{max-width:30em}}
 .ax-side{{border-left-color:#D492EC}}.ax-sk{{color:#D492EC!important}}
 @media(max-width:899px){{.ax-pc{{grid-template-columns:1fr;gap:6px}}.ax-pg2{{grid-template-columns:1fr;gap:10px}}}}
 .ab-aw{{position:relative;color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}

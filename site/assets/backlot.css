@@ -765,7 +765,7 @@ html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 clamp(22px,1.75vw,27px
 .bl2-meta b{font-size:var(--t-xs)!important}
 [data-bl2root] p.lead,.bl2-split p,.wn-dk .wn2-c p:not(.wn2-n){font-size:var(--t-base)!important;line-height:1.55}
 .bl2-c h3,.bl2-subh h3,.zs li>button>strong,li>button>strong,.dh-dec p{font-size:var(--t-md)!important}
-.ax-q summary,.ax-w>h2,h2.ax-w{font-size:var(--t-lg)!important}.wk-qa h2{font-size:var(--t-2xl)!important}
+.ax-q summary{font-size:var(--t-lg)!important}.ax-w>h2,h2.ax-w{font-size:var(--t-2xl)!important}.ax-hc h3,.ax-pc h3{font-size:var(--t-lg)!important}.wk-qa h2{font-size:var(--t-2xl)!important}
 .bl2-q,.wn2-c h3,.wn-dk .wn2-c .wn2-n{font-size:var(--t-xl)!important}.wk-pos.hb-s{font-size:clamp(0.9375rem,1.45vw,1.5rem)!important}
 [data-bl2root] h2.bl2-h,[data-bl2root] h2.cs-title,.nx-d,.wk-g.vb>.wk-c .wk-t,.wk-czs .wk-cz{font-size:var(--t-2xl)!important}
 [data-bl2root] .bl2-hero h1{font-size:var(--t-3xl)!important}
@@ -853,4 +853,12 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 .bl2-media>.bl-vc{grid-column:1;margin:0!important;max-width:none!important;text-align:left;color:var(--ink);font-size:var(--t-sm)}
 .bl2-media:has(>.bl-vc)>.bl-vctl{grid-column:2;margin:0!important;max-width:none!important}
 .bl2-media:has(>.bl-vc)>video{grid-column:1/-1}
+
+/* company chip: secondary button in the text colour */
+.bl2-co{background:transparent!important;color:var(--ink)!important;border:1px solid var(--ink)}.bl2-co:hover{background:var(--ink)!important;color:var(--bg)!important}
+/* text cards on the bone page are white */
+.bl2-c,.bl2-role,.bl2-ns,.rs-c{background:#fff}.wn .bl2-c{background:transparent}
+/* hover growth: only the card grows, the image inside is not zoomed again, and Backlot's 16:10 screen is not cropped */
+.wk-g.vb>.wk-c:hover .wk-m img{transform:none!important}
+.wk-g.vb>.wk-c.wk-ft .wk-m{aspect-ratio:16/10}
 .bl2-ill{display:block;order:-2;margin:0 0 18px;color:var(--ink);opacity:.85}.bl2-ill svg{display:block;width:min(100%,200px);height:auto;overflow:visible}.bl2-ill .mv{transition:transform .5s var(--ease),opacity .4s;transform-box:fill-box}.bl2-ill .rot{transition:transform 1.4s var(--ease);transform-origin:100px 32px}.bl2-c:hover .bl2-ill .mv{transform:translateX(5px)}.bl2-ill .arc{stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 1.4s var(--ease)}.bl2-c:hover .bl2-ill .rot{transform:rotate(90deg)}.bl2-c:hover .bl2-ill .arc{stroke-dashoffset:0}@keyframes ill-cy{0%,100%{fill:none}35%,60%{fill:#3B1223;fill-opacity:.3}}.bl2-ill .r{animation:ill-cy 3.2s ease-in-out infinite;animation-play-state:paused}.bl2-c:hover .bl2-ill .r{animation-play-state:running}@media (prefers-reduced-motion:reduce){.bl2-ill .mv,.bl2-ill .rot,.bl2-ill .arc{transition:none}.bl2-c:hover .bl2-ill .mv{transform:none}.bl2-ill .arc{stroke-dashoffset:0}.bl2-ill .rot{transform:rotate(90deg)}.bl2-ill .r{animation:none}}@media(min-width:560px){.bl2-cards:not(.c3) .bl2-c:has(.bl2-ill){display:grid;grid-template-columns:clamp(120px,12vw,180px) minmax(0,1fr);column-gap:clamp(20px,2.2vw,36px);align-items:start;align-content:start;grid-template-rows:auto auto auto 1fr}.bl2-cards:not(.c3) .bl2-c:has(.bl2-ill)>.bl2-ill{grid-column:1;grid-row:1/-1;align-self:center;margin:0}.bl2-cards:not(.c3) .bl2-c:has(.bl2-ill)>:not(.bl2-ill){grid-column:2}.bl2-cards:not(.c3) .bl2-c:has(.bl2-ill)>.bl2-tag{justify-self:start}}.bl2-c:has(.bl2-ill):hover .bl2-tag{background:var(--ink)}
