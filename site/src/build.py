@@ -43,7 +43,7 @@ def strip(on):
     return '<div class="bl2-strip">Cuts the loop at ' + '<b>→</b>'.join(
         '<i class="on">%s</i>' % x if x == on else '<i>%s</i>' % x for x in ['Deliver', 'Prepare', 'Review', 'Release']) + '</div>'
 
-NOTE_ARROW = '<svg viewBox="0 0 96 56" aria-hidden="true"><path class="nb" d="M6 40 C 30 52, 66 44, 88 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="nh" d="M76.6 23.6 L88 20 L85.4 31.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+NOTE_ARROW = '<svg viewBox="0 0 96 56" aria-hidden="true"><path class="nb" d="M6 36 C 22 4, 62 2, 88 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="nh" d="M81.6 12.6 L88 24 L75.4 22.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 NOTE_DOWN = '<svg viewBox="0 0 60 72" aria-hidden="true"><path class="nb" d="M8 8 C 32 10, 50 30, 44 64" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="nh" d="M34 54 L44 65 L52 52" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 def head(n, f, nav=False, note=''):
     hid = '<span class="cs-num bl2-x">03</span><span class="cs-title bl2-x">Features</span>' if nav else ''
@@ -785,11 +785,6 @@ if __name__ == '__main__':
             h = h.replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">', 1)
         write(k + '/index.html', h)
     import previews as _pv
-    write('works-1/index.html', _pv.works_1(work()))
-    write('bg-test/index.html', _pv.bg_test(html))
-    write('feat-1/index.html', _pv.feat(html, _pv.FH1_CSS, 'backlot-h1.js'))
-    write('feat-2/index.html', _pv.feat(html, _pv.FH2_CSS, 'backlot-h2.js'))
-    write('assets/backlot-h1.js', _pv.hover_js(BJS, True))
-    write('assets/backlot-h2.js', _pv.hover_js(BJS, False))
+    _pv.make_all(write, None, html, work, BJS)
     print('built', len(html))
 

@@ -147,7 +147,7 @@ html.f-it .cs-dsec .ds-head *,html.f-it .cs-dsec .ds-title,html.f-it .cs-dsec .d
 .bl2-note b{white-space:nowrap;transform:rotate(-6deg) translateY(-12px);opacity:0;transition:opacity .4s .55s}
 .bl2-note path{stroke-dasharray:120;stroke-dashoffset:120;transition:stroke-dashoffset .6s cubic-bezier(.65,0,.35,1)}
 .bl2-note .nh{transition-delay:.45s;transition-duration:.25s}
-html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 34px/1 "Reenie Beanie",cursive!important;letter-spacing:.01em}
+html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 28px/1 "Reenie Beanie",cursive!important;letter-spacing:.01em}
 .bl2-note.in path{stroke-dashoffset:0}.bl2-note.in b{opacity:1}
 @media (prefers-reduced-motion:reduce){.bl2-note path{stroke-dashoffset:0;transition:none}.bl2-note b{opacity:1;transition:none}}
 @media(max-width:767px){.bl2-note{display:none}.bl2-hn,.bl2-sw{max-width:100%}}
@@ -492,7 +492,7 @@ body main.wk .cs-wrap,body main.ab .cs-wrap{padding-left:clamp(20px,2.4vw,44px);
 
 /* handwritten notes: one natural brush hand, green, on one line; the arrow leaves the title and points at the note */
 @font-face{font-family:"Over the Rainbow EC";src:url(/assets/over-the-rainbow.ttf) format("truetype");font-display:swap}
-html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 clamp(28px,2.3vw,36px)/1 "Over the Rainbow EC",cursive!important;letter-spacing:0;white-space:nowrap;color:#56652A}
+html.f-it [data-bl2root] .bl2-note b,.bl2-note b{font:400 clamp(22px,1.75vw,27px)/1 "Over the Rainbow EC",cursive!important;letter-spacing:0;white-space:nowrap;color:#56652A}
 .bl2-note{align-items:flex-start;gap:4px}.bl2-note:not(.down) b{transform:rotate(-4deg) translateY(-14px)}
 
 /* ===== type scale (7 Nov): eight sizes for the whole site, nothing in between ===== */
@@ -573,3 +573,8 @@ p.zs-g,.ax-sk,.ab-pv-t{font-size:var(--t-xs)!important}
 
 .wk-czs{border-top:0!important}
 .wk-g.vb>.wk-c:before{height:2px;background:linear-gradient(#56652A,#56652A) 0 0/calc(var(--p,0) * 100%) 2px no-repeat,linear-gradient(var(--line),var(--line)) 0 0/100% 1px no-repeat}
+
+/* works: room under the last project, and the hovered project's media grows smoothly */
+.wk-rv{padding-bottom:clamp(96px,16svh,220px)}
+.wk-g.vb>.wk-c .wk-m{transition:transform .9s var(--ease),box-shadow .9s var(--ease);will-change:transform}
+@media(hover:hover){.wk-g.vb>.wk-c:hover .wk-m{transform:scale(1.035);box-shadow:0 24px 60px rgba(22,22,22,.16);z-index:2}}
