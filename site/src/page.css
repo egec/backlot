@@ -605,9 +605,9 @@ body:has(.bl2-bk){--bg:#F7F7F5;background:#F7F7F5}
 .bl2-bk .bl2-nb{background:#ECECEA}
 .bl2-bk .bl2-c,.bl2-bk .bl2-role,.bl2-bk .bl2-ns,.bl2-bk .rs-c{background:var(--card)}
 
-/* Ctrl Z keycaps: flat orchid top, plum wall, one bone outline; the key travels down its own wall when pressed */
+/* Ctrl Z keycaps: flat orchid top, plum wall, thin black outline; the key travels down its own wall when pressed */
 @property --u{syntax:"<number>";inherits:true;initial-value:1}
-.wk-cz kbd{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:1.6em;height:1.5em;margin:0 .16em 0 .3em;padding:0 .38em;box-sizing:border-box;font:inherit;font-size:.76em;font-weight:700;line-height:1;letter-spacing:-.01em;color:#161616;vertical-align:.14em;isolation:isolate;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation;--k:#D492EC;--w:#3B1223;--o:#F2F1ED;--ol:.07em;--dx:-.15em;--dy:.28em;--u:1;--r:-8deg;transform:rotate(var(--r)) translate(calc(var(--dx) * (1 - var(--u))),calc(var(--dy) * (1 - var(--u))));transition:--u .16s cubic-bezier(.3,.7,.4,1)}
+.wk-cz kbd{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:1.6em;height:1.5em;margin:0 .16em 0 .3em;padding:0 .38em;box-sizing:border-box;font:inherit;font-size:.76em;font-weight:700;line-height:1;letter-spacing:-.01em;color:#161616;vertical-align:.14em;isolation:isolate;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation;--k:#D492EC;--w:#3B1223;--o:#111;--ol:.06em;--dx:-.15em;--dy:.28em;--u:1;--r:-8deg;transform:rotate(var(--r)) translate(calc(var(--dx) * (1 - var(--u))),calc(var(--dy) * (1 - var(--u))));transition:--u .16s cubic-bezier(.3,.7,.4,1)}
 .wk-cz kbd+kbd{--r:6deg;margin-left:.22em}
 .wk-cz kbd::before,.wk-cz kbd::after{content:"";position:absolute;inset:0;border-radius:.42em;box-sizing:border-box}
 .wk-cz kbd::after{z-index:-1;background:var(--k);border:var(--ol) solid var(--o)}
@@ -615,7 +615,6 @@ body:has(.bl2-bk){--bg:#F7F7F5;background:#F7F7F5}
 @media(hover:hover){.wk-cz kbd:hover,.wk-cz:hover kbd:last-child{--u:.2}}
 .wk-cz kbd.pr{--u:.2}
 @media(prefers-reduced-motion:reduce){.wk-cz kbd{transition:none}}
-.wk-lt .wk-cz kbd{--o:#161616}
 
 /* work list: only the quiet grey rule between projects, no lilac fill */
 .wk-g.vb>.wk-c:before{background:var(--line)!important}
