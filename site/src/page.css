@@ -621,9 +621,9 @@ body:has(.bl2-bk){--bg:#F7F7F5;background:#F7F7F5}
 /* the Selected work arrow bobs without being cut by its own box */
 .wk-dn{overflow:visible}
 
-/* Ctrl Z: no outline; two different tops (pale lilac Ctrl, orchid Z), each with a wall in a deeper shade of itself */
-.wk-cz kbd{--ol:0px;--o:transparent;--k:#EBD3F7;--w:#9A5FB8}.wk-cz kbd+kbd{--k:#D492EC;--w:#5E2A78}
-.wk-lt .wk-cz kbd{--o:transparent}
+/* Ctrl Z: thin black outline; two different tops (pale lilac Ctrl, orchid Z), each with a wall in a deeper shade of itself */
+.wk-cz kbd{--ol:.06em;--o:#111;--k:#EBD3F7;--w:#9A5FB8}.wk-cz kbd+kbd{--k:#D492EC;--w:#5E2A78}
+.wk-lt .wk-cz kbd{--o:#111}
 
 /* interactive prototype label: the Backlot accent (the colour of the prototype's own UI), one step deeper so 13px text stays readable */
 .px-lab{color:#5C5AE8}.px-lab i{background:#5C5AE8}@keyframes pxp{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(92,90,232,.5)}50%{opacity:.55;box-shadow:0 0 0 5px rgba(92,90,232,0)}}
