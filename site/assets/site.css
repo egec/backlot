@@ -90,3 +90,7 @@ html[data-ck=dark] .ck{mix-blend-mode:lighten}html[data-ck=dark] .ck i{backgroun
 .dbr{display:none}@media(min-width:768px){.dbr{display:inline}.nw{white-space:nowrap}}
 /* contact drawer: focus lands on the panel, so no ring appears around the mail row on touch */
 .ct:focus{outline:none}.ct a,.ct button{-webkit-tap-highlight-color:transparent}
+
+/* dark surfaces: flat near-black with a film-grain layer on top (About: fixed over the page; Home: over the dark section) */
+body:has(.abx.dk)::before{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.4;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")}
+.wk-dk:not(.wk-lt){position:relative}.wk-dk:not(.wk-lt)::before{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.4;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")}
